@@ -38,7 +38,7 @@ const sets = [
   aria-labelledby="hero-title"
   data-hero
   data-geo={JSON.stringify({ profile: top.profile, tex: { hi: texHi.src, lo: texLo.src } })}
-  style={`--pizza-ar:${STAGE_AR};--far:${layout.far.toFixed(4)}`}
+  style={`--pizza-ar:${STAGE_AR};--far:${layout.far.toFixed(4)};--near:${layout.near.toFixed(4)}`}
 >
   <div class="hero-light" aria-hidden="true" data-hero-room></div>
   <div class="hero-beam" aria-hidden="true" data-hero-beam></div>
@@ -90,7 +90,7 @@ const sets = [
         src={still}
         alt="Frisch gebackene Pizza mit Salami, Mozzarella und Tomatensauce, Rand mit Ofenspuren"
         widths={[640, 960, 1400, 2100]}
-        sizes="(min-width: 1024px) 68vw, (min-width: 640px) 86vw, 106vw"
+        sizes="(min-width: 1024px) 74vw, (min-width: 640px) 86vw, 106vw"
         formats={['avif']}
         fallbackFormat="webp"
         quality={80}
@@ -424,14 +424,17 @@ const sets = [
   @media (min-width: 1024px) {
     .hero {
       --hero-fs: min(10vw, 16.5svh, 12rem);
-      --pw: min(68vw, 105svh, 1400px);
+      --pw: min(74vw, 110svh, 1560px);
       --ph: calc(var(--pw) / var(--pizza-ar));
       /* senkrechtes Raster: Eyebrow → Zeile 1 → Zeile 2 → hinterer Pizzarand.
          Der Rand schneidet Zeile 2 immer gleich tief an, egal wie hoch das Fenster ist. */
-      --t0: calc(var(--header-h) + clamp(0.75rem, 2.4svh, 2.25rem));
+      /* Headline + Pizza als Block mittig zwischen Navigation und Fuß (≈ 10.5rem) */
+      --grp: calc(1.55rem + 1.22 * var(--hero-fs) + (var(--near) - var(--far)) * var(--ph));
+      --t0: calc(var(--header-h) + clamp(0.75rem, (100svh - var(--header-h) - 10.5rem - var(--grp)) / 2, 7rem));
       --l1: calc(var(--t0) + 1.55rem);
-      --l2: calc(var(--l1) + 0.86 * var(--hero-fs));
-      --rim: calc(var(--l2) + 0.5 * var(--hero-fs));
+      /* enges Raster: Zeilen dicht beieinander, die Pizza rückt an die Schrift heran */
+      --l2: calc(var(--l1) + 0.8 * var(--hero-fs));
+      --rim: calc(var(--l2) + 0.42 * var(--hero-fs));
       display: block;
       height: 100vh;
       height: 100svh;
