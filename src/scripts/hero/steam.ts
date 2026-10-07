@@ -12,7 +12,7 @@
 
 export interface SteamView {
   time: number;
-  /** Oberseite der Pizza: Mitte x/y und Radien in CSS-Pixeln (Hero) */
+  /** Oberseite der Pizza: Mitte x/y, Radius quer, Abstand Mitte → hinterer Rand (CSS-Pixel im Hero) */
   ell: [number, number, number, number];
   /** Ofenglut: x/y in CSS-Pixeln, Stärke */
   oven: [number, number, number];
@@ -77,9 +77,11 @@ void main() {
   float h = -q.y;
   const float TOP = 1.15;
   if (h < 0.05 || h > TOP) { gl_FragColor = vec4(0.0); return; }
-  // hinter der Pizza sieht man nichts: dort gar nicht erst rechnen
+  // hinter der Pizza sieht man nichts: dort gar nicht erst rechnen. Die Ellipse
+  // reicht nur bis zum hinteren Rand (Perspektive!) und bleibt mit Abstand
+  // innen, damit Umriss, Drehung und Neigung sie nie freilegen
   vec2 e = (px - uEll.xy) / uEll.zw;
-  if (dot(e, e) < 0.92) { gl_FragColor = vec4(0.0); return; }
+  if (dot(e, e) < 0.6) { gl_FragColor = vec4(0.0); return; }
 
   float t = uTime;
   // Säule über der Pizza, oben etwas breiter

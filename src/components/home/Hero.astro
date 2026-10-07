@@ -275,15 +275,10 @@ const sets = [
     left: auto;
     right: 0;
   }
+  /* betontes Wort („an.“, „weich.“, „nachts.“): immer warm leuchtend, auf jedem Gerät gleich */
   .hero-an {
     font-style: italic;
     font-weight: 800;
-    color: var(--cream-2);
-    transition:
-      color 1.2s var(--ease-rise),
-      text-shadow 1.2s var(--ease-rise);
-  }
-  :global([data-open='true']) .hero-an {
     color: var(--cheese);
     text-shadow:
       0 0 0.35em rgb(255 150 60 / 0.55),

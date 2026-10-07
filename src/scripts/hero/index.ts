@@ -253,7 +253,8 @@ function init(hero: HTMLElement) {
       const cam0 = camera(0, view.elev, STAGE_AR);
       const c = toHero(...project(cam0, [0, H_BASE, 0]));
       const ex = toHero(...project(cam0, [1, H_BASE, 0]));
-      const ez = toHero(...project(cam0, [0, H_BASE, 1]));
+      // hinterer Rand: durch die Perspektive näher an der Mitte als der vordere
+      const ez = toHero(...project(cam0, [0, H_BASE, -1]));
       const rx = Math.hypot(ex.x - c.x, ex.y - c.y);
       const ry = Math.hypot(ez.x - c.x, ez.y - c.y);
       steam.draw({
