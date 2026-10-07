@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import HoursList from './HoursList.astro';
 import { site } from '../data/index.ts';
+import { hoursCompact } from '../lib/hours.ts';
 const { business, ordering } = site;
 const year = new Date().getFullYear();
 const mapsQuery = encodeURIComponent(`Pizzarella, ${business.address.street}, ${business.address.zip} ${business.address.city}`);
@@ -13,7 +14,7 @@ const mapsQuery = encodeURIComponent(`Pizzarella, ${business.address.street}, ${
     <div class="f-brand">
       <a href="/" class="f-logo" aria-label="Pizzarella – zur Startseite"><Logo size="lg" tone="light" /></a>
       <p class="muted f-claim">Pizza, Döner, Lahmacun &amp; mehr aus der Friedrich-Engels-Allee. Geliefert oder zum Abholen.</p>
-      <p class="f-status label"><span class="dot" aria-hidden="true"></span> <span data-status-line>Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24 Uhr</span></p>
+      <p class="f-status label"><span class="dot" aria-hidden="true"></span> <span data-status-line>{hoursCompact(site.business.hours)}</span></p>
     </div>
 
     <div class="f-col">

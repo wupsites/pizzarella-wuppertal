@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import HoursList from '../components/HoursList.astro';
+import StatusLine from '../components/StatusLine.astro';
 import { site } from '../data/index.ts';
 import { breadcrumbJsonLd } from '../lib/seo.ts';
 
@@ -45,7 +46,7 @@ const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace
 
     <section class="c-card" aria-labelledby="c-hours">
       <h2 class="label" id="c-hours">Öffnungszeiten</h2>
-      <p class="c-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></p>
+      <StatusLine class="c-status" />
       <HoursList />
     </section>
   </div>
@@ -126,7 +127,7 @@ const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace
     color: var(--tomato-ink);
     font-weight: 600;
   }
-  .c-status {
+  .c-card :global(.c-status) {
     display: flex;
     align-items: center;
     gap: 0.55rem;

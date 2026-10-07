@@ -30,11 +30,9 @@ function init(root: HTMLElement, form: HTMLFormElement) {
   const zipInput = $<HTMLInputElement>('#co-zip');
   const zipOk = $('.co-zip-ok');
   const asapSub = $('[data-asap-sub]');
-  const sumDetails = $<HTMLDetailsElement>('[data-sum-details]');
   let avail: Availability | null = null;
   let sending = false;
 
-  if (sumDetails && window.matchMedia('(max-width: 1023px)').matches) sumDetails.open = false;
 
   // ---- Zusammenfassung ----
   const renderSummary = (snap: Snapshot) => {
@@ -45,6 +43,7 @@ function init(root: HTMLElement, form: HTMLFormElement) {
     if (done && !done.hidden) return;
     if (main) main.hidden = empty;
     if (emptyBox) emptyBox.hidden = !empty;
+    document.documentElement.classList.remove('co-is-empty');
     if (empty || !summary) return;
     const t = snap.totals;
     const rows = snap.lines

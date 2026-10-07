@@ -1,0 +1,25 @@
+---
+/** Live-Öffnungsstatus; ohne JavaScript stehen die Öffnungszeiten da. */
+import { hoursCompact } from '../lib/hours.ts';
+import { site } from '../data/index.ts';
+interface Props {
+  class?: string;
+}
+const { class: cls = '' } = Astro.props;
+---
+
+<p class:list={['status-line', cls]}><span class="dot" aria-hidden="true"></span><span data-status-line>{hoursCompact(site.business.hours)}</span></p>
+
+<style>
+  .status-line {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-weight: 650;
+  }
+  @media (max-width: 639px) {
+    .status-line {
+      min-height: 3.1em;
+    }
+  }
+</style>

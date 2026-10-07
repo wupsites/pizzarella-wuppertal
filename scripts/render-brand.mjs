@@ -18,7 +18,7 @@ const pizza = `data:image/webp;base64,${readFileSync(join(root, 'src/assets/hero
 const b = await chromium.launch({ executablePath: browserPath() });
 const page = await b.newPage();
 
-async function render(html, w, h, out, transparent = false) {
+async function render(html, w, h, transparent = false) {
   await page.setViewportSize({ width: w, height: h });
   await page.setContent(html, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
@@ -35,12 +35,12 @@ for (const [size, name, pad] of [
   [512, 'icon-512.png', 0],
   [512, 'icon-maskable-512.png', 10],
 ]) {
-  const buf = await render(iconHtml(pad), size, size, name, true);
+  const buf = await render(iconHtml(pad), size, size, true);
   writeFileSync(join(pub, name), await sharp(buf).png({ compressionLevel: 9 }).toBuffer());
 }
 
 // favicon.ico (PNG in ICO-Container, 32×32)
-const png32 = await sharp(await render(iconHtml(0), 32, 32, '', true)).png().toBuffer();
+const png32 = await sharp(await render(iconHtml(0), 32, 32, true)).png().toBuffer();
 const header = Buffer.alloc(6);
 header.writeUInt16LE(0, 0);
 header.writeUInt16LE(1, 2);
@@ -77,7 +77,7 @@ p{margin:28px 0 0;font-size:28px;line-height:1.35;color:#c9b9a6}
 <h1>Die Küche<br>bleibt <em>an.</em></h1>
 <p>Pizza, Döner, Lahmacun &amp; Pasta aus der Friedrich-Engels-Allee 117.</p>
 <div class="l">Wuppertal · Lieferung &amp; Abholung · Fr &amp; Sa bis 2 Uhr</div></div></body></html>`;
-const ogBuf = await render(og, 1200, 630, '');
+const ogBuf = await render(og, 1200, 630);
 writeFileSync(join(pub, 'og.jpg'), await sharp(ogBuf).jpeg({ quality: 84, mozjpeg: true }).toBuffer());
 await b.close();
 console.log('Favicons, App-Icons und og.jpg erzeugt');

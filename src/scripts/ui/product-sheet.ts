@@ -165,6 +165,9 @@ export function openProduct(id: string, opener?: HTMLElement | null, preset?: Li
   current = p;
   editingKey = key ?? null;
   render(p, preset);
+  const head = dialog.querySelector<HTMLElement>('[data-ps-head-title]');
+  if (head) head.textContent = p.name;
+  dialog.classList.remove('is-scrolled');
   openDialog(dialog, opener);
   dialog.querySelector<HTMLElement>('.sheet-body')?.scrollTo(0, 0);
 }
@@ -175,6 +178,13 @@ export function initProductSheet() {
   enhanceDialog(dialog);
   const form = dialog.querySelector<HTMLFormElement>('form');
   if (!form) return;
+
+  const body = dialog.querySelector<HTMLElement>('.sheet-body');
+  body?.addEventListener(
+    'scroll',
+    () => dialog?.classList.toggle('is-scrolled', (body?.scrollTop ?? 0) > 70),
+    { passive: true },
+  );
 
   form.addEventListener('change', (e) => {
     const t = e.target as HTMLInputElement;

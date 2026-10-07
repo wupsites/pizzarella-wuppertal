@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import StatusLine from '../components/StatusLine.astro';
 import { site } from '../data/index.ts';
 
 const { ordering, business } = site;
@@ -12,9 +13,18 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
     <div class="co-head">
       <a href="/speisekarte/" class="link-btn co-back"><Icon name="arrow-left" /> Weiter aussuchen</a>
       <h1 class="d1">Kasse.</h1>
-      <p class="co-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></p>
+      <StatusLine class="co-status" />
     </div>
 
+    <script is:inline>
+      // Leeren Warenkorb vor dem ersten Rendern erkennen – verhindert einen Layout-Sprung
+      try {
+        var c = JSON.parse(localStorage.getItem('pizzarella.cart.v1') || '{}');
+        if (!(c.lines && c.lines.length)) document.documentElement.classList.add('co-is-empty');
+      } catch (e) {
+        document.documentElement.classList.add('co-is-empty');
+      }
+    </script>
     <div class="co-empty" data-co-empty hidden>
       <Icon name="plate" />
       <p class="h4">Dein Warenkorb ist leer.</p>
@@ -178,6 +188,9 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
           </summary>
           <div class="co-sum-body" data-co-summary></div>
         </details>
+        <script is:inline>
+          if (matchMedia('(max-width: 1023px)').matches) document.currentScript.previousElementSibling.open = false;
+        </script>
       </aside>
     </div>
 
@@ -211,7 +224,7 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
     margin-bottom: 0.5rem;
     text-decoration: none;
   }
-  .co-status {
+  .co-head :global(.co-status) {
     display: flex;
     align-items: center;
     gap: 0.55rem;
@@ -221,6 +234,13 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
   .co-grid {
     display: grid;
     gap: 2rem;
+  }
+  /* vor dem ersten Skriptlauf: Zustand aus dem Inline-Check übernehmen */
+  :global(.co-is-empty) .co-grid {
+    display: none !important;
+  }
+  :global(.co-is-empty) .co-empty[hidden] {
+    display: grid !important;
   }
   @media (min-width: 1024px) {
     .co-grid {

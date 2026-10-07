@@ -10,9 +10,10 @@ interface ToastOptions {
 export function toast(text: string, opts: ToastOptions = {}) {
   const host = document.getElementById('toasts');
   if (!host) return;
-  // höchstens zwei gleichzeitig – ältere weichen
-  const existing = host.querySelectorAll('.toast:not(.is-leaving)');
-  if (existing.length >= 2) dismiss(existing[0] as HTMLElement);
+  // auf dem Handy nur einer, am Desktop höchstens zwei – ältere weichen
+  const max = window.matchMedia('(min-width: 1024px)').matches ? 2 : 1;
+  const existing = host.querySelectorAll<HTMLElement>('.toast:not(.is-leaving)');
+  for (let i = 0; i <= existing.length - max; i++) dismiss(existing[i]);
 
   const el = document.createElement('div');
   el.className = 'toast';

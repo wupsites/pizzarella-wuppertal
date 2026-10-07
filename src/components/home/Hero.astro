@@ -8,6 +8,7 @@ import { Picture } from 'astro:assets';
 import Icon from '../Icon.astro';
 import pizza from '../../assets/hero-pizza.webp';
 import { site } from '../../data/index.ts';
+import { hoursCompact } from '../../lib/hours.ts';
 import { formatEuro } from '../../lib/pricing.ts';
 
 const { business, ordering, home, catalog } = site;
@@ -48,7 +49,7 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
       Pizza, Döner, Lahmacun, Pasta und mehr aus der {business.address.street}. Geliefert oder zum Abholen – an sechs Abenden die Woche bis spät in die Nacht.
     </p>
 
-    <p class="hero-status"><span class="dot" aria-hidden="true"></span><span data-status-line>Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24 Uhr</span></p>
+    <p class="hero-status"><span class="dot" aria-hidden="true"></span><span data-status-line>{hoursCompact(site.business.hours)}</span></p>
 
     <div class="hero-order">
       {
@@ -243,6 +244,11 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
     align-items: center;
     gap: 0.6rem;
     font-weight: 650;
+  }
+  @media (max-width: 639px) {
+    .hero-status {
+      min-height: 3.1em;
+    }
   }
   .hero-order {
     margin-top: 2rem;

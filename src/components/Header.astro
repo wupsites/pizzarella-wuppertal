@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/index.ts';
+import { hoursCompact } from '../lib/hours.ts';
 
 interface Props {
   overlay?: boolean;
@@ -39,7 +40,7 @@ const nav = [
     <div class="header-actions">
       <p class="status-chip">
         <span class="dot" aria-hidden="true"></span>
-        <span data-status-chip>Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24</span>
+        <span data-status-chip>{hoursCompact(site.business.hours)}</span>
       </p>
       <a class="icon-btn header-phone" href={`tel:${business.phone.e164}`} aria-label={`Anrufen: ${business.phone.display}`}>
         <Icon name="phone" />

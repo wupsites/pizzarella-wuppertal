@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Dish from '../components/Dish.astro';
 import Icon from '../components/Icon.astro';
 import { site } from '../data/index.ts';
+import { hoursCompact } from '../lib/hours.ts';
 import { formatEuro } from '../lib/pricing.ts';
 import { menuJsonLd, breadcrumbJsonLd } from '../lib/seo.ts';
 
@@ -27,7 +28,7 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
       <h1 class="d1">Die ganze Karte.</h1>
       <p class="mh-sub">
         <span><span class="num">{total}</span> Gerichte{pizzaFrom && <> · Pizza ab <span class="num">{formatEuro(pizzaFrom)}</span></>}</span>
-        <span class="mh-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></span>
+        <span class="mh-status"><span class="dot" aria-hidden="true"></span><span data-status-line>{hoursCompact(site.business.hours)}</span></span>
       </p>
     </div>
     {
@@ -162,6 +163,12 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
     gap: 0.5rem;
     color: var(--ink);
     font-weight: 600;
+  }
+  @media (max-width: 639px) {
+    /* Platz für zweizeiligen Live-Status reservieren (kein Layout-Sprung) */
+    .mh-status {
+      min-height: 3.1em;
+    }
   }
   .mh-mode {
     min-width: min(100%, 22rem);

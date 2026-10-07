@@ -80,9 +80,11 @@ function footer(snap: Snapshot): string {
   let cta: string;
   if (!d.ordering.online) {
     cta = `<a class="btn btn--primary btn--lg btn--block" href="tel:${d.phone.e164}">${iconSvg('phone')}Telefonisch bestellen</a>`;
+  } else if (!s.accepting && d.ordering.allowPreorder) {
+    cta = `<a class="btn btn--primary btn--lg btn--block" href="/kasse/" data-fk-fallback>Vorbestellen <span class="price">· ${formatEuro(t.total)}</span>${iconSvg('arrow', 'btn-arrow')}</a>`;
   } else if (!s.accepting) {
     const when = s.open ? 'Bestellannahme geschlossen' : s.opensDay === 'heute' ? `Bestellbar ab ${s.opensAt} Uhr` : `Bestellbar ${s.opensDay} ab ${s.opensAt} Uhr`;
-    cta = `<a class="btn btn--dark btn--lg btn--block" href="/kasse/">${esc(when)}</a>`;
+    cta = `<span class="btn btn--dark btn--lg btn--block" aria-disabled="true">${esc(when)}</span>`;
   } else {
     cta = `<a class="btn btn--primary btn--lg btn--block" href="/kasse/" data-fk-fallback>Zur Kasse <span class="price">· ${formatEuro(t.total)}</span>${iconSvg('arrow', 'btn-arrow')}</a>`;
   }
@@ -96,9 +98,11 @@ function render(container: HTMLElement, snap: Snapshot, change?: { type: string;
   const s = status();
   const closedNote =
     snap.lines.length && !s.accepting
-      ? `<div class="notice notice--closed">${iconSvg('moon')}<span>${
-          s.open ? 'Bestellannahme für heute beendet.' : 'Gerade geschlossen.'
-        } Dein Warenkorb bleibt gespeichert${s.opensAt ? ` – ${s.opensDay === 'heute' ? 'heute' : esc(s.opensDay ?? '')} ab ${s.opensAt} Uhr kannst du bestellen` : ''}.</span></div>`
+      ? `<div class="notice notice--closed">${iconSvg('moon')}<span>${s.open ? 'Bestellannahme für heute beendet.' : 'Gerade geschlossen.'} ${
+          data().ordering.allowPreorder && s.opensAt
+            ? `Du kannst schon jetzt für ${s.opensDay === 'heute' ? 'heute' : esc(s.opensDay ?? '')} ab ${s.opensAt} Uhr vorbestellen.`
+            : `Dein Warenkorb bleibt gespeichert${s.opensAt ? ` – ${s.opensDay === 'heute' ? 'heute' : esc(s.opensDay ?? '')} ab ${s.opensAt} Uhr kannst du bestellen` : ''}.`
+        }</span></div>`
       : '';
 
   if (!snap.lines.length) {

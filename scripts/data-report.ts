@@ -98,9 +98,11 @@ ${categoryRows.join('\n')}
 
 ## Positionen mit Anmerkung oder ohne volle Bestätigung
 
-| Kategorie | Produkt | Preis | Sicherheit | Anmerkung |
-|---|---|---|---|---|
-${productRows.join('\n')}
+${
+  productRows.length
+    ? `| Kategorie | Produkt | Preis | Sicherheit | Anmerkung |\n|---|---|---|---|---|\n${productRows.join('\n')}`
+    : 'Keine – alle Produkte und Preise stammen von der bisherigen eigenen Website.'
+}
 `;
 
 console.log(`\n✔ Daten gültig: ${visibleCount} Produkte in ${catalog.visibleCategories.length} Kategorien.`);

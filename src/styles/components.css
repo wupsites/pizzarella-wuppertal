@@ -291,8 +291,15 @@ main:focus {
 }
 .ps-variants {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
   gap: 0.6rem;
+}
+.ps-variants .choice {
+  gap: 0.6rem;
+  padding-inline: 0.85rem;
+}
+.ps-variants .choice-sub {
+  white-space: nowrap;
 }
 .ps-choices {
   display: grid;

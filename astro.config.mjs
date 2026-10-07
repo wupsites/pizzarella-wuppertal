@@ -37,7 +37,7 @@ export default defineConfig({
   ],
   redirects: Object.fromEntries(Object.entries(legacy).map(([from, to]) => [from, { status: 301, destination: to }])),
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
     format: 'directory',
   },
   prefetch: {

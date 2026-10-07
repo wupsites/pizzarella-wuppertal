@@ -249,3 +249,17 @@ export function timelineBars(cfg: HoursConfig) {
     }),
   }));
 }
+
+/** Kompakte Zeiten „Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24 Uhr“ (Ersatztext ohne JS) */
+export function hoursCompact(cfg: HoursConfig): string {
+  const groups: { days: string[]; label: string }[] = [];
+  DAY_KEYS.forEach((key, i) => {
+    const iv = cfg.weekly[key] ?? [];
+    if (!iv.length) return;
+    const label = iv.map(([a, b]) => `${a.slice(0, 2)}–${b.slice(0, 2)}`).join(', ');
+    const g = groups.find((x) => x.label === label);
+    if (g) g.days.push(DAY_SHORT[i]);
+    else groups.push({ days: [DAY_SHORT[i]], label });
+  });
+  return groups.map((g) => `${g.days.join(', ')} ${g.label}`).join(' · ') + ' Uhr';
+}

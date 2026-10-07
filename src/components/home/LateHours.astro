@@ -1,6 +1,7 @@
 ---
 /** „Lange wach.“ – die Öffnungszeiten als Wochen-Zeitleiste mit Live-Markierung „jetzt“. */
 import { site } from '../../data/index.ts';
+import StatusLine from '../StatusLine.astro';
 import { closingSentence, timelineBars, TIMELINE_START, TIMELINE_END } from '../../lib/hours.ts';
 
 const { hours } = site.business;
@@ -20,7 +21,7 @@ const sentence = closingSentence(hours);
       <p class="label">Öffnungszeiten</p>
       <h2 class="d1" id="late-title">Lange <span class="it">wach.</span></h2>
       <p class="lead">{sentence}</p>
-      <p class="late-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></p>
+      <StatusLine class="late-status" />
     </div>
 
     <figure class="timeline reveal" aria-labelledby="tl-cap" data-timeline data-start={TIMELINE_START} data-end={TIMELINE_END}>
@@ -84,7 +85,7 @@ const sentence = closingSentence(hours);
     margin-top: 1.5rem;
     color: var(--cream-2);
   }
-  .late-status {
+  .late-text :global(.late-status) {
     display: flex;
     align-items: center;
     gap: 0.6rem;

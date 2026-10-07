@@ -1,5 +1,6 @@
 ---
 import Icon from '../Icon.astro';
+import StatusLine from '../StatusLine.astro';
 import { site } from '../../data/index.ts';
 const { business } = site;
 ---
@@ -8,7 +9,7 @@ const { business } = site;
   <div class="wrap final-inner">
     <h2 class="final-title" id="final-title">Hunger?</h2>
     <div class="final-side">
-      <p class="final-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></p>
+      <StatusLine class="final-status" />
       <div class="final-actions">
         <a class="btn btn--light btn--lg" href="/speisekarte/">Zur Speisekarte <Icon name="arrow" class="btn-arrow" /></a>
         <a class="btn btn--ghost btn--lg final-phone" href={`tel:${business.phone.e164}`}><Icon name="phone" /> {business.phone.display}</a>
@@ -46,14 +47,14 @@ const { business } = site;
     line-height: 0.82;
     letter-spacing: -0.045em;
   }
-  .final-status {
+  .final-side :global(.final-status) {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-weight: 650;
     font-size: 1.05rem;
   }
-  .final-status :global(.dot) {
+  .final-side :global(.final-status .dot) {
     background: #fff;
   }
   .final-actions {

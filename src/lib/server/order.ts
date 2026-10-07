@@ -29,7 +29,7 @@ export const orderRequestSchema = z.object({
       .trim()
       .max(30)
       .regex(/^[+0-9][0-9 /()-]{5,}$/, 'Bitte gib eine gültige Telefonnummer an.'),
-    email: z.union([z.literal(''), z.string().trim().email('Die E-Mail-Adresse sieht nicht richtig aus.').max(120)]).optional(),
+    email: z.union([z.literal(''), z.string().trim().pipe(z.email('Die E-Mail-Adresse sieht nicht richtig aus.').max(120))]).optional(),
   }),
   address: z
     .object({

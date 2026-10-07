@@ -30,13 +30,13 @@ await p.locator('#product-sheet label:has(input[value="mit-extra-kaese"])').clic
 await p.locator('#product-sheet button[type="submit"]').click(); await slow(1400);
 await p.locator('[data-cat-link="doener"]').click(); await slow(1500);
 await p.locator('#p-doenertasche .add').click(); await slow(1400);
-await p.locator('#menu-q').click(); await p.locator('#menu-q').type('falafel', { delay: 90 }); await slow(1500);
+await p.locator('#menu-q').click(); await p.locator('#menu-q').pressSequentially('falafel', { delay: 90 }); await slow(1500);
 await p.locator('#menu-q').fill(''); await slow(500);
 if (mobile) { await p.locator('.mobile-bar [data-cart-open]').click(); await slow(2200); await p.locator('#cart-sheet a[href="/kasse/"]').click(); }
 else { await scrollTo(0, 10); await slow(1500); await p.goto(base + '/kasse/'); }
 await p.waitForLoadState('networkidle'); await slow(1200);
 await p.fill('#co-name', 'Max Muster'); await p.fill('#co-phone', '0202 123456');
-await p.fill('#co-street', 'Friedrich-Engels-Allee'); await p.fill('#co-no', '50'); await p.locator('#co-zip').type('42285', { delay: 80 }); await slow(800);
+await p.fill('#co-street', 'Friedrich-Engels-Allee'); await p.fill('#co-no', '50'); await p.locator('#co-zip').pressSequentially('42285', { delay: 80 }); await slow(800);
 await p.locator('[data-co-submit]').scrollIntoViewIfNeeded(); await slow(800);
 await p.locator('[data-co-submit]').click(); await slow(3000);
 await ctx.close(); await b.close();

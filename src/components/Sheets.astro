@@ -3,6 +3,7 @@
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
 import HoursList from './HoursList.astro';
+import { hoursCompact } from '../lib/hours.ts';
 import { site } from '../data/index.ts';
 const { business } = site;
 ---
@@ -20,7 +21,7 @@ const { business } = site;
   <form class="ps-form" novalidate>
     <span class="sheet-grip" aria-hidden="true"></span>
     <div class="sheet-head ps-head">
-      <span></span>
+      <span class="ps-head-title" data-ps-head-title aria-hidden="true"></span>
       <button type="button" class="icon-btn" data-close aria-label="Schließen"><Icon name="x" /></button>
     </div>
     <div class="sheet-body" data-ps-body></div>
@@ -54,7 +55,7 @@ const { business } = site;
       </ul>
     </nav>
     <div class="sm-info">
-      <p class="label sm-status"><span class="dot" aria-hidden="true"></span> <span data-status-line></span></p>
+      <p class="label sm-status"><span class="dot" aria-hidden="true"></span> <span data-status-line>{hoursCompact(site.business.hours)}</span></p>
       <a class="btn btn--dark btn--block" href={`tel:${business.phone.e164}`}><Icon name="phone" /> {business.phone.display}</a>
       <HoursList compact />
       <p class="muted sm-legal"><a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a> · <a href="/bestellinfos/">Bestellinfos</a></p>
@@ -91,9 +92,41 @@ const { business } = site;
   .ps-head {
     position: absolute;
     top: 0;
+    left: 0;
     right: 0;
     z-index: 2;
-    padding: 0.75rem;
+    padding: 0.75rem 0.75rem 0.75rem var(--sheet-pad, 1.25rem);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--d-ui) var(--ease-rise),
+      border-color var(--d-ui) var(--ease-rise);
+    pointer-events: none;
+  }
+  .ps-head .icon-btn {
+    pointer-events: auto;
+  }
+  .ps-head-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      opacity var(--d-ui) var(--ease-rise),
+      transform var(--d-ui) var(--ease-rise);
+  }
+  .product-sheet.is-scrolled .ps-head {
+    background: var(--dough);
+    border-bottom-color: var(--line);
+    pointer-events: auto;
+  }
+  .product-sheet.is-scrolled .ps-head-title {
+    opacity: 1;
+    transform: none;
   }
   .ps-head .icon-btn {
     background: var(--paper);

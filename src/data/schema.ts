@@ -112,8 +112,8 @@ export const businessSchema = z.object({
     status: z.enum(['confirmed', 'unconfirmed']),
     note: z.string().optional(),
   }),
-  email: z.string().email().nullable(),
-  website: z.string().url(),
+  email: z.email().nullable(),
+  website: z.url(),
   timezone: z.string(),
   hours: z.object({
     status: z.enum(['confirmed', 'unconfirmed']),
@@ -129,8 +129,8 @@ export const businessSchema = z.object({
     ),
   }),
   familyRun: z.object({ text: z.string(), source: z.string() }).optional(),
-  social: z.array(z.object({ label: z.string(), url: z.string().url() })),
-  sources: z.array(z.object({ id: z.string(), label: z.string(), url: z.string().url() })),
+  social: z.array(z.object({ label: z.string(), url: z.url() })),
+  sources: z.array(z.object({ id: z.string(), label: z.string(), url: z.url() })),
 });
 
 export const deliveryZoneSchema = z.object({
@@ -178,7 +178,7 @@ export const reviewsSchema = z.object({
       scale: z.number(),
       count: z.number().int().nullable(),
       checked: z.string().nullable(),
-      url: z.string().url().optional(),
+      url: z.url().optional(),
       note: z.string().optional(),
     }),
   ),
@@ -188,7 +188,7 @@ export const reviewsSchema = z.object({
       author: z.string().optional(),
       platform: z.string(),
       date: z.string(),
-      url: z.string().url().optional(),
+      url: z.url().optional(),
     }),
   ),
 });
