@@ -11,13 +11,19 @@
 import { Picture, getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
 import StatusLine from '../StatusLine.astro';
-import pizza from '../../assets/hero/pizza.png';
+import still from '../../assets/hero/pizza-still.png';
+import topSrc from '../../assets/hero/pizza-top.png';
 import steamSrc from '../../assets/hero/steam.png';
-import geo from '../../assets/hero/pizza.json';
+import top from '../../assets/hero/pizza-top.json';
 import { site } from '../../data/index.ts';
+import { STAGE_AR, stageLayout } from '../../scripts/hero/camera.ts';
 
 const { business, catalog } = site;
 const steam = await getImage({ src: steamSrc, format: 'webp', quality: 70, width: 320 });
+// Textur für die 3D-Pizza (Kantenlänge Zweierpotenz → Mipmaps)
+const texHi = await getImage({ src: topSrc, format: 'webp', quality: 86, width: 2048 });
+const texLo = await getImage({ src: topSrc, format: 'webp', quality: 84, width: 1024 });
+const layout = stageLayout();
 
 // Fakten für die Callouts kommen aus den Daten, nicht aus dem Bauch
 const pizzaCat = catalog.visibleCategories.find((c) => c.id === 'pizza');
@@ -38,25 +44,26 @@ for (const d of order) {
 }
 const latestLabel = `${latestDays.map((d) => short[d]).join(' & ')} bis ${String(Math.floor(latest / 60) % 24)} Uhr`;
 
-/** u/v: Lage auf dem Foto (0–1), side: Seite des Labels. */
+/** u/v: Punkt auf der Pizza-Textur (0–1), side: Seite des Labels. */
 const spots = [
-  { id: 'rand', title: 'Knusprig gebacken', sub: sizes.length ? `Ø ${sizes.join(' oder ')}` : '', u: 0.218, v: 0.726, side: 'left' },
-  { id: 'kaese', title: 'Frisch belegt', sub: pizzaCount ? `${pizzaCount} Pizzen zur Wahl` : '', u: 0.272, v: 0.352, side: 'left' },
-  { id: 'sauce', title: 'Kräftige Tomatenbasis', sub: 'Extra-Zutaten nach Wunsch', u: 0.872, v: 0.417, side: 'right' },
-  { id: 'spaet', title: 'Bis spät für dich da', sub: latestLabel, u: 0.957, v: 0.52, side: 'right' },
-  { id: 'ort', title: 'Direkt aus Wuppertal', sub: business.address.street, u: 0.551, v: 0.085, side: 'left' },
+  { id: 'rand', title: 'Knusprig gebacken', sub: sizes.length ? `Ø ${sizes.join(' oder ')}` : '', u: 0.41, v: 0.93, side: 'left' },
+  { id: 'kaese', title: 'Frisch belegt', sub: pizzaCount ? `${pizzaCount} Pizzen zur Wahl` : '', u: 0.635, v: 0.47, side: 'right' },
+  { id: 'sauce', title: 'Kräftige Tomatenbasis', sub: 'Extra-Zutaten nach Wunsch', u: 0.32, v: 0.385, side: 'left' },
+  { id: 'spaet', title: 'Bis spät für dich da', sub: latestLabel, u: 0.945, v: 0.44, side: 'right' },
+  { id: 'ort', title: 'Direkt aus Wuppertal', sub: business.address.street, u: 0.51, v: 0.065, side: 'left' },
 ];
-const aspect = geo.width / geo.height;
 ---
 
 <section
   class="hero on-night grain"
   aria-labelledby="hero-title"
   data-hero
-  data-geo={JSON.stringify({ farRim: geo.farRim, nearEdge: geo.nearEdge, aspect })}
-  style={`--pizza-ar:${aspect.toFixed(4)};--far:${geo.farRim}`}
+  data-geo={JSON.stringify({ profile: top.profile, tex: { hi: texHi.src, lo: texLo.src } })}
+  style={`--pizza-ar:${STAGE_AR};--far:${layout.far.toFixed(4)}`}
 >
   <div class="hero-light" aria-hidden="true"></div>
+  <div class="hero-beam" aria-hidden="true" data-hero-beam></div>
+  <canvas class="hero-dust" aria-hidden="true" data-hero-dust></canvas>
 
   <div class="hero-ghost" aria-hidden="true" data-hero-ghost>
     <span class="hg-1">Die Küche</span>
@@ -70,13 +77,13 @@ const aspect = geo.width / geo.height;
   </h1>
 
   <div class="hero-stage" data-hero-stage>
-    <div class="hp-shadow" aria-hidden="true" data-hero-shadow></div>
+    <div class="hp-core" aria-hidden="true"></div>
     <div class="hp-object" data-hero-object>
       <Picture
-        src={pizza}
-        alt="Frisch gebackene Pizza mit Tomaten, Mozzarella und Basilikum"
-        widths={[720, 1080, 1440, 1834]}
-        sizes="(min-width: 1024px) 74vw, 168vw"
+        src={still}
+        alt="Frisch gebackene Pizza mit Salami, Mozzarella und Tomatensauce, Rand mit Ofenspuren"
+        widths={[640, 960, 1400, 2100]}
+        sizes="(min-width: 1024px) 68vw, 128vw"
         formats={['avif']}
         fallbackFormat="webp"
         quality={80}
@@ -138,7 +145,7 @@ const aspect = geo.width / geo.height;
   /* ---------- Bühne ---------- */
   .hero {
     --hero-fs: min(17vw, 5.4rem);
-    --pw: 152vw;
+    --pw: 128vw;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -156,7 +163,56 @@ const aspect = geo.width / geo.height;
     background:
       radial-gradient(70% 42% at 50% var(--light-y, 54%), rgb(255 138 61 / 0.26), transparent 72%),
       radial-gradient(42% 26% at 50% var(--light-y, 54%), rgb(255 196 120 / 0.16), transparent 70%),
-      radial-gradient(120% 90% at 50% 50%, transparent 55%, rgb(0 0 0 / 0.35));
+      radial-gradient(120% 90% at 50% 50%, transparent 50%, rgb(0 0 0 / 0.5));
+  }
+
+  /* ---------- Licht ---------- */
+  /* Lichtkegel von oben, wie ein Food-Spot im Studio */
+  .hero-beam {
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: -12%;
+    width: min(74vw, 68rem);
+    height: calc(var(--light-y, 54%) + 16%);
+    transform: translateX(-50%);
+    /* Unschärfe auf dem Wrapper, Zuschnitt innen → weiche Kegelkanten */
+    filter: blur(26px);
+    mix-blend-mode: screen;
+    opacity: var(--beam, 0.85);
+    pointer-events: none;
+  }
+  .hero-beam::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 30% at 50% 100%, rgb(255 214 160 / 0.24), transparent 72%),
+      linear-gradient(to bottom, rgb(255 222 180 / 0) 0%, rgb(255 214 160 / 0.06) 40%, rgb(255 200 140 / 0.12) 100%);
+    clip-path: polygon(43% 0, 57% 0, 96% 100%, 4% 100%);
+  }
+  .hero-dust {
+    display: none;
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  /* Glutkern hinter der Pizza: Ofenhitze */
+  .hp-core {
+    position: absolute;
+    left: 14%;
+    right: 14%;
+    top: 24%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(255 150 60 / 0.5), rgb(255 104 40 / 0.2) 50%, transparent 80%);
+    filter: blur(30px);
+    opacity: var(--core, 0.75);
+    pointer-events: none;
   }
 
   /* ---------- Typo-Ebenen ---------- */
@@ -211,7 +267,8 @@ const aspect = geo.width / geo.height;
     flex: none;
     width: var(--pw);
     aspect-ratio: var(--pizza-ar);
-    margin: -0.18em 0 0 calc(50% - var(--pw) / 2);
+    /* die Bühne hat oben Luft (Kameraraum): hinterer Rand schneidet Zeile 2 an */
+    margin: calc(-0.22em - var(--far) * var(--pw) / var(--pizza-ar)) 0 0 calc(50% - var(--pw) / 2);
     font-size: var(--hero-fs);
     perspective: 1600px;
     pointer-events: none;
@@ -219,9 +276,9 @@ const aspect = geo.width / geo.height;
   .hp-object {
     position: absolute;
     inset: 0;
-    transform-origin: 50% 62%;
+    transform-origin: 50% 58%;
     /* Startlage = erster Frame des Skripts (kein Sprung beim Übernehmen) */
-    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotate(-2deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(-2deg) scale(1);
     will-change: transform;
   }
   .hp-object :global(picture),
@@ -232,26 +289,19 @@ const aspect = geo.width / geo.height;
   }
   .hp-object :global(canvas) {
     position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
   }
   .hp-object.gl-on :global(img.hp-img) {
     opacity: 0;
   }
-  .hp-shadow {
-    position: absolute;
-    left: 7%;
-    right: 7%;
-    top: 76%;
-    height: 32%;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, rgb(0 0 0 / 0.78), rgb(0 0 0 / 0.36) 55%, transparent);
-    filter: blur(5px);
-    will-change: transform;
-  }
   .hp-steam {
     display: none;
     position: absolute;
-    bottom: 58%;
+    bottom: 44%;
     width: 15%;
     height: auto;
     opacity: 0;
@@ -432,7 +482,7 @@ const aspect = geo.width / geo.height;
   @media (min-width: 640px) {
     .hero {
       --hero-fs: min(13vw, 7rem);
-      --pw: 128vw;
+      --pw: 112vw;
     }
     .hf-cta {
       grid-template-columns: auto auto;
@@ -444,7 +494,7 @@ const aspect = geo.width / geo.height;
   @media (min-width: 1024px) {
     .hero {
       --hero-fs: min(10vw, 16.5svh, 12rem);
-      --pw: min(74vw, 128svh, 1500px);
+      --pw: min(68vw, 105svh, 1400px);
       --ph: calc(var(--pw) / var(--pizza-ar));
       /* senkrechtes Raster: Eyebrow → Zeile 1 → Zeile 2 → hinterer Pizzarand.
          Der Rand schneidet Zeile 2 immer gleich tief an, egal wie hoch das Fenster ist. */
@@ -520,8 +570,11 @@ const aspect = geo.width / geo.height;
     .hp-steam {
       display: block;
     }
+    .hero-dust {
+      display: block;
+    }
     .hp-object {
-      transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotate(-2.6deg) scale(0.97);
+      transform: translate3d(0, 0, 0) rotate(-3deg) scale(0.96);
     }
     .hero-foot {
       position: absolute;
@@ -586,6 +639,14 @@ const aspect = geo.width / geo.height;
       .hp-steam--b {
         animation: steam 11s linear 4.6s infinite;
       }
+      .hero-beam {
+        animation: beam-breathe 7s ease-in-out infinite alternate;
+      }
+    }
+    .hp-core {
+      animation:
+        core-flicker 2.3s ease-in-out infinite alternate,
+        core-flicker2 3.7s ease-in-out infinite alternate;
     }
   }
   .hero:global(.intro-done) .hero-line,
@@ -605,16 +666,40 @@ const aspect = geo.width / geo.height;
       opacity: 0;
     }
   }
+  @keyframes beam-breathe {
+    from {
+      filter: blur(26px) brightness(0.88);
+    }
+    to {
+      filter: blur(30px) brightness(1.14);
+    }
+  }
+  @keyframes core-flicker {
+    from {
+      transform: scale(0.98, 0.97);
+    }
+    to {
+      transform: scale(1.02, 1.03);
+    }
+  }
+  @keyframes core-flicker2 {
+    from {
+      filter: blur(30px) brightness(0.92);
+    }
+    to {
+      filter: blur(34px) brightness(1.1);
+    }
+  }
   @keyframes steam {
     0% {
       opacity: 0;
       transform: translate3d(0, 12%, 0) scale(0.9, 0.85);
     }
     25% {
-      opacity: 0.13;
+      opacity: 0.22;
     }
     70% {
-      opacity: 0.07;
+      opacity: 0.11;
     }
     100% {
       opacity: 0;

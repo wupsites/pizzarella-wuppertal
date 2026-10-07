@@ -18,7 +18,7 @@ for f in sorted(os.listdir(a)):
         bad += 1
         continue
     diff = ImageChops.difference(x, y).convert('L')
-    px = sum(1 for v in diff.getdata() if v > 24)
+    px = sum(1 for v in (diff.get_flattened_data() if hasattr(diff, 'get_flattened_data') else diff.getdata()) if v > 24)
     if px:
         print('ANDERS', f, diff.getbbox(), f'{px} px')
         bad += 1

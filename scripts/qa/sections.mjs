@@ -21,6 +21,10 @@ for (const w of widths) {
   await p.goto(base + '/', { waitUntil: 'networkidle' });
   await p.evaluate(async () => {
     document.documentElement.style.scrollBehavior = 'auto';
+    // Hero auf feste, ganzzahlige Höhe: die Sections darunter liegen dann in
+    // beiden Versionen auf denselben Pixeln (sonst Subpixel-Unterschiede)
+    const hero = document.querySelector('[data-hero]');
+    if (hero) hero.style.cssText += ';height:1000px;min-height:0;max-height:none;overflow:hidden';
     const H = document.documentElement.scrollHeight;
     for (let y = 0; y < H; y += 400) {
       window.scrollTo(0, y);

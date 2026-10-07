@@ -41,7 +41,7 @@ if (!mobile) {
     const r = el.getBoundingClientRect();
     return { x: r.left, y: r.top, w: r.width, h: r.height };
   });
-  const zones = { rand: [0.3, 0.8], kaese: [0.3, 0.4], sauce: [0.75, 0.4], spaet: [0.94, 0.52], ort: [0.55, 0.12] };
+  const zones = { rand: [0.45, 0.82], kaese: [0.6, 0.55], sauce: [0.35, 0.5], spaet: [0.93, 0.58], ort: [0.5, 0.3] };
   for (const [z, [u, v]] of Object.entries(zones)) {
     await p.mouse.move(box.x + box.w * u, box.y + box.h * v, { steps: 8 });
     await p.waitForTimeout(900);
