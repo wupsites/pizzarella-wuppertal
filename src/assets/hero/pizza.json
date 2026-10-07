@@ -1,0 +1,13 @@
+{
+  "width": 1834,
+  "height": 623,
+  "source": "whole-pizza-isorepublic-cc0.jpg",
+  "bbox": [
+    0.0131,
+    0.0385,
+    0.9864,
+    0.9599
+  ],
+  "farRim": 0.0706,
+  "nearEdge": 0.947
+}

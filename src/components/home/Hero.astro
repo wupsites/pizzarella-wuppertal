@@ -1,222 +1,193 @@
 ---
 /**
- * Hero „Ofenlicht“: Nacht, warmes Licht, eine angeschnittene Pizza, deren
- * acht Stücke acht echte Pizzen der Karte zeigen. Das „an.“ der Headline
- * leuchtet nur, wenn der Laden gerade geöffnet ist.
+ * Hero „Eine Pizza“: ein einziges, echtes Pizzafoto als dominantes Objekt,
+ * die Headline liegt in Ebenen dahinter. Beim Scrollen fährt die Kamera
+ * ruhig um die Pizza (Tiefen-Parallaxe in WebGL, gesteuert über GSAP
+ * ScrollTrigger), am Desktop erscheinen beim Überfahren kurze Callouts.
+ * Ohne JavaScript oder bei reduzierter Bewegung: dasselbe Bild, statisch.
+ *
+ * Bild: scripts/hero/build-pizza.py (Quelle und Lizenz siehe dort / docs).
  */
-import { Picture } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
-import pizza from '../../assets/hero-pizza.webp';
+import StatusLine from '../StatusLine.astro';
+import pizza from '../../assets/hero/pizza.png';
+import steamSrc from '../../assets/hero/steam.png';
+import geo from '../../assets/hero/pizza.json';
 import { site } from '../../data/index.ts';
-import { hoursCompact } from '../../lib/hours.ts';
-import { formatEuro } from '../../lib/pricing.ts';
 
-const { business, ordering, home, catalog } = site;
-const slices = home.heroSlices.map((id) => {
-  const p = catalog.products.get(id)!;
-  return { id, name: p.name, from: formatEuro(p.fromPrice) };
-});
-const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
+const { business, catalog } = site;
+const steam = await getImage({ src: steamSrc, format: 'webp', quality: 70, width: 320 });
+
+// Fakten für die Callouts kommen aus den Daten, nicht aus dem Bauch
+const pizzaCat = catalog.visibleCategories.find((c) => c.id === 'pizza');
+const pizzaCount = pizzaCat?.products.length ?? 0;
+const sizes = (pizzaCat?.products[0]?.variants ?? []).map((v) => v.detail?.replace('Ø ', '')).filter(Boolean);
+const order = ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'] as const;
+const short: Record<string, string> = { mo: 'Mo', di: 'Di', mi: 'Mi', do: 'Do', fr: 'Fr', sa: 'Sa', so: 'So' };
+const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
+let latest = 0;
+let latestDays: string[] = [];
+for (const d of order) {
+  for (const [open, close] of business.hours.weekly[d] ?? []) {
+    let c = toMin(close);
+    if (c <= toMin(open)) c += 1440;
+    if (c > latest) [latest, latestDays] = [c, [d]];
+    else if (c === latest) latestDays.push(d);
+  }
+}
+const latestLabel = `${latestDays.map((d) => short[d]).join(' & ')} bis ${String(Math.floor(latest / 60) % 24)} Uhr`;
+
+/** u/v: Lage auf dem Foto (0–1), side: Seite des Labels. */
+const spots = [
+  { id: 'rand', title: 'Knusprig gebacken', sub: sizes.length ? `Ø ${sizes.join(' oder ')}` : '', u: 0.218, v: 0.726, side: 'left' },
+  { id: 'kaese', title: 'Frisch belegt', sub: pizzaCount ? `${pizzaCount} Pizzen zur Wahl` : '', u: 0.272, v: 0.352, side: 'left' },
+  { id: 'sauce', title: 'Kräftige Tomatenbasis', sub: 'Extra-Zutaten nach Wunsch', u: 0.872, v: 0.417, side: 'right' },
+  { id: 'spaet', title: 'Bis spät für dich da', sub: latestLabel, u: 0.957, v: 0.52, side: 'right' },
+  { id: 'ort', title: 'Direkt aus Wuppertal', sub: business.address.street, u: 0.551, v: 0.085, side: 'left' },
+];
+const aspect = geo.width / geo.height;
 ---
 
-<section class="hero on-night grain" aria-labelledby="hero-title" data-hero>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-stage" aria-hidden="true">
-    <div class="hero-pizza" data-hero-pizza data-slices={JSON.stringify(slices)}>
+<section
+  class="hero on-night grain"
+  aria-labelledby="hero-title"
+  data-hero
+  data-geo={JSON.stringify({ farRim: geo.farRim, nearEdge: geo.nearEdge, aspect })}
+  style={`--pizza-ar:${aspect.toFixed(4)};--far:${geo.farRim}`}
+>
+  <div class="hero-light" aria-hidden="true"></div>
+
+  <div class="hero-ghost" aria-hidden="true" data-hero-ghost>
+    <span class="hg-1">Die Küche</span>
+    <span class="hg-2">bleibt an.</span>
+  </div>
+
+  <h1 id="hero-title" class="hero-type">
+    <span class="hero-eyebrow label" data-hero-line="0">Pizza · Döner · Lahmacun · Pasta – in Wuppertal</span>
+    <span class="hero-line hl-1" data-hero-line="1">Die Küche</span>
+    <span class="hero-line hl-2" data-hero-line="2">bleibt <span class="hero-an">an.</span></span>
+  </h1>
+
+  <div class="hero-stage" data-hero-stage>
+    <div class="hp-shadow" aria-hidden="true" data-hero-shadow></div>
+    <div class="hp-object" data-hero-object>
       <Picture
         src={pizza}
-        alt=""
-        widths={[560, 820, 1100, 1500]}
-        sizes="(min-width: 1024px) min(66vw, 1100px), 135vw"
+        alt="Frisch gebackene Pizza mit Tomaten, Mozzarella und Basilikum"
+        widths={[720, 1080, 1440, 1834]}
+        sizes="(min-width: 1024px) 74vw, 168vw"
         formats={['avif']}
         fallbackFormat="webp"
+        quality={80}
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        class="hero-pizza-img"
+        class="hp-img"
+        data-hero-img
       />
+      <img class="hp-steam hp-steam--a" src={steam.src} alt="" aria-hidden="true" width="320" height="640" decoding="async" />
+      <img class="hp-steam hp-steam--b" src={steam.src} alt="" aria-hidden="true" width="320" height="640" decoding="async" />
     </div>
   </div>
 
-  <div class="wrap hero-inner">
-    <h1 id="hero-title" class="hero-title">
-      <span class="hero-eyebrow label">Pizza · Döner · Lahmacun · Pasta – in Wuppertal</span>
-      <span class="hero-line">Die Küche</span>
-      <span class="hero-line">bleibt <span class="hero-an">an.</span></span>
-    </h1>
+  <div class="hero-callouts" aria-hidden="true" data-hero-callouts>
+    {
+      spots.map((s) => (
+        <div class:list={['co', `co--${s.side}`]} data-spot={s.id} data-u={s.u} data-v={s.v} data-side={s.side}>
+          <span class="co-line" />
+          <span class="co-dot" />
+          <span class="co-label">
+            <strong>{s.title}</strong>
+            {s.sub && <span>{s.sub}</span>}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+  <ul class="sr-only">
+    {
+      spots.map((s) => (
+        <li>
+          {s.title}
+          {s.sub && `: ${s.sub}`}
+        </li>
+      ))
+    }
+  </ul>
 
-    <p class="hero-sub">
-      Pizza, Döner, Lahmacun, Pasta und mehr aus der {business.address.street}. Geliefert oder zum Abholen – an sechs Abenden die Woche bis spät in die Nacht.
-    </p>
-
-    <p class="hero-status"><span class="dot" aria-hidden="true"></span><span data-status-line>{hoursCompact(site.business.hours)}</span></p>
-
-    <div class="hero-order">
-      {
-        both && (
-          <div class="segmented is-night hero-mode" role="radiogroup" aria-label="Lieferung oder Abholung">
-            <input type="radio" id="mode-hero-d" name="mode-hero" value="delivery" data-mode-input checked />
-            <label for="mode-hero-d">
-              <Icon name="scooter" />
-              Lieferung
-            </label>
-            <input type="radio" id="mode-hero-p" name="mode-hero" value="pickup" data-mode-input />
-            <label for="mode-hero-p">
-              <Icon name="store" />
-              Abholung
-            </label>
-          </div>
-        )
-      }
-      <a class="btn btn--primary btn--lg hero-cta" href="/speisekarte/">
-        Speisekarte öffnen
+  <div class="hero-foot">
+    <div class="hf-text">
+      <p class="hero-sub">Pizza, Döner, Lahmacun, Pasta und mehr aus der {business.address.street} – geliefert oder zum Abholen, bis spät in die Nacht.</p>
+      <StatusLine class="hero-status" />
+    </div>
+    <div class="hf-cta">
+      <a class="btn btn--primary btn--lg hero-btn" href="/speisekarte/" data-hero-order>
+        Jetzt bestellen
         <Icon name="arrow" class="btn-arrow" />
       </a>
+      <a class="btn btn--ghost btn--lg hero-btn" href="/speisekarte/">Speisekarte ansehen</a>
     </div>
-    <p class="hero-phone">
+    <p class="hf-phone">
       Lieber anrufen? <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>
     </p>
   </div>
-
-  <p class="hero-caption" data-slice-caption aria-hidden="true"></p>
 </section>
 
 <style>
+  /* ---------- Bühne ---------- */
   .hero {
+    --hero-fs: min(17vw, 5.4rem);
+    --pw: 152vw;
     position: relative;
-    min-height: max(40rem, min(100svh, 62rem));
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: calc(var(--header-h) + 1.25rem) var(--gutter) 1.75rem;
     overflow: hidden;
     isolation: isolate;
-    padding-top: calc(var(--header-h) + 2rem);
-    padding-bottom: clamp(17rem, 70vw, 26rem);
   }
-  @media (min-width: 1024px) {
-    .hero {
-      padding-bottom: 4rem;
-    }
-  }
-  .hero-glow {
+  .hero-light {
     position: absolute;
     z-index: -2;
     inset: 0;
-    background:
-      radial-gradient(60% 55% at 50% 100%, rgb(255 122 61 / 0.32), transparent 70%),
-      radial-gradient(40% 40% at 50% 100%, rgb(242 181 58 / 0.25), transparent 70%);
-  }
-  @media (min-width: 1024px) {
-    .hero-glow {
-      background:
-        radial-gradient(45% 70% at 92% 50%, rgb(255 122 61 / 0.3), transparent 70%),
-        radial-gradient(28% 45% at 88% 50%, rgb(242 181 58 / 0.22), transparent 70%);
-    }
-  }
-
-  /* Pizza: Handy = geht unten auf wie eine Sonne, Desktop = rechts angeschnitten */
-  .hero-stage {
-    position: absolute;
-    z-index: -1;
-    left: 50%;
-    bottom: 0;
-    width: 135vw;
-    max-width: 52rem;
-    aspect-ratio: 1;
-    transform: translate(-50%, 48%);
     pointer-events: none;
-  }
-  @media (min-width: 1024px) {
-    .hero-stage {
-      left: auto;
-      right: 0;
-      bottom: auto;
-      top: 50%;
-      width: min(66vw, 1100px);
-      max-width: none;
-      transform: translate(30%, -46%);
-      pointer-events: auto;
-    }
-  }
-  .hero-pizza {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    will-change: transform;
-  }
-  .hero-pizza :global(img),
-  .hero-pizza :global(picture) {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-pizza {
-      animation: pizza-in 1.6s var(--ease-rise) 0.1s both;
-    }
-    .hero-title .hero-line,
-    .hero-eyebrow,
-    .hero-sub,
-    .hero-status,
-    .hero-order,
-    .hero-phone {
-      animation: rise-in 0.9s var(--ease-rise) both;
-    }
-    .hero-eyebrow {
-      animation-delay: 0.05s;
-    }
-    .hero-title .hero-line:nth-child(2) {
-      animation-delay: 0.12s;
-    }
-    .hero-title .hero-line:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-    .hero-sub {
-      animation-delay: 0.3s;
-    }
-    .hero-status {
-      animation-delay: 0.38s;
-    }
-    .hero-order {
-      animation-delay: 0.45s;
-    }
-    .hero-phone {
-      animation-delay: 0.52s;
-    }
-  }
-  @keyframes pizza-in {
-    from {
-      opacity: 0;
-      transform: rotate(-38deg) scale(0.92);
-    }
-  }
-  @keyframes rise-in {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
+    background:
+      radial-gradient(70% 42% at 50% var(--light-y, 54%), rgb(255 138 61 / 0.26), transparent 72%),
+      radial-gradient(42% 26% at 50% var(--light-y, 54%), rgb(255 196 120 / 0.16), transparent 70%),
+      radial-gradient(120% 90% at 50% 50%, transparent 55%, rgb(0 0 0 / 0.35));
   }
 
-  .hero-inner {
-    position: relative;
+  /* ---------- Typo-Ebenen ---------- */
+  .hero-ghost {
+    display: none;
   }
-  .hero-title {
+  .hero-type {
+    position: relative;
+    z-index: 1;
     display: grid;
     font-family: var(--font-display);
     font-weight: 900;
     font-variation-settings: 'SOFT' 100;
-    font-size: var(--fs-hero);
-    line-height: 0.88;
-    letter-spacing: -0.035em;
-    max-width: 11ch;
+    font-size: var(--hero-fs);
+    line-height: 0.86;
+    letter-spacing: -0.04em;
   }
   .hero-eyebrow {
+    margin-bottom: 1.1rem;
     color: var(--cheese);
-    margin-bottom: 1.4rem;
+    font-family: var(--font-cond);
+    font-size: 0.78rem;
     letter-spacing: 0.1em;
     line-height: 1.5;
   }
   .hero-line {
     display: block;
+    white-space: nowrap;
+  }
+  .hl-2 {
+    justify-self: end;
   }
   .hero-an {
     font-style: italic;
@@ -232,102 +203,451 @@ const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
       0 0 0.35em rgb(255 150 60 / 0.55),
       0 0 1.2em rgb(255 122 61 / 0.35);
   }
-  .hero-sub {
-    margin-top: 1.75rem;
-    max-width: 34rem;
-    font-size: var(--fs-lead);
+
+  /* ---------- Pizza ---------- */
+  .hero-stage {
+    position: relative;
+    z-index: 2;
+    flex: none;
+    width: var(--pw);
+    aspect-ratio: var(--pizza-ar);
+    margin: -0.18em 0 0 calc(50% - var(--pw) / 2);
+    font-size: var(--hero-fs);
+    perspective: 1600px;
+    pointer-events: none;
+  }
+  .hp-object {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 62%;
+    /* Startlage = erster Frame des Skripts (kein Sprung beim Übernehmen) */
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotate(-2deg) scale(1);
+    will-change: transform;
+  }
+  .hp-object :global(picture),
+  .hp-object :global(img.hp-img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .hp-object :global(canvas) {
+    position: absolute;
+    pointer-events: none;
+  }
+  .hp-object.gl-on :global(img.hp-img) {
+    opacity: 0;
+  }
+  .hp-shadow {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    top: 76%;
+    height: 32%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(0 0 0 / 0.78), rgb(0 0 0 / 0.36) 55%, transparent);
+    filter: blur(5px);
+    will-change: transform;
+  }
+  .hp-steam {
+    display: none;
+    position: absolute;
+    bottom: 58%;
+    width: 15%;
+    height: auto;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hp-steam--a {
+    left: 36%;
+  }
+  .hp-steam--b {
+    left: 52%;
+    width: 13%;
+  }
+
+  /* ---------- Callouts ---------- */
+  .hero-callouts {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    pointer-events: none;
+  }
+  .co {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+  }
+  .co.is-on,
+  .co.is-leaving {
+    visibility: visible;
+  }
+  .co-line,
+  .co-dot,
+  .co-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .co-line {
+    width: 1px;
+    height: 1px;
+    background: rgb(244 235 220 / 0.85);
+    transform-origin: 0 50%;
+    transform: translate3d(var(--lx, 0), var(--y, 0), 0) scaleX(calc(var(--len, 0) * var(--draw)));
+    transition: --draw 420ms var(--ease-rise);
+  }
+  .co--left .co-line {
+    transform-origin: 100% 50%;
+    transform: translate3d(calc(var(--lx, 0) - 1px), var(--y, 0), 0) scaleX(calc(var(--len, 0) * var(--draw)));
+  }
+  .co-dot {
+    width: 0.95rem;
+    height: 0.95rem;
+    margin: -0.475rem 0 0 -0.475rem;
+    border-radius: 50%;
+    border: 1.5px solid rgb(244 235 220 / 0.9);
+    background: radial-gradient(circle, var(--cream) 0 28%, rgb(22 17 14 / 0.35) 32%);
+    transform: translate3d(var(--ax, 0), var(--y, 0), 0) scale(var(--dot));
+    transition: --dot 300ms var(--ease-settle);
+  }
+  .co-label {
+    display: grid;
+    gap: 0.1rem;
+    min-width: 11rem;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    color: var(--cream);
+    text-shadow: 0 1px 12px rgb(0 0 0 / 0.55);
+    transform: translate3d(var(--tx, 0), calc(var(--y, 0) - 100% - 0.55rem + var(--rise)), 0);
+    opacity: var(--fade);
+    transition:
+      --rise 380ms var(--ease-rise),
+      --fade 300ms var(--ease-rise);
+  }
+  .co-label strong {
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+  .co-label span {
     color: var(--cream-2);
+    font-size: 0.82rem;
   }
-  .hero-status {
-    margin-top: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-weight: 650;
+  .co--right .co-label {
+    text-align: right;
+    transform: translate3d(calc(var(--tx, 0) - 100%), calc(var(--y, 0) - 100% - 0.55rem + var(--rise)), 0);
   }
-  @media (max-width: 639px) {
-    .hero-status {
-      min-height: 3.1em;
+  .co {
+    --draw: 0;
+    --dot: 0.4;
+    --rise: 10px;
+    --fade: 0;
+  }
+  .co.is-on {
+    --draw: 1;
+    --dot: 1;
+    --rise: 0px;
+    --fade: 1;
+  }
+  .co.is-on .co-label {
+    transition-delay: 120ms;
+  }
+  /* Handy/Tablet: Label liegt über der Pizza → dezente Fläche für Lesbarkeit */
+  @media (max-width: 1023.98px) {
+    .co-label {
+      min-width: 0;
+      padding: 0.45rem 0.7rem 0.5rem;
+      border-radius: 0.6rem;
+      background: rgb(22 17 14 / 0.62);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      text-shadow: none;
     }
   }
-  .hero-order {
-    margin-top: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+
+  /* ---------- Unten: Text + CTAs ---------- */
+  .hero-foot {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
   }
-  .hero-mode {
-    flex: 1 1 18rem;
-    max-width: 22rem;
+  .hf-cta {
+    display: grid;
+    gap: 0.6rem;
   }
-  .hero-cta {
-    flex: 1 1 14rem;
-    max-width: 22rem;
-  }
-  .hero-phone {
-    margin-top: 1.1rem;
+  .hero-sub {
+    max-width: 30rem;
     color: var(--cream-2);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .hf-text :global(.hero-status) {
+    margin-top: 0.5rem;
     font-size: 0.95rem;
   }
-  .hero-phone a {
+  .hf-phone {
+    color: var(--cream-2);
+    font-size: 0.92rem;
+  }
+  .hf-phone a {
     color: var(--cream);
     font-weight: 650;
   }
-  .hero-caption {
-    position: absolute;
-    right: 2.5rem;
-    bottom: 2.5rem;
-    display: none;
-    padding: 0.6rem 1rem;
-    border-radius: var(--r-round);
-    background: rgb(22 17 14 / 0.75);
-    color: var(--cream);
-    font-weight: 650;
-    font-size: 0.95rem;
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(6px);
+
+  /* CTA-Interaktion: ruhig, nicht verspielt */
+  .hero-btn {
     transition:
-      opacity var(--d-ui) var(--ease-rise),
-      transform var(--d-ui) var(--ease-rise);
+      background-color var(--d-hover) var(--ease-rise),
+      color var(--d-hover) var(--ease-rise),
+      border-color var(--d-hover) var(--ease-rise),
+      box-shadow 420ms var(--ease-rise),
+      transform 420ms var(--ease-settle);
   }
-  .hero-caption.is-visible {
-    opacity: 1;
-    transform: none;
+  .hero-btn :global(.btn-arrow) {
+    transition: transform 420ms var(--ease-settle);
   }
-  @media (min-width: 1024px) and (hover: hover) {
-    .hero-caption {
+  @media (hover: hover) {
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+    .hero-btn.btn--primary:hover {
+      box-shadow:
+        0 10px 30px -8px rgb(255 122 61 / 0.55),
+        inset 0 1px 0 rgb(255 255 255 / 0.18);
+    }
+    .hero-btn:hover :global(.btn-arrow) {
+      transform: translateX(4px);
+    }
+    .hero-btn.btn--ghost:hover {
+      background: rgb(244 235 220 / 0.06);
+    }
+  }
+  .hero-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ---------- Tablet ---------- */
+  @media (min-width: 640px) {
+    .hero {
+      --hero-fs: min(13vw, 7rem);
+      --pw: 128vw;
+    }
+    .hf-cta {
+      grid-template-columns: auto auto;
+      justify-content: start;
+    }
+  }
+
+  /* ---------- Desktop: Ebenen-Komposition wie eine Kampagne ---------- */
+  @media (min-width: 1024px) {
+    .hero {
+      --hero-fs: min(10vw, 16.5svh, 12rem);
+      --pw: min(74vw, 128svh, 1500px);
+      --ph: calc(var(--pw) / var(--pizza-ar));
+      /* senkrechtes Raster: Eyebrow → Zeile 1 → Zeile 2 → hinterer Pizzarand.
+         Der Rand schneidet Zeile 2 immer gleich tief an, egal wie hoch das Fenster ist. */
+      --t0: calc(var(--header-h) + clamp(1.25rem, 4.5svh, 3.5rem));
+      --l1: calc(var(--t0) + 1.55rem);
+      --l2: calc(var(--l1) + 0.86 * var(--hero-fs));
+      --rim: calc(var(--l2) + 0.66 * var(--hero-fs));
+      display: block;
+      height: 100vh;
+      height: 100svh;
+      min-height: 40rem;
+      padding: 0;
+    }
+    .hero-ghost {
+      display: block;
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-variation-settings: 'SOFT' 100;
+      font-size: calc(var(--hero-fs) * 1.75);
+      line-height: 0.8;
+      letter-spacing: -0.045em;
+      color: rgb(244 235 220 / 0.035);
+      white-space: nowrap;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .hg-1 {
+      position: absolute;
+      left: calc(var(--gutter) + 0.12em);
+      top: calc(var(--l1) - 0.62 * var(--hero-fs));
+    }
+    .hg-2 {
+      position: absolute;
+      right: calc(var(--gutter) - 0.06em);
+      top: calc(var(--l2) - 0.42 * var(--hero-fs));
+    }
+    .hero-type {
+      position: absolute;
+      inset: 0;
+      display: block;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      position: absolute;
+      left: var(--gutter);
+      top: var(--t0);
+      margin: 0;
+    }
+    .hero-line {
+      position: absolute;
+      will-change: transform;
+    }
+    .hl-1 {
+      left: calc(var(--gutter) - 0.04em);
+      top: var(--l1);
+    }
+    .hl-2 {
+      right: var(--gutter);
+      top: var(--l2);
+    }
+    .hero-stage {
+      position: absolute;
+      left: 50%;
+      top: calc(var(--rim) - var(--far) * var(--ph));
+      width: var(--pw);
+      margin: 0;
+      transform: translateX(-50%);
+      pointer-events: auto;
+    }
+    .hp-steam {
       display: block;
     }
+    .hp-object {
+      transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotate(-2.6deg) scale(0.97);
+    }
+    .hero-foot {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      gap: 2rem;
+      padding: 0 var(--gutter) clamp(1.5rem, 4svh, 2.75rem);
+    }
+    .hero-sub {
+      max-width: 23rem;
+      font-size: 0.95rem;
+    }
+    .hf-cta {
+      grid-template-columns: auto auto;
+      justify-content: center;
+    }
+    .hf-phone {
+      justify-self: end;
+      text-align: right;
+    }
   }
-  @media (max-width: 1023px) {
-    .hero-order > * {
-      max-width: none;
+  /* kleiner Desktop: Text links, Buttons rechts, Telefon darunter */
+  @media (min-width: 1024px) and (max-width: 1279.98px) {
+    .hero-foot {
+      grid-template-columns: minmax(0, 1fr) auto;
+      row-gap: 0.6rem;
+    }
+    .hf-text {
+      grid-row: span 2;
+    }
+    .hf-cta {
+      justify-content: end;
+    }
+  }
+
+  /* ---------- Bewegung nur, wenn erwünscht ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-line,
+    .hero-eyebrow,
+    .hero-foot {
+      animation: hero-rise 0.9s var(--ease-rise) both;
+    }
+    .hl-1 {
+      animation-delay: 0.08s;
+    }
+    .hl-2 {
+      animation-delay: 0.16s;
+    }
+    .hero-foot {
+      animation-delay: 0.3s;
+    }
+    .hero-stage {
+      animation: hero-in 1.4s var(--ease-rise) 0.05s both;
+    }
+    @media (min-width: 1024px) {
+      .hp-steam--a {
+        animation: steam 9s linear 1.2s infinite;
+      }
+      .hp-steam--b {
+        animation: steam 11s linear 4.6s infinite;
+      }
+    }
+  }
+  .hero:global(.intro-done) .hero-line,
+  .hero:global(.intro-done) .hero-eyebrow,
+  .hero:global(.intro-done) .hero-foot,
+  .hero:global(.intro-done) .hero-stage {
+    animation: none;
+  }
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+  }
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes steam {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 12%, 0) scale(0.9, 0.85);
+    }
+    25% {
+      opacity: 0.13;
+    }
+    70% {
+      opacity: 0.07;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(6%, -38%, 0) scale(1.15, 1.25);
     }
   }
 </style>
 
 <style is:global>
-  /* Stücke (per JS erzeugt) */
-  .hero-pizza .slice {
-    position: absolute;
-    inset: 0;
-    transition:
-      transform 520ms var(--ease-settle),
-      filter 520ms var(--ease-rise);
+  /* animierbare Variablen für die Callouts (ohne Unterstützung: sofort sichtbar) */
+  @property --draw {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
   }
-  .hero-pizza .slice img {
-    width: 100%;
-    height: 100%;
+  @property --dot {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0.4;
   }
-  .hero-pizza.has-slices > picture {
-    visibility: hidden;
+  @property --fade {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
   }
-  .hero-pizza .slice.is-active {
-    transform: translate(calc(var(--dx) * 3.2%), calc(var(--dy) * 3.2%));
-    filter: drop-shadow(0 18px 22px rgb(0 0 0 / 0.45));
+  @property --rise {
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 10px;
   }
-  .hero-pizza.is-hovering {
-    cursor: pointer;
+  @media (prefers-reduced-motion: reduce) {
+    .hero .co {
+      --rise: 0px !important;
+    }
   }
 </style>

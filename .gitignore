@@ -8,3 +8,4 @@ dist/
 qa-output/
 *.log
 .DS_Store
+scripts/hero/.cache/
