@@ -1,0 +1,69 @@
+---
+import Page from '../layouts/Page.astro';
+import { site } from '../data/index.ts';
+import { formatEuro } from '../lib/pricing.ts';
+import { closingSentence } from '../lib/hours.ts';
+const { business, ordering, zones } = site;
+const minOrders = [...new Set(zones.map((z) => z.minOrder))];
+const fees = [...new Set(zones.map((z) => z.fee))];
+---
+
+<Page
+  title="Bestellinformationen – Pizzarella Wuppertal"
+  description="So funktioniert die Online-Bestellung bei Pizzarella Wuppertal: Vertragsschluss, Preise, Lieferung, Abholung und Bezahlung."
+  eyebrow="Rechtliches"
+  heading="Bestell­informationen"
+  intro="Alles Wichtige zur Online-Bestellung – kurz und verständlich."
+  path="/bestellinfos/"
+>
+  <div class="prose">
+    <h2>Anbieter</h2>
+    <p>{business.name}, Inh. {business.owner}, {business.address.street}, {business.address.zip} {business.address.city}. Telefon {business.phone.display}{business.email && `, E-Mail ${business.email}`}.</p>
+
+    <h2>So kommt der Vertrag zustande</h2>
+    <p>
+      Die Speisekarte auf dieser Website ist noch kein verbindliches Angebot. Mit dem Klick auf „Zahlungspflichtig bestellen“ gibst du eine verbindliche Bestellung ab. Wir bestätigen den Eingang
+      auf der Website und – wenn du eine E-Mail-Adresse angibst – per E-Mail. Der Vertrag kommt zustande, wenn wir die Bestellung annehmen, spätestens mit der Zubereitung bzw. Auslieferung. Bei
+      Rückfragen (z. B. zur Adresse) melden wir uns unter der angegebenen Telefonnummer.
+    </p>
+
+    <h2>Preise</h2>
+    <p>
+      Alle Preise sind Endpreise in Euro inklusive gesetzlicher Mehrwertsteuer. Bei Getränken ist ein ggf. anfallendes Pfand im angegebenen Preis enthalten und wird dort ausgewiesen.
+    </p>
+
+    <h2>Lieferung</h2>
+    <ul>
+      <li>Liefergebiet: {zones.reduce((n, z) => n + z.zips.length, 0)} Postleitzahlen in Wuppertal ({zones.flatMap((z) => z.zips).join(', ')}).</li>
+      <li>
+        Mindestbestellwert: {minOrders.map((m) => formatEuro(m)).join(' / ')}{ordering.minOrderExcludeCategories.includes('getraenke') && ' (Getränke zählen nicht mit)'}.
+      </li>
+      <li>Liefergebühr: {fees.every((f) => f === 0) ? 'keine' : fees.map((f) => formatEuro(f)).join(' / ')}.</li>
+      <li>Wir liefern so schnell wie möglich bzw. zur gewählten Wunschzeit. Angaben zur Lieferzeit sind unverbindliche Richtwerte.</li>
+    </ul>
+
+    <h2>Abholung</h2>
+    <p>Abholung bei uns in der {business.address.street}, {business.address.zip} {business.address.city}. Für Abholungen gibt es keinen Mindestbestellwert.</p>
+
+    <h2>Bezahlung</h2>
+    <p>{ordering.payment.map((p) => `${p.label}${p.detail ? ` (${p.detail})` : ''}`).join(', ')}.</p>
+
+    <h2>Öffnungszeiten</h2>
+    <p>
+      {closingSentence(business.hours)} Online-Bestellungen nehmen wir bis {business.hours.lastOrderMinutesBeforeClose} Minuten vor Ladenschluss an
+      {ordering.allowPreorder && '; außerhalb der Öffnungszeiten kannst du für eine Wunschzeit vorbestellen'}.
+    </p>
+
+    <h2>Kein Widerrufsrecht für Speisen</h2>
+    <p>
+      Ein Widerrufsrecht besteht nicht bei Verträgen über die Lieferung von Waren, die schnell verderben können oder nach Kundenspezifikation zubereitet werden (§ 312g Abs. 2 Nr. 1 und 2 BGB).
+      Das betrifft unsere frisch zubereiteten Speisen. Wenn etwas mit deiner Bestellung nicht stimmt, ruf uns bitte direkt an – wir finden eine Lösung.
+    </p>
+
+    <h2>Allergene</h2>
+    <p>Hinweise zu Allergenen und Zusatzstoffen findest du unter <a href="/allergene/">Allergene &amp; Zusatzstoffe</a>.</p>
+
+    <h2>Streitbeilegung</h2>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  </div>
+</Page>

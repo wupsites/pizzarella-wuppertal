@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import HoursList from '../components/HoursList.astro';
+import { site } from '../data/index.ts';
+import { breadcrumbJsonLd } from '../lib/seo.ts';
+
+const { business } = site;
+const mapsQuery = encodeURIComponent(`Pizzarella, ${business.address.street}, ${business.address.zip} ${business.address.city}`);
+const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace(/\/?$/, '/');
+---
+
+<Base
+  title="Kontakt & Anfahrt – Pizzarella, Friedrich-Engels-Allee 117, Wuppertal"
+  description={`Pizzarella Wuppertal: ${business.address.street}, ${business.address.zip} ${business.address.city}. Telefon ${business.phone.display}. Öffnungszeiten, Anfahrt und Kontakt.`}
+  current="kontakt"
+  jsonLd={[breadcrumbJsonLd(siteUrl, [{ name: 'Start', path: '/' }, { name: 'Kontakt', path: '/kontakt/' }])]}
+>
+  <header class="wrap page-head">
+    <p class="label">Kontakt &amp; Anfahrt</p>
+    <h1 class="d1">Hier findest du uns.</h1>
+  </header>
+
+  <div class="wrap contact-grid">
+    <section class="c-card on-night grain" aria-labelledby="c-addr">
+      <h2 class="label" id="c-addr">Adresse</h2>
+      <address>
+        <span class="c-street">{business.address.street.replace(/\s*\d+\w?$/, '')}</span>
+        <span class="c-no" aria-hidden="true">{business.address.street.match(/(\d+\w?)$/)?.[1]}</span>
+        <span class="sr-only">{business.address.street}</span>
+        <span class="c-city">{business.address.zip} {business.address.city}</span>
+      </address>
+      <div class="c-actions">
+        <a class="btn btn--light" href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`} target="_blank" rel="noopener"><Icon name="route" /> Google Maps <span class="sr-only">(öffnet in neuem Tab)</span></a>
+        <a class="btn btn--ghost" href={`https://maps.apple.com/?q=${mapsQuery}`} target="_blank" rel="noopener">Apple Karten <span class="sr-only">(öffnet in neuem Tab)</span></a>
+      </div>
+    </section>
+
+    <section class="c-card" aria-labelledby="c-tel">
+      <h2 class="label" id="c-tel">Telefon &amp; E-Mail</h2>
+      <a class="c-phone" href={`tel:${business.phone.e164}`}>{business.phone.display}</a>
+      {business.email && <p><a href={`mailto:${business.email}`}>{business.email}</a></p>}
+      <p class="muted">Bestellen geht am schnellsten <a href="/speisekarte/">online über die Speisekarte</a> – oder ruf einfach an.</p>
+    </section>
+
+    <section class="c-card" aria-labelledby="c-hours">
+      <h2 class="label" id="c-hours">Öffnungszeiten</h2>
+      <p class="c-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></p>
+      <HoursList />
+    </section>
+  </div>
+</Base>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 1.25rem;
+    padding-bottom: var(--section);
+  }
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+    .contact-grid > :first-child {
+      grid-row: span 2;
+    }
+  }
+  .c-card {
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    border-radius: var(--r-l);
+    background: var(--paper);
+  }
+  .c-card.on-night {
+    background: var(--night);
+    color: var(--cream);
+  }
+  .c-card .label {
+    margin-bottom: 1rem;
+    color: var(--tomato-ink);
+  }
+  .c-card.on-night .label {
+    color: var(--cheese);
+  }
+  address {
+    display: grid;
+    font-style: normal;
+  }
+  .c-street {
+    font-size: 1.3rem;
+    font-weight: 650;
+  }
+  .c-no {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(6rem, 3rem + 10vw, 12rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--cheese);
+    margin: 0.4rem 0;
+  }
+  .c-city {
+    color: var(--cream-2);
+    font-size: 1.1rem;
+  }
+  .c-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .c-phone {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(2rem, 1.4rem + 2.5vw, 3.2rem);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    margin-bottom: 0.6rem;
+  }
+  .c-card p + p {
+    margin-top: 0.6rem;
+  }
+  .c-card a:not(.btn):not(.c-phone) {
+    color: var(--tomato-ink);
+    font-weight: 600;
+  }
+  .c-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.9rem;
+    font-weight: 650;
+  }
+</style>

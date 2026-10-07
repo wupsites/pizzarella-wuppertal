@@ -8,6 +8,7 @@ import Sheets from '../components/Sheets.astro';
 import { site } from '../data/index.ts';
 import { buildClientData, serializeForScript } from '../lib/client-data.ts';
 import { restaurantJsonLd } from '../lib/seo.ts';
+import { spriteSvg } from '../lib/icons.ts';
 
 interface Props {
   title: string;
@@ -63,6 +64,7 @@ const ld = [restaurantJsonLd(site, siteUrl), ...jsonLd];
     {ld.map((obj) => <script type="application/ld+json" set:html={serializeForScript(obj)} />)}
   </head>
   <body class={bodyClass}>
+    <Fragment set:html={spriteSvg()} />
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
     <Header overlay={overlayHeader} current={current} />
     <main id="main" tabindex="-1">

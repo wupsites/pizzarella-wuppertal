@@ -1,0 +1,70 @@
+---
+/** Inhaltsseiten (Rechtliches, Infos): ruhiger Kopf + lesefreundliche Spalte. */
+import Base from './Base.astro';
+import { breadcrumbJsonLd } from '../lib/seo.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  heading: string;
+  intro?: string;
+  current?: string;
+  path: string;
+  noindex?: boolean;
+  wide?: boolean;
+}
+const { title, description, eyebrow, heading, intro, current = '', path, noindex = false, wide = false } = Astro.props;
+const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace(/\/?$/, '/');
+---
+
+<Base title={title} description={description} current={current} noindex={noindex} jsonLd={[breadcrumbJsonLd(siteUrl, [{ name: 'Start', path: '/' }, { name: heading.replace(/\u00AD/g, ''), path }])]}>
+  <header class="wrap page-head">
+    <p class="label">{eyebrow}</p>
+    <h1 class="d1">{heading}</h1>
+    {intro && <p class="lead">{intro}</p>}
+  </header>
+  <div class:list={['wrap', 'page-body', { 'is-wide': wide }]}>
+    <slot />
+  </div>
+</Base>
+
+<style>
+  .page-body {
+    padding-bottom: var(--section);
+  }
+  .page-body:not(.is-wide) > :global(*) {
+    max-width: 52rem;
+  }
+  .page-body :global(.prose) {
+    font-size: 1.02rem;
+  }
+  .page-body :global(.prose h2:first-child) {
+    margin-top: 0;
+  }
+  .page-body :global(.data-table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .page-body :global(.data-table th),
+  .page-body :global(.data-table td) {
+    padding: 0.6rem 0.75rem 0.6rem 0;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-body :global(.data-table th) {
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: var(--fs-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .page-body :global(.callout) {
+    padding: 1rem 1.2rem;
+    border-radius: var(--r-m);
+    background: var(--dough-2);
+  }
+</style>

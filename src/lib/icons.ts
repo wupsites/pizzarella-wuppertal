@@ -64,3 +64,12 @@ export function iconSvg(name: string, cls = '', label?: string): string {
   const a11y = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true" focusable="false"';
   return `<svg class="i i-${name}${cls ? ` ${cls}` : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" ${a11y}>${body}</svg>`;
 }
+
+/** Häufig wiederholte Icons (Listen) als <use>-Referenz auf das Sprite in Base.astro */
+export const SPRITE_ICONS = ['plus', 'check', 'leaf', 'flame'];
+export function iconUse(name: string, cls = ''): string {
+  return `<svg class="i i-${name}${cls ? ` ${cls}` : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><use href="#s-${name}"/></svg>`;
+}
+export function spriteSvg(): string {
+  return `<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">${SPRITE_ICONS.map((n) => `<symbol id="s-${n}" viewBox="0 0 24 24">${ICONS[n]}</symbol>`).join('')}</svg>`;
+}

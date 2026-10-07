@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import DeliveryPickup from '../components/home/DeliveryPickup.astro';
+import LateHours from '../components/home/LateHours.astro';
+import FinalCta from '../components/home/FinalCta.astro';
+import { site } from '../data/index.ts';
+import { formatEuro } from '../lib/pricing.ts';
+import { breadcrumbJsonLd } from '../lib/seo.ts';
+
+const { zones } = site;
+const zipCount = zones.reduce((n, z) => n + z.zips.length, 0);
+const min = formatEuro(Math.min(...zones.map((z) => z.minOrder)));
+const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace(/\/?$/, '/');
+---
+
+<Base
+  title="Pizza & Döner Lieferservice Wuppertal – Liefergebiet & Abholung | Pizzarella"
+  description={`Pizzarella liefert in ${zipCount} Postleitzahlen in Wuppertal – ohne Liefergebühr, Mindestbestellwert ${min} (ohne Getränke). Oder abholen in der Friedrich-Engels-Allee 117.`}
+  current="lieferung"
+  jsonLd={[breadcrumbJsonLd(siteUrl, [{ name: 'Start', path: '/' }, { name: 'Lieferung & Abholung', path: '/lieferung-abholung/' }])]}
+>
+  <header class="wrap page-head">
+    <p class="label">Lieferservice Wuppertal</p>
+    <h1 class="d1">Lieferung &amp; Abholung</h1>
+    <p class="lead">Pizza, Döner, Lahmacun und mehr – wir liefern in {zipCount} Postleitzahlen in Wuppertal, ohne Liefergebühr. Oder du holst bei uns in der Friedrich-Engels-Allee ab.</p>
+  </header>
+  <DeliveryPickup />
+  <LateHours />
+  <FinalCta />
+</Base>
+
+<script>
+  import '../scripts/home.ts';
+</script>

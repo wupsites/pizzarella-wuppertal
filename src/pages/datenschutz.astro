@@ -1,0 +1,70 @@
+---
+import Page from '../layouts/Page.astro';
+import { site } from '../data/index.ts';
+const { business } = site;
+const stand = 'Oktober 2026';
+---
+
+<Page
+  title="Datenschutz – Pizzarella Wuppertal"
+  description="Datenschutzerklärung von Pizzarella Wuppertal: welche Daten wir bei Bestellungen verarbeiten – ohne Tracking, ohne Werbe-Cookies."
+  eyebrow="Rechtliches"
+  heading="Datenschutz"
+  intro="Kurz vorweg: Diese Website verwendet keine Tracking- oder Werbe-Cookies, keine Analyse-Dienste und keine eingebetteten Inhalte von Drittanbietern. Wir verarbeiten nur, was wir für deine Bestellung brauchen."
+  path="/datenschutz/"
+>
+  <div class="prose">
+    <h2>1. Verantwortlicher</h2>
+    <p>
+      {business.name}, Inh. {business.owner}<br />
+      {business.address.street}, {business.address.zip} {business.address.city}<br />
+      Telefon: {business.phone.display}{business.email && <><br />E-Mail: <a href={`mailto:${business.email}`}>{business.email}</a></>}
+    </p>
+
+    <h2>2. Aufruf der Website (Server-Logfiles)</h2>
+    <p>
+      Beim Aufruf der Website verarbeitet unser Hosting-Dienstleister technisch notwendige Daten: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browser-Typ und -Version, Betriebssystem
+      sowie die zuvor besuchte Seite (Referrer). Das dient der sicheren und stabilen Bereitstellung der Website (Art. 6 Abs. 1 lit. f DSGVO). Logdaten werden nach kurzer Zeit gelöscht, sofern sie
+      nicht zur Aufklärung eines Sicherheitsvorfalls benötigt werden. Der Hosting-Dienstleister verarbeitet die Daten in unserem Auftrag.
+    </p>
+
+    <h2>3. Bestellungen</h2>
+    <p>Wenn du über die Website bestellst, verarbeiten wir:</p>
+    <ul>
+      <li>deinen Namen und deine Telefonnummer (für Rückfragen),</li>
+      <li>bei Lieferung deine Adresse und ggf. Hinweise zur Zustellung,</li>
+      <li>freiwillig deine E-Mail-Adresse (für eine Bestellbestätigung),</li>
+      <li>die bestellten Gerichte, Anmerkungen, Wunschzeit und Zahlart.</li>
+    </ul>
+    <p>
+      Rechtsgrundlage ist die Erfüllung des Vertrags bzw. vorvertragliche Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO). Die Bestellung wird uns elektronisch übermittelt (z. B. per E-Mail); die
+      dafür eingesetzten Dienstleister handeln in unserem Auftrag. Bestelldaten bewahren wir auf, solange es gesetzliche Aufbewahrungspflichten erfordern (insbesondere nach Handels- und
+      Steuerrecht), danach werden sie gelöscht.
+    </p>
+
+    <h2>4. Speicherung in deinem Browser</h2>
+    <p>
+      Damit dein Warenkorb und deine Wahl „Lieferung oder Abholung“ beim Weiterklicken erhalten bleiben, speichert die Website diese Angaben im lokalen Speicher deines Browsers (localStorage).
+      Diese Daten verlassen dein Gerät nicht, bis du eine Bestellung abschickst. Die Speicherung ist für den von dir gewünschten Dienst unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Du kannst
+      sie jederzeit über die Einstellungen deines Browsers löschen. Cookies setzen wir nicht.
+    </p>
+
+    <h2>5. Schriften und externe Links</h2>
+    <p>
+      Alle Schriften werden von unserem eigenen Server geladen – es findet keine Verbindung zu Google Fonts oder anderen Schriftdiensten statt. Links zu Kartendiensten (Google Maps, Apple Karten)
+      öffnen erst nach deinem Klick die Seite des jeweiligen Anbieters; dort gelten dessen Datenschutzbestimmungen.
+    </p>
+
+    <h2>6. Kontakt per Telefon oder E-Mail</h2>
+    <p>Wenn du uns anrufst oder schreibst, verarbeiten wir deine Angaben, um dein Anliegen zu bearbeiten (Art. 6 Abs. 1 lit. b bzw. f DSGVO).</p>
+
+    <h2>7. Deine Rechte</h2>
+    <p>
+      Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen
+      (Art. 15–21 DSGVO). Wende dich dazu einfach an uns. Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. bei der Landesbeauftragten für Datenschutz und
+      Informationsfreiheit Nordrhein-Westfalen.
+    </p>
+
+    <p class="muted">Stand: {stand}</p>
+  </div>
+</Page>

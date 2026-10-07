@@ -1,0 +1,41 @@
+---
+import Page from '../layouts/Page.astro';
+import { site } from '../data/index.ts';
+const { business } = site;
+---
+
+<Page
+  title="Impressum – Pizzarella Wuppertal"
+  description="Impressum von Pizzarella, Inh. Emre Budak, Friedrich-Engels-Allee 117, 42285 Wuppertal."
+  eyebrow="Rechtliches"
+  heading="Impressum"
+  path="/impressum/"
+>
+  <div class="prose">
+    <h2>Angaben gemäß § 5 DDG</h2>
+    <p>
+      {business.name}<br />
+      Inh. {business.owner}<br />
+      {business.address.street}<br />
+      {business.address.zip} {business.address.city}
+    </p>
+
+    <h2>Kontakt</h2>
+    <p>
+      Telefon: <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a><br />
+      {business.email && <>E-Mail: <a href={`mailto:${business.email}`}>{business.email}</a></>}
+    </p>
+
+    <h2>Verbraucherstreitbeilegung</h2>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+    <h2>Verantwortlich für den Inhalt</h2>
+    <p>{business.owner}, Anschrift wie oben.</p>
+
+    <h2>Haftung für Inhalte und Links</h2>
+    <p>
+      Wir erstellen die Inhalte dieser Website mit Sorgfalt. Für Inhalte externer Websites, auf die wir verlinken (z. B. Kartendienste), sind ausschließlich deren Betreiber verantwortlich. Wenn
+      uns Rechtsverletzungen bekannt werden, entfernen wir betroffene Inhalte oder Links umgehend.
+    </p>
+  </div>
+</Page>

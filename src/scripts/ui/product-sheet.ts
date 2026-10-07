@@ -3,7 +3,7 @@
  * Bottom-Sheet auf dem Handy, zentriertes Fenster am Desktop.
  */
 import { formatEuro, lineKey, PricingError, type LineInput } from '../../lib/pricing.ts';
-import type { ClientProduct } from '../../lib/catalog.ts';
+import { choicePrice, type ClientProduct } from '../../lib/catalog.ts';
 import { iconSvg } from '../../lib/icons.ts';
 import { cart } from '../store.ts';
 import { categoryName, data, product } from '../data.ts';
@@ -31,25 +31,46 @@ function sizeViz(p: ClientProduct): string {
   </div>`;
 }
 
-function groupHtml(g: ClientProduct['options'][number], selected: string[]): string {
+function groupHtml(g: ClientProduct['options'][number], selected: string[], variantId: string): string {
   const type = g.type === 'single' ? 'radio' : 'checkbox';
-  const free = g.choices.filter((c) => c.price === 0).length;
-  const hint = g.required ? 'Pflichtauswahl' : g.type === 'multi' ? (g.max ? `bis zu ${g.max}` : 'optional, mehrere möglich') : 'optional';
-  return `<fieldset class="ps-group" data-group="${g.id}">
-    <legend><span class="h4">${esc(g.label)}</span> <span class="label muted">${hint}</span></legend>
-    <div class="ps-choices${g.choices.length > 8 ? ' is-dense' : ''}">
-    ${g.choices
-      .map(
-        (c) => `<label class="choice choice--sm">
-          <input type="${type}" name="opt-${g.id}" value="${c.id}" ${selected.includes(c.id) ? 'checked' : ''} ${g.required && type === 'radio' ? 'required' : ''}>
+  const choices = g.choices.filter((c) => choicePrice(c, variantId) !== null);
+  if (!choices.length) return '';
+  const allFree = choices.every((c) => choicePrice(c, variantId) === 0);
+  const hint = g.required ? (g.type === 'single' ? 'bitte wählen' : 'mindestens eins') : g.max ? `optional · bis zu ${g.max}` : 'optional';
+  const body = `<div class="ps-choices${choices.length > 8 ? ' is-dense' : ''}">
+    ${choices
+      .map((c) => {
+        const add = choicePrice(c, variantId) ?? 0;
+        return `<label class="choice choice--sm">
+          <input type="${type}" name="opt-${g.id}" value="${c.id}" ${selected.includes(c.id) ? 'checked' : ''}>
           <span class="${type === 'radio' ? 'tick' : 'box'}" aria-hidden="true"></span>
           <span class="choice-main"><span class="choice-title">${esc(c.label)}</span></span>
-          <span class="choice-price price">${c.price ? `+${formatEuro(c.price)}` : free === g.choices.length ? '' : 'inklusive'}</span>
-        </label>`,
-      )
+          <span class="choice-price price">${add ? `+${formatEuro(add)}` : allFree ? '' : 'inklusive'}</span>
+        </label>`;
+      })
       .join('')}
-    </div>
-  </fieldset>`;
+    </div>`;
+  const legend = `<legend><span class="h4">${esc(g.label)}</span> <span class="label muted">${hint}</span></legend>`;
+  // lange, optionale Listen (Extra-Zutaten) einklappen
+  if (!g.required && choices.length > 6) {
+    const n = selected.length;
+    return `<details class="ps-more" data-group-wrap="${g.id}" ${n ? 'open' : ''}><summary><span>${esc(g.label)}${n ? ` <span class="label muted">${n} gewählt</span>` : ''}</span>${iconSvg('chevron-down')}</summary>
+      <fieldset class="ps-group" data-group="${g.id}">${legend.replace('<legend>', '<legend class="sr-only">')}${body}</fieldset></details>`;
+  }
+  return `<fieldset class="ps-group" data-group="${g.id}">${legend}${body}</fieldset>`;
+}
+
+function renderGroups(p: ClientProduct, variantId: string, sel: Record<string, string[]>) {
+  const host = dialog?.querySelector<HTMLElement>('[data-ps-groups]');
+  if (host) host.innerHTML = p.options.map((g) => groupHtml(g, sel[g.id] ?? [], variantId)).join('');
+}
+
+function codesHtml(p: ClientProduct): string {
+  const legend = data().legend ?? {};
+  const a = (p.allergens ?? []).map((c) => `${c} = ${legend[c] ?? '?'}`);
+  const z = (p.additives ?? []).map((c) => `${c} = ${legend[c] ?? '?'}`);
+  const listed = a.length || z.length ? `<span>${a.length ? `<strong>Allergene:</strong> ${esc(a.join(', '))}. ` : ''}${z.length ? `<strong>Zusatzstoffe:</strong> ${esc(z.join(', '))}. ` : ''}` : '<span>';
+  return `<p class="ps-allergen muted">${iconSvg('info')}${listed}Angaben laut Betrieb – bei Allergien bitte vorher anrufen: <a href="tel:${data().phone.e164}">${esc(data().phone.display)}</a>. <a href="/allergene/">Legende</a></span></p>`;
 }
 
 function readSelection(form: HTMLFormElement): { variantId: string; options: Record<string, string[]>; note: string } {
@@ -71,7 +92,11 @@ function unitPrice(form: HTMLFormElement): number {
   const sel = readSelection(form);
   const v = current.variants.find((x) => x.id === sel.variantId) ?? current.variants[0];
   let sum = v.price;
-  for (const g of current.options) for (const id of sel.options[g.id] ?? []) sum += g.choices.find((c) => c.id === id)?.price ?? 0;
+  for (const g of current.options)
+    for (const id of sel.options[g.id] ?? []) {
+      const c = g.choices.find((x) => x.id === id);
+      if (c) sum += choicePrice(c, v.id) ?? 0;
+    }
   return sum;
 }
 
@@ -120,13 +145,14 @@ function render(p: ClientProduct, preset?: LineInput) {
         </fieldset>`
         : `<input type="hidden" name="variant" value="${p.variants[0].id}"><p class="ps-single price">${formatEuro(p.variants[0].price)}${p.variants[0].deposit ? ` <small class="muted">zzgl. ${formatEuro(p.variants[0].deposit)} Pfand</small>` : ''}</p>`
     }
-    ${p.options.map((g) => groupHtml(g, sel[g.id] ?? [])).join('')}
-    <div class="field ps-note">
-      <label for="ps-note">Anmerkung <span class="opt">(optional)</span></label>
-      <textarea class="textarea" id="ps-note" name="note" maxlength="140" rows="2" placeholder="z. B. ohne Zwiebeln">${esc(preset?.note ?? '')}</textarea>
+    <div data-ps-groups></div>
+    <div class="field ps-note${p.noteRequired ? ' is-required' : ''}">
+      <label for="ps-note">${p.noteRequired ? esc(p.notePrompt ?? 'Anmerkung') : 'Anmerkung <span class="opt">(optional)</span>'}</label>
+      <textarea class="textarea" id="ps-note" name="note" maxlength="140" rows="2" ${p.noteRequired ? 'required' : ''} placeholder="${p.noteRequired ? 'z. B. Salami' : 'z. B. ohne Zwiebeln'}">${esc(preset?.note ?? '')}</textarea>
     </div>
-    <p class="ps-allergen muted">${iconSvg('info')}<span>Allergene &amp; Zusatzstoffe: <a href="/allergene/">Infos und Rückfrage</a></span></p>
+    ${codesHtml(p)}
     <p class="ps-error" role="alert" hidden></p>`;
+  renderGroups(p, variant, sel);
   qty = preset?.qty ?? 1;
   const btnLabel = dialog.querySelector('[data-ps-label]');
   if (btnLabel) btnLabel.textContent = editingKey ? 'Übernehmen' : 'In den Warenkorb';
@@ -150,7 +176,14 @@ export function initProductSheet() {
   const form = dialog.querySelector<HTMLFormElement>('form');
   if (!form) return;
 
-  form.addEventListener('change', updateTotal);
+  form.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (t.name === 'variant' && current) {
+      const sel = readSelection(form);
+      renderGroups(current, sel.variantId, sel.options);
+    }
+    updateTotal();
+  });
   dialog.querySelector('[data-ps-inc]')?.addEventListener('click', () => {
     qty = Math.min(50, qty + 1);
     updateTotal();

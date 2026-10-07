@@ -297,6 +297,14 @@ ol[role='list'] {
   font-size: var(--fs-d1);
   line-height: 0.92;
 }
+/* lange deutsche Wörter (Bestellinformationen …) sauber trennen statt abschneiden */
+.d1,
+.d2,
+.d3 {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
 .d2 {
   font-size: var(--fs-d2);
   line-height: 1;

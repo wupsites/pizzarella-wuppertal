@@ -1,0 +1,480 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/index.ts';
+
+const { ordering, business } = site;
+const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
+---
+
+<Base title="Kasse – Pizzarella Wuppertal" description="Bestellung abschließen: Lieferung oder Abholung bei Pizzarella in Wuppertal." noindex hideMobileBar bodyClass="page-checkout">
+  <div class="wrap checkout" data-checkout>
+    <div class="co-head">
+      <a href="/speisekarte/" class="link-btn co-back"><Icon name="arrow-left" /> Weiter aussuchen</a>
+      <h1 class="d1">Kasse.</h1>
+      <p class="co-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></p>
+    </div>
+
+    <div class="co-empty" data-co-empty hidden>
+      <Icon name="plate" />
+      <p class="h4">Dein Warenkorb ist leer.</p>
+      <a class="btn btn--primary" href="/speisekarte/">Zur Speisekarte <Icon name="arrow" class="btn-arrow" /></a>
+    </div>
+
+    <div class="co-grid" data-co-main>
+      <form class="co-form" novalidate data-co-form>
+        <div class="co-errors" data-co-errors role="alert" tabindex="-1" hidden></div>
+        <div class="notice notice--warn" data-co-unavailable hidden>
+          <Icon name="phone" />
+          <span>Online-Bestellung ist gerade nicht möglich. Bitte bestell telefonisch unter <a href={`tel:${business.phone.e164}`}><strong>{business.phone.display}</strong></a> – deine Auswahl siehst du rechts.</span>
+        </div>
+
+        <fieldset class="co-step">
+          <legend class="co-legend"><span class="co-n">1</span> Wie bekommst du dein Essen?</legend>
+          {
+            both ? (
+              <div class="segmented co-mode" role="radiogroup" aria-label="Lieferung oder Abholung">
+                <input type="radio" id="co-mode-d" name="mode" value="delivery" data-mode-input checked />
+                <label for="co-mode-d">
+                  <Icon name="scooter" />
+                  Lieferung
+                </label>
+                <input type="radio" id="co-mode-p" name="mode" value="pickup" data-mode-input />
+                <label for="co-mode-p">
+                  <Icon name="store" />
+                  Abholung
+                </label>
+              </div>
+            ) : (
+              <input type="hidden" name="mode" value={ordering.modes.delivery.enabled ? 'delivery' : 'pickup'} />
+            )
+          }
+          <p class="co-mode-note muted" data-mode-text data-delivery="Wir liefern zu dir – ohne Liefergebühr." data-pickup={`Abholung bei uns: ${business.address.street}, ${business.address.zip} ${business.address.city}. Kein Mindestbestellwert.`}></p>
+        </fieldset>
+
+        <fieldset class="co-step">
+          <legend class="co-legend"><span class="co-n">2</span> Kontakt</legend>
+          <div class="co-fields">
+            <div class="field" data-field="name">
+              <label for="co-name">Name</label>
+              <input class="input" id="co-name" name="name" autocomplete="name" required maxlength="80" aria-describedby="co-name-err" />
+              <p class="field-error" id="co-name-err"><Icon name="alert" /><span></span></p>
+            </div>
+            <div class="field" data-field="phone">
+              <label for="co-phone">Telefon</label>
+              <input class="input" id="co-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" aria-describedby="co-phone-hint co-phone-err" />
+              <p class="field-hint" id="co-phone-hint">Für Rückfragen zu deiner Bestellung.</p>
+              <p class="field-error" id="co-phone-err"><Icon name="alert" /><span></span></p>
+            </div>
+            <div class="field co-wide" data-field="email">
+              <label for="co-email">E-Mail <span class="opt">(optional, für die Bestätigung)</span></label>
+              <input class="input" id="co-email" name="email" type="email" autocomplete="email" maxlength="120" aria-describedby="co-email-err" />
+              <p class="field-error" id="co-email-err"><Icon name="alert" /><span></span></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-step" data-delivery-only>
+          <legend class="co-legend"><span class="co-n">3</span> Lieferadresse</legend>
+          <div class="co-fields co-address">
+            <div class="field co-street" data-field="street">
+              <label for="co-street">Straße</label>
+              <input class="input" id="co-street" name="street" autocomplete="address-line1" maxlength="80" aria-describedby="co-street-err" />
+              <p class="field-error" id="co-street-err"><Icon name="alert" /><span></span></p>
+            </div>
+            <div class="field co-no" data-field="houseNumber">
+              <label for="co-no">Nr.</label>
+              <input class="input" id="co-no" name="houseNumber" maxlength="12" aria-describedby="co-no-err" />
+              <p class="field-error" id="co-no-err"><Icon name="alert" /><span></span></p>
+            </div>
+            <div class="field co-zip" data-field="zip">
+              <label for="co-zip">PLZ</label>
+              <input class="input" id="co-zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" aria-describedby="co-zip-err co-zip-ok" />
+              <p class="field-hint co-zip-ok" id="co-zip-ok" aria-live="polite"></p>
+              <p class="field-error" id="co-zip-err"><Icon name="alert" /><span></span></p>
+            </div>
+            <div class="field co-city" data-field="city">
+              <label for="co-city">Ort</label>
+              <input class="input" id="co-city" name="city" autocomplete="address-level2" value={business.address.city} maxlength="60" />
+            </div>
+            <div class="field co-wide" data-field="hint">
+              <label for="co-hint">Etage, Klingel, Hinterhof … <span class="opt">(optional)</span></label>
+              <input class="input" id="co-hint" name="hint" maxlength="160" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-step">
+          <legend class="co-legend"><span class="co-n" data-step-n>4</span> Wann?</legend>
+          <div class="co-time">
+            <label class="choice">
+              <input type="radio" name="when" value="asap" checked />
+              <span class="tick" aria-hidden="true"></span>
+              <span class="choice-main"><span class="choice-title">So schnell wie möglich</span><span class="choice-sub" data-asap-sub></span></span>
+            </label>
+            {
+              ordering.allowPreorder && (
+                <label class="choice" data-later>
+                  <input type="radio" name="when" value="later" />
+                  <span class="tick" aria-hidden="true" />
+                  <span class="choice-main">
+                    <span class="choice-title">Zu einer Wunschzeit</span>
+                    <span class="choice-sub">Heute bzw. in der nächsten Öffnungszeit</span>
+                  </span>
+                </label>
+              )
+            }
+            <div class="field co-slot" data-field="time" hidden>
+              <label for="co-slot">Uhrzeit</label>
+              <select class="select" id="co-slot" name="time" aria-describedby="co-time-err"></select>
+              <p class="field-error" id="co-time-err"><Icon name="alert" /><span></span></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="co-step">
+          <legend class="co-legend"><span class="co-n" data-step-n>5</span> Bezahlung</legend>
+          <div class="co-pay">
+            {
+              ordering.payment.map((p, i) => (
+                <label class="choice">
+                  <input type="radio" name="payment" value={p.id} checked={i === 0} />
+                  <span class="tick" aria-hidden="true" />
+                  <span class="choice-main">
+                    <span class="choice-title">{p.label}</span>
+                    {p.detail && <span class="choice-sub">{p.detail}</span>}
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+          <div class="field co-note">
+            <label for="co-note">Anmerkung zur Bestellung <span class="opt">(optional)</span></label>
+            <textarea class="textarea" id="co-note" name="note" rows="2" maxlength="400" placeholder="z. B. bitte nicht klingeln, Baby schläft"></textarea>
+          </div>
+          <div class="co-hp" aria-hidden="true">
+            <label for="co-website">Website</label>
+            <input id="co-website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+        </fieldset>
+
+        <div class="co-submit">
+          <button type="submit" class="btn btn--primary btn--lg btn--block" data-co-submit>
+            <span>Zahlungspflichtig bestellen</span>
+            <span class="price" data-co-total></span>
+          </button>
+        </div>
+        <p class="co-legal muted">
+            Mit dem Klick bestellst du verbindlich. Es gelten unsere <a href="/bestellinfos/">Bestellinformationen</a>. Wie wir deine Daten nutzen, steht in der <a href="/datenschutz/">Datenschutzerklärung</a>.
+        </p>
+      </form>
+
+      <aside class="co-summary" aria-labelledby="co-sum-title">
+        <details class="co-sum-toggle" open data-sum-details>
+          <summary>
+            <h2 class="h4" id="co-sum-title">Deine Bestellung</h2>
+            <span class="price" data-co-total-sum></span>
+            <Icon name="chevron-down" />
+          </summary>
+          <div class="co-sum-body" data-co-summary></div>
+        </details>
+      </aside>
+    </div>
+
+    <section class="co-done" data-co-done hidden aria-live="polite" tabindex="-1">
+      <div class="co-done-card">
+        <span class="co-check" aria-hidden="true"><Icon name="check" /></span>
+        <p class="label">Bestellung eingegangen</p>
+        <h2 class="d2" data-done-title>Danke!</h2>
+        <p class="lead" data-done-text></p>
+        <p class="co-done-nr">Bestellnummer <strong class="num" data-done-nr></strong></p>
+        <p class="muted">Bei Fragen erreichst du uns unter <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>. Bitte nenn dabei deine Bestellnummer.</p>
+        <a class="btn btn--dark" href="/">Zur Startseite</a>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/checkout.ts';
+</script>
+
+<style>
+  .checkout {
+    padding-top: clamp(1.5rem, 1rem + 2vw, 3rem);
+    padding-bottom: var(--section);
+  }
+  .co-head {
+    margin-bottom: 2rem;
+  }
+  .co-back {
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+  }
+  .co-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+    font-weight: 650;
+  }
+  .co-grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 1024px) {
+    .co-grid {
+      grid-template-columns: minmax(0, 1fr) 24rem;
+      gap: 3.5rem;
+      align-items: start;
+    }
+  }
+  .co-summary {
+    order: -1;
+  }
+  @media (min-width: 1024px) {
+    .co-summary {
+      order: 0;
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+    }
+  }
+  .co-sum-toggle {
+    border-radius: var(--r-l);
+    background: var(--paper);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+  }
+  .co-sum-toggle summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.6rem;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .co-sum-toggle summary::-webkit-details-marker {
+    display: none;
+  }
+  .co-sum-toggle summary h2 {
+    flex: 1;
+  }
+  .co-sum-toggle summary :global(svg) {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: transform var(--d-ui) var(--ease-rise);
+  }
+  .co-sum-toggle[open] summary :global(svg) {
+    transform: rotate(180deg);
+  }
+  @media (min-width: 1024px) {
+    .co-sum-toggle summary {
+      pointer-events: none;
+    }
+    .co-sum-toggle summary :global(svg) {
+      display: none;
+    }
+  }
+  .co-sum-body {
+    padding: 0 1.25rem 1.25rem;
+  }
+  .co-step {
+    border: 0;
+    padding: 0;
+    margin: 0 0 2.25rem;
+    min-width: 0;
+  }
+  .co-legend {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--fs-h4);
+    letter-spacing: -0.01em;
+  }
+  .co-n {
+    display: inline-grid;
+    place-items: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .co-mode {
+    width: min(100%, 26rem);
+  }
+  .co-mode-note {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+  }
+  .co-fields {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .co-fields {
+      grid-template-columns: 1fr 1fr;
+    }
+    .co-wide {
+      grid-column: 1 / -1;
+    }
+    .co-address {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .co-street,
+    .co-city {
+      grid-column: span 3;
+    }
+    .co-no,
+    .co-zip {
+      grid-column: span 1;
+    }
+  }
+  .co-zip-ok:empty {
+    display: none;
+  }
+  .co-zip-ok.is-ok {
+    color: var(--herb);
+    font-weight: 600;
+  }
+  .co-time,
+  .co-pay {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .co-slot {
+    margin-top: 0.4rem;
+    max-width: 16rem;
+  }
+  .co-note {
+    margin-top: 1.25rem;
+  }
+  .co-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .co-submit {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 0.9rem var(--gutter) calc(0.9rem + env(safe-area-inset-bottom));
+    background: rgb(244 235 220 / 0.96);
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 1024px) {
+    .co-submit {
+      position: static;
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: 0;
+    }
+  }
+  .co-submit .btn {
+    justify-content: space-between;
+  }
+  .co-legal {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .co-legal a {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .co-errors {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--r-m);
+    background: #fbe3cf;
+    color: var(--tomato-ink);
+    font-weight: 600;
+  }
+  .co-errors:focus {
+    outline: 3px solid var(--tomato-ink);
+    outline-offset: 2px;
+  }
+  .co-errors ul {
+    margin-top: 0.4rem;
+    padding-left: 1.2rem;
+    font-weight: 500;
+  }
+  .co-errors a {
+    color: inherit;
+  }
+  [data-co-unavailable] {
+    margin-bottom: 1.5rem;
+  }
+  .co-empty {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+    padding: 2rem 0 4rem;
+  }
+  .co-empty > :global(svg) {
+    width: 3.5rem;
+    height: 3.5rem;
+    color: var(--ink-3);
+  }
+  .co-done {
+    display: grid;
+    place-items: center;
+    padding: 2rem 0 4rem;
+  }
+  .co-done:focus {
+    outline: none;
+  }
+  .co-done-card {
+    width: min(100%, 36rem);
+    padding: clamp(1.75rem, 1rem + 3vw, 3rem);
+    border-radius: var(--r-l);
+    background: var(--paper);
+    box-shadow: var(--shadow-2);
+    display: grid;
+    gap: 0.9rem;
+    justify-items: start;
+  }
+  .co-check {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--herb);
+    color: #fff;
+  }
+  .co-check :global(svg) {
+    width: 1.8rem;
+    height: 1.8rem;
+    stroke-width: 2.5;
+  }
+  .co-done .label {
+    color: var(--herb);
+  }
+  .co-done-nr strong {
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .co-done:not([hidden]) .co-done-card {
+      animation: pop-in 600ms var(--ease-settle);
+    }
+    .co-done:not([hidden]) .co-check {
+      animation: bump 700ms var(--ease-settle) 250ms both;
+    }
+  }
+  .page-checkout :global(.site-footer) {
+    padding-bottom: 2rem;
+  }
+</style>

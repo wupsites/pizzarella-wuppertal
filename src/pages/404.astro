@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/index.ts';
+const cats = site.catalog.visibleCategories.slice(0, 6);
+---
+
+<Base title="Seite nicht gefunden – Pizzarella Wuppertal" description="Diese Seite gibt es nicht (mehr). Zur Speisekarte von Pizzarella Wuppertal." noindex>
+  <section class="wrap nf">
+    <p class="label">Fehler 404</p>
+    <h1 class="d1">Dieses Stück fehlt.</h1>
+    <p class="lead">Die Seite gibt es nicht (mehr). Die Karte ist aber vollständig:</p>
+    <ul class="nf-links" role="list">
+      {
+        cats.map((c) => (
+          <li>
+            <a href={`/speisekarte/#${c.id}`}>
+              <Icon name={c.icon} /> {c.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="nf-actions">
+      <a class="btn btn--primary btn--lg" href="/speisekarte/">Zur Speisekarte <Icon name="arrow" class="btn-arrow" /></a>
+      <a class="btn btn--ghost btn--lg" href="/">Startseite</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: clamp(3rem, 2rem + 6vw, 8rem);
+  }
+  .nf .label {
+    color: var(--tomato-ink);
+    margin-bottom: 1rem;
+  }
+  .nf .lead {
+    margin-top: 1.25rem;
+  }
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .nf-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    padding: 0 1rem 0 0.85rem;
+    border-radius: var(--r-round);
+    background: var(--paper);
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .nf-links a :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+  @media (hover: hover) {
+    .nf-links a:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+  }
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+</style>

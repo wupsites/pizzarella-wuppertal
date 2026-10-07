@@ -1,0 +1,148 @@
+---
+import Page from '../layouts/Page.astro';
+import { site } from '../data/index.ts';
+const { allergens, catalog, business } = site;
+const used = new Set(catalog.visibleCategories.flatMap((c) => c.products.flatMap((p) => [...p.allergens, ...p.additives])));
+const rows = catalog.visibleCategories.flatMap((c) =>
+  c.products.filter((p) => p.allergens.length || p.additives.length).map((p) => ({ cat: c.name, nr: p.nr, name: p.name, a: p.allergens, z: p.additives })),
+);
+const label = (code: string) => [...allergens.allergens, ...allergens.additives].find((x) => x.code === code)?.label ?? code;
+---
+
+<Page
+  title="Allergene & Zusatzstoffe – Pizzarella Wuppertal"
+  description="Kennzeichnung von Allergenen und Zusatzstoffen auf der Speisekarte von Pizzarella Wuppertal."
+  eyebrow="Gut zu wissen"
+  heading="Allergene & Zusatzstoffe"
+  intro="Die Buchstaben und Zahlen auf der Speisekarte stehen für Allergene und kennzeichnungspflichtige Zusatzstoffe."
+  path="/allergene/"
+  wide
+>
+  <div class="allergen-page">
+    <p class="callout">
+      <strong>Allergie oder Unverträglichkeit?</strong> Bitte ruf uns vor der Bestellung kurz an:
+      <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>. Wir sagen dir, was drin ist. In unserer Küche werden viele Zutaten verarbeitet – Spuren anderer Allergene können wir
+      nicht ausschließen.
+    </p>
+
+    <div class="legend-grid">
+      <section aria-labelledby="h-all">
+        <h2 class="d3" id="h-all">Allergene</h2>
+        <dl class="legend">
+          {
+            allergens.allergens.map((a) => (
+              <div class:list={{ 'is-used': used.has(a.code) }}>
+                <dt>{a.code}</dt>
+                <dd>{a.label}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+      <section aria-labelledby="h-add">
+        <h2 class="d3" id="h-add">Zusatzstoffe</h2>
+        <dl class="legend">
+          {
+            allergens.additives.map((a) => (
+              <div class:list={{ 'is-used': used.has(a.code) }}>
+                <dt>{a.code}</dt>
+                <dd>{a.label}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+    </div>
+
+    <section aria-labelledby="h-list" class="by-dish">
+      <h2 class="d3" id="h-list">Kennzeichnung je Gericht</h2>
+      <p class="muted">Alle Gerichte, für die eine Kennzeichnung hinterlegt ist. Gerichte ohne Eintrag: bitte nachfragen.</p>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th scope="col">Nr.</th>
+              <th scope="col">Gericht</th>
+              <th scope="col">Allergene</th>
+              <th scope="col">Zusatzstoffe</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rows.map((r) => (
+                <tr>
+                  <td class="num">{r.nr ?? '–'}</td>
+                  <th scope="row">
+                    {r.name}
+                    <span class="muted"> · {r.cat}</span>
+                  </th>
+                  <td>{r.a.map((c) => `${c} (${label(c)})`).join(', ') || '–'}</td>
+                  <td>{r.z.map((c) => `${c} (${label(c)})`).join(', ') || '–'}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Page>
+
+<style>
+  .allergen-page {
+    display: grid;
+    gap: 3rem;
+  }
+  .callout a {
+    color: var(--tomato-ink);
+    font-weight: 700;
+  }
+  .legend-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .legend-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+  .legend {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0 1.5rem;
+  }
+  .legend div {
+    display: flex;
+    gap: 0.9rem;
+    align-items: baseline;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .legend dt {
+    min-width: 1.8rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+  }
+  .legend .is-used dt {
+    color: var(--tomato-ink);
+  }
+  .by-dish p {
+    margin: 0.5rem 0 1.25rem;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .table-scroll table {
+    min-width: 40rem;
+  }
+  .table-scroll tbody th {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+  }
+</style>

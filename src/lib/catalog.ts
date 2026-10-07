@@ -202,22 +202,32 @@ export function buildCatalog(raw: RawCategory[], sets: OptionSets = {}): Catalog
   };
 }
 
-/** Serialisierbare Fassung für den Browser (Warenkorb, Suche) – ohne interne Prüfvermerke. */
+/** Serialisierbare Fassung für den Browser (Warenkorb, Suche) – ohne interne Prüfvermerke.
+ *  Auswahl-Gruppen werden nur einmal übertragen (groups) und per ID referenziert. */
 export type ClientProduct = Pick<
   Product,
   'id' | 'nr' | 'categoryId' | 'name' | 'listName' | 'description' | 'variants' | 'options' | 'tags' | 'fromPrice' | 'noteRequired' | 'notePrompt' | 'allergens' | 'additives'
 >;
+type WireProduct = Omit<ClientProduct, 'options'> & { o?: string[] };
 export interface ClientCatalog {
   categories: { id: string; name: string; icon: string }[];
-  products: ClientProduct[];
+  groups: Record<string, OptionGroup>;
+  products: WireProduct[];
 }
 
 export function toClientCatalog(catalog: Catalog): ClientCatalog {
-  const products: ClientProduct[] = [];
+  const products: WireProduct[] = [];
+  const groups: Record<string, OptionGroup> = {};
   for (const c of catalog.visibleCategories) {
     for (const p of c.products) {
       if (!p.available) continue;
-      products.push({
+      const ids = p.options.map((g) => {
+        // gleiche ID + gleicher Inhalt → einmal übertragen; sonst produktspezifische ID
+        const key = groups[g.id] && JSON.stringify(groups[g.id]) !== JSON.stringify(g) ? `${p.id}:${g.id}` : g.id;
+        groups[key] = g;
+        return key;
+      });
+      const w: WireProduct = {
         id: p.id,
         nr: p.nr,
         categoryId: p.categoryId,
@@ -225,18 +235,25 @@ export function toClientCatalog(catalog: Catalog): ClientCatalog {
         listName: p.listName,
         description: p.description,
         variants: p.variants,
-        options: p.options,
         tags: p.tags,
         fromPrice: p.fromPrice,
         noteRequired: p.noteRequired,
         notePrompt: p.notePrompt,
         allergens: p.allergens,
         additives: p.additives,
-      });
+      };
+      if (ids.length) w.o = ids;
+      products.push(w);
     }
   }
   return {
     categories: catalog.visibleCategories.map((c) => ({ id: c.id, name: c.name, icon: c.icon })),
+    groups,
     products,
   };
+}
+
+/** Gegenstück im Browser: Produkte mit aufgelösten Gruppen */
+export function hydrateClientProducts(data: Pick<ClientCatalog, 'groups' | 'products'>): ClientProduct[] {
+  return data.products.map(({ o, ...rest }) => ({ ...rest, options: (o ?? []).map((id) => data.groups[id]).filter(Boolean) }));
 }

@@ -122,10 +122,20 @@ if ('IntersectionObserver' in window) {
       let best = '';
       let bestTop = Infinity;
       for (const [id, top] of visible) if (top !== Infinity && Math.abs(top) < bestTop) ((bestTop = Math.abs(top)), (best = id));
+      // ganz oben: erste Kategorie
+      const first = cats.find((c) => !c.classList.contains('is-hidden'));
+      if (first && first.getBoundingClientRect().top > window.innerHeight * 0.35) best = first.dataset.cat ?? best;
       if (best) setActive(best);
     },
     { rootMargin: '-35% 0px -55% 0px' },
   );
   cats.forEach((c) => io.observe(c));
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (window.scrollY < 80 && cats[0]) setActive(cats[0].dataset.cat ?? '');
+    },
+    { passive: true },
+  );
 }
 for (const [id, a] of links) a.addEventListener('click', () => setActive(id));

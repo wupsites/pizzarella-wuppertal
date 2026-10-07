@@ -509,3 +509,49 @@ main:focus {
   align-items: center;
   gap: 0.6rem;
 }
+
+/* ---------- Kasse: Zusammenfassung ---------- */
+.cs-lines {
+  display: grid;
+  gap: 0.2rem;
+}
+.cs-line {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.cs-q {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cs-n {
+  display: grid;
+  gap: 0.1rem;
+}
+.cs-n span {
+  color: var(--ink-2);
+  font-size: 0.86rem;
+}
+.cs-edit {
+  margin: 0.4rem 0 0.6rem;
+  text-decoration: none;
+}
+.cs-min {
+  margin-bottom: 0.9rem;
+}
+.cs-min a {
+  color: inherit;
+  font-weight: 650;
+}
+.cs-dep {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  text-align: right;
+}
+.choice.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

@@ -5,7 +5,7 @@
  */
 import type { Product } from '../lib/catalog.ts';
 import { formatEuro, variantLabel } from '../lib/pricing.ts';
-import { iconSvg } from '../lib/icons.ts';
+import { iconUse } from '../lib/icons.ts';
 
 interface Props {
   product: Product;
@@ -39,7 +39,7 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
       (p.tags.length > 0 || codes.length > 0 || hasExtras || (!multi && v0.deposit > 0)) && (
         <div class="dish-meta">
           {p.tags.map((t) => (
-            <span class={`tag tag--${t}`} set:html={iconSvg(t === 'scharf' ? 'flame' : 'leaf') + t} />
+            <span class={`tag tag--${t}`} set:html={iconUse(t === 'scharf' ? 'flame' : 'leaf') + t} />
           ))}
           {!multi && v0.deposit > 0 && <span class="dish-codes">{depositNote(v0.deposit)}</span>}
           {codes.length > 0 && (
@@ -73,7 +73,7 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
             >
               <span class="sz">{v.detail ? v.detail.replace(' cm', '') : v.label}</span>
               <span class="pr">{formatEuro(v.price)}</span>
-              <span class="plus" set:html={iconSvg('plus', 'i-plus') + iconSvg('check', 'i-check')} />
+              <span class="plus" set:html={iconUse('plus') + iconUse('check')} />
             </button>
           ))}
         </div>
@@ -90,7 +90,7 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
             data-product={p.id}
             data-variant={v0.id}
             aria-label={`${p.name}, ${formatEuro(v0.price)} – in den Warenkorb`}
-            set:html={iconSvg('plus', 'i-plus') + iconSvg('check', 'i-check')}
+            set:html={iconUse('plus') + iconUse('check')}
           />
         </>
       )
