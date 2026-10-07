@@ -145,6 +145,10 @@ function init(hero: HTMLElement) {
   let glowLast = -1;
   let beamLast = 9;
   let dimLast = -1;
+  // Sicherheitsnetz: fallen dauerhaft Bilder aus (schwache GPU), die Auflösung
+  // in kleinen Stufen senken – auf guter Hardware greift das nie
+  let slowFrames = 0;
+  let quality = 1;
 
   const frame = (now: number) => {
     raf = 0;
@@ -154,9 +158,19 @@ function init(hero: HTMLElement) {
       blooming ||
       Math.abs((pointerOn && P.inside ? 1 : 0) - P.w) > 0.01 ||
       (!slowGl && (Math.abs(P.tx - P.x) > 0.002 || Math.abs(P.ty - P.y) > 0.002));
-    const dt = Math.min(0.1, lastDraw ? (now - lastDraw) / 1000 : 0.016);
+    const rawDt = lastDraw ? (now - lastDraw) / 1000 : 0.016;
+    const dt = Math.min(0.1, rawDt);
     lastDraw = now;
     const t = now / 1000;
+    if (idle && gl && rawDt < 0.25) {
+      slowFrames = rawDt > 0.024 ? slowFrames + 1 : Math.max(0, slowFrames - 0.5);
+      if (slowFrames > 45 && quality > 0.72) {
+        quality = Math.max(0.7, quality - 0.1);
+        slowFrames = 0;
+        gl.setQuality(quality);
+        steam?.setQuality(quality);
+      }
+    }
 
     // Zeiger auswerten (Lesen vor Schreiben)
     if (pointerOn && P.moved) {
@@ -427,10 +441,11 @@ function init(hero: HTMLElement) {
         onUpdate: request,
         scrollTrigger: { trigger: hero, start: '35% top', end: 'bottom top', scrub: 0.6 },
       });
-      // Handy: kein Pin – die Wortpaare wechseln von selbst, solange der Kopf im Bild ist
+      // Handy: kein Pin, der Bildschirm ist zu klein für Scroll-Kapitel –
+      // die Wortpaare wechseln von selbst, solange der Hero im Bild ist
       const timer = window.setInterval(() => {
-        if (visible && !document.hidden && window.scrollY < G.h * 0.45) showSet((cur + 1) % sets.length);
-      }, 3400);
+        if (visible && !document.hidden) showSet((cur + 1) % sets.length);
+      }, 3200);
       return () => {
         window.clearInterval(timer);
         showSet(0);

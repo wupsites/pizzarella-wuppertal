@@ -24,6 +24,8 @@ export interface SteamView {
 
 export interface Steam {
   resize(cssW: number, cssH: number): void;
+  /** Auflösungsfaktor 0.7–1 (Sicherheitsnetz für schwache GPUs) */
+  setQuality(q: number): void;
   draw(v: SteamView): void;
 }
 
@@ -75,6 +77,9 @@ void main() {
   float h = -q.y;
   const float TOP = 1.15;
   if (h < 0.05 || h > TOP) { gl_FragColor = vec4(0.0); return; }
+  // hinter der Pizza sieht man nichts: dort gar nicht erst rechnen
+  vec2 e = (px - uEll.xy) / uEll.zw;
+  if (dot(e, e) < 0.92) { gl_FragColor = vec4(0.0); return; }
 
   float t = uTime;
   // Säule über der Pizza, oben etwas breiter
@@ -138,14 +143,21 @@ export function createSteam(canvas: HTMLCanvasElement, maxDpr: number): Steam | 
   const u = (n: string) => gl.getUniformLocation(prog, n);
   const U = { res: u('uRes'), scale: u('uScale'), time: u('uTime'), ell: u('uEll'), oven: u('uOven'), beam: u('uBeam'), amt: u('uAmt') };
   let scale = 1;
+  let quality = 1;
+  let cssSize: [number, number] = [0, 0];
 
   return {
     resize(cssW, cssH) {
+      cssSize = [cssW, cssH];
       // reduzierte Auflösung: Dampf ist weich, die feinen Fäden brauchen aber etwas Schärfe
-      scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.7;
+      scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.6 * quality;
       canvas.width = Math.max(1, Math.round(cssW * scale));
       canvas.height = Math.max(1, Math.round(cssH * scale));
       gl.viewport(0, 0, canvas.width, canvas.height);
+    },
+    setQuality(q) {
+      quality = q;
+      if (cssSize[0]) this.resize(...cssSize);
     },
     draw(v) {
       gl.clearColor(0, 0, 0, 0);

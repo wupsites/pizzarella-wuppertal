@@ -40,6 +40,8 @@ export interface Pizza3D {
   cam: Camera;
   setTexture(img: TexImageSource): void;
   resize(cssW: number, cssH: number): void;
+  /** Auflösungsfaktor 0.7–1 (Sicherheitsnetz für schwache GPUs) */
+  setQuality(q: number): void;
   draw(v: View3D): void;
   destroy(): void;
 }
@@ -66,6 +68,7 @@ void main() {
 const FRAG = `
 precision highp float;
 uniform sampler2D uTex;
+uniform sampler2D uBump;
 uniform vec3 uEye;
 uniform vec3 uKey;
 uniform vec3 uSoft;
@@ -101,10 +104,11 @@ void main() {
   vec3 tex = texture2D(uTex, uv, bias).rgb;
 
   vec3 N = normalize(vN);
-  // Relief aus der Textur (Käseblasen, Salamiränder, Krustenporen)
-  vec2 e = uTexel * 2.0;
-  float hx = lum(texture2D(uTex, uv + vec2(e.x, 0.0), bias).rgb) - lum(texture2D(uTex, uv - vec2(e.x, 0.0), bias).rgb);
-  float hz = lum(texture2D(uTex, uv + vec2(0.0, e.y), bias).rgb) - lum(texture2D(uTex, uv - vec2(0.0, e.y), bias).rgb);
+  // Relief aus der Textur (Käseblasen, Salamiränder, Krustenporen):
+  // Helligkeitsgefälle einmal beim Laden vorberechnet (bumpProg), hier ein Zugriff
+  vec2 g = texture2D(uBump, uv, bias).rg - 0.5;
+  float hx = g.x;
+  float hz = g.y;
   float top = smoothstep(0.55, 0.95, N.y);
   vec3 Nb = normalize(N + uModelRot * vec3(-hx, 0.0, -hz) * 1.8 * top);
 
@@ -203,6 +207,27 @@ void main() {
   gl_FragColor = vec4(0.0, 0.0, 0.0, a);
 }`;
 
+/** Einmalig beim Laden: Helligkeitsgefälle der Textur (Relief) in eine eigene Textur */
+const BUMP_VERT = `
+attribute vec2 aP;
+varying vec2 vUv;
+void main() {
+  vUv = aP * 0.5 + 0.5;
+  gl_Position = vec4(aP, 0.0, 1.0);
+}`;
+const BUMP_FRAG = `
+precision highp float;
+uniform sampler2D uTex;
+uniform vec2 uTexel;
+varying vec2 vUv;
+float lum(vec3 c) { return dot(c, vec3(0.299, 0.587, 0.114)); }
+void main() {
+  vec2 e = uTexel * 2.0;
+  float hx = lum(texture2D(uTex, vUv + vec2(e.x, 0.0)).rgb) - lum(texture2D(uTex, vUv - vec2(e.x, 0.0)).rgb);
+  float hz = lum(texture2D(uTex, vUv + vec2(0.0, e.y)).rgb) - lum(texture2D(uTex, vUv - vec2(0.0, e.y)).rgb);
+  gl_FragColor = vec4(vec2(hx, hz) + 0.5, 0.0, 1.0);
+}`;
+
 function buildMesh(prof: number[], segments: number) {
   const P = profile();
   const rings = P.length;
@@ -244,7 +269,10 @@ function buildMesh(prof: number[], segments: number) {
 
 export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: number; preserve?: boolean }): Pizza3D | null {
   const canvas = document.createElement('canvas');
-  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: true, depth: true, stencil: false, preserveDrawingBuffer: !!opts.preserve, powerPreference: 'default' });
+  // Kantenglättung nur unter Retina: bei doppelter Pixeldichte glättet die
+  // Auflösung selbst, Multisampling kostet dort viel und bringt kaum etwas
+  const antialias = Math.min(window.devicePixelRatio || 1, opts.maxDpr) < 1.75;
+  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias, depth: true, stencil: false, preserveDrawingBuffer: !!opts.preserve, powerPreference: 'default' });
   if (!gl) return null;
 
   const compile = (type: number, src: string) => {
@@ -264,9 +292,11 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
   };
   let prog: WebGLProgram;
   let shadowProg: WebGLProgram;
+  let bumpProg: WebGLProgram;
   try {
     prog = program(VERT, FRAG);
     shadowProg = program(SHADOW_VERT, SHADOW_FRAG);
+    bumpProg = program(BUMP_VERT, BUMP_FRAG);
   } catch (e) {
     console.warn('[hero] WebGL nicht verfügbar', e);
     return null;
@@ -305,12 +335,17 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
     dof: loc(prog, 'uDof'),
     peak: loc(prog, 'uPeak'),
     tex: loc(prog, 'uTex'),
+    bump: loc(prog, 'uBump'),
   };
   const SU = { viewProj: loc(shadowProg, 'uViewProj'), off: loc(shadowProg, 'uOff'), shade: loc(shadowProg, 'uShade') };
   const A = { pos: gl.getAttribLocation(prog, 'aPos'), nrm: gl.getAttribLocation(prog, 'aNrm'), uv: gl.getAttribLocation(prog, 'aUv'), xz: gl.getAttribLocation(shadowProg, 'aXZ') };
 
   const tex = gl.createTexture();
+  const bumpTex = gl.createTexture();
+  const bQuad = buf(new Float32Array([-1, -1, 3, -1, -1, 3]));
   let texSize = 1024;
+  let quality = 1;
+  let cssSize: [number, number] = [0, 0];
   let hasTex = false;
   const dbg = gl.getExtension('WEBGL_debug_renderer_info');
   const renderer = dbg ? String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)) : '';
@@ -335,11 +370,44 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+
+      // Relief einmal vorberechnen (statt vier Texturzugriffe pro Pixel und Bild)
+      gl.bindTexture(gl.TEXTURE_2D, bumpTex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, texSize, texSize, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      const fb = gl.createFramebuffer();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, bumpTex, 0);
+      gl.viewport(0, 0, texSize, texSize);
+      gl.disable(gl.DEPTH_TEST);
+      gl.disable(gl.BLEND);
+      gl.useProgram(bumpProg);
+      gl.activeTexture(gl.TEXTURE0);
+      gl.bindTexture(gl.TEXTURE_2D, tex);
+      gl.uniform1i(gl.getUniformLocation(bumpProg, 'uTex'), 0);
+      gl.uniform2f(gl.getUniformLocation(bumpProg, 'uTexel'), 1 / texSize, 1 / texSize);
+      const aB = gl.getAttribLocation(bumpProg, 'aP');
+      gl.bindBuffer(gl.ARRAY_BUFFER, bQuad);
+      gl.enableVertexAttribArray(aB);
+      gl.vertexAttribPointer(aB, 2, gl.FLOAT, false, 0, 0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.disableVertexAttribArray(aB);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+      gl.deleteFramebuffer(fb);
+      gl.bindTexture(gl.TEXTURE_2D, bumpTex);
+      if (pot) gl.generateMipmap(gl.TEXTURE_2D);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, pot ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR);
+      if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+      gl.viewport(0, 0, canvas.width, canvas.height);
       hasTex = true;
       if (last) api.draw(last);
     },
     resize(cssW, cssH) {
-      const dpr = Math.min(window.devicePixelRatio || 1, opts.maxDpr);
+      cssSize = [cssW, cssH];
+      const dpr = Math.min(window.devicePixelRatio || 1, opts.maxDpr) * quality;
       canvas.style.width = `${cssW}px`;
       canvas.style.height = `${cssH}px`;
       canvas.width = Math.max(1, Math.round(cssW * dpr));
@@ -347,6 +415,10 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       api.aspect = cssW / cssH;
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (last) api.draw(last);
+    },
+    setQuality(q) {
+      quality = q;
+      if (cssSize[0]) api.resize(...cssSize);
     },
     draw(v) {
       last = v;
@@ -406,6 +478,10 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, tex);
       gl.uniform1i(U.tex, 0);
+      gl.activeTexture(gl.TEXTURE1);
+      gl.bindTexture(gl.TEXTURE_2D, bumpTex);
+      gl.uniform1i(U.bump, 1);
+      gl.activeTexture(gl.TEXTURE0);
       const attr = (b: WebGLBuffer | null, l: number, size: number) => {
         gl.bindBuffer(gl.ARRAY_BUFFER, b);
         gl.enableVertexAttribArray(l);

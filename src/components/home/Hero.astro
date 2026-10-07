@@ -90,7 +90,7 @@ const sets = [
         src={still}
         alt="Frisch gebackene Pizza mit Salami, Mozzarella und Tomatensauce, Rand mit Ofenspuren"
         widths={[640, 960, 1400, 2100]}
-        sizes="(min-width: 1024px) 68vw, 128vw"
+        sizes="(min-width: 1024px) 68vw, (min-width: 640px) 86vw, 106vw"
         formats={['avif']}
         fallbackFormat="webp"
         quality={80}
@@ -125,10 +125,13 @@ const sets = [
   /* ---------- Bühne ---------- */
   .hero {
     --hero-fs: min(17vw, 5.4rem);
-    --pw: 128vw;
+    /* Handy: die Pizza passt ganz ins Bild (Umriss ≈ 85 % der Bühnenbreite) */
+    --pw: 106vw;
     position: relative;
     display: flex;
     flex-direction: column;
+    /* Headline, Pizza und Text als ein Block, mittig im Bildschirm */
+    justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
     padding: calc(var(--header-h) + 1.25rem) var(--gutter) 1.75rem;
@@ -352,7 +355,7 @@ const sets = [
     z-index: 4;
     display: grid;
     gap: 1rem;
-    margin-top: auto;
+    margin-top: clamp(0.5rem, 3svh, 1.75rem);
     padding-top: 1rem;
   }
   .hf-cta {
@@ -414,7 +417,7 @@ const sets = [
   @media (min-width: 640px) {
     .hero {
       --hero-fs: min(13vw, 7rem);
-      --pw: 112vw;
+      --pw: 86vw;
     }
     .hf-cta {
       grid-template-columns: auto auto;
@@ -430,10 +433,10 @@ const sets = [
       --ph: calc(var(--pw) / var(--pizza-ar));
       /* senkrechtes Raster: Eyebrow → Zeile 1 → Zeile 2 → hinterer Pizzarand.
          Der Rand schneidet Zeile 2 immer gleich tief an, egal wie hoch das Fenster ist. */
-      --t0: calc(var(--header-h) + clamp(1.25rem, 4.5svh, 3.5rem));
+      --t0: calc(var(--header-h) + clamp(0.75rem, 2.4svh, 2.25rem));
       --l1: calc(var(--t0) + 1.55rem);
       --l2: calc(var(--l1) + 0.86 * var(--hero-fs));
-      --rim: calc(var(--l2) + 0.66 * var(--hero-fs));
+      --rim: calc(var(--l2) + 0.5 * var(--hero-fs));
       display: block;
       height: 100vh;
       height: 100svh;
