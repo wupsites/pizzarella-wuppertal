@@ -6,7 +6,8 @@
  *  3. Scroll (GSAP ScrollTrigger, nachgeladen): Desktop gepinnt, die Pizza
  *     dreht sich, und wie in der Burger-Referenz wechseln die großen
  *     Wortpaare – die alten fliegen seitlich hinaus, die neuen kommen hinter
- *     der Pizza hervor. Handy: ohne Pin, die Wortpaare wechseln von selbst.
+ *     der Pizza hervor. Handy: kurzer Pin, in dem sich die Pizza dreht; die
+ *     Wortpaare wechseln dort von selbst.
  *  4. Licht: eine Ofenglut hinter der Pizza wandert und flackert; dieselbe
  *     Glut lenkt das Gegenlicht auf dem Rand und leuchtet den Dampf an. Der
  *     Spot von oben folgt dem Studiolicht (Maus oder langsame Drift).
@@ -371,6 +372,8 @@ function init(hero: HTMLElement) {
     const [{ gsap: g }, { ScrollTrigger }] = await Promise.all([import('gsap'), import('gsap/ScrollTrigger')]);
     gsap = g;
     g.registerPlugin(ScrollTrigger);
+    // Handy: Ein- und Ausblenden der Adressleiste löst kein Neuberechnen (Ruckeln) aus
+    ScrollTrigger.config({ ignoreMobileResize: true });
     const mm = g.matchMedia();
 
     mm.add('(min-width: 1024px)', () => {
@@ -419,31 +422,17 @@ function init(hero: HTMLElement) {
 
     mm.add('(max-width: 1023.98px)', () => {
       Object.assign(S, base(), { tx: 0, ty: 0, yaw: 0, elev: E0, out: 0, ghost: 0, glow: 1, dim: 0 });
-      g.to(S, {
-        glow: 1.2,
-        roll: 1.4,
-        scale: 1.06,
-        yaw: 34 * DEG,
-        elev: E0 + 8 * DEG,
-        ty: 0.05,
-        ease: 'none',
+      // Handy: der Hero bleibt kurz stehen (eine halbe Bildschirmhöhe), die Pizza
+      // dreht sich dabei sichtbar in der Mitte; danach läuft die Seite normal weiter
+      g.timeline({
+        defaults: { ease: 'none' },
         onUpdate: request,
-        scrollTrigger: {
-          trigger: hero,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.6,
-        },
-      });
-      // leichtes Abdunkeln in der zweiten Hälfte des Hero-Scrolls
-      g.to(S, {
-        dim: 1,
-        ease: 'sine.inOut',
-        onUpdate: request,
-        scrollTrigger: { trigger: hero, start: '35% top', end: 'bottom top', scrub: 0.6 },
-      });
-      // Handy: kein Pin, der Bildschirm ist zu klein für Scroll-Kapitel –
-      // die Wortpaare wechseln von selbst, solange der Hero im Bild ist
+        scrollTrigger: { trigger: hero, start: 'top top', end: '+=50%', pin: true, scrub: 0.5, anticipatePin: 1, invalidateOnRefresh: true },
+      })
+        .to(S, { glow: 1.2, roll: 1.2, scale: 1, yaw: 80 * DEG, elev: E0 + 3 * DEG, duration: 1, ease: 'sine.inOut' }, 0)
+        .to(S, { dim: 1, duration: 0.35, ease: 'sine.inOut' }, 0.65);
+      // der Bildschirm ist zu klein für Scroll-Kapitel – die Wortpaare
+      // wechseln von selbst, solange der Hero im Bild ist
       const timer = window.setInterval(() => {
         if (visible && !document.hidden) showSet((cur + 1) % sets.length);
       }, 3200);
