@@ -57,6 +57,17 @@ float noise3(vec3 x) {
     mix(mix(hash3(i + vec3(0.0, 0.0, 1.0)), hash3(i + vec3(1.0, 0.0, 1.0)), f.x), mix(hash3(i + vec3(0.0, 1.0, 1.0)), hash3(i + vec3(1.0, 1.0, 1.0)), f.x), f.y),
     f.z);
 }
+// gröberes Rauschen für das Wirbelfeld (drei Oktaven reichen)
+float fbm3w(vec3 p) {
+  float s = 0.0;
+  float a = 0.5;
+  for (int i = 0; i < 3; i++) {
+    s += a * noise3(p);
+    p = p * 2.03 + vec3(1.7, 9.2, 3.1);
+    a *= 0.5;
+  }
+  return s / 0.875;
+}
 float fbm3(vec3 p) {
   float s = 0.0;
   float a = 0.5;
@@ -94,7 +105,7 @@ void main() {
 
   // Strömung: steigt langsam, das Wirbelfeld verändert sich dabei selbst
   vec3 p = vec3(q.x * 3.4, h * 2.8 - t * 0.2, t * 0.08);
-  vec2 w = vec2(fbm3(p * 0.7), fbm3(p * 0.7 + vec3(5.2, 1.3, 2.7)));
+  vec2 w = vec2(fbm3w(p * 0.7), fbm3w(p * 0.7 + vec3(5.2, 1.3, 2.7)));
   float n = fbm3(p + vec3((w - 0.5) * (1.2 + 1.8 * h), 0.0));
   // dünne Schwaden statt Wolken: Grate des Rauschens
   float ridge = 1.0 - abs(2.0 * n - 1.0);
@@ -152,7 +163,7 @@ export function createSteam(canvas: HTMLCanvasElement, maxDpr: number): Steam | 
     resize(cssW, cssH) {
       cssSize = [cssW, cssH];
       // reduzierte Auflösung: Dampf ist weich, die feinen Fäden brauchen aber etwas Schärfe
-      scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.6 * quality;
+      scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.5 * quality;
       canvas.width = Math.max(1, Math.round(cssW * scale));
       canvas.height = Math.max(1, Math.round(cssH * scale));
       gl.viewport(0, 0, canvas.width, canvas.height);

@@ -248,7 +248,6 @@ const sets = [
   }
   .hw {
     display: inline-block;
-    will-change: transform, opacity;
   }
   /* Wortpaare: unsichtbar, bis sie hinter der Pizza hervorkommen; das erste
      steht im Fluss (gibt der Zeile ihre Höhe), die anderen liegen darauf */
@@ -293,7 +292,7 @@ const sets = [
     width: var(--pw);
     aspect-ratio: var(--pizza-ar);
     /* die Bühne hat oben Luft (Kameraraum): hinterer Rand schneidet Zeile 2 an */
-    margin: calc(-0.22em - var(--far) * var(--pw) / var(--pizza-ar)) 0 0 calc(50% - var(--pw) / 2);
+    margin: calc(-0.06em - var(--far) * var(--pw) / var(--pizza-ar)) 0 0 calc(50% - var(--pw) / 2);
     font-size: var(--hero-fs);
     perspective: 1600px;
     pointer-events: none;

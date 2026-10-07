@@ -353,6 +353,7 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
   const aniso = gl.getExtension('EXT_texture_filter_anisotropic');
 
   let last: View3D | null = null;
+  const rot = new Float32Array(9);
   const api: Pizza3D = {
     canvas,
     slow,
@@ -369,7 +370,8 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+      // 4-fach reicht: der flache hintere Teil liegt ohnehin in der Tiefenunschärfe
+      if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(4, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
 
       // Relief einmal vorberechnen (statt vier Texturzugriffe pro Pixel und Bild)
       gl.bindTexture(gl.TEXTURE_2D, bumpTex);
@@ -400,7 +402,7 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.bindTexture(gl.TEXTURE_2D, bumpTex);
       if (pot) gl.generateMipmap(gl.TEXTURE_2D);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, pot ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR);
-      if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+      if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(2, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
       gl.viewport(0, 0, canvas.width, canvas.height);
       hasTex = true;
       if (last) api.draw(last);
@@ -454,7 +456,8 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.uniformMatrix4fv(U.model, false, cam.model);
       gl.uniformMatrix4fv(U.viewProj, false, cam.viewProj);
       const m = cam.model;
-      gl.uniformMatrix3fv(U.modelRot, false, new Float32Array([m[0], m[1], m[2], m[4], m[5], m[6], m[8], m[9], m[10]]));
+      rot.set([m[0], m[1], m[2], m[4], m[5], m[6], m[8], m[9], m[10]]);
+      gl.uniformMatrix3fv(U.modelRot, false, rot);
       gl.uniform3f(U.eye, cam.eye[0], cam.eye[1], cam.eye[2]);
       const lx = v.light?.[0] ?? 0;
       const ly = v.light?.[1] ?? 0;

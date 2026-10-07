@@ -6,8 +6,7 @@
  *  3. Scroll (GSAP ScrollTrigger, nachgeladen): Desktop gepinnt, die Pizza
  *     dreht sich, und wie in der Burger-Referenz wechseln die großen
  *     Wortpaare – die alten fliegen seitlich hinaus, die neuen kommen hinter
- *     der Pizza hervor. Handy: kurzer Pin, in dem sich die Pizza dreht; die
- *     Wortpaare wechseln dort von selbst.
+ *     der Pizza hervor. Handy genauso (Kamera steigt dort weniger).
  *  4. Licht: eine Ofenglut hinter der Pizza wandert und flackert; dieselbe
  *     Glut lenkt das Gegenlicht auf dem Rand und leuchtet den Dampf an. Der
  *     Spot von oben folgt dem Studiolicht (Maus oder langsame Drift).
@@ -122,15 +121,16 @@ function init(hero: HTMLElement) {
     gsap.to(out[0], { x: -W * 0.75, opacity: 0, duration: 0.5, ease: 'power3.in' });
     gsap.to(out[1], { x: W * 0.75, opacity: 0, duration: 0.5, ease: 'power3.in' });
     // rein: tief hinter dem hinteren Pizzarand hervor, nach außen an den Platz
+    // (nur Verschieben + Deckkraft: der Browser muss die Schrift nicht neu zeichnen)
     gsap.fromTo(
       inn[0],
-      { x: W * 0.2, y: fs * 2.1, scale: 0.86, opacity: 0 },
-      { x: 0, y: 0, scale: 1, opacity: 1, duration: 1.05, ease: 'expo.out', delay: 0.2 },
+      { x: W * 0.2, y: fs * 2.1, opacity: 0 },
+      { x: 0, y: 0, opacity: 1, duration: 1.05, ease: 'expo.out', delay: 0.2 },
     );
     gsap.fromTo(
       inn[1],
-      { x: -W * 0.18, y: fs * 1.25, scale: 0.86, opacity: 0 },
-      { x: 0, y: 0, scale: 1, opacity: 1, duration: 1.05, ease: 'expo.out', delay: 0.3 },
+      { x: -W * 0.18, y: fs * 1.25, opacity: 0 },
+      { x: 0, y: 0, opacity: 1, duration: 1.05, ease: 'expo.out', delay: 0.3 },
     );
   };
 
@@ -150,9 +150,20 @@ function init(hero: HTMLElement) {
   // in kleinen Stufen senken – auf guter Hardware greift das nie
   let slowFrames = 0;
   let quality = 1;
+  // Takt: schafft die GPU auf einem 120-Hz-Bildschirm keine 120 Bilder, wird
+  // gleichmäßig mit 60 gezeichnet (statt unregelmäßig 70–100 → Ruckeln)
+  let minDt = 1;
+  let missed = 0;
+  let counted = 0;
+  let half = false;
+  let tick = 0;
 
   const frame = (now: number) => {
     raf = 0;
+    if (half && tick++ % 2 === 1) {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
     const slowGl = !!gl?.slow;
     const blooming = bloomStart > 0 && now - bloomStart < 1900;
     const smoothing =
@@ -164,6 +175,18 @@ function init(hero: HTMLElement) {
     lastDraw = now;
     const t = now / 1000;
     if (idle && gl && rawDt < 0.25) {
+      if (!half) {
+        minDt = Math.min(minDt, rawDt);
+        if (minDt < 0.0105) {
+          counted++;
+          if (rawDt > minDt * 1.5) missed++;
+          if (counted >= 120) {
+            half = missed / counted > 0.12;
+            counted = 0;
+            missed = 0;
+          }
+        }
+      }
       slowFrames = rawDt > 0.024 ? slowFrames + 1 : Math.max(0, slowFrames - 0.5);
       if (slowFrames > 45 && quality > 0.72) {
         quality = Math.max(0.7, quality - 0.1);
@@ -268,15 +291,15 @@ function init(hero: HTMLElement) {
       });
     }
 
-    // Typo: Ausklang beim Scrollen (Desktop)
-    const o = desk() ? S.out : 0;
+    // Typo: Ausklang beim Scrollen
+    const o = S.out;
     if (o !== typeState.out || S.ghost !== typeState.ghost) {
       typeState.out = o;
       typeState.ghost = S.ghost;
       const vw = G.w / 100;
       for (const l of lines) {
         const k = l.dataset.heroLine;
-        if (desk() && k !== '0') l.style.translate = `${((k === '1' ? -o : o) * 7 * vw).toFixed(1)}px 0`;
+        if (k !== '0') l.style.translate = `${((k === '1' ? -o : o) * 7 * vw).toFixed(1)}px 0`;
         l.style.opacity = (1 - o).toFixed(3);
       }
       if (desk() && ghost) {
@@ -376,7 +399,11 @@ function init(hero: HTMLElement) {
     ScrollTrigger.config({ ignoreMobileResize: true });
     const mm = g.matchMedia();
 
-    mm.add('(min-width: 1024px)', () => {
+    // Desktop und Handy: dieselbe Dramaturgie (Pin, Drehung, Wortpaare, Ausklang).
+    // Am Handy steigt die Kamera weniger – sonst verdeckt die Pizza Zeile 2.
+    mm.add({ desk: '(min-width: 1024px)', mob: '(max-width: 1023.98px)' }, (ctx) => {
+      const d = !!ctx.conditions?.desk;
+      const up = (deg: number) => E0 + deg * (d ? 1 : 0.35) * DEG;
       Object.assign(S, base(), { tx: 0, ty: 0, yaw: 0, elev: E0, out: 0, ghost: 0, glow: 1, dim: 0 });
       const tl = g.timeline({
         defaults: { ease: 'none' },
@@ -385,9 +412,9 @@ function init(hero: HTMLElement) {
         scrollTrigger: {
           trigger: hero,
           start: 'top top',
-          end: '+=220%',
+          end: d ? '+=220%' : '+=190%',
           pin: true,
-          scrub: 1.2,
+          scrub: d ? 1 : 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (st) => {
@@ -404,40 +431,17 @@ function init(hero: HTMLElement) {
         },
       });
       // wie in der Referenz: aufrichten, drehen, die Kamera fährt herum …
-      tl.to(S, { roll: 0, scale: 1, yaw: 14 * DEG, elev: E0 + 6 * DEG, glow: 1.12, duration: 0.16, ease: 'sine.inOut' }, 0)
-        .to(S, { roll: 0.6, scale: 1.02, yaw: 30 * DEG, elev: E0 + 8 * DEG, glow: 1.18, duration: 0.22, ease: 'sine.inOut' }, 0.16)
-        .to(S, { roll: 1.2, scale: 1.035, yaw: 46 * DEG, elev: E0 + 5 * DEG, ty: -0.01, glow: 1.22, duration: 0.22, ease: 'sine.inOut' }, 0.38)
-        .to(S, { yaw: 58 * DEG, elev: E0 + 3 * DEG, duration: 0.2, ease: 'sine.inOut' }, 0.6)
+      tl.to(S, { roll: 0, scale: 1, yaw: 14 * DEG, elev: up(6), glow: 1.12, duration: 0.16, ease: 'sine.inOut' }, 0)
+        .to(S, { roll: 0.6, scale: d ? 1.02 : 1, yaw: 30 * DEG, elev: up(8), glow: 1.18, duration: 0.22, ease: 'sine.inOut' }, 0.16)
+        .to(S, { roll: 1.2, scale: d ? 1.035 : 1, yaw: 46 * DEG, elev: up(5), ty: d ? -0.01 : 0, glow: 1.22, duration: 0.22, ease: 'sine.inOut' }, 0.38)
+        .to(S, { yaw: 58 * DEG, elev: up(3), duration: 0.2, ease: 'sine.inOut' }, 0.6)
         // … Ausklang: Drehung läuft aus, die Pizza weicht minimal zurück, die
         //    Typo gibt den Blick frei, das Licht dimmt leicht – das Ende
         .to(S, { out: 1, duration: 0.2, ease: 'power2.in' }, 0.8)
         .to(S, { dim: 1, duration: 0.24, ease: 'sine.inOut' }, 0.76)
-        .to(S, { ty: 0.012, scale: 1.0, yaw: 64 * DEG, elev: E0 + 2 * DEG, glow: 1.15, duration: 0.2, ease: 'sine.inOut' }, 0.8)
+        .to(S, { ty: d ? 0.012 : 0, scale: 1.0, yaw: 64 * DEG, elev: up(2), glow: 1.15, duration: 0.2, ease: 'sine.inOut' }, 0.8)
         .to(S, { ghost: 1, duration: 1 }, 0);
       return () => {
-        showSet(0);
-        request();
-      };
-    });
-
-    mm.add('(max-width: 1023.98px)', () => {
-      Object.assign(S, base(), { tx: 0, ty: 0, yaw: 0, elev: E0, out: 0, ghost: 0, glow: 1, dim: 0 });
-      // Handy: der Hero bleibt kurz stehen (eine halbe Bildschirmhöhe), die Pizza
-      // dreht sich dabei sichtbar in der Mitte; danach läuft die Seite normal weiter
-      g.timeline({
-        defaults: { ease: 'none' },
-        onUpdate: request,
-        scrollTrigger: { trigger: hero, start: 'top top', end: '+=50%', pin: true, scrub: 0.5, anticipatePin: 1, invalidateOnRefresh: true },
-      })
-        .to(S, { glow: 1.2, roll: 1.2, scale: 1, yaw: 80 * DEG, elev: E0 + 3 * DEG, duration: 1, ease: 'sine.inOut' }, 0)
-        .to(S, { dim: 1, duration: 0.35, ease: 'sine.inOut' }, 0.65);
-      // der Bildschirm ist zu klein für Scroll-Kapitel – die Wortpaare
-      // wechseln von selbst, solange der Hero im Bild ist
-      const timer = window.setInterval(() => {
-        if (visible && !document.hidden) showSet((cur + 1) % sets.length);
-      }, 3200);
-      return () => {
-        window.clearInterval(timer);
         showSet(0);
         request();
       };
@@ -481,8 +485,15 @@ function startDust(hero: HTMLElement, N: number) {
   let visible = true;
   new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(hero);
   let last = performance.now();
+  let odd = false;
   const loop = (now: number) => {
-    const dt = Math.min(0.05, (now - last) / 1000);
+    // Staub schwebt langsam: jedes zweite Bild reicht, spart die Hälfte
+    odd = !odd;
+    if (odd) {
+      requestAnimationFrame(loop);
+      return;
+    }
+    const dt = Math.min(0.1, (now - last) / 1000);
     last = now;
     if (visible && !document.hidden) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

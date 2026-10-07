@@ -36,7 +36,7 @@ const words = () =>
       .map((e) => e.textContent.trim())
       .join(' / '),
   );
-const stops = mobile ? [0, 0.5, 1] : [0, 0.27, 0.49, 0.7, 0.9, 1];
+const stops = [0, 0.27, 0.49, 0.7, 0.9, 1];
 for (const s of stops) {
   await p.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), Math.round(pinLen * s));
   await p.waitForTimeout(2200);
@@ -46,11 +46,5 @@ for (const s of stops) {
 await p.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 await p.waitForTimeout(2200);
 console.log('  zurück oben:', await words());
-if (mobile) {
-  // Handy: die Wortpaare wechseln von selbst
-  await p.waitForTimeout(3800);
-  console.log('  nach 3,8 s:', await words());
-  await p.screenshot({ path: `${out}/hero-${w}-auto.png` });
-}
 console.log(errors.length ? 'FEHLER:\n' + errors.join('\n') : 'Konsole sauber');
 await b.close();
