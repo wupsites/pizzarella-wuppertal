@@ -1,0 +1,11 @@
+{
+  "$comment": "Bewertungen werden nur angezeigt, wenn \"publish\": true und ein Prüfdatum gesetzt ist. Nur echte, öffentlich nachprüfbare Werte und Zitate eintragen (Quelle + Datum).",
+  "publish": false,
+  "platforms": [
+    { "id": "lieferando", "label": "Lieferando", "rating": null, "scale": 5, "count": null, "checked": null, "note": "Snapshots schwankten zwischen 4,1 (650+) und 4,7 (570+) – aktuellen Wert manuell prüfen." },
+    { "id": "ubereats", "label": "Uber Eats", "rating": null, "scale": 5, "count": null, "checked": null, "note": "Snapshot: 3,9 bei 120+ Bewertungen – manuell prüfen." },
+    { "id": "wolt", "label": "Wolt", "rating": null, "scale": 10, "count": null, "checked": null, "note": "Snapshot: 8,0/10 bei 10–20 Bewertungen – manuell prüfen." },
+    { "id": "google", "label": "Google", "rating": null, "scale": 5, "count": null, "checked": null, "note": "Nicht gefunden." }
+  ],
+  "quotes": []
+}

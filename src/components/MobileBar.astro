@@ -1,0 +1,144 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  current?: string;
+}
+const { current = '' } = Astro.props;
+---
+
+<nav class="mobile-bar" aria-label="Schnellzugriff">
+  <a href="/speisekarte/" class="mb-item" aria-current={current === 'speisekarte' ? 'page' : undefined}>
+    <Icon name="pizza" />
+    <span>Karte</span>
+  </a>
+  <a href="/speisekarte/?suche" class="mb-item" data-search-open>
+    <Icon name="search" />
+    <span>Suche</span>
+  </a>
+  <button type="button" class="mb-cart" data-cart-open data-cart-button aria-label="Warenkorb öffnen, leer">
+    <span class="mb-cart-icon">
+      <Icon name="bag" />
+      <span class="mb-count" data-cart-count hidden>0</span>
+    </span>
+    <span class="mb-cart-text">
+      <span class="mb-cart-label">Warenkorb</span>
+      <span class="mb-cart-total price" data-cart-total>0,00 €</span>
+    </span>
+  </button>
+</nav>
+
+<style>
+  .mobile-bar {
+    position: fixed;
+    z-index: 60;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.6fr;
+    gap: 0.4rem;
+    padding: 0.45rem 0.6rem calc(0.45rem + env(safe-area-inset-bottom));
+    background: rgb(22 17 14 / 0.96);
+    color: var(--cream);
+    box-shadow: 0 -10px 30px rgb(10 6 4 / 0.18);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .mobile-bar {
+      background: rgb(22 17 14 / 0.88);
+      backdrop-filter: saturate(1.3) blur(14px);
+    }
+  }
+  .mb-item,
+  .mb-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 3.1rem;
+    border-radius: var(--r-m);
+    font-weight: 650;
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      background-color var(--d-hover),
+      transform var(--d-ui) var(--ease-settle);
+  }
+  .mb-item {
+    flex-direction: column;
+    gap: 0.1rem;
+    font-size: 0.75rem;
+    font-family: var(--font-cond);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .mb-item :global(svg) {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+  .mb-item[aria-current='page'] {
+    color: var(--cheese);
+  }
+  .mb-item:active,
+  .mb-cart:active {
+    transform: scale(0.95);
+  }
+  .mb-cart {
+    background: rgb(244 235 220 / 0.12);
+    padding: 0 0.9rem;
+    justify-content: flex-start;
+  }
+  .mb-cart.has-items {
+    background: var(--tomato);
+    color: #fff;
+  }
+  .mb-cart-icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .mb-cart-icon :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .mb-count {
+    position: absolute;
+    top: -0.45rem;
+    right: -0.6rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.25rem;
+    display: grid;
+    place-items: center;
+    border-radius: var(--r-round);
+    background: var(--cheese);
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .mb-cart-text {
+    display: grid;
+    text-align: left;
+    line-height: 1.15;
+    margin-left: 0.25rem;
+  }
+  .mb-cart-label {
+    font-size: 0.75rem;
+    font-family: var(--font-cond);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .mb-cart-total {
+    font-size: 1.02rem;
+  }
+  .mb-cart:not(.has-items) .mb-cart-total {
+    opacity: 0.6;
+  }
+  @media (min-width: 1024px) {
+    .mobile-bar {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,163 @@
+{
+  "$comment": "Legende wie auf der bisherigen Website (Seite „Zusatzstoffe und Allergene“), Tippfehler korrigiert. Achtung: Die bisherige Legende mischt zwei Systeme – siehe note und docs/GO-LIVE.md.",
+  "productDataStatus": "unconfirmed",
+  "note": "Die Kennzeichnung je Gericht stammt von der bisherigen Website. Deren Legende enthält zwei unterschiedliche Buchstaben-Systeme; I und J sind nur im zweiten System definiert. Vor Go-Live vom Betrieb prüfen lassen.",
+  "allergens": [
+    {
+      "code": "A",
+      "label": "Gluten"
+    },
+    {
+      "code": "B",
+      "label": "Krebstiere"
+    },
+    {
+      "code": "C",
+      "label": "Eier"
+    },
+    {
+      "code": "D",
+      "label": "Fisch"
+    },
+    {
+      "code": "E",
+      "label": "Erdnüsse"
+    },
+    {
+      "code": "F",
+      "label": "Sojabohnen"
+    },
+    {
+      "code": "G",
+      "label": "Milch / Laktose"
+    },
+    {
+      "code": "H",
+      "label": "Nüsse"
+    },
+    {
+      "code": "I",
+      "label": "Soja",
+      "note": "nur in der zweiten Legende der bisherigen Website definiert"
+    },
+    {
+      "code": "J",
+      "label": "Sesamsamen und Sesamerzeugnisse",
+      "note": "nur in der zweiten Legende der bisherigen Website definiert"
+    },
+    {
+      "code": "L",
+      "label": "Sellerie"
+    },
+    {
+      "code": "M",
+      "label": "Senf"
+    },
+    {
+      "code": "N",
+      "label": "Sesam"
+    },
+    {
+      "code": "O",
+      "label": "Sulfite"
+    },
+    {
+      "code": "P",
+      "label": "Lupine"
+    },
+    {
+      "code": "R",
+      "label": "Weichtiere"
+    }
+  ],
+  "additives": [
+    {
+      "code": "1",
+      "label": "mit Farbstoff"
+    },
+    {
+      "code": "2",
+      "label": "mit Konservierungsstoff"
+    },
+    {
+      "code": "3",
+      "label": "mit Geschmacksverstärker"
+    },
+    {
+      "code": "4",
+      "label": "mit Phosphat"
+    },
+    {
+      "code": "5",
+      "label": "mit Geschmacksverstärker"
+    },
+    {
+      "code": "6",
+      "label": "geschwärzt"
+    },
+    {
+      "code": "7",
+      "label": "enthält eine Phenylalaninquelle"
+    },
+    {
+      "code": "8",
+      "label": "mit Süßungsmittel"
+    },
+    {
+      "code": "9",
+      "label": "koffeinhaltig"
+    },
+    {
+      "code": "10",
+      "label": "mit Säuerungsmittel"
+    },
+    {
+      "code": "11",
+      "label": "mit Stabilisator"
+    },
+    {
+      "code": "12",
+      "label": "chininhaltig"
+    },
+    {
+      "code": "13",
+      "label": "gentechnisch verändert"
+    },
+    {
+      "code": "14",
+      "label": "aus Fleischstücken zusammengefügt"
+    },
+    {
+      "code": "15",
+      "label": "taurinhaltig"
+    },
+    {
+      "code": "16",
+      "label": "mit Krebsfleischimitat"
+    },
+    {
+      "code": "17",
+      "label": "mit Säuerungsmittel"
+    },
+    {
+      "code": "18",
+      "label": "mit Stabilisator(en)"
+    },
+    {
+      "code": "19",
+      "label": "geräuchert"
+    },
+    {
+      "code": "20",
+      "label": "mit einer Zuckerart und Süßungsmittel(n)"
+    },
+    {
+      "code": "21",
+      "label": "kann bei übermäßigem Verzehr abführend wirken"
+    },
+    {
+      "code": "22",
+      "label": "gewachst"
+    }
+  ]
+}

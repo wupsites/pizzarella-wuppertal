@@ -1,0 +1,45 @@
+{
+  "id": "party-pizza",
+  "name": "Party-Pizza",
+  "icon": "party",
+  "intro": "60 × 40 cm – für volle Tische.",
+  "source": "own-site",
+  "products": [
+    {
+      "id": "party-pizza-margherita",
+      "nr": "1",
+      "name": "Party-Pizza Margherita",
+      "description": "mit Tomatensauce und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "variants": [
+        {
+          "id": "60x40",
+          "label": "60 × 40 cm",
+          "price": 29.9
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "party-pizza-nach-wahl",
+      "nr": "2",
+      "name": "Party-Pizza nach Wahl",
+      "description": "mit einem Belag nach Wahl",
+      "variants": [
+        {
+          "id": "60x40",
+          "label": "60 × 40 cm",
+          "price": 34.9
+        }
+      ],
+      "confidence": "high",
+      "noteRequired": true,
+      "notePrompt": "Welcher Belag?"
+    }
+  ]
+}

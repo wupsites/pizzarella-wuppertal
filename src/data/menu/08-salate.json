@@ -1,0 +1,88 @@
+{
+  "id": "salate",
+  "name": "Salate",
+  "icon": "salad",
+  "intro": "Alle auf Basis der Insalata Mista, mit Dressing nach Wahl.",
+  "source": "own-site",
+  "optionSets": [
+    "salat-dressing",
+    "salat-brot"
+  ],
+  "products": [
+    {
+      "id": "insalata-mista",
+      "nr": "49",
+      "name": "Insalata Mista",
+      "description": "gemischter Salat, Tomaten, Gurken, Paprika und Oliven",
+      "additives": [
+        "7"
+      ],
+      "price": 6.9,
+      "confidence": "high"
+    },
+    {
+      "id": "insalata-tonno",
+      "nr": "50",
+      "name": "Insalata Tonno",
+      "description": "Insalata Mista mit Thunfisch und Mais",
+      "allergens": [
+        "D"
+      ],
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "insalata-rucola",
+      "nr": "51",
+      "name": "Insalata Rucola",
+      "description": "Insalata Mista mit Rucola",
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "insalata-fantasia",
+      "nr": "52",
+      "name": "Insalata Fantasia",
+      "description": "Insalata Mista mit Schafskäse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 8.9,
+      "confidence": "high"
+    },
+    {
+      "id": "insalata-capricciosa",
+      "nr": "53",
+      "name": "Insalata Capricciosa",
+      "description": "Insalata Mista mit Putenschinken, Thunfisch, Ei, Peperoni, Käse und Mais",
+      "allergens": [
+        "D",
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 11.9,
+      "confidence": "high"
+    },
+    {
+      "id": "insalata-mediteran",
+      "nr": "54",
+      "name": "Insalata Mediteran",
+      "description": "Insalata Mista mit Hähnchenbrustfilet",
+      "price": 11.9,
+      "confidence": "high"
+    },
+    {
+      "id": "insalata-gamberetti",
+      "nr": "55",
+      "name": "Insalata Gamberetti",
+      "description": "Insalata Mista mit Garnelen und Knoblauch",
+      "price": 12.9,
+      "confidence": "high"
+    }
+  ]
+}

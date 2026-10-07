@@ -1,0 +1,563 @@
+{
+  "id": "pizza",
+  "name": "Pizza",
+  "icon": "pizza",
+  "intro": "Klein mit Ø 25 cm, groß mit Ø 30 cm. Extra-Zutaten nach Wunsch.",
+  "source": "own-site",
+  "optionSets": [
+    "pizza-zutaten"
+  ],
+  "variants": [
+    {
+      "id": "klein",
+      "label": "Klein",
+      "detail": "Ø 25 cm"
+    },
+    {
+      "id": "gross",
+      "label": "Groß",
+      "detail": "Ø 30 cm"
+    }
+  ],
+  "products": [
+    {
+      "id": "pizza-margherita",
+      "nr": "1",
+      "name": "Pizza Margherita",
+      "listName": "Margherita",
+      "description": "mit Tomatensauce und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "prices": {
+        "klein": 6.9,
+        "gross": 7.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-salami",
+      "nr": "2",
+      "name": "Pizza Salami",
+      "listName": "Salami",
+      "description": "mit Rindersalami",
+      "allergens": [
+        "H",
+        "I",
+        "J"
+      ],
+      "additives": [
+        "2",
+        "4",
+        "11"
+      ],
+      "prices": {
+        "klein": 7.9,
+        "gross": 9.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-funghi",
+      "nr": "3",
+      "name": "Pizza Funghi",
+      "listName": "Funghi",
+      "description": "mit Champignons",
+      "prices": {
+        "klein": 7.9,
+        "gross": 9.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-tonno",
+      "nr": "4",
+      "name": "Pizza Tonno",
+      "listName": "Tonno",
+      "description": "mit Thunfisch",
+      "allergens": [
+        "D"
+      ],
+      "prices": {
+        "klein": 7.9,
+        "gross": 9.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-spinaci",
+      "nr": "5",
+      "name": "Pizza Spinaci",
+      "listName": "Spinaci",
+      "description": "mit Spinat",
+      "prices": {
+        "klein": 7.9,
+        "gross": 9.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-spinaci-spezial",
+      "nr": "6",
+      "name": "Pizza Spinaci Spezial",
+      "listName": "Spinaci Spezial",
+      "description": "mit Schafskäse und Spinat",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-prosciutto",
+      "nr": "7",
+      "name": "Pizza Prosciutto",
+      "listName": "Prosciutto",
+      "description": "mit Putenschinken",
+      "prices": {
+        "klein": 7.9,
+        "gross": 9.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-prosciutto-e-funghi",
+      "nr": "8",
+      "name": "Pizza Prosciutto e Funghi",
+      "listName": "Prosciutto e Funghi",
+      "description": "mit Putenschinken und Champignons",
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-frutti-di-mare",
+      "nr": "9",
+      "name": "Pizza Frutti di Mare",
+      "listName": "Frutti di Mare",
+      "description": "mit Meeresfrüchten",
+      "allergens": [
+        "B",
+        "D",
+        "N"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-gamberetti",
+      "nr": "10",
+      "name": "Pizza Gamberetti",
+      "listName": "Gamberetti",
+      "description": "mit Garnelen",
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-gamberetti-spezial",
+      "nr": "11",
+      "name": "Pizza Gamberetti Spezial",
+      "listName": "Gamberetti Spezial",
+      "description": "mit Garnelen und Sauce Hollandaise",
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-napoli",
+      "nr": "12",
+      "name": "Pizza Napoli",
+      "listName": "Napoli",
+      "description": "mit Sardellen, Oliven und Kapern",
+      "additives": [
+        "7"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-orient",
+      "nr": "13",
+      "name": "Pizza Orient",
+      "listName": "Orient",
+      "description": "mit Sucuk",
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-vegetaria",
+      "nr": "14",
+      "name": "Pizza Vegetaria",
+      "listName": "Vegetaria",
+      "description": "mit verschiedenen Gemüsesorten",
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-quattro-stagioni",
+      "nr": "15",
+      "name": "Pizza Quattro Stagioni",
+      "listName": "Quattro Stagioni",
+      "description": "mit Putenschinken, Paprika, Spinat und Thunfisch",
+      "allergens": [
+        "D"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-quattro-formaggi",
+      "nr": "16",
+      "name": "Pizza Quattro Formaggi",
+      "listName": "Quattro Formaggi",
+      "description": "mit vier Käsesorten",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-mediteran",
+      "nr": "17",
+      "name": "Pizza Mediteran",
+      "listName": "Mediteran",
+      "description": "mit frischen Tomaten, Mozzarella und Oliven",
+      "additives": [
+        "7"
+      ],
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-italia",
+      "nr": "18",
+      "name": "Pizza Italia",
+      "listName": "Italia",
+      "description": "mit Spinat, Zwiebeln und Paprika",
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-hawaii",
+      "nr": "19",
+      "name": "Pizza Hawaii",
+      "listName": "Hawaii",
+      "description": "mit Putenschinken und Ananas",
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-vulcano",
+      "nr": "20",
+      "name": "Pizza Vulcano",
+      "listName": "Vulcano",
+      "description": "mit Champignons, Rindersalami und Peperoni",
+      "allergens": [
+        "H",
+        "I",
+        "J"
+      ],
+      "additives": [
+        "2",
+        "4",
+        "11"
+      ],
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-rucola",
+      "nr": "21",
+      "name": "Pizza Rucola",
+      "listName": "Rucola",
+      "description": "mit Pastirma, Rucola und Parmesan",
+      "prices": {
+        "klein": 10.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-messico",
+      "nr": "22",
+      "name": "Pizza Messico",
+      "listName": "Messico",
+      "description": "mit Hähnchenbrustfilet, Mais, Paprika und Zwiebeln",
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-bolognese",
+      "nr": "23",
+      "name": "Pizza Bolognese",
+      "listName": "Bolognese",
+      "description": "mit Bolognesesauce und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-diavolo",
+      "nr": "24",
+      "name": "Pizza Diavolo",
+      "listName": "Diavolo",
+      "description": "mit Rindersalami und Peperoni",
+      "allergens": [
+        "H",
+        "I",
+        "J"
+      ],
+      "additives": [
+        "2",
+        "4",
+        "11"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-hood",
+      "nr": "25",
+      "name": "Pizza Hood",
+      "listName": "Hood",
+      "description": "mit Pommes, Chicken-Nuggets und viel Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "prices": {
+        "klein": 9.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-patatine",
+      "nr": "26",
+      "name": "Pizza Patatine",
+      "listName": "Patatine",
+      "description": "mit Pommes",
+      "prices": {
+        "klein": 8.9,
+        "gross": 10.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-capricciosa",
+      "nr": "27",
+      "name": "Pizza Capricciosa",
+      "listName": "Capricciosa",
+      "description": "mit Putenschinken, Thunfisch, Mais und Oliven",
+      "allergens": [
+        "D"
+      ],
+      "additives": [
+        "7"
+      ],
+      "prices": {
+        "klein": 10.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-mista",
+      "nr": "28",
+      "name": "Pizza Mista",
+      "listName": "Mista",
+      "description": "mit Putenschinken, Rindersalami, Thunfisch, Spinat, Zwiebeln, Peperoni und Paprika",
+      "allergens": [
+        "H",
+        "I",
+        "J",
+        "D"
+      ],
+      "additives": [
+        "2",
+        "4",
+        "11"
+      ],
+      "prices": {
+        "klein": 10.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-camarelo",
+      "nr": "29",
+      "name": "Pizza Camarelo",
+      "listName": "Camarelo",
+      "description": "mit karamellisierten Zwiebeln und Paprika",
+      "prices": {
+        "klein": 7.9,
+        "gross": 9.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-chili-cheese",
+      "nr": "30",
+      "name": "Pizza Chili-Cheese",
+      "listName": "Chili-Cheese",
+      "description": "mit Chili-Cheese-Sauce, Jalapeños, Cheddar-Käse und Hähnchenbrustfilet",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "prices": {
+        "klein": 10.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-doener",
+      "nr": "31",
+      "name": "Pizza Döner",
+      "listName": "Döner",
+      "description": "mit Hähnchen-Kebab und Salat",
+      "prices": {
+        "klein": 9.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-fresh",
+      "nr": "32",
+      "name": "Pizza Fresh",
+      "listName": "Fresh",
+      "description": "mit Crème fraîche, Champignons, Zwiebeln und Spinat",
+      "prices": {
+        "klein": 8.9,
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-ela",
+      "nr": "33",
+      "name": "Pizza Ela",
+      "listName": "Ela",
+      "description": "mit Hähnchenbrustfilet, Broccoli und Sauce Hollandaise",
+      "prices": {
+        "klein": 9.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-bbq-chicken",
+      "nr": "34",
+      "name": "Pizza BBQ-Chicken",
+      "listName": "BBQ-Chicken",
+      "description": "mit Hähnchenbrustfilet, BBQ-Sauce und Mais",
+      "prices": {
+        "klein": 9.9,
+        "gross": 12.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "calzone",
+      "nr": "35",
+      "name": "Calzone",
+      "description": "mit Putenschinken, Champignons, Rindersalami, Peperoni und Käse",
+      "allergens": [
+        "H",
+        "I",
+        "J",
+        "G"
+      ],
+      "additives": [
+        "2",
+        "4",
+        "11"
+      ],
+      "prices": {
+        "gross": 11.9
+      },
+      "confidence": "high"
+    },
+    {
+      "id": "calzone-spezial",
+      "nr": "36",
+      "name": "Calzone Spezial",
+      "description": "mit Hähnchenbrustfilet, Broccoli und Sauce Hollandaise",
+      "prices": {
+        "gross": 12.9
+      },
+      "confidence": "high"
+    }
+  ]
+}

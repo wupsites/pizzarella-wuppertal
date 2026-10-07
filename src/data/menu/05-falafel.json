@@ -1,0 +1,64 @@
+{
+  "id": "falafel",
+  "name": "Falafel",
+  "icon": "falafel",
+  "intro": "Kichererbsen-Bällchen. Alles vegetarisch.",
+  "source": "own-site",
+  "products": [
+    {
+      "id": "falafeltasche",
+      "nr": "75",
+      "name": "Falafeltasche",
+      "description": "mit Kichererbsen-Bällchen, Salat und Sauce im Fladenbrot",
+      "price": 6.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "gemuese-falafeltasche",
+      "nr": "76",
+      "name": "Gemüse-Falafeltasche",
+      "description": "mit gegrilltem Gemüse, Falafel, Salat und Sauce",
+      "price": 7.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "falafel-dueruem",
+      "nr": "77",
+      "name": "Falafel Dürüm",
+      "description": "mit Falafel im Dürümwrap",
+      "price": 7.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "falafelteller",
+      "nr": "78",
+      "name": "Falafelteller",
+      "description": "mit Falafel, Pommes, Salat und Sauce",
+      "price": 10.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "falafel-box",
+      "nr": "79",
+      "name": "Falafel Box",
+      "description": "Falafel mit Pommes und Sauce",
+      "price": 6.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

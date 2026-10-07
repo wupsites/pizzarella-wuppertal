@@ -1,0 +1,431 @@
+---
+import Base from '../layouts/Base.astro';
+import Dish from '../components/Dish.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/index.ts';
+import { formatEuro } from '../lib/pricing.ts';
+import { menuJsonLd, breadcrumbJsonLd } from '../lib/seo.ts';
+
+const { catalog, ordering } = site;
+const cats = catalog.visibleCategories;
+const total = cats.reduce((n, c) => n + c.products.length, 0);
+const pizzaFrom = cats.find((c) => c.id === 'pizza')?.fromPrice ?? null;
+const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace(/\/?$/, '/');
+const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
+---
+
+<Base
+  title="Speisekarte: Pizza, Döner & Lahmacun bestellen – Pizzarella Wuppertal"
+  description={`Die komplette Karte von Pizzarella in Wuppertal: ${total} Gerichte – Pizza ab ${pizzaFrom ? formatEuro(pizzaFrom) : ''}, Döner, Lahmacun, Falafel, Pasta, Salate. Online bestellen, liefern lassen oder abholen.`}
+  current="speisekarte"
+  bodyClass="page-menu"
+  jsonLd={[menuJsonLd(site, siteUrl), breadcrumbJsonLd(siteUrl, [{ name: 'Start', path: '/' }, { name: 'Speisekarte', path: '/speisekarte/' }])]}
+>
+  <section class="menu-head wrap">
+    <div class="mh-text">
+      <p class="label">Speisekarte · Friedrich-Engels-Allee 117</p>
+      <h1 class="d1">Die ganze Karte.</h1>
+      <p class="mh-sub">
+        <span><span class="num">{total}</span> Gerichte{pizzaFrom && <> · Pizza ab <span class="num">{formatEuro(pizzaFrom)}</span></>}</span>
+        <span class="mh-status"><span class="dot" aria-hidden="true"></span><span data-status-line></span></span>
+      </p>
+    </div>
+    {
+      pickup && (
+        <div class="segmented mh-mode" role="radiogroup" aria-label="Lieferung oder Abholung">
+          <input type="radio" id="mode-menu-d" name="mode-menu" value="delivery" data-mode-input checked />
+          <label for="mode-menu-d"><Icon name="scooter" />Lieferung</label>
+          <input type="radio" id="mode-menu-p" name="mode-menu" value="pickup" data-mode-input />
+          <label for="mode-menu-p"><Icon name="store" />Abholung</label>
+        </div>
+      )
+    }
+  </section>
+
+  <div class="menu-bar" data-menu-bar>
+    <div class="wrap menu-bar-inner">
+      <form class="menu-search" role="search" onsubmit="return false">
+        <label class="sr-only" for="menu-q">Speisekarte durchsuchen</label>
+        <Icon name="search" class="ms-icon" />
+        <input id="menu-q" type="search" placeholder="Suchen: Pizza, Döner, vegetarisch …" autocomplete="off" enterkeyhint="search" spellcheck="false" />
+        <button type="button" class="ms-clear" data-search-clear hidden aria-label="Suche löschen"><Icon name="x" /></button>
+      </form>
+      <nav class="cat-nav" aria-label="Kategorien">
+        <ul role="list" data-cat-nav>
+          {
+            cats.map((c) => (
+              <li>
+                <a href={`#${c.id}`} data-cat-link={c.id}>
+                  <Icon name={c.icon} />
+                  {c.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap menu-layout">
+    <div class="menu-col">
+      <p class="search-status label" data-search-status aria-live="polite"></p>
+      <div class="search-empty" data-search-empty hidden>
+        <Icon name="search" />
+        <p class="h4">Nichts gefunden für „<span data-search-term></span>“.</p>
+        <p class="muted">Versuch’s mit „Pizza“, „Döner“, „vegetarisch“ oder einer Nummer von der Karte.</p>
+        <button type="button" class="btn btn--dark btn--sm" data-search-clear>Suche zurücksetzen</button>
+      </div>
+
+      {
+        cats.map((c) => (
+          <section class="menu-cat" id={c.id} aria-labelledby={`h-${c.id}`} data-cat={c.id}>
+            <header class="cat-head">
+              <span class="cat-glyph" aria-hidden="true">
+                <Icon name={c.icon} />
+              </span>
+              <div class="cat-text">
+                <h2 class="d2" id={`h-${c.id}`}>
+                  {c.name}
+                </h2>
+                {c.intro && <p class="muted">{c.intro}</p>}
+              </div>
+              <p class="cat-count label">
+                <span class="num">{c.products.length}</span> {c.products.length === 1 ? 'Gericht' : 'Gerichte'}
+                {c.fromPrice !== null && (
+                  <>
+                    {' '}
+                    · ab <span class="num">{formatEuro(c.fromPrice)}</span>
+                  </>
+                )}
+              </p>
+            </header>
+            <div class="dish-list">
+              {c.products.map((p) => (
+                <Dish product={p} categoryName={c.name} />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <aside class="menu-foot">
+        <Icon name="info" />
+        <p>
+          Hochgestellte Kennzeichnungen (z. B. <span class="num">G · 2</span>) erklären wir unter <a href="/allergene/">Allergene &amp; Zusatzstoffe</a>. Bei Allergien
+          frag bitte vor der Bestellung kurz telefonisch nach. Alle Preise in Euro inkl. MwSt.
+        </p>
+      </aside>
+    </div>
+
+    <aside class="cart-col" aria-labelledby="panel-title">
+      <div class="cart-panel" data-cart-panel>
+        <div class="sheet-head">
+          <h2 class="d3" id="panel-title" tabindex="-1">Deine Bestellung</h2>
+        </div>
+        <div class="cart-view" data-cart-view></div>
+      </div>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/menu.ts';
+</script>
+
+<style>
+  .menu-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    padding-top: clamp(2rem, 1rem + 4vw, 4.5rem);
+    padding-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+  .mh-text .label {
+    color: var(--tomato-ink);
+    margin-bottom: 0.9rem;
+  }
+  .mh-sub {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1.25rem;
+    color: var(--ink-2);
+    font-size: 1.05rem;
+  }
+  .mh-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .mh-mode {
+    min-width: min(100%, 22rem);
+  }
+
+  /* Sticky-Leiste: Suche + Kategorien */
+  .menu-bar {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 40;
+    background: rgb(244 235 220 / 0.95);
+    border-block: 1px solid var(--line);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .menu-bar {
+      background: rgb(244 235 220 / 0.86);
+      backdrop-filter: saturate(1.4) blur(14px);
+    }
+  }
+  .menu-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.6rem;
+  }
+  .menu-search {
+    position: relative;
+    flex: 0 0 auto;
+    width: 2.9rem;
+    transition: width var(--d-sheet) var(--ease-rise);
+  }
+  @media (min-width: 1024px) {
+    .menu-search {
+      width: 15rem;
+    }
+    .menu-search:not(:focus-within):not(.has-value) input::placeholder {
+      color: var(--ink-3) !important;
+    }
+  }
+  .menu-search:focus-within,
+  .menu-search.has-value {
+    width: min(100%, 22rem);
+  }
+  .menu-search :global(.ms-icon) {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    width: 1.2rem;
+    height: 1.2rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .menu-search input {
+    width: 100%;
+    min-height: 2.9rem;
+    padding: 0.5rem 2.6rem 0.5rem 2.6rem;
+    border-radius: var(--r-round);
+    border: 1.5px solid var(--line-strong);
+    background: var(--paper);
+    font-size: 1rem;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .menu-search input::placeholder {
+    color: var(--ink-3);
+  }
+  .menu-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+  .menu-search:not(:focus-within):not(.has-value) input::placeholder {
+    color: transparent;
+  }
+  .menu-search input:focus-visible {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgb(28 21 17 / 0.14);
+  }
+  .ms-clear {
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.3rem;
+    height: 2.3rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+  }
+  .ms-clear :global(svg) {
+    width: 1rem;
+    height: 1rem;
+  }
+  .cat-nav {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+  }
+  .cat-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-nav ul {
+    display: flex;
+    gap: 0.35rem;
+    padding-right: 2.5rem;
+  }
+  .cat-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.9rem;
+    padding: 0 1rem 0 0.8rem;
+    border-radius: var(--r-round);
+    font-weight: 650;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background-color var(--d-hover) var(--ease-rise),
+      color var(--d-hover) var(--ease-rise);
+  }
+  .cat-nav a :global(svg) {
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  @media (hover: hover) {
+    .cat-nav a:hover {
+      background: rgb(28 21 17 / 0.07);
+    }
+  }
+  .cat-nav a[aria-current='true'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .cat-nav a.is-empty {
+    opacity: 0.35;
+  }
+
+  /* Layout */
+  .menu-layout {
+    display: grid;
+    gap: 2.5rem;
+    padding-bottom: var(--section);
+  }
+  .cart-col {
+    display: none;
+  }
+  @media (min-width: 1200px) {
+    .menu-layout {
+      grid-template-columns: minmax(0, 1fr) 24rem;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .cart-col {
+      display: block;
+      position: sticky;
+      top: calc(var(--header-h) + var(--menubar-h, 4.2rem) + 1rem);
+      padding-top: 2rem;
+    }
+    .cart-col :global(.cart-panel) {
+      position: static;
+      max-height: calc(100svh - var(--header-h) - var(--menubar-h, 4.2rem) - 3rem);
+    }
+  }
+  .menu-cat {
+    padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+    scroll-margin-top: calc(var(--header-h) + var(--menubar-h, 4.2rem) + 0.5rem);
+  }
+  .cat-head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .cat-glyph {
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: var(--cheese);
+    color: var(--ink);
+  }
+  .cat-glyph :global(svg) {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+  .cat-text p {
+    margin-top: 0.3rem;
+  }
+  .cat-count {
+    grid-column: 1 / -1;
+    color: var(--ink-2);
+  }
+  @media (min-width: 640px) {
+    .cat-head {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+    .cat-count {
+      grid-column: auto;
+      align-self: end;
+      text-align: right;
+    }
+  }
+  .search-status:empty {
+    display: none;
+  }
+  .search-status {
+    padding-top: 1.5rem;
+    color: var(--ink-2);
+  }
+  .search-empty {
+    display: grid;
+    justify-items: start;
+    gap: 0.6rem;
+    padding: 3rem 0 1rem;
+  }
+  .search-empty > :global(svg) {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--ink-3);
+  }
+  .menu-foot {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: var(--r-m);
+    background: var(--dough-2);
+    font-size: 0.92rem;
+  }
+  .menu-foot :global(svg) {
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.15rem;
+  }
+  .menu-foot a {
+    color: var(--tomato-ink);
+    font-weight: 650;
+  }
+  :global(.dish.is-hidden),
+  .menu-cat.is-hidden {
+    display: none;
+  }
+  @media (max-width: 639px) {
+    .menu-bar-inner {
+      flex-wrap: nowrap;
+    }
+    .menu-search:focus-within,
+    .menu-search.has-value {
+      width: 100%;
+    }
+    .menu-search:focus-within + .cat-nav,
+    .menu-search.has-value + .cat-nav {
+      display: none;
+    }
+    .cat-nav a {
+      padding: 0 0.85rem 0 0.7rem;
+    }
+  }
+</style>

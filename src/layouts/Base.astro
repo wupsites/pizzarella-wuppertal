@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import '../styles/components.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBar from '../components/MobileBar.astro';
+import Sheets from '../components/Sheets.astro';
+import { site } from '../data/index.ts';
+import { buildClientData, serializeForScript } from '../lib/client-data.ts';
+import { restaurantJsonLd } from '../lib/seo.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  current?: string;
+  overlayHeader?: boolean;
+  jsonLd?: unknown[];
+  noindex?: boolean;
+  bodyClass?: string;
+  hideMobileBar?: boolean;
+  ogImage?: string;
+}
+const { title, description, current = '', overlayHeader = false, jsonLd = [], noindex = false, bodyClass = '', hideMobileBar = false, ogImage = '/og.jpg' } = Astro.props;
+const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace(/\/?$/, '/');
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const clientData = serializeForScript(buildClientData(site));
+const ld = [restaurantJsonLd(site, siteUrl), ...jsonLd];
+---
+
+<!doctype html>
+<html lang="de" data-open="unknown">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#16110e" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="preload" href="/fonts/fraunces-display.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="restaurant.restaurant" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Pizzarella Wuppertal" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pizzarella – Pizza, Döner & mehr aus Wuppertal" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {ld.map((obj) => <script type="application/ld+json" set:html={serializeForScript(obj)} />)}
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <Header overlay={overlayHeader} current={current} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    {!hideMobileBar && <MobileBar current={current} />}
+    <Sheets />
+    <script type="application/json" id="site-data" set:html={clientData} />
+    <script>
+      import '../scripts/app.ts';
+    </script>
+  </body>
+</html>

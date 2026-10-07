@@ -1,0 +1,149 @@
+---
+/** Globale Dialoge: Warenkorb, Produkt-Auswahl, Mobilmenü. */
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import HoursList from './HoursList.astro';
+import { site } from '../data/index.ts';
+const { business } = site;
+---
+
+<dialog class="sheet sheet--side cart-sheet" id="cart-sheet" aria-labelledby="cart-title">
+  <span class="sheet-grip" aria-hidden="true"></span>
+  <div class="sheet-head">
+    <h2 id="cart-title" class="d3" tabindex="-1">Warenkorb</h2>
+    <button type="button" class="icon-btn" data-close aria-label="Warenkorb schließen"><Icon name="x" /></button>
+  </div>
+  <div class="cart-view" data-cart-view></div>
+</dialog>
+
+<dialog class="sheet sheet--center product-sheet" id="product-sheet" aria-labelledby="ps-title">
+  <form class="ps-form" novalidate>
+    <span class="sheet-grip" aria-hidden="true"></span>
+    <div class="sheet-head ps-head">
+      <span></span>
+      <button type="button" class="icon-btn" data-close aria-label="Schließen"><Icon name="x" /></button>
+    </div>
+    <div class="sheet-body" data-ps-body></div>
+    <div class="sheet-foot ps-foot">
+      <div class="stepper stepper--lg" role="group" aria-label="Menge">
+        <button type="button" data-ps-dec aria-label="Eins weniger"><Icon name="minus" /></button>
+        <span class="qty" data-ps-qty aria-live="polite">1</span>
+        <button type="button" data-ps-inc aria-label="Eins mehr"><Icon name="plus" /></button>
+      </div>
+      <button type="submit" class="btn btn--primary btn--lg ps-submit">
+        <span data-ps-label>In den Warenkorb</span>
+        <span class="price" data-ps-total></span>
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="sheet sheet--side site-menu" id="site-menu" aria-label="Menü">
+  <span class="sheet-grip" aria-hidden="true"></span>
+  <div class="sheet-head">
+    <Logo size="sm" />
+    <button type="button" class="icon-btn" data-close aria-label="Menü schließen"><Icon name="x" /></button>
+  </div>
+  <div class="sheet-body">
+    <nav aria-label="Seiten">
+      <ul role="list" class="sm-links">
+        <li><a href="/speisekarte/">Speisekarte <Icon name="arrow" /></a></li>
+        <li><a href="/lieferung-abholung/">Lieferung &amp; Abholung <Icon name="arrow" /></a></li>
+        <li><a href="/kontakt/">Kontakt &amp; Anfahrt <Icon name="arrow" /></a></li>
+        <li><a href="/allergene/">Allergene &amp; Zusatzstoffe <Icon name="arrow" /></a></li>
+      </ul>
+    </nav>
+    <div class="sm-info">
+      <p class="label sm-status"><span class="dot" aria-hidden="true"></span> <span data-status-line></span></p>
+      <a class="btn btn--dark btn--block" href={`tel:${business.phone.e164}`}><Icon name="phone" /> {business.phone.display}</a>
+      <HoursList compact />
+      <p class="muted sm-legal"><a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a> · <a href="/bestellinfos/">Bestellinfos</a></p>
+    </div>
+  </div>
+</dialog>
+
+<div class="toasts" id="toasts" role="region" aria-label="Benachrichtigungen"></div>
+<div id="sr-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<style>
+  .cart-sheet {
+    --sheet-w: 30rem;
+  }
+  .cart-sheet .cart-view {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cart-sheet h2:focus {
+    outline: none;
+  }
+  .product-sheet {
+    --sheet-w: 36rem;
+  }
+  .ps-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: inherit;
+    height: 100%;
+  }
+  .ps-head {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 0.75rem;
+  }
+  .ps-head .icon-btn {
+    background: var(--paper);
+    box-shadow: var(--shadow-1);
+  }
+  .ps-foot {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .ps-submit {
+    flex: 1;
+    justify-content: space-between;
+    padding-inline: 1.4rem;
+  }
+  .site-menu {
+    --sheet-w: 24rem;
+  }
+  .sm-links {
+    display: grid;
+    border-top: 1px solid var(--line);
+  }
+  .sm-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 3.6rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.45rem;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+  }
+  .sm-links a :global(svg) {
+    width: 1.2rem;
+    height: 1.2rem;
+    color: var(--tomato);
+  }
+  .sm-info {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .sm-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sm-legal {
+    font-size: 0.9rem;
+  }
+</style>

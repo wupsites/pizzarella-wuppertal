@@ -1,0 +1,107 @@
+[
+ {
+  "url": "https://pizzarella-wuppertal.de/",
+  "final": "https://pizzarella-wuppertal.de/",
+  "status": 200,
+  "name": "home",
+  "title": "Pizzarella Wuppertal – Pizza Lieferservice Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/pizza/",
+  "final": "https://pizzarella-wuppertal.de/pizza/",
+  "status": 200,
+  "name": "_pizza",
+  "title": "Pizza – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/party-pizza/",
+  "final": "https://pizzarella-wuppertal.de/party-pizza/",
+  "status": 200,
+  "name": "_party_pizza",
+  "title": "Party-Pizza – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/pasta/",
+  "final": "https://pizzarella-wuppertal.de/pasta/",
+  "status": 200,
+  "name": "_pasta",
+  "title": "Pasta – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/insalatone/",
+  "final": "https://pizzarella-wuppertal.de/insalatone/",
+  "status": 200,
+  "name": "_insalatone",
+  "title": "Insalatone – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/panini-pizzabroetchen/",
+  "final": "https://pizzarella-wuppertal.de/panini-pizzabroetchen/",
+  "status": 200,
+  "name": "_panini_pizzabroetchen",
+  "title": "Panini Pizzabrötchen – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/doener/",
+  "final": "https://pizzarella-wuppertal.de/doener/",
+  "status": 200,
+  "name": "_doener",
+  "title": "Döner – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/falafel/",
+  "final": "https://pizzarella-wuppertal.de/falafel/",
+  "status": 200,
+  "name": "_falafel",
+  "title": "Falafel – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/snacks/",
+  "final": "https://pizzarella-wuppertal.de/snacks/",
+  "status": 200,
+  "name": "_snacks",
+  "title": "Snacks – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/dessert/",
+  "final": "https://pizzarella-wuppertal.de/dessert/",
+  "status": 200,
+  "name": "_dessert",
+  "title": "Dessert – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/saucen/",
+  "final": "https://pizzarella-wuppertal.de/saucen/",
+  "status": 200,
+  "name": "_saucen",
+  "title": "Saucen – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/drinks/",
+  "final": "https://pizzarella-wuppertal.de/drinks/",
+  "status": 200,
+  "name": "_drinks",
+  "title": "Drinks – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/zusatzstoffe-und-allergene/",
+  "final": "https://pizzarella-wuppertal.de/zusatzstoffe-und-allergene/",
+  "status": 200,
+  "name": "_zusatzstoffe_und_allergene",
+  "title": "Zusatzstoffe und Allergene – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/impressum/",
+  "final": "https://pizzarella-wuppertal.de/impressum/",
+  "status": 200,
+  "name": "_impressum",
+  "title": "Impressum – Pizzarella Wuppertal"
+ },
+ {
+  "url": "https://pizzarella-wuppertal.de/datenschutz/",
+  "final": "https://pizzarella-wuppertal.de/datenschutz/",
+  "status": 200,
+  "name": "_datenschutz",
+  "title": "Datenschutz – Pizzarella Wuppertal"
+ }
+]

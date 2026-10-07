@@ -1,0 +1,43 @@
+{
+  "id": "dessert",
+  "name": "Desserts",
+  "icon": "dessert",
+  "intro": "Zum Schluss was Süßes.",
+  "source": "own-site",
+  "products": [
+    {
+      "id": "tiramisu",
+      "nr": "86",
+      "name": "Tiramisu",
+      "description": "Italienisches Dessert mit Mascarpone und Kaffee",
+      "descriptionSource": "lieferando-site",
+      "price": 4.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizza-nutella",
+      "nr": "87",
+      "name": "Pizza Nutella",
+      "description": "Pizza mit Nutella",
+      "descriptionSource": "lieferando-site",
+      "price": 5.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizzabroetchen-nutella",
+      "nr": "88",
+      "name": "Pizzabrötchen Nutella",
+      "description": "Pizzabrötchen mit Nutella",
+      "descriptionSource": "lieferando-site",
+      "price": 5.9,
+      "confidence": "high"
+    },
+    {
+      "id": "zimtschnecken",
+      "nr": "89",
+      "name": "Zimtschnecken",
+      "price": 3.9,
+      "confidence": "high"
+    }
+  ]
+}

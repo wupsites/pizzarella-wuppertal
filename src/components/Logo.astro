@@ -1,0 +1,118 @@
+---
+/**
+ * Wortbild „Pizzarella“ – modernisiert nach dem bisherigen Logo
+ * (Pizzastück mit Dampf, kräftige weiche Serifenschrift in Rost-Rot).
+ * Original: docs/quelle-alte-website/eigene-website/logo-original-512.png
+ */
+interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  tone?: 'brand' | 'light' | 'ink';
+}
+const { size = 'md', tone = 'brand' } = Astro.props;
+---
+
+<span class:list={['logo', `logo--${size}`, `logo--${tone}`]}>
+  <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+    <path class="logo-steam" d="M28.5 3.5c-3.2 3 3 5.4-.2 9M34.8 5.5c-2.6 2.6 2.6 4.4-.1 7.6" fill="none" stroke-width="2.6" stroke-linecap="round"></path>
+    <path class="logo-cheese" d="M9 41.5L16.3 18.1C24.8 12.6 34.6 15.6 42.1 25.6Z" stroke-width="2.2" stroke-linejoin="round"></path>
+    <path class="logo-crust" d="M15.4 17.4C24.6 10.7 35.3 14.4 43 25.7" fill="none" stroke-width="5.4" stroke-linecap="round"></path>
+    <circle class="logo-top" cx="23" cy="25.4" r="3.3"></circle>
+    <circle class="logo-top" cx="31.3" cy="24.6" r="2.8"></circle>
+    <circle class="logo-top" cx="19.3" cy="33.6" r="2.4"></circle>
+  </svg>
+  <span class="logo-word">Pizzarella</span>
+</span>
+
+<style>
+  .logo {
+    --l-word: #a8341a;
+    --l-steam: #a8341a;
+    --l-crust: #e3a03f;
+    --l-cheese: #f7cb57;
+    --l-line: #b4601d;
+    --l-top: #d4502a;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    line-height: 1;
+  }
+  .logo--light {
+    --l-word: #f4ebdc;
+    --l-steam: #f2b53a;
+  }
+  .logo--ink {
+    --l-word: #1c1511;
+  }
+  .logo-mark {
+    width: 2.15rem;
+    height: 2.15rem;
+    flex: none;
+    overflow: visible;
+    margin-top: -0.3rem;
+  }
+  .logo-steam {
+    stroke: var(--l-steam);
+  }
+  .logo-cheese {
+    fill: var(--l-cheese);
+    stroke: var(--l-line);
+  }
+  .logo-crust {
+    stroke: var(--l-crust);
+  }
+  .logo-top {
+    fill: var(--l-top);
+  }
+  .logo-word {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: 1.6rem;
+    letter-spacing: -0.035em;
+    color: var(--l-word);
+    padding-bottom: 0.06em;
+  }
+  .logo--sm .logo-mark {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .logo--sm .logo-word {
+    font-size: 1.35rem;
+  }
+  .logo--lg .logo-mark {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+  .logo--lg .logo-word {
+    font-size: 2.3rem;
+  }
+  .logo--xl .logo-mark {
+    width: clamp(3rem, 9vw, 7rem);
+    height: clamp(3rem, 9vw, 7rem);
+  }
+  .logo--xl .logo-word {
+    font-size: clamp(3rem, 1rem + 10vw, 11rem);
+    letter-spacing: -0.045em;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .logo-steam {
+      stroke-dasharray: 20;
+      stroke-dashoffset: 0;
+    }
+    :global(a:hover) > .logo .logo-steam {
+      animation: steam 1.4s var(--ease-rise);
+    }
+  }
+  @keyframes steam {
+    0% {
+      stroke-dashoffset: 20;
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

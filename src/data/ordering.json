@@ -1,0 +1,110 @@
+{
+  "$comment": "Bestell-Einstellungen. Quelle: Shop-Konfiguration der bisherigen Website (Mindestbestellwert Lieferung 10 € ohne Getränke, Abholung ohne Mindestwert, keine Liefergebühr, Barzahlung, Vorbestellung) und Liefergebiet laut Lieferando-Shop des Betriebs (PLZ-Liste). crossSell: je Kategorie bis zu drei Produkt-IDs für „Passt dazu“.",
+  "online": true,
+  "defaultMode": "delivery",
+  "modes": {
+    "delivery": {
+      "enabled": true,
+      "label": "Lieferung",
+      "etaMinutes": null
+    },
+    "pickup": {
+      "enabled": true,
+      "label": "Abholung",
+      "etaMinutes": null
+    }
+  },
+  "deliveryZonesStatus": "unconfirmed",
+  "deliveryZones": [
+    {
+      "name": "Wuppertal",
+      "zips": [
+        "42103",
+        "42105",
+        "42107",
+        "42109",
+        "42111",
+        "42113",
+        "42115",
+        "42117",
+        "42119",
+        "42275",
+        "42277",
+        "42279",
+        "42281",
+        "42283",
+        "42285",
+        "42287",
+        "42289",
+        "42327",
+        "42329",
+        "42349",
+        "42369",
+        "42389"
+      ],
+      "minOrder": 10.0,
+      "fee": 0,
+      "freeFrom": null,
+      "etaMinutes": null
+    }
+  ],
+  "payment": [
+    {
+      "id": "bar",
+      "label": "Barzahlung",
+      "detail": "bei Lieferung oder Abholung",
+      "status": "confirmed"
+    }
+  ],
+  "allowPreorder": true,
+  "preorderSlotMinutes": 15,
+  "crossSell": {
+    "pizza": [
+      "knoblauchsauce",
+      "cola",
+      "tiramisu"
+    ],
+    "party-pizza": [
+      "cola",
+      "knoblauchsauce"
+    ],
+    "doener": [
+      "knoblauchsauce",
+      "ayran",
+      "pommes"
+    ],
+    "lahmacun": [
+      "ayran",
+      "chilisauce"
+    ],
+    "falafel": [
+      "knoblauchsauce",
+      "ayran"
+    ],
+    "pasta": [
+      "insalata-mista",
+      "cola",
+      "tiramisu"
+    ],
+    "pizzabroetchen": [
+      "knoblauchsauce",
+      "cola"
+    ],
+    "salate": [
+      "pizzabroetchen",
+      "wasser"
+    ],
+    "snacks": [
+      "ketchup",
+      "mayonnaise",
+      "cola"
+    ],
+    "default": [
+      "cola",
+      "tiramisu"
+    ]
+  },
+  "minOrderExcludeCategories": [
+    "getraenke"
+  ]
+}

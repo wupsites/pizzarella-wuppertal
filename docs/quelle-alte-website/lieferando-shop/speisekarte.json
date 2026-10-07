@@ -1,0 +1,912 @@
+[
+ {
+  "id": "cat1",
+  "name": "Pizza",
+  "desc": "",
+  "products": [
+   {
+    "name": "Pizza Hawaii",
+    "desc": "mit Putenschinken und Ananas",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "33RQ70RQPO"
+   },
+   {
+    "name": "Pizza Vulcano",
+    "desc": "mit Champignons, Rindersalami und Peperoni",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "311R70RQPO"
+   },
+   {
+    "name": "Pizza Rucola",
+    "desc": "mit Pastirma, Rucola und Parmesan",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3RNR70RQPO"
+   },
+   {
+    "name": "Pizza Messico",
+    "desc": "mit Hähnchenbrustfilet, Mais, Paprika und Zwiebeln",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3P5R70RQPO"
+   },
+   {
+    "name": "Pizza Bolognese",
+    "desc": "mit Bolognesesauce und Käse",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3RQR70RQPO"
+   },
+   {
+    "name": "Pizza Diavolo",
+    "desc": "Mit Rindersalami und Peperoni",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3R10Q0RQPO"
+   },
+   {
+    "name": "Pizza Hood",
+    "desc": "mit Pommes, Chicken-Nuggets und viel Käse",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3PO0Q0RQPO"
+   },
+   {
+    "name": "Pizza Patatine",
+    "desc": "mit Pommes",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3P70Q0RQPO"
+   },
+   {
+    "name": "Pizza Capricciosa",
+    "desc": "mit Putenschinken, Thunfisch, Mais und Oliven",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3OR0Q0RQPO"
+   },
+   {
+    "name": "Pizza Mista",
+    "desc": "mit Putenschinken, Rindersalami, Thunfisch, Spinat, Zwiebeln, Peperoni und Paprika",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3R01Q0RQPO"
+   },
+   {
+    "name": "Pizza Chili-Cheese",
+    "desc": "mit Chili-Cheese-Sauce, Jalapeños, Cheddar-Käse und Hähnchenbrustfilet",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3NO1Q0RQPO"
+   },
+   {
+    "name": "Pizza Döner",
+    "desc": "mit Hähnchen-Kebab und Salat",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3751Q0RQPO"
+   },
+   {
+    "name": "Pizza Fresh",
+    "desc": "mit Crème fraîche, Champignons, Zwiebeln und Spinat",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3571Q0RQPO"
+   },
+   {
+    "name": "Pizza Ela",
+    "desc": "mit Hähnchenbrustfilet, Broccoli und Sauce Hollandaise",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "33R1Q0RQPO"
+   },
+   {
+    "name": "Pizza BBQ-Chicken",
+    "desc": "mit Hähnchenbrustfilet, BBQ-Sauce und Mais",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "3O1NQ0RQPO"
+   },
+   {
+    "name": "Calzone",
+    "desc": "mit Putenschinken, Champignons, Rindersalami, Peperoni und Käse",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "3N3NQ0RQPO"
+   },
+   {
+    "name": "Calzone Spezial",
+    "desc": "mit Hähnchenbrustfilet, Broccoli und Sauce Hollandaise",
+    "price": "13,90 €",
+    "sidedish": true,
+    "id": "3OONQ0RQPO"
+   },
+   {
+    "name": "Pizza Gamberetti",
+    "desc": "mit Garnelen",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "335NQ0RQPO"
+   },
+   {
+    "name": "Pizza Gamberetti Spezial",
+    "desc": "mit Garnelen und Sauce Hollandaise",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "317NQ0RQPO"
+   },
+   {
+    "name": "Pizza Napoli",
+    "desc": "mit Sardellen, Oliven und Kapern",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3RQNQ0RQPO"
+   },
+   {
+    "name": "Pizza Orient",
+    "desc": "mit Sucuk",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3O03Q0RQPO"
+   },
+   {
+    "name": "Pizza Vegetaria",
+    "desc": "mit verschiedenen Gemüsesorten",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3R13Q0RQPO"
+   },
+   {
+    "name": "Pizza Quattro Stagioni",
+    "desc": "mit Putenschinken, Paprika, Spinat und Thunfisch",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3QN3Q0RQPO"
+   },
+   {
+    "name": "Pizza Quattro Formaggi",
+    "desc": "mit vier Käsesorten",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "30O3Q0RQPO"
+   },
+   {
+    "name": "Pizza Mediteran",
+    "desc": "mit frischen Tomaten, Mozzarella und Oliven",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3RO3Q0RQPO"
+   },
+   {
+    "name": "Pizza Italia",
+    "desc": "mit Spinat, Zwiebeln und Paprika",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3553Q0RQPO"
+   },
+   {
+    "name": "Pizza Margherita",
+    "desc": "mit Tomatensauce und Käse",
+    "price": "7,90 €",
+    "sidedish": true,
+    "id": "31P3Q0RQPO"
+   },
+   {
+    "name": "Pizza Salami",
+    "desc": "mit Rindersalami",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "37P3Q0RQPO"
+   },
+   {
+    "name": "Pizza Funghi",
+    "desc": "mit Champignons",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "3373Q0RQPO"
+   },
+   {
+    "name": "Pizza Tonno",
+    "desc": "mit Thunfisch",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "3R73Q0RQPO"
+   },
+   {
+    "name": "Pizza Spinaci",
+    "desc": "mit Spinat",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "35Q3Q0RQPO"
+   },
+   {
+    "name": "Pizza Spinaci Feta",
+    "desc": "mit Schafskäse und Spinat",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "31R3Q0RQPO"
+   },
+   {
+    "name": "Pizza Prosciutto",
+    "desc": "mit Putenschinken",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "37R3Q0RQPO"
+   },
+   {
+    "name": "Pizza Prosciutto e Funghi",
+    "desc": "mit Putenschinken und Champignons",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "330OQ0RQPO"
+   },
+   {
+    "name": "Pizza Frutti di Mare",
+    "desc": "mit Meeresfrüchten",
+    "price": "10,90 €",
+    "sidedish": true,
+    "id": "3R0OQ0RQPO"
+   },
+   {
+    "name": "Calzone Döner",
+    "desc": "Mit Hähnchen-Kebab, Sauce Hollaindaise",
+    "price": "14,90 €",
+    "sidedish": true,
+    "id": "PRP7730OOQ"
+   }
+  ]
+ },
+ {
+  "id": "cat2",
+  "name": "Pasta",
+  "desc": "",
+  "products": [
+   {
+    "name": "Penne Ela",
+    "desc": "mit Hähnchenbrustfilet, Broccoli und Sauce Hollandaise",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "351OQ0RQPO"
+   },
+   {
+    "name": "Penne Fresh",
+    "desc": "mit Hähnchenbrustfilet, Champignons, Zwiebeln, Spinat und Crème-Fraîche-Sahnesauce",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "3Q1OQ0RQPO"
+   },
+   {
+    "name": "Tagliatelle Mediteran",
+    "desc": "mit Hähnchenbrustfilet, Spinat und Sahnesauce",
+    "price": "13,90 €",
+    "sidedish": true,
+    "id": "31NOQ0RQPO"
+   },
+   {
+    "name": "Tagliatelle Orient",
+    "desc": "mit Hähnchen-Kebab und Tomaten-Sahnesauce",
+    "price": "13,90 €",
+    "sidedish": true,
+    "id": "3ONOQ0RQPO"
+   },
+   {
+    "name": "Tagliatelle Indiano",
+    "desc": "mit Hähnchenbrustfilet und Curry-Sahnesauce",
+    "price": "13,90 €",
+    "sidedish": true,
+    "id": "37NOQ0RQPO"
+   },
+   {
+    "name": "Tagliatelle Gamberetti",
+    "desc": "mit Garnelen und Rosésauce",
+    "price": "14,90 €",
+    "sidedish": true,
+    "id": "303OQ0RQPO"
+   },
+   {
+    "name": "Spaghetti Carbonara",
+    "desc": "mit Putenschinken, Ei und Käse-Sahnesauce",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "333OQ0RQPO"
+   },
+   {
+    "name": "Penne Arrabiata (scharf)",
+    "desc": "mit Chilischoten und scharfer Tomatensauce",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3P3OQ0RQPO"
+   },
+   {
+    "name": "Penne Quattro Formaggi",
+    "desc": "mit vier Käsesorten und Sahnesauce",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "3R3OQ0RQPO"
+   },
+   {
+    "name": "Spaghetti Napoli",
+    "desc": "mit pikanter Tomatensauce",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3NOOQ0RQPO"
+   },
+   {
+    "name": "Spaghetti Aglio Olio e Peperoncino",
+    "desc": "mit Knoblauch und Peperoni",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "35OOQ0RQPO"
+   },
+   {
+    "name": "Spaghetti Bolognese",
+    "desc": "mit hausgemachter Tomaten-Hackfleischsauce",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "3QOOQ0RQPO"
+   }
+  ]
+ },
+ {
+  "id": "cat3",
+  "name": "Insalatone",
+  "desc": "",
+  "products": [
+   {
+    "name": "Insalata Capricciosa",
+    "desc": "mit Insalata Mista, Putenschinken, Thunfisch, Ei, Peperoni, Käse und Mais",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "30O770RQPO"
+   },
+   {
+    "name": "Insalata Fantasia",
+    "desc": "mit Insalata Mista und Schafskäse",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "33O770RQPO"
+   },
+   {
+    "name": "Insalata Gamberetti",
+    "desc": "mit Insalata Mista, Garnelen und Knoblauch",
+    "price": "12,90 €",
+    "sidedish": true,
+    "id": "3RO770RQPO"
+   },
+   {
+    "name": "Insalata Mediteran",
+    "desc": "mit Insalata Mista und Hähnchenbrustfilet",
+    "price": "11,90 €",
+    "sidedish": true,
+    "id": "355770RQPO"
+   },
+   {
+    "name": "Insalata Tonno",
+    "desc": "mit Insalata Mista, Thunfisch und Mais",
+    "price": "7,90 €",
+    "sidedish": true,
+    "id": "31P770RQPO"
+   },
+   {
+    "name": "Insalata Rucola",
+    "desc": "mit Insalata Mista und Rucola",
+    "price": "7,90 €",
+    "sidedish": true,
+    "id": "37P770RQPO"
+   },
+   {
+    "name": "Insalata Mista",
+    "desc": "mit gemischter Salat, Tomaten, Gurken, Paprika und Oliven",
+    "price": "6,90 €",
+    "sidedish": true,
+    "id": "307770RQPO"
+   }
+  ]
+ },
+ {
+  "id": "cat4",
+  "name": "Panini Pizzabrötchen",
+  "desc": "",
+  "products": [
+   {
+    "name": "Pizzabrötchen Döner",
+    "desc": "mit Hähnchen-Kebab und Käse",
+    "price": "7,90 €",
+    "sidedish": true,
+    "id": "3R7770RQPO"
+   },
+   {
+    "name": "Pizzabrötchen Speciale",
+    "desc": "mit Sauce Hollandaise, Hähnchenbruststreifen und Käse",
+    "price": "7,90 €",
+    "sidedish": true,
+    "id": "3NQ770RQPO"
+   },
+   {
+    "name": "Pizzabrötchen Sucuk",
+    "desc": "mit Sucuk und Käse",
+    "price": "7,90 €",
+    "sidedish": true,
+    "id": "3QQ770RQPO"
+   },
+   {
+    "name": "Pizzabrötchen Döner Spezial",
+    "desc": "mit Hähnchen-Kebab, Sauce Hollandaise und Käse",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "3OR770RQPO"
+   },
+   {
+    "name": "Pizzabrötchen",
+    "desc": "ohne Füllung",
+    "price": "4,50 €",
+    "sidedish": true,
+    "id": "300Q70RQPO"
+   },
+   {
+    "name": "Pizzabrötchen mit Käse",
+    "desc": "mit Käse",
+    "price": "5,90 €",
+    "sidedish": true,
+    "id": "3P0Q70RQPO"
+   },
+   {
+    "name": "Pizzabrötchen nach Wahl",
+    "desc": "mit Käse & füllung nach Wahl",
+    "price": "6,90 €",
+    "sidedish": true,
+    "id": "3N1Q70RQPO"
+   }
+  ]
+ },
+ {
+  "id": "cat5",
+  "name": "Döner",
+  "desc": "",
+  "products": [
+   {
+    "name": "Döner Dürüm",
+    "desc": "mit Hähnchen-Kebab im Dürümwrap",
+    "price": "8,90 €",
+    "sidedish": true,
+    "id": "3Q1Q70RQPO"
+   },
+   {
+    "name": "Lahmacun Döner",
+    "desc": "mit Lahmacun gefüllt mit Hähnchen-Kebab, Salat und Sauce",
+    "price": "9,90 €",
+    "sidedish": true,
+    "id": "3ONQ70RQPO"
+   },
+   {
+    "name": "Lahmacun",
+    "desc": "mit Salat und Sauce",
+    "price": "6,90 €",
+    "sidedish": true,
+    "id": "303Q70RQPO"
+   },
+   {
+    "name": "Sucuk-Tasche",
+    "desc": "mit Sucuk, Pommes, Salat und Sauce",
+    "price": "6,50 €",
+    "sidedish": true,
+    "id": "3P3Q70RQPO"
+   },
+   {
+    "name": "Gemüsetasche (vegetarisch)",
+    "desc": "mit gegrillten Zucchini, Auberginen, Paprika, Salat und Sauce",
+    "price": "5,90 €",
+    "sidedish": true,
+    "id": "3NOQ70RQPO"
+   },
+   {
+    "name": "Pommes-Tasche (vegetarisch)",
+    "desc": "mit Pommes, Salat und Sauce im Fladenbrot",
+    "price": "5,90 €",
+    "sidedish": true,
+    "id": "3QOQ70RQPO"
+   },
+   {
+    "name": "Chilicheese-Dönertasche",
+    "desc": "wie Dönertasche, zusätzlich Chilicheese-Sauce, Pommes und Jalapeños",
+    "price": "9,50 €",
+    "sidedish": true,
+    "id": "3O5Q70RQPO"
+   },
+   {
+    "name": "Döner Box",
+    "desc": "mit Hähnchen-Kebab, Pommes und Sauce",
+    "price": "7,00 €",
+    "sidedish": true,
+    "id": "30PQ70RQPO"
+   },
+   {
+    "name": "Dönerteller",
+    "desc": "mit Hähnchen-Kebab, Pommes oder Reis, Salat und Sauce",
+    "price": "12,50 €",
+    "sidedish": true,
+    "id": "3PPQ70RQPO"
+   },
+   {
+    "name": "Dönertasche",
+    "desc": "mit Hähnchen-Kebab, Eisbergsalat, Krautsalat, Zwiebeln, Gurken, Tomaten und Sauce im Fladenbrot",
+    "price": "7,50 €",
+    "sidedish": true,
+    "id": "3N7Q70RQPO"
+   },
+   {
+    "name": "Dönertasche mit gegrilltem Gemüse",
+    "desc": "wie Dönertasche, zusätzlich gegrilltem Gemüse",
+    "price": "8,50 €",
+    "sidedish": true,
+    "id": "3Q7Q70RQPO"
+   },
+   {
+    "name": "Dönertasche mit Pommes",
+    "desc": "wie Dönertasche, zusätzlich Pommes",
+    "price": "8,50 €",
+    "sidedish": true,
+    "id": "3OQQ70RQPO"
+   }
+  ]
+ },
+ {
+  "id": "cat6",
+  "name": "Falafel",
+  "desc": "",
+  "products": [
+   {
+    "name": "Falafel Dürüm (vegetarisch)",
+    "desc": "mit Falafel im Dürümwrap",
+    "price": "7,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Falafel Box (vegetarisch)",
+    "desc": "mit Falafel, Pommes und Sauce",
+    "price": "6,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Falafelteller (vegetarisch)",
+    "desc": "mit Falafel, Pommes, Salat und Sauce",
+    "price": "10,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Gemüse-Falafeltasche (vegetarisch)",
+    "desc": "mit gegrilltem Gemüse, Falafel, Salat und Sauce",
+    "price": "7,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Falafeltasche (vegetarisch)",
+    "desc": "mit Kichererbsen-Bällchen, Salat und Sauce im Fladenbrot",
+    "price": "6,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   }
+  ]
+ },
+ {
+  "id": "cat7",
+  "name": "Snacks",
+  "desc": "",
+  "products": [
+   {
+    "name": "Kroketten",
+    "desc": "Knusprig frittierte Kroketten",
+    "price": "3,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Mozzarella Sticks (6 Stück)",
+    "desc": "Panierte Mozzarella-Sticks",
+    "price": "4,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Onion Rings (6 Stück)",
+    "desc": "Knusprig frittierte Zwiebelringe",
+    "price": "4,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Chilicheese-Pommes",
+    "desc": "Pommes mit Chilicheese-Sauce",
+    "price": "5,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Chicken Nuggets (6 Stück)",
+    "desc": "Knusprig panierte Chicken Nuggets",
+    "price": "4,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Pommes",
+    "desc": "Knusprig frittiert",
+    "price": "3,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Chili Cheese Nuggets (6 Stück)",
+    "desc": "Panierte Nuggets mit würziger Käsefüllung",
+    "price": "4,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Süßkartoffeln",
+    "desc": "Knusprige Süßkartoffel-Pommes",
+    "price": "4,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   }
+  ]
+ },
+ {
+  "id": "cat8",
+  "name": "Saucen",
+  "desc": "",
+  "products": [
+   {
+    "name": "Scharfe Sauce",
+    "desc": "Scharfe Chilisauce",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Chilicheese-Sauce",
+    "desc": "Cremig-scharfe Käsesauce",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Cocktail-Sauce",
+    "desc": "Fruchtiger Cocktail-Dip",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Kräuterbutter",
+    "desc": "Würzige Kräuterbutter",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Chilli-Avioli",
+    "desc": "Scharfe Knoblauch-Mayonnaise",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Andalouse",
+    "desc": "Würzige Tomatensauce mit Paprika",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Samurai",
+    "desc": "Scharfe Chilisauce",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "BBQ-Sauce",
+    "desc": "Rauchige Barbecue-Sauce",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Süß-Sauer-Sauce",
+    "desc": "Süß-saure Sauce",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Knoblauchsauce",
+    "desc": "Cremige Knoblauchsauce",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Ketchup",
+    "desc": "Klassisches Tomaten-Ketchup",
+    "price": "0,80 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Mayonnaise",
+    "desc": "Cremige Mayonnaise",
+    "price": "0,80 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Joppiesauce",
+    "desc": "Würzig-süßliche Sauce mit Zwiebeln",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Aioli",
+    "desc": "Knoblauch-Mayonnaise",
+    "price": "1,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   }
+  ]
+ },
+ {
+  "id": "cat9",
+  "name": "Dessert",
+  "desc": "",
+  "products": [
+   {
+    "name": "Pizzabrötchen Nutella",
+    "desc": "Pizzabrötchen mit Nutella",
+    "price": "5,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Pizza Nutella",
+    "desc": "Pizza mit Nutella",
+    "price": "5,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Tiramisu",
+    "desc": "Italienisches Dessert mit Mascarpone und Kaffee",
+    "price": "4,90 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   }
+  ]
+ },
+ {
+  "id": "cat10",
+  "name": "Getränke",
+  "desc": "",
+  "products": [
+   {
+    "name": "Sprite 1,0l",
+    "desc": "Bist du bereit für Sprite? Die einzigartige Formel aus grünen Limetten und sonnengelben Zitronen erfrischt dich maximal.",
+    "price": "3,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Mezzo Mix 1,0l",
+    "desc": "Mixt euch eine gute Zeit mit Mezzo Mix, dem erfrischend-leckeren Kuss aus Cola und Orange",
+    "price": "3,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Wasser",
+    "desc": "0,5l",
+    "price": "2,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Uludag Gazoz",
+    "desc": "0,33l",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Ayran",
+    "desc": "0,25l",
+    "price": "2,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Durstlöscher Eistee Zitrone",
+    "desc": "0,5l",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Durstlöscher Eistee Pfirsich",
+    "desc": "0,5l",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Red Bull Energy Drink 250ml DPG",
+    "desc": "Red Bull Energy Drink 250ml DPG",
+    "price": "3,00 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Mezzo Mix 0,33l",
+    "desc": "Mixt euch eine gute Zeit mit Mezzo Mix, dem erfrischend-leckeren Kuss aus Cola und Orange",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Cola 1,0l",
+    "desc": "Coca-Cola steht für einzigartigen Geschmack, Erfrischung und Momente voller Lebensfreude. Die 1,0l PET Mehrwegflasche für die perfekte Erfrischung für jeden Tag - allein oder zu zweit",
+    "price": "3,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Cola Zero 1,0l",
+    "desc": "Keine Kalorien. Null Zucker. Für alle Coke Liebhaber, die beim Geschmack keinen Kompromiss eingehen wollen.",
+    "price": "3,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Fanta 1,0l",
+    "desc": "Trinke Fanta. Lebe bunter. Spritzig erfrischend begleitet die originale Fanta Orange jede Lebenssituation und macht jetzt noch mehr Spaß.",
+    "price": "3,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Cola 0,33l",
+    "desc": "Coca-Cola steht für einzigartigen Geschmack, Erfrischung und Momente voller Lebensfreude. Die 0,33l wiederverschließbare PET Einwegflasche - die richtige Trinkgröße für jeden Anlass",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Cola Zero 0,33l",
+    "desc": "Keine Kalorien. Null Zucker. Für alle Coke Liebhaber, die beim Geschmack keinen Kompromiss eingehen wollen.",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Fanta 0,33l",
+    "desc": "Trinke Fanta. Lebe bunter. Spritzig erfrischend begleitet die originale Fanta Orange jede Lebenssituation und macht jetzt noch mehr Spaß.",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   },
+   {
+    "name": "Sprite 0,33l",
+    "desc": "Bist du bereit für Sprite? Die einzigartige Formel aus grünen Limetten und sonnengelben Zitronen erfrischt dich maximal.",
+    "price": "2,50 €",
+    "sidedish": false,
+    "id": "addSimpleProductBasket(event, 'templaterevamped'); return false;"
+   }
+  ]
+ }
+]

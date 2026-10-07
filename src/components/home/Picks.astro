@@ -1,0 +1,77 @@
+---
+/** Redaktioneller Querschnitt – bewusst keine „Bestseller“-Behauptung. */
+import Dish from '../Dish.astro';
+import Icon from '../Icon.astro';
+import { site } from '../../data/index.ts';
+const { home, catalog } = site;
+const total = catalog.visibleCategories.reduce((n, c) => n + c.products.length, 0);
+const picks = home.picks.map((r) => catalog.products.get(r.product)!).filter(Boolean);
+const catName = (id: string) => catalog.categories.find((c) => c.id === id)?.name ?? '';
+---
+
+<section class="section picks" aria-labelledby="picks-title">
+  <div class="wrap">
+    <div class="picks-head">
+      <div>
+        <p class="label">Querbeet</p>
+        <h2 class="d2" id="picks-title">Für den ersten Hunger.</h2>
+      </div>
+      <a class="btn btn--ghost" href="/speisekarte/">Alle <span class="num">{total}</span> Gerichte <Icon name="arrow" class="btn-arrow" /></a>
+    </div>
+    <div class="picks-grid">
+      {
+        picks.map((p, i) => (
+          <div class="pick reveal" style={`--i:${i % 2}`}>
+            <p class="pick-cat label">
+              <Icon name={catalog.categories.find((c) => c.id === p.categoryId)?.icon ?? 'pizza'} />
+              {catName(p.categoryId)}
+            </p>
+            <Dish product={p} categoryName={catName(p.categoryId)} showNr={false} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .picks-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .picks-head .label {
+    color: var(--tomato-ink);
+    margin-bottom: 0.9rem;
+  }
+  .picks-grid {
+    display: grid;
+    gap: 0 3rem;
+  }
+  @media (min-width: 900px) {
+    .picks-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .pick {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ink);
+  }
+  .pick :global(.dish) {
+    border-bottom: 0;
+    padding-top: 0.6rem;
+  }
+  .pick-cat {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-3);
+  }
+  .pick-cat :global(svg) {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>

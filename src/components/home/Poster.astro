@@ -1,0 +1,119 @@
+---
+/** Kategorie-Poster: die Karte als typografisches Plakat – zugleich Navigation. */
+import Icon from '../Icon.astro';
+import { site } from '../../data/index.ts';
+import { formatEuro } from '../../lib/pricing.ts';
+const cats = site.catalog.visibleCategories;
+---
+
+<section class="section poster" aria-labelledby="poster-title">
+  <div class="wrap">
+    <div class="poster-head">
+      <p class="label">Die Karte</p>
+      <h2 class="d2" id="poster-title">Worauf hast du Lust?</h2>
+    </div>
+    <ul class="poster-list" role="list">
+      {
+        cats.map((c, i) => (
+          <li class="reveal" style={`--i:${i % 6}`}>
+            <a class="poster-link" href={`/speisekarte/#${c.id}`}>
+              <span class="pl-icon" aria-hidden="true">
+                <Icon name={c.icon} />
+              </span>
+              <span class="pl-name">{c.name}</span>
+              <span class="pl-meta">
+                <span class="num">{c.products.length}</span>
+                {c.fromPrice !== null && <span class="num">ab {formatEuro(c.fromPrice)}</span>}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .poster-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 3rem);
+  }
+  .poster-head .label {
+    color: var(--tomato-ink);
+  }
+  .poster-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 clamp(0.6rem, 0.2rem + 1.5vw, 1.6rem);
+  }
+  .poster-link {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.2rem 0;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(2.35rem, 1rem + 5.6vw, 6.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    transition: color var(--d-ui) var(--ease-rise);
+  }
+  .pl-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 0;
+    height: 0.9em;
+    overflow: hidden;
+    opacity: 0;
+    color: var(--tomato);
+    align-self: center;
+    transition:
+      width var(--d-sheet) var(--ease-rise),
+      opacity var(--d-ui) var(--ease-rise);
+  }
+  .pl-icon :global(svg) {
+    width: 0.75em;
+    height: 0.75em;
+    stroke-width: 1.5;
+  }
+  .pl-meta {
+    display: grid;
+    gap: 0.15rem;
+    margin-top: 0.55em;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  @media (hover: hover) {
+    .poster-link:hover {
+      color: var(--tomato-ink);
+    }
+    .poster-link:hover .pl-icon {
+      width: 0.85em;
+      opacity: 1;
+    }
+  }
+  @media (hover: none) {
+    .pl-icon {
+      width: 0.8em;
+      opacity: 1;
+    }
+  }
+  @media (max-width: 639px) {
+    .pl-meta {
+      font-size: 0.7rem;
+    }
+  }
+</style>

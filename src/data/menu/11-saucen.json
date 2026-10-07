@@ -1,0 +1,123 @@
+{
+  "id": "saucen",
+  "name": "Saucen",
+  "icon": "dip",
+  "intro": "Zum Dippen, Tunken, Drüberkippen.",
+  "source": "own-site",
+  "products": [
+    {
+      "id": "ketchup",
+      "name": "Ketchup",
+      "description": "Klassisches Tomaten-Ketchup",
+      "descriptionSource": "lieferando-site",
+      "price": 0.8,
+      "confidence": "high"
+    },
+    {
+      "id": "mayonnaise",
+      "name": "Mayonnaise",
+      "description": "Cremige Mayonnaise",
+      "descriptionSource": "lieferando-site",
+      "price": 0.8,
+      "confidence": "high"
+    },
+    {
+      "id": "joppiesauce",
+      "name": "Joppiesauce",
+      "description": "Würzig-süßliche Sauce mit Zwiebeln",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "bbq-sauce",
+      "name": "BBQ-Sauce",
+      "description": "Rauchige Barbecue-Sauce",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "suess-sauer-sauce",
+      "name": "Süß-Sauer-Sauce",
+      "description": "Süß-saure Sauce",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "curry-sauce",
+      "name": "Curry-Sauce",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "knoblauchsauce",
+      "name": "Knoblauchsauce",
+      "description": "Cremige Knoblauchsauce",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "cocktail-sauce",
+      "name": "Cocktail-Sauce",
+      "description": "Fruchtiger Cocktail-Dip",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "salsa-sauce",
+      "name": "Salsa-Sauce",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "chilisauce",
+      "name": "Chilisauce",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "chilicheese-sauce",
+      "name": "Chilicheese-Sauce",
+      "description": "Cremig-scharfe Käsesauce",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "andalouse",
+      "name": "Andalouse",
+      "description": "Würzige Tomatensauce mit Paprika",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "samurai",
+      "name": "Samurai",
+      "description": "Scharfe Chilisauce",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "kraeuterbutter",
+      "name": "Kräuterbutter",
+      "description": "Würzige Kräuterbutter",
+      "descriptionSource": "lieferando-site",
+      "price": 1.0,
+      "confidence": "high"
+    },
+    {
+      "id": "chili-aioli",
+      "name": "Chili-Aioli",
+      "price": 1.0,
+      "confidence": "high",
+      "description": "Scharfe Knoblauch-Mayonnaise",
+      "descriptionSource": "lieferando-site"
+    }
+  ]
+}

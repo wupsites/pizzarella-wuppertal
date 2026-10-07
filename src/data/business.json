@@ -1,0 +1,89 @@
+{
+  "$comment": "Stammdaten von Pizzarella. Quelle: Impressum & Footer von pizzarella-wuppertal.de (abgerufen 07.10.2026), gesichert in docs/quelle-alte-website/.",
+  "name": "Pizzarella",
+  "legalName": "Pizzarella, Inh. Emre Budak",
+  "owner": "Emre Budak",
+  "legalForm": "Einzelunternehmen",
+  "address": {
+    "street": "Friedrich-Engels-Allee 117",
+    "zip": "42285",
+    "city": "Wuppertal",
+    "country": "DE"
+  },
+  "phone": {
+    "display": "0202 2812526",
+    "e164": "+492022812526",
+    "status": "confirmed",
+    "note": "Laut Impressum der bisherigen Website."
+  },
+  "email": "info@pizzarella-wuppertal.de",
+  "website": "https://pizzarella-wuppertal.de",
+  "timezone": "Europe/Berlin",
+  "hours": {
+    "status": "confirmed",
+    "source": "Footer der bisherigen Website; identisch auf Lieferando, Wolt und dem Lieferando-Shop (07.10.2026)",
+    "weekly": {
+      "mo": [
+        [
+          "16:00",
+          "01:00"
+        ]
+      ],
+      "di": [
+        [
+          "16:00",
+          "01:00"
+        ]
+      ],
+      "mi": [],
+      "do": [
+        [
+          "16:00",
+          "01:00"
+        ]
+      ],
+      "fr": [
+        [
+          "16:00",
+          "02:00"
+        ]
+      ],
+      "sa": [
+        [
+          "16:00",
+          "02:00"
+        ]
+      ],
+      "so": [
+        [
+          "14:00",
+          "24:00"
+        ]
+      ]
+    },
+    "lastOrderMinutesBeforeClose": 15,
+    "exceptions": []
+  },
+  "social": [],
+  "sources": [
+    {
+      "id": "own-site",
+      "label": "pizzarella-wuppertal.de (bisherige Website, WPPizza-Shop)",
+      "url": "https://pizzarella-wuppertal.de/"
+    },
+    {
+      "id": "lieferando-site",
+      "label": "pizzarellawuppertal-wuppertal.de (Lieferando-Shop des Betriebs)",
+      "url": "https://www.pizzarellawuppertal-wuppertal.de/"
+    },
+    {
+      "id": "creditreform",
+      "label": "Creditreform Firmeneintrag",
+      "url": "https://firmeneintrag.creditreform.de/42285/5410395939/EMRE_BUDAK_PIZZARELLA"
+    }
+  ],
+  "familyRun": {
+    "text": "Familiengeführt",
+    "source": "Kopfbanner der bisherigen Website („Original italienisch. Familiengeführt.“)"
+  }
+}

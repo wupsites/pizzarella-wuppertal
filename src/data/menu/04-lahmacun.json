@@ -1,0 +1,28 @@
+{
+  "id": "lahmacun",
+  "name": "Lahmacun",
+  "icon": "lahmacun",
+  "intro": "Der dünne Fladen – pur mit Salat oder mit Döner gefüllt.",
+  "source": "own-site",
+  "optionSets": [
+    "doener-sauce"
+  ],
+  "products": [
+    {
+      "id": "lahmacun-doener",
+      "nr": "70",
+      "name": "Lahmacun Döner",
+      "description": "Lahmacun gefüllt mit Hähnchen-Kebab, Salat und Sauce",
+      "price": 9.9,
+      "confidence": "high"
+    },
+    {
+      "id": "lahmacun",
+      "nr": "71",
+      "name": "Lahmacun",
+      "description": "mit Salat und Sauce",
+      "price": 5.9,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,427 @@
+{
+ "Name": "Pizzarella Wuppertal",
+ "Pickup": 1,
+ "Settings": {
+  "PostcodeSupport": true,
+  "Discounts": [],
+  "PaymentMethods": [
+   {
+    "id": "0",
+    "name": "",
+    "fixed": 0,
+    "percentage": 0
+   },
+   {
+    "id": "15",
+    "name": "",
+    "fixed": 0,
+    "percentage": 0
+   },
+   {
+    "id": "18",
+    "name": "PayPal",
+    "fixed": 0,
+    "percentage": 0
+   },
+   {
+    "id": "13",
+    "name": "",
+    "fixed": 0,
+    "percentage": 0
+   },
+   {
+    "id": "24",
+    "name": "",
+    "fixed": 0,
+    "percentage": 0
+   }
+  ],
+  "Deliverycosts": false,
+  "AutoAddedProducts": []
+ },
+ "Times": {
+  "deliveryopentimes": [
+   [
+    {
+     "starttime": "14:00:00",
+     "endtime": "23:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "00:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "00:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "00:00:00",
+     "endtime": "00:00:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "00:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "01:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "01:45:00"
+    }
+   ]
+  ],
+  "pickupopentimes": [
+   [
+    {
+     "starttime": "14:00:00",
+     "endtime": "23:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "00:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "00:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "00:00:00",
+     "endtime": "00:00:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "00:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "01:45:00"
+    }
+   ],
+   [
+    {
+     "starttime": "16:00:00",
+     "endtime": "01:45:00"
+    }
+   ]
+  ],
+  "exceptionsdelivery": []
+ },
+ "Locations": [
+  {
+   "deliveryareaid": 42103,
+   "locationid": "1212819",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42105,
+   "locationid": "1212820",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42107,
+   "locationid": "1212821",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42109,
+   "locationid": "1212822",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42111,
+   "locationid": "1212823",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 24.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42113,
+   "locationid": "1212824",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 19.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42115,
+   "locationid": "1212825",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 19.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42117,
+   "locationid": "1212826",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42119,
+   "locationid": "1212827",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42275,
+   "locationid": "1212828",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42277,
+   "locationid": "1212829",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 19.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42279,
+   "locationid": "1212830",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 34.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42281,
+   "locationid": "1212831",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42283,
+   "locationid": "1212832",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42285,
+   "locationid": "1212833",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42287,
+   "locationid": "1212834",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 11.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42289,
+   "locationid": "1212835",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 19.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42327,
+   "locationid": "1212836",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 34.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42329,
+   "locationid": "1212837",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 34.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42349,
+   "locationid": "1212838",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 34.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42369,
+   "locationid": "1212839",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 24.99,
+   "city": "Wuppertal"
+  },
+  {
+   "deliveryareaid": 42389,
+   "locationid": "1212840",
+   "costs": [
+    {
+     "from": "0",
+     "till": "0",
+     "costs": "0.00"
+    }
+   ],
+   "minimumcosts": 34.99,
+   "city": "Wuppertal"
+  }
+ ],
+ "Urls": {
+  "Cart": "/Cart",
+  "OrderUrl": "https://checkout.takeaway.com/",
+  "Domain": "lieferando.de",
+  "Restaurant": "pizzarellawuppertal-wuppertal.de"
+ }
+}

@@ -1,0 +1,174 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import HoursList from './HoursList.astro';
+import { site } from '../data/index.ts';
+const { business, ordering } = site;
+const year = new Date().getFullYear();
+const mapsQuery = encodeURIComponent(`Pizzarella, ${business.address.street}, ${business.address.zip} ${business.address.city}`);
+---
+
+<footer class="site-footer on-night grain">
+  <div class="wrap footer-grid">
+    <div class="f-brand">
+      <a href="/" class="f-logo" aria-label="Pizzarella – zur Startseite"><Logo size="lg" tone="light" /></a>
+      <p class="muted f-claim">Pizza, Döner, Lahmacun &amp; mehr aus der Friedrich-Engels-Allee. Geliefert oder zum Abholen.</p>
+      <p class="f-status label"><span class="dot" aria-hidden="true"></span> <span data-status-line>Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24 Uhr</span></p>
+    </div>
+
+    <div class="f-col">
+      <h2 class="label f-h">Adresse</h2>
+      <address>
+        {business.name}<br />
+        {business.address.street}<br />
+        {business.address.zip} {business.address.city}
+      </address>
+      <a class="f-link" href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`} rel="noopener" target="_blank">
+        <Icon name="route" /> Route planen <span class="sr-only">(öffnet Google Maps)</span>
+      </a>
+    </div>
+
+    <div class="f-col">
+      <h2 class="label f-h">Öffnungszeiten</h2>
+      <HoursList compact />
+    </div>
+
+    <div class="f-col">
+      <h2 class="label f-h">Kontakt</h2>
+      <p><a class="f-big" href={`tel:${business.phone.e164}`}>{business.phone.display}</a></p>
+      {business.email && <p><a href={`mailto:${business.email}`}>{business.email}</a></p>}
+      <p class="muted f-pay">Wir akzeptieren: {ordering.payment.map((p) => p.label).join(', ')}</p>
+    </div>
+  </div>
+
+  <div class="wrap f-bottom">
+    <nav aria-label="Rechtliches und Infos">
+      <ul role="list">
+        <li><a href="/speisekarte/">Speisekarte</a></li>
+        <li><a href="/lieferung-abholung/">Lieferung &amp; Abholung</a></li>
+        <li><a href="/allergene/">Allergene &amp; Zusatzstoffe</a></li>
+        <li><a href="/bestellinfos/">Bestellinformationen</a></li>
+        <li><a href="/impressum/">Impressum</a></li>
+        <li><a href="/datenschutz/">Datenschutz</a></li>
+      </ul>
+    </nav>
+    <p class="muted">© {year} {business.legalName}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: clamp(3.5rem, 2rem + 6vw, 6.5rem);
+    padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+  }
+  @media (min-width: 1024px) {
+    .site-footer {
+      padding-bottom: 2rem;
+    }
+  }
+  .footer-grid {
+    display: grid;
+    gap: 2.5rem 2rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .f-brand {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (min-width: 1100px) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
+    }
+    .f-brand {
+      grid-column: auto;
+    }
+  }
+  .f-logo {
+    display: inline-flex;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+  .f-claim {
+    margin-top: 1rem;
+    max-width: 30ch;
+  }
+  .f-status {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cheese);
+  }
+  .f-h {
+    color: var(--cream-2);
+    margin-bottom: 0.9rem;
+  }
+  .f-col address {
+    font-style: normal;
+    line-height: 1.6;
+  }
+  .f-col a {
+    text-decoration-color: rgb(244 235 220 / 0.35);
+  }
+  .f-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    margin-top: 0.4rem;
+    font-weight: 650;
+  }
+  .f-link :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--cheese);
+  }
+  .f-big {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    font-variant-numeric: lining-nums;
+  }
+  .f-col p + p {
+    margin-top: 0.5rem;
+  }
+  .f-pay {
+    margin-top: 1rem !important;
+    font-size: 0.9rem;
+  }
+  .f-bottom {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-night);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  .f-bottom ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+  }
+  .f-bottom a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    text-decoration: none;
+    color: var(--cream-2);
+  }
+  @media (hover: hover) {
+    .f-bottom a:hover,
+    .f-col a:hover {
+      color: var(--cheese);
+    }
+  }
+</style>

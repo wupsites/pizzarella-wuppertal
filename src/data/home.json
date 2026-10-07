@@ -1,0 +1,64 @@
+{
+  "$comment": "Redaktionelle Auswahl für die Startseite. Keine Bestseller-Behauptung – nur ein Querschnitt durch die Karte.",
+  "picks": [
+    {
+      "product": "pizza-vulcano",
+      "variant": "gross"
+    },
+    {
+      "product": "lahmacun-doener"
+    },
+    {
+      "product": "penne-ela"
+    },
+    {
+      "product": "doenertasche"
+    },
+    {
+      "product": "pizza-camarelo",
+      "variant": "klein"
+    },
+    {
+      "product": "falafel-dueruem"
+    }
+  ],
+  "receipt": {
+    "title": "Ein Abend, drei Geschmäcker",
+    "items": [
+      {
+        "product": "pizza-diavolo",
+        "variant": "gross",
+        "qty": 1
+      },
+      {
+        "product": "lahmacun-doener",
+        "qty": 1
+      },
+      {
+        "product": "penne-quattro-formaggi",
+        "qty": 1
+      },
+      {
+        "product": "cola",
+        "variant": "1-0l",
+        "qty": 1
+      }
+    ]
+  },
+  "heroSlices": [
+    "pizza-vulcano",
+    "pizza-ela",
+    "pizza-doener",
+    "pizza-hawaii",
+    "pizza-spinaci-spezial",
+    "pizza-prosciutto-e-funghi",
+    "pizza-tonno",
+    "pizza-margherita"
+  ],
+  "directPrice": {
+    "enabled": true,
+    "checked": "2026-10-07",
+    "text": "Nichts kostet hier mehr als bei Lieferando – die meisten Gerichte sind sogar günstiger.",
+    "example": "Pizza Margherita groß: 7,90 € statt 9,90 €"
+  }
+}

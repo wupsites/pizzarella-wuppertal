@@ -1,0 +1,190 @@
+{
+  "id": "getraenke",
+  "name": "Getränke",
+  "icon": "drink",
+  "intro": "Preise inklusive Pfand.",
+  "source": "own-site",
+  "products": [
+    {
+      "id": "cola",
+      "name": "Cola",
+      "variants": [
+        {
+          "id": "0-33l",
+          "label": "0,33 l",
+          "price": 2.5,
+          "volume": 0.33,
+          "deposit": 0.25
+        },
+        {
+          "id": "1-0l",
+          "label": "1,0 l",
+          "price": 3.5,
+          "volume": 1.0,
+          "deposit": 0.15
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "cola-zero",
+      "name": "Cola Zero",
+      "variants": [
+        {
+          "id": "0-33l",
+          "label": "0,33 l",
+          "price": 2.5,
+          "volume": 0.33,
+          "deposit": 0.25
+        },
+        {
+          "id": "1-0l",
+          "label": "1,0 l",
+          "price": 3.5,
+          "volume": 1.0,
+          "deposit": 0.15
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "fanta",
+      "name": "Fanta",
+      "variants": [
+        {
+          "id": "0-33l",
+          "label": "0,33 l",
+          "price": 2.5,
+          "volume": 0.33,
+          "deposit": 0.25
+        },
+        {
+          "id": "1-0l",
+          "label": "1,0 l",
+          "price": 3.5,
+          "volume": 1.0,
+          "deposit": 0.15
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "sprite",
+      "name": "Sprite",
+      "variants": [
+        {
+          "id": "0-33l",
+          "label": "0,33 l",
+          "price": 2.5,
+          "volume": 0.33,
+          "deposit": 0.25
+        },
+        {
+          "id": "1-0l",
+          "label": "1,0 l",
+          "price": 3.5,
+          "volume": 1.0,
+          "deposit": 0.15
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "mezzo-mix",
+      "name": "Mezzo Mix",
+      "variants": [
+        {
+          "id": "0-33l",
+          "label": "0,33 l",
+          "price": 2.5,
+          "volume": 0.33,
+          "deposit": 0.25
+        },
+        {
+          "id": "1-0l",
+          "label": "1,0 l",
+          "price": 3.5,
+          "volume": 1.0,
+          "deposit": 0.15
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "wasser",
+      "name": "Wasser",
+      "description": "0,5 l",
+      "variants": [
+        {
+          "id": "0-5l",
+          "label": "0,5 l",
+          "price": 2.0,
+          "volume": 0.5,
+          "deposit": 0.25
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "uludag-gazoz",
+      "name": "Uludağ Gazoz",
+      "description": "0,33 l",
+      "variants": [
+        {
+          "id": "0-33l",
+          "label": "0,33 l",
+          "price": 2.5,
+          "volume": 0.33,
+          "deposit": 0.25
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ayran",
+      "name": "Ayran",
+      "description": "0,25 l",
+      "variants": [
+        {
+          "id": "0-25l",
+          "label": "0,25 l",
+          "price": 2.0,
+          "volume": 0.25
+        }
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "eistee",
+      "name": "Durstlöscher Eistee",
+      "description": "0,5 l · Zitrone oder Pfirsich",
+      "variants": [
+        {
+          "id": "0-5l",
+          "label": "0,5 l",
+          "price": 2.5,
+          "volume": 0.5
+        }
+      ],
+      "confidence": "high",
+      "optionSets": [
+        "eistee-sorte"
+      ]
+    },
+    {
+      "id": "red-bull",
+      "name": "Red Bull",
+      "description": "0,25 l",
+      "variants": [
+        {
+          "id": "0-25l",
+          "label": "0,25 l",
+          "price": 2.8,
+          "volume": 0.25,
+          "deposit": 0.25
+        }
+      ],
+      "confidence": "high"
+    }
+  ]
+}

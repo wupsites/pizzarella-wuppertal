@@ -1,0 +1,131 @@
+---
+/** „Kurz gesagt“ – harte Fakten statt Floskeln, alles aus den Daten berechnet. */
+import { site } from '../../data/index.ts';
+import { formatPrice } from '../../lib/pricing.ts';
+
+const { catalog, zones, home, business } = site;
+const pizza = catalog.categories.find((c) => c.id === 'pizza');
+const pizzaCount = pizza?.products.length ?? 0;
+const latest = Object.values(business.hours.weekly)
+  .flat()
+  .map(([, close]) => close)
+  .sort((a, b) => {
+    const v = (t: string) => {
+      const [h, m] = t.split(':').map(Number);
+      const n = h * 60 + m;
+      return n < 720 ? n + 1440 : n;
+    };
+    return v(b) - v(a);
+  })[0];
+const feeFree = zones.length > 0 && zones.every((z) => z.fee === 0);
+const zipCount = zones.reduce((n, z) => n + z.zips.length, 0);
+const facts = [
+  { value: String(pizzaCount), label: 'Pizzen & Calzone', sub: 'klein Ø 25 oder groß Ø 30 cm' },
+  { value: pizza?.fromPrice ? formatPrice(pizza.fromPrice) : '', unit: '€', label: 'Pizza ab', sub: 'Margherita, klein' },
+  { value: latest, label: 'Fr & Sa geöffnet bis', sub: 'sonst bis 01:00 bzw. 24:00' },
+  ...(feeFree ? [{ value: '0', unit: '€', label: 'Liefergebühr', sub: `${zipCount} Postleitzahlen in Wuppertal` }] : []),
+];
+const dp = home.directPrice;
+---
+
+<section class="section facts" aria-labelledby="facts-title">
+  <div class="wrap">
+    <h2 class="label facts-title" id="facts-title">Kurz gesagt</h2>
+    <dl class="facts-grid">
+      {
+        facts.map((f, i) => (
+          <div class="fact reveal" style={`--i:${i}`}>
+            <dt class="fact-label">{f.label}</dt>
+            <dd class="fact-value num">
+              {f.value}
+              {f.unit && <span class="fact-unit">{f.unit}</span>}
+            </dd>
+            <dd class="fact-sub muted">{f.sub}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    {
+      dp?.enabled && (
+        <p class="direct reveal">
+          <strong>Direkt bestellen lohnt sich.</strong> {dp.text}
+          {dp.example && <span class="direct-ex"> Beispiel: {dp.example}.</span>}
+          <span class="direct-date"> Stand: {new Date(dp.checked).toLocaleDateString('de-DE')}</span>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .facts-title {
+    color: var(--tomato-ink);
+    margin-bottom: 2rem;
+  }
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 2px solid var(--ink);
+  }
+  @media (min-width: 900px) {
+    .facts-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .fact {
+    display: flex;
+    flex-direction: column;
+    padding: 1.4rem 1.25rem 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fact + .fact {
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--line);
+  }
+  @media (max-width: 899px) {
+    .fact:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+  .fact-label {
+    order: 1;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: var(--fs-label);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .fact-value {
+    order: 2;
+    margin-top: 0.4rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(2.8rem, 1.6rem + 4vw, 5.2rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .fact-unit {
+    font-size: 0.5em;
+    margin-left: 0.08em;
+    vertical-align: 0.65em;
+  }
+  .fact-sub {
+    order: 3;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .direct {
+    margin-top: 2rem;
+    max-width: 62ch;
+    padding: 1.1rem 1.3rem;
+    border-left: 4px solid var(--tomato);
+    background: var(--paper);
+    border-radius: 0 var(--r-m) var(--r-m) 0;
+  }
+  .direct-date {
+    color: var(--ink-3);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+/**
+ * Eine Zeile der Speisekarte. Größen sind direkt antippbar (1 Tap = im Warenkorb),
+ * Pflichtauswahl (Dressing, Beilage …) öffnet das Produkt-Sheet.
+ */
+import type { Product } from '../lib/catalog.ts';
+import { formatEuro, variantLabel } from '../lib/pricing.ts';
+import { iconSvg } from '../lib/icons.ts';
+
+interface Props {
+  product: Product;
+  categoryName?: string;
+  headingLevel?: 'h3' | 'h4';
+  showNr?: boolean;
+}
+const { product: p, categoryName = '', headingLevel = 'h3', showNr = true } = Astro.props;
+const Heading = headingLevel;
+const needsChoice = p.noteRequired || p.options.some((g) => g.required);
+const hasExtras = !needsChoice && p.options.length > 0;
+const multi = p.variants.length > 1;
+const surcharges = p.options.some((g) => g.choices.some((c) => c.price > 0 || (c.prices && Object.values(c.prices).some((v) => v > 0))));
+const kind = needsChoice ? 'choose' : multi ? 'sizes' : 'single';
+const v0 = p.variants[0];
+const searchText = [p.nr, p.name, p.description, categoryName, ...p.tags].filter(Boolean).join(' ');
+const codes = [...p.allergens, ...p.additives];
+const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
+---
+
+<article class:list={['dish', `dish--${kind}`]} id={`p-${p.id}`} data-dish={p.id} data-search={searchText}>
+  <div class="dish-main">
+    <Heading class="dish-title">
+      {showNr && p.nr && <span class="dish-nr" aria-label={`Nummer ${p.nr}`}>{p.nr}</span>}
+      <span class="dish-name">
+        <button type="button" data-open-product={p.id} aria-haspopup="dialog">{p.listName}</button>
+      </span>
+    </Heading>
+    {p.description && <p class="dish-desc">{p.description}</p>}
+    {
+      (p.tags.length > 0 || codes.length > 0 || hasExtras || (!multi && v0.deposit > 0)) && (
+        <div class="dish-meta">
+          {p.tags.map((t) => (
+            <span class={`tag tag--${t}`} set:html={iconSvg(t === 'scharf' ? 'flame' : 'leaf') + t} />
+          ))}
+          {!multi && v0.deposit > 0 && <span class="dish-codes">{depositNote(v0.deposit)}</span>}
+          {codes.length > 0 && (
+            <span class="dish-codes">
+              <span class="sr-only">Kennzeichnung: </span>
+              {codes.join(' · ')}
+            </span>
+          )}
+          {hasExtras && (
+            <button type="button" class="link-btn dish-extras" data-open-product={p.id}>
+              Extras wählen
+            </button>
+          )}
+        </div>
+      )
+    }
+  </div>
+
+  <div class="dish-actions">
+    {
+      kind === 'sizes' && (
+        <div class="sizes" role="group" aria-label={`${p.name} – Größe wählen und hinzufügen`}>
+          {p.variants.map((v) => (
+            <button
+              type="button"
+              class="size-btn"
+              data-add
+              data-product={p.id}
+              data-variant={v.id}
+              aria-label={`${p.name}, ${variantLabel(v)}, ${formatEuro(v.price)}${v.deposit ? `, ${depositNote(v.deposit)}` : ''} – in den Warenkorb`}
+            >
+              <span class="sz">{v.detail ? v.detail.replace(' cm', '') : v.label}</span>
+              <span class="pr">{formatEuro(v.price)}</span>
+              <span class="plus" set:html={iconSvg('plus', 'i-plus') + iconSvg('check', 'i-check')} />
+            </button>
+          ))}
+        </div>
+      )
+    }
+    {
+      kind === 'single' && (
+        <>
+          <span class="dish-price price">{formatEuro(v0.price)}</span>
+          <button
+            type="button"
+            class="add"
+            data-add
+            data-product={p.id}
+            data-variant={v0.id}
+            aria-label={`${p.name}, ${formatEuro(v0.price)} – in den Warenkorb`}
+            set:html={iconSvg('plus', 'i-plus') + iconSvg('check', 'i-check')}
+          />
+        </>
+      )
+    }
+    {
+      kind === 'choose' && (
+        <>
+          <span class="dish-price price">
+            {multi || surcharges ? 'ab ' : ''}
+            {formatEuro(p.fromPrice)}
+          </span>
+          <button type="button" class="btn btn--dark btn--sm choose-btn" data-open-product={p.id} aria-haspopup="dialog" aria-label={`${p.name} auswählen`}>
+            Auswählen
+          </button>
+        </>
+      )
+    }
+  </div>
+</article>

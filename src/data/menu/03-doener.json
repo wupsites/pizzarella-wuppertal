@@ -1,0 +1,102 @@
+{
+  "id": "doener",
+  "name": "Döner",
+  "icon": "doener",
+  "intro": "Mit Hähnchen-Kebab. Im Fladenbrot, als Dürüm, Box oder Teller.",
+  "source": "own-site",
+  "optionSets": [
+    "doener-sauce"
+  ],
+  "products": [
+    {
+      "id": "doenertasche",
+      "nr": "63",
+      "name": "Dönertasche",
+      "description": "mit Hähnchen-Kebab, Eisbergsalat, Krautsalat, Zwiebeln, Gurken, Tomaten und Sauce im Fladenbrot",
+      "price": 6.9,
+      "confidence": "high"
+    },
+    {
+      "id": "doenertasche-mit-gegrilltem-gemuese",
+      "nr": "64",
+      "name": "Dönertasche mit gegrilltem Gemüse",
+      "description": "wie Dönertasche, zusätzlich mit gegrilltem Gemüse",
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "doenertasche-mit-pommes",
+      "nr": "65",
+      "name": "Dönertasche mit Pommes",
+      "description": "wie Dönertasche, zusätzlich mit Pommes",
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "chilicheese-doenertasche",
+      "nr": "66",
+      "name": "Chilicheese-Dönertasche",
+      "description": "wie Dönertasche, zusätzlich mit Pommes und Jalapeños",
+      "price": 8.9,
+      "confidence": "high"
+    },
+    {
+      "id": "doener-box",
+      "nr": "67",
+      "name": "Döner Box",
+      "description": "Hähnchen-Kebab mit Pommes und Sauce",
+      "price": 5.9,
+      "confidence": "high"
+    },
+    {
+      "id": "doenerteller",
+      "nr": "68",
+      "name": "Dönerteller",
+      "description": "Hähnchen-Kebab mit Pommes oder Reis, Salat und Sauce",
+      "price": 11.9,
+      "confidence": "high",
+      "optionSets": [
+        "teller-beilage",
+        "doener-sauce"
+      ]
+    },
+    {
+      "id": "doener-dueruem",
+      "nr": "69",
+      "name": "Döner Dürüm",
+      "description": "mit Hähnchen-Kebab im Dürümwrap",
+      "price": 8.9,
+      "confidence": "high"
+    },
+    {
+      "id": "sucuk-tasche",
+      "nr": "72",
+      "name": "Sucuk-Tasche",
+      "description": "mit Sucuk, Pommes, Salat und Sauce",
+      "price": 5.9,
+      "confidence": "high"
+    },
+    {
+      "id": "gemuesetasche",
+      "nr": "73",
+      "name": "Gemüsetasche",
+      "description": "mit gegrillten Zucchini, Auberginen, Paprika, Salat und Sauce",
+      "price": 5.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "pommes-tasche",
+      "nr": "74",
+      "name": "Pommes-Tasche",
+      "description": "Pommes mit Salat und Sauce im Fladenbrot",
+      "price": 5.9,
+      "tags": [
+        "vegetarisch"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

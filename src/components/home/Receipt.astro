@@ -1,0 +1,219 @@
+---
+/**
+ * „Einer will Pizza, einer Döner, einer Pasta“ – eine Beispiel-Bestellung als Bon.
+ * Alle Positionen und Preise kommen aus den Menüdaten (home.json → receipt).
+ */
+import Icon from '../Icon.astro';
+import { site } from '../../data/index.ts';
+import { formatEuro, formatPrice, variantLabel } from '../../lib/pricing.ts';
+
+const { home, catalog, business } = site;
+const total = catalog.visibleCategories.reduce((n, c) => n + c.products.length, 0);
+const rows = home.receipt.items.map((it) => {
+  const p = catalog.products.get(it.product)!;
+  const v = p.variants.find((x) => x.id === (it.variant ?? p.variants[0].id)) ?? p.variants[0];
+  return { qty: it.qty ?? 1, name: p.name, variant: variantLabel(v), price: v.price * (it.qty ?? 1), deposit: v.deposit };
+});
+const sum = rows.reduce((s, r) => s + r.price, 0);
+const bundle = JSON.stringify(home.receipt.items);
+---
+
+<section class="section bon-section" aria-labelledby="bon-title">
+  <div class="wrap bon-grid">
+    <div class="bon-text">
+      <p class="label">Für alle was dabei</p>
+      <h2 class="d2" id="bon-title">Einer will Pizza. Einer Döner. Einer&nbsp;Pasta.</h2>
+      <p class="lead">
+        Bei uns ist das eine Bestellung. <span class="num">{total}</span> Gerichte aus einer Küche – von der Margherita bis zum Falafelteller.
+      </p>
+      <div class="bon-actions" data-added-host>
+        <button type="button" class="btn btn--primary btn--lg" data-add-bundle={bundle}>
+          <Icon name="bag" />
+          Diesen Bon bestellen
+        </button>
+        <a class="btn btn--ghost btn--lg" href="/speisekarte/">Selbst zusammenstellen</a>
+      </div>
+    </div>
+
+    <figure class="bon reveal" aria-labelledby="bon-cap">
+      <div class="bon-paper">
+        <p class="bon-head">
+          <strong>PIZZARELLA</strong><br />
+          {business.address.street}<br />
+          {business.address.zip} {business.address.city}
+        </p>
+        <p class="bon-stamp" aria-hidden="true">Beispiel</p>
+        <table class="bon-table">
+          <caption class="sr-only" id="bon-cap">Beispiel-Bestellung für drei Personen</caption>
+          <tbody>
+            {
+              rows.map((r) => (
+                <tr>
+                  <td class="bq">{r.qty}×</td>
+                  <td class="bn">
+                    {r.name}
+                    {r.variant && <span class="bv">{r.variant}</span>}
+                  </td>
+                  <td class="bp">{formatPrice(r.price)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="2" scope="row">Summe</th>
+              <td class="bp">{formatEuro(sum)}</td>
+            </tr>
+          </tfoot>
+        </table>
+        <p class="bon-foot">Lieferung ohne Liefergebühr · Preise inkl. MwSt.{rows.some((r) => r.deposit) ? ' und Pfand' : ''}</p>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .bon-section {
+    background: var(--dough-2);
+    overflow: hidden;
+  }
+  .bon-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .bon-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+    }
+  }
+  .bon-text .label {
+    color: var(--tomato-ink);
+    margin-bottom: 1rem;
+  }
+  .bon-text .lead {
+    margin-top: 1.25rem;
+  }
+  .bon-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .bon-actions.is-added .btn--primary {
+    --btn-bg: var(--herb);
+    box-shadow: none;
+  }
+  .bon {
+    justify-self: center;
+    width: min(100%, 24rem);
+    transform: rotate(-2.2deg);
+  }
+  .bon-paper {
+    position: relative;
+    padding: 2rem 1.6rem 2.4rem;
+    background: var(--paper);
+    box-shadow: var(--shadow-2);
+    font-family: var(--font-cond);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    --zig: 10px;
+    -webkit-mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--zig) 51% repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--zig) 51% repeat-x;
+    mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--zig) 51% repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--zig) 51% repeat-x;
+  }
+  .bon-head {
+    text-align: center;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    border-bottom: 1.5px dashed var(--line-strong);
+  }
+  .bon-head strong {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: #a8341a;
+  }
+  .bon-stamp {
+    position: absolute;
+    top: 5.2rem;
+    right: 1rem;
+    padding: 0.15rem 0.6rem;
+    border: 2px solid var(--tomato);
+    border-radius: 6px;
+    color: var(--tomato);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transform: rotate(8deg);
+    opacity: 0.85;
+  }
+  .bon-table {
+    width: 100%;
+    margin-top: 1.1rem;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .bon-table td,
+  .bon-table th {
+    padding: 0.45rem 0;
+    vertical-align: top;
+    text-align: left;
+  }
+  .bq {
+    width: 2.2rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .bn {
+    padding-right: 0.75rem !important;
+  }
+  .bv {
+    display: block;
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: var(--ink-3);
+  }
+  .bp {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .bon-table tfoot th,
+  .bon-table tfoot td {
+    padding-top: 0.9rem;
+    border-top: 1.5px dashed var(--line-strong);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .bon-foot {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .bon.reveal {
+      opacity: 1;
+      transform: rotate(-2.2deg);
+    }
+    .js .bon.reveal .bon-paper {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 1.3s var(--ease-io);
+    }
+    .js .bon.reveal.is-in .bon-paper {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+</style>

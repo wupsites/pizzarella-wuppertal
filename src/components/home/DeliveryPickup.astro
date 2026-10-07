@@ -1,0 +1,267 @@
+---
+/** Lieferung & Abholung – Konditionen aus ordering.json, PLZ-Check, Standort mit großer Hausnummer. */
+import Icon from '../Icon.astro';
+import { site } from '../../data/index.ts';
+import { formatEuro } from '../../lib/pricing.ts';
+
+interface Props {
+  headingLevel?: 'h2' | 'h1';
+}
+const { headingLevel = 'h2' } = Astro.props;
+const H = headingLevel;
+const { zones, ordering, business } = site;
+const minOrders = [...new Set(zones.map((z) => z.minOrder))];
+const minLabel = minOrders.length === 1 ? formatEuro(minOrders[0]) : `ab ${formatEuro(Math.min(...minOrders))}`;
+const feeFree = zones.every((z) => z.fee === 0);
+const zipCount = zones.reduce((n, z) => n + z.zips.length, 0);
+const excludesDrinks = ordering.minOrderExcludeCategories.includes('getraenke');
+const mapsQuery = encodeURIComponent(`Pizzarella, ${business.address.street}, ${business.address.zip} ${business.address.city}`);
+const houseNo = business.address.street.match(/(\d+\w?)$/)?.[1] ?? '';
+const street = business.address.street.replace(/\s*\d+\w?$/, '');
+const pay = ordering.payment.map((p) => p.label).join(', ');
+---
+
+<section class="section dp" aria-labelledby="dp-title" id="lieferung">
+  <div class="wrap">
+    <div class="dp-head">
+      <p class="label">So kommt’s zu dir</p>
+      <H class="d2" id="dp-title">Lieferung oder Abholung.</H>
+    </div>
+
+    <div class="dp-grid">
+      <article class="dp-card dp-delivery reveal" aria-labelledby="dp-d">
+        <div class="dp-icon" aria-hidden="true"><Icon name="scooter" /></div>
+        <h3 class="d3" id="dp-d">Wir bringen’s.</h3>
+        <ul class="dp-facts" role="list">
+          <li><strong>{zipCount} Postleitzahlen</strong> in Wuppertal</li>
+          <li><strong>Mindestbestellwert {minLabel}</strong>{excludesDrinks && ' (ohne Getränke)'}</li>
+          {feeFree && <li><strong>Keine Liefergebühr</strong></li>}
+          <li>Bezahlung: {pay}</li>
+        </ul>
+        <form class="zip-check" data-zip-check onsubmit="return false">
+          <label for="zip-input" class="field-label">Liefern wir zu dir?</label>
+          <div class="zip-row">
+            <input id="zip-input" class="input" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="PLZ, z. B. 42285" aria-describedby="zip-result" />
+            <button type="submit" class="btn btn--dark">Prüfen</button>
+          </div>
+          <p class="zip-result" id="zip-result" aria-live="polite"></p>
+        </form>
+        <details class="zip-list">
+          <summary>Alle Postleitzahlen anzeigen <Icon name="chevron-down" /></summary>
+          <p class="num">{zones.flatMap((z) => z.zips).join(' · ')}</p>
+        </details>
+      </article>
+
+      <article class="dp-card dp-pickup on-night reveal" style="--i:1" aria-labelledby="dp-p">
+        <div class="dp-icon" aria-hidden="true"><Icon name="store" /></div>
+        <h3 class="d3" id="dp-p">Holst du ab?</h3>
+        <p class="dp-address">
+          <span class="dp-street">{street}</span>
+          <span class="dp-no num" aria-hidden="true">{houseNo}</span>
+          <span class="sr-only">{business.address.street},</span>
+          <span class="dp-city">{business.address.zip} {business.address.city}</span>
+        </p>
+        <ul class="dp-facts" role="list">
+          <li><strong>Kein Mindestbestellwert</strong> bei Abholung</li>
+          <li>Online bestellen, vorbeikommen, mitnehmen</li>
+        </ul>
+        <div class="dp-actions">
+          <a class="btn btn--dark" href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`} target="_blank" rel="noopener">
+            <Icon name="route" /> Google Maps <span class="sr-only">(öffnet in neuem Tab)</span>
+          </a>
+          <a class="btn btn--ghost" href={`https://maps.apple.com/?q=${mapsQuery}`} target="_blank" rel="noopener">
+            Apple Karten <span class="sr-only">(öffnet in neuem Tab)</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { data } from '../../scripts/data.ts';
+  import { cart } from '../../scripts/store.ts';
+  import { formatEuro } from '../../lib/pricing.ts';
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-zip-check]')) {
+    const input = form.querySelector('input') as HTMLInputElement;
+    const out = form.querySelector('.zip-result') as HTMLElement;
+    const check = () => {
+      const zip = input.value.replace(/\D/g, '').slice(0, 5);
+      input.value = zip;
+      if (zip.length < 5) {
+        out.textContent = zip.length ? '' : '';
+        out.className = 'zip-result';
+        return;
+      }
+      const zone = data().ordering.zones.find((z) => z.zips.includes(zip));
+      if (zone) {
+        out.textContent = `Ja, wir liefern nach ${zip}. Mindestbestellwert ${formatEuro(zone.minOrder)}${zone.fee ? `, Liefergebühr ${formatEuro(zone.fee)}` : ', ohne Liefergebühr'}.`;
+        out.className = 'zip-result is-ok';
+        cart.setZip(zip);
+      } else {
+        out.textContent = `Nach ${zip} liefern wir leider nicht – aber du kannst bei uns abholen.`;
+        out.className = 'zip-result is-no';
+      }
+    };
+    input.addEventListener('input', check);
+    form.addEventListener('submit', check);
+    const saved = cart.get().zip;
+    if (saved) {
+      input.value = saved;
+      check();
+    }
+  }
+</script>
+
+<style>
+  .dp-head .label {
+    color: var(--tomato-ink);
+    margin-bottom: 1rem;
+  }
+  .dp-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .dp-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+  .dp-card {
+    position: relative;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    border-radius: var(--r-l);
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .dp-pickup {
+    background: var(--night);
+    color: var(--cream);
+  }
+  .dp-icon {
+    display: grid;
+    place-items: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background: var(--cheese);
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .dp-icon :global(svg) {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+  .dp-facts {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1.25rem;
+  }
+  .dp-facts li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+  .dp-facts li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.55em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--tomato);
+  }
+  .dp-pickup .dp-facts li::before {
+    background: var(--cheese);
+  }
+  .zip-check {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .zip-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .zip-row .input {
+    flex: 1;
+    min-width: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .zip-result {
+    min-height: 1.5em;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .zip-result.is-ok {
+    color: var(--herb);
+  }
+  .zip-result.is-ok::before {
+    content: '✓ ';
+  }
+  .zip-result.is-no {
+    color: var(--tomato-ink);
+  }
+  .zip-list {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .zip-list summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ink-2);
+    list-style: none;
+  }
+  .zip-list summary::-webkit-details-marker {
+    display: none;
+  }
+  .zip-list summary :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    transition: transform var(--d-ui) var(--ease-rise);
+  }
+  .zip-list[open] summary :global(svg) {
+    transform: rotate(180deg);
+  }
+  .zip-list p {
+    color: var(--ink-2);
+    line-height: 1.8;
+  }
+  .dp-address {
+    display: grid;
+    margin-top: 1.25rem;
+    font-weight: 650;
+  }
+  .dp-street {
+    font-size: 1.15rem;
+  }
+  .dp-no {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(5rem, 3rem + 7vw, 9rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: var(--cheese);
+    margin: 0.3rem 0 0.4rem -0.05em;
+  }
+  .dp-city {
+    color: var(--cream-2);
+  }
+  .dp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+  }
+  .dp-pickup .btn--dark {
+    --btn-bg: var(--cream);
+    --btn-fg: var(--ink);
+  }
+</style>

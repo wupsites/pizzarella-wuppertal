@@ -1,0 +1,107 @@
+{
+  "id": "pizzabroetchen",
+  "name": "Pizzabrötchen",
+  "icon": "rolls",
+  "intro": "Gefüllt oder pur – mit Sauce dazu.",
+  "source": "own-site",
+  "optionSets": [
+    "pizzabroetchen-sauce"
+  ],
+  "products": [
+    {
+      "id": "pizzabroetchen",
+      "nr": "56",
+      "name": "Pizzabrötchen",
+      "description": "ohne Füllung",
+      "price": 3.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizzabroetchen-mit-kaese",
+      "nr": "57",
+      "name": "Pizzabrötchen mit Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 5.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizzabroetchen-mit-fuellung-nach-wahl",
+      "nr": "58",
+      "name": "Pizzabrötchen mit Füllung nach Wahl",
+      "description": "mit Käse und Füllung nach Wahl",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 6.9,
+      "confidence": "high",
+      "optionSets": [
+        "pizzabroetchen-fuellung",
+        "pizzabroetchen-sauce"
+      ]
+    },
+    {
+      "id": "pizzabroetchen-speciale",
+      "nr": "59",
+      "name": "Pizzabrötchen Speciale",
+      "description": "mit Sauce Hollandaise, Hähnchenbruststreifen und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizzabroetchen-doener",
+      "nr": "60",
+      "name": "Pizzabrötchen Döner",
+      "description": "mit Hähnchen-Kebab und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizzabroetchen-doener-spezial",
+      "nr": "61",
+      "name": "Pizzabrötchen Döner Spezial",
+      "description": "mit Hähnchen-Kebab, Sauce Hollandaise und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 7.9,
+      "confidence": "high"
+    },
+    {
+      "id": "pizzabroetchen-sucuk",
+      "nr": "62",
+      "name": "Pizzabrötchen Sucuk",
+      "description": "mit Sucuk und Käse",
+      "allergens": [
+        "G"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 6.9,
+      "confidence": "high"
+    }
+  ]
+}

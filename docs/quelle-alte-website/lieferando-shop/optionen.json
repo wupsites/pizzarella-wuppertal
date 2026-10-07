@@ -1,0 +1,13964 @@
+{
+ "Pizza Hawaii": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Vulcano": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Rucola": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Messico": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Bolognese": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Diavolo": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Hood": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Patatine": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Capricciosa": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Mista": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Chili-Cheese": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Döner": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Fresh": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Ela": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza BBQ-Chicken": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": []
+  }
+ ],
+ "Calzone": [
+  {
+   "groesse": "Calzone",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Calzone Spezial": [
+  {
+   "groesse": "Calzone Spezial",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Gamberetti": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Gamberetti Spezial": [
+  {
+   "groesse": "Klein",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Napoli": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Orient": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Vegetaria": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Quattro Stagioni": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Quattro Formaggi": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Mediteran": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Italia": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Margherita": [
+  {
+   "groesse": "Klein",
+   "preis": 7.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Salami": [
+  {
+   "groesse": "Klein",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Funghi": [
+  {
+   "groesse": "Klein",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Tonno": [
+  {
+   "groesse": "Klein",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Spinaci": [
+  {
+   "groesse": "Klein",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Spinaci Feta": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Prosciutto": [
+  {
+   "groesse": "Klein",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Prosciutto e Funghi": [
+  {
+   "groesse": "Klein",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizza Frutti di Mare": [
+  {
+   "groesse": "Klein",
+   "preis": 10.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "groesse": "Groß",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Calzone Döner": [
+  {
+   "groesse": "Calzone Döner",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Penne Ela": [
+  {
+   "groesse": "Penne Ela",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Penne Fresh": [
+  {
+   "groesse": "Penne Fresh",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Tagliatelle Mediteran": [
+  {
+   "groesse": "Tagliatelle Mediteran",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Tagliatelle Orient": [
+  {
+   "groesse": "Tagliatelle Orient",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Tagliatelle Indiano": [
+  {
+   "groesse": "Tagliatelle Indiano",
+   "preis": 13.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Tagliatelle Gamberetti": [
+  {
+   "groesse": "Tagliatelle Gamberetti",
+   "preis": 14.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Spaghetti Carbonara": [
+  {
+   "groesse": "Spaghetti Carbonara",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Penne Arrabiata (scharf)": [
+  {
+   "groesse": "Penne Arrabiata (scharf)",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Penne Quattro Formaggi": [
+  {
+   "groesse": "Penne Quattro Formaggi",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Spaghetti Napoli": [
+  {
+   "groesse": "Spaghetti Napoli",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Spaghetti Aglio Olio e Peperoncino": [
+  {
+   "groesse": "Spaghetti Aglio Olio e Peperoncino",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Spaghetti Bolognese": [
+  {
+   "groesse": "Spaghetti Bolognese",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       2
+      ],
+      [
+       "mit Champignons, frisch",
+       2
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.5
+      ],
+      [
+       "mit Broccoli",
+       2
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.5
+      ],
+      [
+       "mit Jalapeños",
+       1.5
+      ],
+      [
+       "mit Ananas",
+       1.5
+      ],
+      [
+       "mit Mais",
+       1.5
+      ],
+      [
+       "mit Oliven",
+       1.5
+      ],
+      [
+       "mit Rindersalami",
+       3
+      ],
+      [
+       "mit Sucuk",
+       3
+      ],
+      [
+       "mit Thunfisch",
+       2
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.5
+      ],
+      [
+       "mit Rucola, frisch",
+       1.5
+      ],
+      [
+       "mit Blattspinat",
+       1.5
+      ],
+      [
+       "mit Peperoni",
+       1.5
+      ],
+      [
+       "mit Paprika, frisch",
+       1.5
+      ],
+      [
+       "mit Gorgonzola",
+       2
+      ],
+      [
+       "mit Putenschinken",
+       3
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       3
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       3.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       3
+      ],
+      [
+       "mit Pommes",
+       2
+      ],
+      [
+       "mit Ei",
+       2
+      ],
+      [
+       "mit Parmesan",
+       2
+      ],
+      [
+       "mit Schafskäse",
+       2
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       2
+      ],
+      [
+       "mit Kapern",
+       2
+      ],
+      [
+       "mit Sardellen",
+       2
+      ],
+      [
+       "Knoblauch-Öl",
+       0
+      ],
+      [
+       "Chili-Öl",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit Käse überbacken",
+       3
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Capricciosa": [
+  {
+   "groesse": "Insalata Capricciosa",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Fantasia": [
+  {
+   "groesse": "Insalata Fantasia",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Gamberetti": [
+  {
+   "groesse": "Insalata Gamberetti",
+   "preis": 12.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Mediteran": [
+  {
+   "groesse": "Insalata Mediteran",
+   "preis": 11.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Tonno": [
+  {
+   "groesse": "Insalata Tonno",
+   "preis": 7.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Rucola": [
+  {
+   "groesse": "Insalata Rucola",
+   "preis": 7.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Insalata Mista": [
+  {
+   "groesse": "Insalata Mista",
+   "preis": 6.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Honig-Senf",
+       0
+      ],
+      [
+       "Joghurt-Dressing",
+       0
+      ],
+      [
+       "Balsamico-Essig",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "6 Pizzabrötchen",
+       2
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen Döner": [
+  {
+   "groesse": "Pizzabrötchen Döner",
+   "preis": 7.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen Speciale": [
+  {
+   "groesse": "Pizzabrötchen Speciale",
+   "preis": 7.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen Sucuk": [
+  {
+   "groesse": "Pizzabrötchen Sucuk",
+   "preis": 7.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen Döner Spezial": [
+  {
+   "groesse": "Pizzabrötchen Döner Spezial",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen": [
+  {
+   "groesse": "Pizzabrötchen",
+   "preis": 4.5,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen mit Käse": [
+  {
+   "groesse": "Pizzabrötchen mit Käse",
+   "preis": 5.9,
+   "gruppen": [
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pizzabrötchen nach Wahl": [
+  {
+   "groesse": "Pizzabrötchen nach Wahl",
+   "preis": 6.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "mit extra Käse",
+       1.5
+      ],
+      [
+       "mit Champignons, frisch",
+       1.5
+      ],
+      [
+       "mit Cherry-Tomaten, frisch",
+       1.2
+      ],
+      [
+       "mit Broccoli",
+       1.5
+      ],
+      [
+       "mit Zwiebeln, rot",
+       1.2
+      ],
+      [
+       "mit Jalapeños",
+       1.2
+      ],
+      [
+       "mit Ananas",
+       1.2
+      ],
+      [
+       "mit Mais",
+       1.2
+      ],
+      [
+       "mit Oliven",
+       1.2
+      ],
+      [
+       "mit Rindersalami",
+       2.5
+      ],
+      [
+       "mit Sucuk",
+       2.5
+      ],
+      [
+       "mit Thunfisch",
+       1.5
+      ],
+      [
+       "mit Sauce Hollandaise",
+       1.2
+      ],
+      [
+       "mit Rucola, frisch",
+       1.2
+      ],
+      [
+       "mit Blattspinat",
+       1.2
+      ],
+      [
+       "mit Peperoni",
+       1.2
+      ],
+      [
+       "mit Paprika, frisch",
+       1.2
+      ],
+      [
+       "mit Gorgonzola",
+       1.5
+      ],
+      [
+       "mit Putenschinken",
+       2.5
+      ],
+      [
+       "mit Hähnchenbrustfilet",
+       2.5
+      ],
+      [
+       "mit Frutti Di Mare",
+       3.5
+      ],
+      [
+       "mit Garnelen",
+       2.5
+      ],
+      [
+       "mit Chicken Nuggets",
+       2.5
+      ],
+      [
+       "mit Pommes",
+       1.5
+      ],
+      [
+       "mit Ei",
+       1.5
+      ],
+      [
+       "mit Parmesan",
+       1.5
+      ],
+      [
+       "mit Schafskäse",
+       1.5
+      ],
+      [
+       "mit Hähnchen-Döner-Kebab",
+       3.5
+      ],
+      [
+       "mit Pastirma",
+       3.5
+      ],
+      [
+       "mit Bolognese",
+       1.5
+      ],
+      [
+       "mit Kapern",
+       1.5
+      ],
+      [
+       "mit Sardellen",
+       1.5
+      ]
+     ]
+    },
+    {
+     "typ": "1",
+     "optionen": [
+      [
+       "Chili-Aioli",
+       0
+      ],
+      [
+       "Kräuterbutter",
+       0
+      ]
+     ]
+    },
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Avioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Döner Dürüm": [
+  {
+   "groesse": "Döner Dürüm",
+   "preis": 8.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Lahmacun Döner": [
+  {
+   "groesse": "Lahmacun Döner",
+   "preis": 9.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Lahmacun": [
+  {
+   "groesse": "Lahmacun",
+   "preis": 6.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Sucuk-Tasche": [
+  {
+   "groesse": "Sucuk-Tasche",
+   "preis": 6.5,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Gemüsetasche (vegetarisch)": [
+  {
+   "groesse": "Gemüsetasche (vegetarisch)",
+   "preis": 5.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Pommes-Tasche (vegetarisch)": [
+  {
+   "groesse": "Pommes-Tasche (vegetarisch)",
+   "preis": 5.9,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Chilicheese-Dönertasche": [
+  {
+   "groesse": "Chilicheese-Dönertasche",
+   "preis": 9.5,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Döner Box": [
+  {
+   "groesse": "Döner Box",
+   "preis": 7,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Dönerteller": [
+  {
+   "groesse": "Dönerteller",
+   "preis": 12.5,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Dönertasche": [
+  {
+   "groesse": "Dönertasche",
+   "preis": 7.5,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Dönertasche mit gegrilltem Gemüse": [
+  {
+   "groesse": "Dönertasche mit gegrilltem Gemüse",
+   "preis": 8.5,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "Dönertasche mit Pommes": [
+  {
+   "groesse": "Dönertasche mit Pommes",
+   "preis": 8.5,
+   "gruppen": [
+    {
+     "typ": "2",
+     "optionen": [
+      [
+       "Knoblauch",
+       0
+      ],
+      [
+       "scharfe Sauce",
+       0
+      ],
+      [
+       "Cocktail",
+       0
+      ],
+      [
+       "Ketchup",
+       0.8
+      ],
+      [
+       "Mayonnaise",
+       0.8
+      ],
+      [
+       "Joppiesauce",
+       1
+      ],
+      [
+       "BBQ-Sauce",
+       1
+      ],
+      [
+       "Süß-Sauer-Sauce",
+       1
+      ],
+      [
+       "Curry-Sauce",
+       1
+      ],
+      [
+       "Knoblauchsauce",
+       1
+      ],
+      [
+       "Cocktail-Sauce",
+       1
+      ],
+      [
+       "Salsa-Sauce",
+       1
+      ],
+      [
+       "Chilisauce",
+       1
+      ],
+      [
+       "Chilicheese-Sauce",
+       1
+      ],
+      [
+       "Andalouse",
+       1
+      ],
+      [
+       "Samurai",
+       1
+      ],
+      [
+       "Kräuterbutter",
+       1
+      ],
+      [
+       "Chili-Aioli",
+       1
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,759 @@
+{
+  "$comment": "Wiederverwendbare Auswahl-Gruppen. Quelle der Aufpreise: Lieferando-Shop des Betriebs (07.10.2026) – im eigenen Shop sind Extras nur bei geöffnetem Laden abrufbar. Vor Go-Live mit den eigenen Extra-Preisen abgleichen (docs/GO-LIVE.md).",
+  "pizza-zutaten": {
+    "label": "Extra-Zutaten",
+    "type": "multi",
+    "required": false,
+    "max": 10,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "mit-extra-kaese",
+        "label": "Extra Käse",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-parmesan",
+        "label": "Parmesan",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-schafskaese",
+        "label": "Schafskäse",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-gorgonzola",
+        "label": "Gorgonzola",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-sauce-hollandaise",
+        "label": "Sauce Hollandaise",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-sucuk",
+        "label": "Sucuk",
+        "prices": {
+          "klein": 2.5,
+          "gross": 3
+        }
+      },
+      {
+        "id": "mit-rindersalami",
+        "label": "Rindersalami",
+        "prices": {
+          "klein": 2.5,
+          "gross": 3
+        }
+      },
+      {
+        "id": "mit-putenschinken",
+        "label": "Putenschinken",
+        "prices": {
+          "klein": 2.5,
+          "gross": 3
+        }
+      },
+      {
+        "id": "mit-haehnchenbrustfilet",
+        "label": "Hähnchenbrustfilet",
+        "prices": {
+          "klein": 2.5,
+          "gross": 3
+        }
+      },
+      {
+        "id": "mit-pastirma",
+        "label": "Pastirma",
+        "prices": {
+          "klein": 3.5,
+          "gross": 3.5
+        }
+      },
+      {
+        "id": "mit-thunfisch",
+        "label": "Thunfisch",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-sardellen",
+        "label": "Sardellen",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-garnelen",
+        "label": "Garnelen",
+        "prices": {
+          "klein": 3.5,
+          "gross": 3.5
+        }
+      },
+      {
+        "id": "mit-frutti-di-mare",
+        "label": "Frutti di Mare",
+        "prices": {
+          "klein": 3.5,
+          "gross": 3.5
+        }
+      },
+      {
+        "id": "mit-haehnchen-doener-kebab",
+        "label": "Hähnchen-Döner-Kebab",
+        "prices": {
+          "klein": 3.5,
+          "gross": 3.5
+        }
+      },
+      {
+        "id": "mit-chicken-nuggets",
+        "label": "Chicken Nuggets",
+        "prices": {
+          "klein": 2.5,
+          "gross": 3
+        }
+      },
+      {
+        "id": "mit-pommes",
+        "label": "Pommes",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-ei",
+        "label": "Ei",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-bolognese",
+        "label": "Bolognese",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-champignons-frisch",
+        "label": "Champignons, frisch",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-cherry-tomaten-frisch",
+        "label": "Cherry-Tomaten, frisch",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-broccoli",
+        "label": "Brokkoli",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "mit-zwiebeln-rot",
+        "label": "Zwiebeln, rot",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-jalapenos",
+        "label": "Jalapeños",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-ananas",
+        "label": "Ananas",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-mais",
+        "label": "Mais",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-oliven",
+        "label": "Oliven",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-rucola-frisch",
+        "label": "Rucola, frisch",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-blattspinat",
+        "label": "Blattspinat",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-peperoni",
+        "label": "Peperoni",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-paprika-frisch",
+        "label": "Paprika, frisch",
+        "prices": {
+          "klein": 1.2,
+          "gross": 1.5
+        }
+      },
+      {
+        "id": "mit-kapern",
+        "label": "Kapern",
+        "prices": {
+          "klein": 1.5,
+          "gross": 2
+        }
+      },
+      {
+        "id": "knoblauch-oel",
+        "label": "Knoblauch-Öl",
+        "prices": {
+          "klein": 0,
+          "gross": 0
+        }
+      },
+      {
+        "id": "chili-oel",
+        "label": "Chili-Öl",
+        "prices": {
+          "klein": 0,
+          "gross": 0
+        }
+      }
+    ]
+  },
+  "pasta-zutaten": {
+    "label": "Extra-Zutaten",
+    "type": "multi",
+    "required": false,
+    "max": 10,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "mit-extra-kaese",
+        "label": "Extra Käse",
+        "price": 2
+      },
+      {
+        "id": "mit-champignons-frisch",
+        "label": "Champignons, frisch",
+        "price": 2
+      },
+      {
+        "id": "mit-cherry-tomaten-frisch",
+        "label": "Cherry-Tomaten, frisch",
+        "price": 1.5
+      },
+      {
+        "id": "mit-broccoli",
+        "label": "Brokkoli",
+        "price": 2
+      },
+      {
+        "id": "mit-zwiebeln-rot",
+        "label": "Zwiebeln, rot",
+        "price": 1.5
+      },
+      {
+        "id": "mit-jalapenos",
+        "label": "Jalapeños",
+        "price": 1.5
+      },
+      {
+        "id": "mit-ananas",
+        "label": "Ananas",
+        "price": 1.5
+      },
+      {
+        "id": "mit-mais",
+        "label": "Mais",
+        "price": 1.5
+      },
+      {
+        "id": "mit-oliven",
+        "label": "Oliven",
+        "price": 1.5
+      },
+      {
+        "id": "mit-rindersalami",
+        "label": "Rindersalami",
+        "price": 3
+      },
+      {
+        "id": "mit-sucuk",
+        "label": "Sucuk",
+        "price": 3
+      },
+      {
+        "id": "mit-thunfisch",
+        "label": "Thunfisch",
+        "price": 2
+      },
+      {
+        "id": "mit-sauce-hollandaise",
+        "label": "Sauce Hollandaise",
+        "price": 1.5
+      },
+      {
+        "id": "mit-rucola-frisch",
+        "label": "Rucola, frisch",
+        "price": 1.5
+      },
+      {
+        "id": "mit-blattspinat",
+        "label": "Blattspinat",
+        "price": 1.5
+      },
+      {
+        "id": "mit-peperoni",
+        "label": "Peperoni",
+        "price": 1.5
+      },
+      {
+        "id": "mit-paprika-frisch",
+        "label": "Paprika, frisch",
+        "price": 1.5
+      },
+      {
+        "id": "mit-gorgonzola",
+        "label": "Gorgonzola",
+        "price": 2
+      },
+      {
+        "id": "mit-putenschinken",
+        "label": "Putenschinken",
+        "price": 3
+      },
+      {
+        "id": "mit-haehnchenbrustfilet",
+        "label": "Hähnchenbrustfilet",
+        "price": 3
+      },
+      {
+        "id": "mit-frutti-di-mare",
+        "label": "Frutti di Mare",
+        "price": 3.5
+      },
+      {
+        "id": "mit-garnelen",
+        "label": "Garnelen",
+        "price": 3.5
+      },
+      {
+        "id": "mit-chicken-nuggets",
+        "label": "Chicken Nuggets",
+        "price": 3
+      },
+      {
+        "id": "mit-pommes",
+        "label": "Pommes",
+        "price": 2
+      },
+      {
+        "id": "mit-ei",
+        "label": "Ei",
+        "price": 2
+      },
+      {
+        "id": "mit-parmesan",
+        "label": "Parmesan",
+        "price": 2
+      },
+      {
+        "id": "mit-schafskaese",
+        "label": "Schafskäse",
+        "price": 2
+      },
+      {
+        "id": "mit-haehnchen-doener-kebab",
+        "label": "Hähnchen-Döner-Kebab",
+        "price": 3.5
+      },
+      {
+        "id": "mit-pastirma",
+        "label": "Pastirma",
+        "price": 3.5
+      },
+      {
+        "id": "mit-bolognese",
+        "label": "Bolognese",
+        "price": 2
+      },
+      {
+        "id": "mit-kapern",
+        "label": "Kapern",
+        "price": 2
+      },
+      {
+        "id": "mit-sardellen",
+        "label": "Sardellen",
+        "price": 2
+      },
+      {
+        "id": "knoblauch-oel",
+        "label": "Knoblauch-Öl",
+        "price": 0
+      },
+      {
+        "id": "chili-oel",
+        "label": "Chili-Öl",
+        "price": 0
+      }
+    ]
+  },
+  "pasta-ueberbacken": {
+    "label": "Überbacken",
+    "type": "multi",
+    "required": false,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "mit-kaese-ueberbacken",
+        "label": "Mit Käse überbacken",
+        "price": 3.0
+      }
+    ]
+  },
+  "salat-dressing": {
+    "label": "Dressing",
+    "type": "single",
+    "required": true,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "honig-senf",
+        "label": "Honig-Senf",
+        "price": 0
+      },
+      {
+        "id": "joghurt",
+        "label": "Joghurt-Dressing",
+        "price": 0
+      },
+      {
+        "id": "balsamico",
+        "label": "Balsamico-Essig",
+        "price": 0
+      }
+    ]
+  },
+  "salat-brot": {
+    "label": "Dazu",
+    "type": "multi",
+    "required": false,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "6-pizzabroetchen",
+        "label": "6 Pizzabrötchen",
+        "price": 2.0
+      }
+    ]
+  },
+  "pizzabroetchen-sauce": {
+    "label": "Sauce dazu",
+    "type": "single",
+    "required": true,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "chili-aioli",
+        "label": "Chili-Aioli",
+        "price": 0
+      },
+      {
+        "id": "kraeuterbutter",
+        "label": "Kräuterbutter",
+        "price": 0
+      }
+    ]
+  },
+  "pizzabroetchen-fuellung": {
+    "label": "Füllung",
+    "type": "multi",
+    "required": true,
+    "max": 6,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "mit-extra-kaese",
+        "label": "Extra Käse",
+        "price": 1.5
+      },
+      {
+        "id": "mit-champignons-frisch",
+        "label": "Champignons, frisch",
+        "price": 1.5
+      },
+      {
+        "id": "mit-cherry-tomaten-frisch",
+        "label": "Cherry-Tomaten, frisch",
+        "price": 1.2
+      },
+      {
+        "id": "mit-broccoli",
+        "label": "Brokkoli",
+        "price": 1.5
+      },
+      {
+        "id": "mit-zwiebeln-rot",
+        "label": "Zwiebeln, rot",
+        "price": 1.2
+      },
+      {
+        "id": "mit-jalapenos",
+        "label": "Jalapeños",
+        "price": 1.2
+      },
+      {
+        "id": "mit-ananas",
+        "label": "Ananas",
+        "price": 1.2
+      },
+      {
+        "id": "mit-mais",
+        "label": "Mais",
+        "price": 1.2
+      },
+      {
+        "id": "mit-oliven",
+        "label": "Oliven",
+        "price": 1.2
+      },
+      {
+        "id": "mit-rindersalami",
+        "label": "Rindersalami",
+        "price": 2.5
+      },
+      {
+        "id": "mit-sucuk",
+        "label": "Sucuk",
+        "price": 2.5
+      },
+      {
+        "id": "mit-thunfisch",
+        "label": "Thunfisch",
+        "price": 1.5
+      },
+      {
+        "id": "mit-sauce-hollandaise",
+        "label": "Sauce Hollandaise",
+        "price": 1.2
+      },
+      {
+        "id": "mit-rucola-frisch",
+        "label": "Rucola, frisch",
+        "price": 1.2
+      },
+      {
+        "id": "mit-blattspinat",
+        "label": "Blattspinat",
+        "price": 1.2
+      },
+      {
+        "id": "mit-peperoni",
+        "label": "Peperoni",
+        "price": 1.2
+      },
+      {
+        "id": "mit-paprika-frisch",
+        "label": "Paprika, frisch",
+        "price": 1.2
+      },
+      {
+        "id": "mit-gorgonzola",
+        "label": "Gorgonzola",
+        "price": 1.5
+      },
+      {
+        "id": "mit-putenschinken",
+        "label": "Putenschinken",
+        "price": 2.5
+      },
+      {
+        "id": "mit-haehnchenbrustfilet",
+        "label": "Hähnchenbrustfilet",
+        "price": 2.5
+      },
+      {
+        "id": "mit-frutti-di-mare",
+        "label": "Frutti di Mare",
+        "price": 3.5
+      },
+      {
+        "id": "mit-garnelen",
+        "label": "Garnelen",
+        "price": 2.5
+      },
+      {
+        "id": "mit-chicken-nuggets",
+        "label": "Chicken Nuggets",
+        "price": 2.5
+      },
+      {
+        "id": "mit-pommes",
+        "label": "Pommes",
+        "price": 1.5
+      },
+      {
+        "id": "mit-ei",
+        "label": "Ei",
+        "price": 1.5
+      },
+      {
+        "id": "mit-parmesan",
+        "label": "Parmesan",
+        "price": 1.5
+      },
+      {
+        "id": "mit-schafskaese",
+        "label": "Schafskäse",
+        "price": 1.5
+      },
+      {
+        "id": "mit-haehnchen-doener-kebab",
+        "label": "Hähnchen-Döner-Kebab",
+        "price": 3.5
+      },
+      {
+        "id": "mit-pastirma",
+        "label": "Pastirma",
+        "price": 3.5
+      },
+      {
+        "id": "mit-bolognese",
+        "label": "Bolognese",
+        "price": 1.5
+      },
+      {
+        "id": "mit-kapern",
+        "label": "Kapern",
+        "price": 1.5
+      },
+      {
+        "id": "mit-sardellen",
+        "label": "Sardellen",
+        "price": 1.5
+      }
+    ]
+  },
+  "doener-sauce": {
+    "label": "Sauce",
+    "type": "multi",
+    "required": false,
+    "max": 3,
+    "status": "unconfirmed",
+    "choices": [
+      {
+        "id": "knoblauch",
+        "label": "Knoblauch",
+        "price": 0
+      },
+      {
+        "id": "scharf",
+        "label": "Scharfe Sauce",
+        "price": 0
+      },
+      {
+        "id": "cocktail",
+        "label": "Cocktail",
+        "price": 0
+      }
+    ]
+  },
+  "teller-beilage": {
+    "label": "Beilage",
+    "type": "single",
+    "required": true,
+    "status": "confirmed",
+    "choices": [
+      {
+        "id": "pommes",
+        "label": "Pommes",
+        "price": 0
+      },
+      {
+        "id": "reis",
+        "label": "Reis",
+        "price": 0
+      }
+    ]
+  },
+  "eistee-sorte": {
+    "label": "Sorte",
+    "type": "single",
+    "required": true,
+    "status": "confirmed",
+    "choices": [
+      {
+        "id": "zitrone",
+        "label": "Zitrone",
+        "price": 0
+      },
+      {
+        "id": "pfirsich",
+        "label": "Pfirsich",
+        "price": 0
+      }
+    ]
+  }
+}

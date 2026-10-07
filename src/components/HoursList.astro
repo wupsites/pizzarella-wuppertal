@@ -1,0 +1,81 @@
+---
+import { weeklyRows } from '../lib/hours.ts';
+import { site } from '../data/index.ts';
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+const rows = weeklyRows(site.business.hours);
+// gleiche Zeiten zusammenfassen (Mo, Di, Do …) nur in der kompakten Fassung
+type Row = (typeof rows)[number];
+const groups: { days: Row[]; label: string }[] = [];
+if (compact) {
+  for (const r of rows) {
+    const g = groups.find((x) => x.label === r.label);
+    if (g) g.days.push(r);
+    else groups.push({ days: [r], label: r.label });
+  }
+}
+const fmt = (label: string) => label.replace(/–/g, ' – ').replace('24:00', '24:00');
+---
+
+{
+  compact ? (
+    <dl class="hours hours--compact">
+      {groups.map((g) => (
+        <div class="hours-row">
+          <dt>{g.days.map((d) => d.short).join(', ')}</dt>
+          <dd class="num">{fmt(g.label)}</dd>
+        </div>
+      ))}
+    </dl>
+  ) : (
+    <dl class="hours">
+      {rows.map((r, i) => (
+        <div class="hours-row" data-weekday={i}>
+          <dt>{r.name}</dt>
+          <dd class="num">{r.intervals.length ? fmt(r.label) + ' Uhr' : 'Ruhetag'}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
+<style>
+  .hours {
+    display: grid;
+    gap: 0.15rem;
+  }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .hours-row:last-child {
+    border-bottom: 0;
+  }
+  .hours-row dt {
+    font-weight: 600;
+  }
+  .hours-row dd {
+    text-align: right;
+  }
+  .hours-row.is-today {
+    position: relative;
+  }
+  .hours-row.is-today dt::after {
+    content: 'heute';
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: var(--r-round);
+    background: var(--cheese);
+    color: var(--ink);
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: 0.1em;
+  }
+</style>

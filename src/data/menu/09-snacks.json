@@ -1,0 +1,79 @@
+{
+  "id": "snacks",
+  "name": "Snacks",
+  "icon": "fries",
+  "intro": "Für nebenbei oder für alle.",
+  "source": "own-site",
+  "products": [
+    {
+      "id": "pommes",
+      "nr": "80",
+      "name": "Pommes",
+      "description": "Knusprig frittiert",
+      "descriptionSource": "lieferando-site",
+      "price": 3.5,
+      "confidence": "high"
+    },
+    {
+      "id": "chilicheese-pommes",
+      "nr": "81",
+      "name": "Chilicheese-Pommes",
+      "description": "Pommes mit Chilicheese-Sauce",
+      "descriptionSource": "lieferando-site",
+      "price": 5.9,
+      "confidence": "high"
+    },
+    {
+      "id": "chicken-nuggets",
+      "nr": "82",
+      "name": "Chicken Nuggets (6 Stück)",
+      "description": "Knusprig panierte Chicken Nuggets",
+      "descriptionSource": "lieferando-site",
+      "price": 4.5,
+      "confidence": "high"
+    },
+    {
+      "id": "kroketten",
+      "nr": "83",
+      "name": "Kroketten",
+      "description": "Knusprig frittierte Kroketten",
+      "descriptionSource": "lieferando-site",
+      "price": 3.9,
+      "confidence": "high"
+    },
+    {
+      "id": "onion-rings",
+      "nr": "84",
+      "name": "Onion Rings (6 Stück)",
+      "description": "Knusprig frittierte Zwiebelringe",
+      "descriptionSource": "lieferando-site",
+      "price": 3.9,
+      "confidence": "high"
+    },
+    {
+      "id": "mozzarella-sticks",
+      "nr": "85",
+      "name": "Mozzarella Sticks (6 Stück)",
+      "description": "Panierte Mozzarella-Sticks",
+      "descriptionSource": "lieferando-site",
+      "price": 3.9,
+      "confidence": "high"
+    },
+    {
+      "id": "chili-cheese-nuggets",
+      "name": "Chili Cheese Nuggets (6 Stück)",
+      "description": "Panierte Nuggets mit würziger Käsefüllung",
+      "descriptionSource": "lieferando-site",
+      "price": 4.5,
+      "confidence": "high"
+    },
+    {
+      "id": "suesskartoffeln",
+      "name": "Süßkartoffeln",
+      "description": "Knusprige Süßkartoffel-Pommes",
+      "descriptionSource": "lieferando-site",
+      "price": 4.5,
+      "confidence": "high"
+    }
+  ]
+}

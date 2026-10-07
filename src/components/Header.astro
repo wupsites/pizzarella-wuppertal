@@ -1,0 +1,265 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/index.ts';
+
+interface Props {
+  overlay?: boolean;
+  current?: string;
+}
+const { overlay = false, current = '' } = Astro.props;
+const { business } = site;
+const nav = [
+  { href: '/speisekarte/', label: 'Speisekarte', key: 'speisekarte' },
+  { href: '/lieferung-abholung/', label: 'Lieferung & Abholung', key: 'lieferung' },
+  { href: '/kontakt/', label: 'Kontakt', key: 'kontakt' },
+];
+---
+
+<header class:list={['site-header', { 'is-overlay': overlay }]}>
+  <div class="wrap header-inner">
+    <a class="brand" href="/" aria-label="Pizzarella – zur Startseite">
+      <Logo size="sm" tone={overlay ? 'light' : 'brand'} />
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul role="list">
+        {
+          nav.map((n) => (
+            <li>
+              <a href={n.href} aria-current={current === n.key ? 'page' : undefined}>
+                {n.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <p class="status-chip">
+        <span class="dot" aria-hidden="true"></span>
+        <span data-status-chip>Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24</span>
+      </p>
+      <a class="icon-btn header-phone" href={`tel:${business.phone.e164}`} aria-label={`Anrufen: ${business.phone.display}`}>
+        <Icon name="phone" />
+      </a>
+      <button type="button" class="cart-btn" data-cart-open data-cart-button aria-label="Warenkorb öffnen, leer">
+        <Icon name="bag" />
+        <span class="cart-btn-label">Warenkorb</span>
+        <span class="cart-btn-count" data-cart-count hidden>0</span>
+        <span class="cart-btn-total price" data-cart-total>0,00 €</span>
+      </button>
+      <button type="button" class="icon-btn menu-btn" data-menu-open aria-haspopup="dialog" aria-controls="site-menu" aria-label="Menü öffnen">
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    color: var(--ink);
+    background: rgb(244 235 220 / 0.94);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color var(--d-ui) var(--ease-rise),
+      border-color var(--d-ui) var(--ease-rise),
+      color var(--d-ui) var(--ease-rise),
+      box-shadow var(--d-ui) var(--ease-rise);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .site-header {
+      background: rgb(244 235 220 / 0.86);
+      backdrop-filter: saturate(1.4) blur(14px);
+    }
+  }
+  .site-header.is-scrolled {
+    border-bottom-color: var(--line);
+    box-shadow: 0 6px 24px rgb(28 21 17 / 0.06);
+  }
+  .site-header.is-overlay {
+    position: fixed;
+    inset: 0 0 auto 0;
+    color: var(--cream);
+    background: transparent;
+    backdrop-filter: none;
+  }
+  .site-header.is-overlay.is-scrolled {
+    color: var(--ink);
+    background: rgb(244 235 220 / 0.92);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .site-header.is-overlay.is-scrolled {
+      background: rgb(244 235 220 / 0.84);
+      backdrop-filter: saturate(1.4) blur(14px);
+    }
+  }
+  .site-header.is-overlay.is-scrolled :global(.logo) {
+    --l-word: #a8341a;
+    --l-steam: #a8341a;
+  }
+  .header-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-right: auto;
+  }
+  .main-nav {
+    display: none;
+  }
+  .main-nav ul {
+    display: flex;
+    gap: 0.25rem;
+  }
+  .main-nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 0.85rem;
+    border-radius: var(--r-round);
+    font-weight: 600;
+    font-size: 0.97rem;
+    text-decoration: none;
+  }
+  .main-nav a::after {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.55rem;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--d-ui) var(--ease-rise);
+  }
+  @media (hover: hover) {
+    .main-nav a:hover::after {
+      transform: scaleX(1);
+    }
+  }
+  .main-nav a[aria-current='page']::after {
+    transform: scaleX(1);
+    background: var(--tomato);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .status-chip {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .header-phone {
+    display: none;
+  }
+  .cart-btn {
+    display: none;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.75rem;
+    padding: 0 1rem 0 0.85rem;
+    border-radius: var(--r-round);
+    border: 1.5px solid currentColor;
+    font-weight: 650;
+    font-size: 0.95rem;
+    transition:
+      background-color var(--d-hover) var(--ease-rise),
+      color var(--d-hover) var(--ease-rise),
+      border-color var(--d-hover) var(--ease-rise),
+      transform var(--d-ui) var(--ease-settle);
+  }
+  .cart-btn :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .cart-btn:active {
+    transform: scale(0.96);
+  }
+  .cart-btn.has-items {
+    background: var(--tomato);
+    border-color: var(--tomato);
+    color: #fff;
+  }
+  @media (hover: hover) {
+    .cart-btn:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+    .cart-btn.has-items:hover {
+      background: var(--tomato-hover);
+      border-color: var(--tomato-hover);
+      color: #fff;
+    }
+  }
+  .cart-btn-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding: 0 0.3rem;
+    border-radius: var(--r-round);
+    background: var(--paper);
+    color: var(--tomato-ink);
+    font-size: 0.8rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+  }
+  .cart-btn:not(.has-items) .cart-btn-total {
+    display: none;
+  }
+  .cart-btn.has-items .cart-btn-label {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .header-phone {
+      display: inline-grid;
+    }
+  }
+  @media (min-width: 1024px) {
+    .main-nav {
+      display: block;
+    }
+    .menu-btn {
+      display: none;
+    }
+    .cart-btn {
+      display: inline-flex;
+    }
+    .brand {
+      margin-right: 0.5rem;
+    }
+    .main-nav {
+      margin-right: auto;
+    }
+  }
+  @media (min-width: 1200px) {
+    .status-chip {
+      display: inline-flex;
+    }
+  }
+</style>

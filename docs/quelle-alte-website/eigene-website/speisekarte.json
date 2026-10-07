@@ -1,0 +1,1596 @@
+{
+ "_pizza": [
+  {
+   "post": "5564",
+   "title": "1. Pizza Margherita",
+   "desc": "mit Tomatensauce und Käse⁽2,G⁾",
+   "prices": [
+    [
+     "6,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "7,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5565",
+   "title": "2. Pizza Salami⁽2,4,11,H,I,J⁾",
+   "desc": "mit RinderSalami⁽2,4,11,H,I,J⁾",
+   "prices": [
+    [
+     "7,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "9,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5566",
+   "title": "3. Pizza Funghi",
+   "desc": "mit Champignons",
+   "prices": [
+    [
+     "7,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "9,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5567",
+   "title": "4. Pizza Tonno",
+   "desc": "mit Thunfisch⁽D⁾",
+   "prices": [
+    [
+     "7,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "9,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5568",
+   "title": "5. Pizza Spinaci",
+   "desc": "mit Spinat",
+   "prices": [
+    [
+     "7,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "9,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5569",
+   "title": "6. Pizza Spinaci Spezial",
+   "desc": "mit SchafsKäse⁽2,G⁾ und Spinat",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5570",
+   "title": "7. Pizza Prosciutto",
+   "desc": "mit Putenschinken",
+   "prices": [
+    [
+     "7,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "9,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5571",
+   "title": "8. Pizza Prosciutto e Funghi",
+   "desc": "mit Putenschinken und Champignons",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5575",
+   "title": "9. Pizza Frutti di Mare",
+   "desc": "mit Meeresfrüchten⁽B,D,N⁾",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5576",
+   "title": "10. Pizza Gamberetti",
+   "desc": "mit Garnelen",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5577",
+   "title": "11. Pizza Gamberetti Spezial",
+   "desc": "mit Garnelen, Sauce Hollandaise",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5578",
+   "title": "12. Pizza Napoli",
+   "desc": "mit Sardellen, Oliven⁽7⁾, Kapern",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5579",
+   "title": "13. Pizza Orient",
+   "desc": "mit Sucuk",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5580",
+   "title": "14. Pizza Vegetaria",
+   "desc": "mit verschiedenen Gemüsesorten",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5585",
+   "title": "15. Pizza Quattro Stagioni",
+   "desc": "mit Putenschinken, Paprika, Spinat, Thunfisch⁽D⁾",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5586",
+   "title": "16. Pizza Quattro Formaggi",
+   "desc": "mit vier Käse⁽2,G⁾sorten",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5595",
+   "title": "17. Pizza Mediteran",
+   "desc": "mit frischen Tomaten, Mozzarella, Oliven⁽7⁾",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5596",
+   "title": "18. Pizza Italia",
+   "desc": "mit Spinat, Zwiebeln, Paprika",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5597",
+   "title": "19. Pizza Hawaii",
+   "desc": "mit Putenschinken und Ananas",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5598",
+   "title": "20. Pizza Vulcano",
+   "desc": "mit Champignons, RinderSalami⁽2,4,11,H,I,J⁾, Peperoni",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5599",
+   "title": "21. Pizza Rucola",
+   "desc": "mit Pastirma, Rucola, Parmesan",
+   "prices": [
+    [
+     "10,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5600",
+   "title": "25. Pizza Hood",
+   "desc": "mit Pommes, Chicken-Nuggets, viel Käse⁽2,G⁾",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5604",
+   "title": "22. Pizza Messico",
+   "desc": "mit Hähnchenbrustfilet, Mais, Paprika, Zwiebeln",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5605",
+   "title": "23. Pizza Bolognese",
+   "desc": "mit Bolognesesauce, Käse⁽2,G⁾",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5611",
+   "title": "24. Pizza Diavolo",
+   "desc": "mit RinderSalami⁽2,4,11,H,I,J⁾ und Peperoni",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5616",
+   "title": "26. Pizza Patatine",
+   "desc": "mit Pommes",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "10,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5617",
+   "title": "27. Pizza Capricciosa",
+   "desc": "mit Putenschinken, Thunfisch⁽D⁾, Mais, Oliven⁽7⁾",
+   "prices": [
+    [
+     "10,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5618",
+   "title": "28. Pizza Mista",
+   "desc": "mit Putenschinken, RinderSalami⁽2,4,11,H,I,J⁾, Thunfisch⁽D⁾, Spinat, Zwiebeln, Peperoni, Paprika",
+   "prices": [
+    [
+     "10,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5619",
+   "title": "35. Calzone",
+   "desc": "mit Putenschinken, Champignons, RinderSalami⁽2,4,11,H,I,J⁾, Peperoni, Käse⁽2,G⁾",
+   "prices": [
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5621",
+   "title": "29. Pizza Camarelo",
+   "desc": "mit karamellisierten Zwiebeln und Paprika",
+   "prices": [
+    [
+     "7,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "9,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5622",
+   "title": "30. Pizza Chili-Cheese",
+   "desc": "mit Chili-Cheese-Sauce, Jalapeños, Cheddar-Käse⁽2,G⁾ und Hähnchenbrustfilet",
+   "prices": [
+    [
+     "10,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5623",
+   "title": "31. Pizza Döner",
+   "desc": "mit Hähnchen-Kebab, Salat",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5624",
+   "title": "32. Pizza Fresh",
+   "desc": "mit Crème fraîche, Champignons, Zwiebeln, Spinat",
+   "prices": [
+    [
+     "8,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "11,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5631",
+   "title": "33. Pizza Ela",
+   "desc": "mit Hähnchenbrustfilet, Broccoli, Sauce Hollandaise",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5632",
+   "title": "34. Pizza BBQ- Chicken",
+   "desc": "mit Hähnchenbrustfilet, BBQ-Sauce, Mais",
+   "prices": [
+    [
+     "9,90 €",
+     "Klein (∅25cm)"
+    ],
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5637",
+   "title": "36. Calzone Spezial",
+   "desc": "mit Hähnchenbrustfilet, Broccoli, Sauce Hollandaise",
+   "prices": [
+    [
+     "12,90 €",
+     "Groß (∅30cm)"
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_party_pizza": [
+  {
+   "post": "5691",
+   "title": "1. Party-Pizza Margherita",
+   "desc": "mit Tomatensauce und Käse⁽2,G⁾",
+   "prices": [
+    [
+     "29,90 €",
+     "60X40cm"
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5692",
+   "title": "2. Party-Pizza",
+   "desc": "Mit einem Belag nach Wahl",
+   "prices": [
+    [
+     "34,90 €",
+     "60X40cm"
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_pasta": [
+  {
+   "post": "5652",
+   "title": "37. Spaghetti Napoli",
+   "desc": "mit pikanter Tomatensauce",
+   "prices": [
+    [
+     "8,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5654",
+   "title": "38. Spaghetti Aglio Olio e Peperoncino",
+   "desc": "mit Knoblauch, Peperoni",
+   "prices": [
+    [
+     "8,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5655",
+   "title": "39. Spaghetti Bolognese",
+   "desc": "mit hausgemachter Tomaten-Hackfleischsauce",
+   "prices": [
+    [
+     "9,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5656",
+   "title": "40. Spaghetti Carbonara",
+   "desc": "mit Putenschinken, Ei, Käse⁽2,G⁾-Sahnesauce⁽C,G⁾",
+   "prices": [
+    [
+     "9,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5657",
+   "title": "41. Penne Arrabiata",
+   "desc": "mit Chilischoten, scharfer Tomatensauce",
+   "prices": [
+    [
+     "9,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5658",
+   "title": "42. Penne Quattro Formaggi",
+   "desc": "mit vier Käse⁽2,G⁾sorten, Sahnesauce⁽C,G⁾",
+   "prices": [
+    [
+     "9,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5659",
+   "title": "43. Penne Ela",
+   "desc": "mit Hähnchenbrustfilet, Broccoli, Sauce Hollandaise",
+   "prices": [
+    [
+     "10,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5670",
+   "title": "44. Penne Fresh",
+   "desc": "mit Hähnchenbrustfilet, Champignons, Zwiebeln, Spinat, Crème-fraîche-Sahnesauce⁽C,G⁾",
+   "prices": [
+    [
+     "10,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5671",
+   "title": "45. Tagliatelle Mediteran",
+   "desc": "mit Hähnchenbrustfilet, Spinat, Sahnesauce⁽C,G⁾",
+   "prices": [
+    [
+     "10,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5672",
+   "title": "46. Tagliatelle Orient",
+   "desc": "mit Hähnchen-Kebab, Tomaten-Sahnesauce⁽C,G⁾",
+   "prices": [
+    [
+     "10,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5673",
+   "title": "47. Tagliatelle Indiano",
+   "desc": "mit Hähnchenbrustfilet, Curry-Sahnesauce⁽C,G⁾",
+   "prices": [
+    [
+     "10,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5674",
+   "title": "48. Tagliatelle Gamberetti",
+   "desc": "mit Garnelen, Rosésauce",
+   "prices": [
+    [
+     "11,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_insalatone": [
+  {
+   "post": "5645",
+   "title": "49. Insalata Mista",
+   "desc": "gemischter Salat, Tomaten, Gurken, Paprika, Oliven⁽7⁾",
+   "prices": [
+    [
+     "6,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5646",
+   "title": "50. Insalata Tonno",
+   "desc": "Insalata Mista mit Thunfisch⁽D⁾, Mais",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5647",
+   "title": "51. Insalata Rucola",
+   "desc": "Insalata Mista mit Rucola",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5648",
+   "title": "52. Insalata Fantasia",
+   "desc": "Insalata Mista mit SchafsKäse⁽2,G⁾",
+   "prices": [
+    [
+     "8,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5649",
+   "title": "53. Insalata Capricciosa",
+   "desc": "Insalata Mista mit Putenschinken, Thunfisch⁽D⁾, Ei, Peperoni, Käse⁽2,G⁾, Mais",
+   "prices": [
+    [
+     "11,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5650",
+   "title": "54. Insalata Mediteran",
+   "desc": "Insalata Mista mit Hähnchenbrustfilet",
+   "prices": [
+    [
+     "11,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5651",
+   "title": "55. Insalata Gamberetti",
+   "desc": "Insalata Mista mit Garnelen, Knoblauch",
+   "prices": [
+    [
+     "12,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_panini_pizzabroetchen": [
+  {
+   "post": "5660",
+   "title": "56. Pizzabrötchen",
+   "desc": "ohne Füllung",
+   "prices": [
+    [
+     "3,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5661",
+   "title": "57. Pizzabrötchen mit Käse⁽2,G⁾",
+   "desc": "",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5662",
+   "title": "58. Pizzabrötchen mit Füllung nach Wahl",
+   "desc": "mit Käse⁽2,G⁾",
+   "prices": [
+    [
+     "6,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5663",
+   "title": "59. Pizzabrötchen Speciale",
+   "desc": "Sauce Hollandaise, Hähnchenbruststreifen, Käse⁽2,G⁾",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5664",
+   "title": "60. Pizzabrötchen Döner",
+   "desc": "mit Hähnchen-Kebab, Käse⁽2,G⁾",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5665",
+   "title": "61. Pizzabrötchen Döner Spezial",
+   "desc": "mit Hähnchen-Kebab, Sauce Hollandaise, Käse⁽2,G⁾",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5666",
+   "title": "62. Pizzabrötchen Sucuk",
+   "desc": "mit Sucuk, Käse⁽2,G⁾",
+   "prices": [
+    [
+     "6,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_doener": [
+  {
+   "post": "5563",
+   "title": "63. Dönertasche",
+   "desc": "mit Hähnchen-Kebab, Eisbergsalat, Krautsalat, Zwiebeln, Gurken, Tomaten, Sauce im Fladenbrot",
+   "prices": [
+    [
+     "6,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5572",
+   "title": "64. Dönertasche mit gegrilltem Gemüse",
+   "desc": "wie Dönertasche, zusätzlich gegrilltem Gemüse",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5573",
+   "title": "65. Dönertasche mit Pommes",
+   "desc": "wie Dönertasche, zusätzlich Pommes",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5574",
+   "title": "66. Chilicheese Dönertasche",
+   "desc": "wie Dönertasche, zusätzlich mit Pommes, Jalapeños",
+   "prices": [
+    [
+     "8,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5581",
+   "title": "67. Döner Box",
+   "desc": "Hähnchen-Kebab mit Pommes, Sauce",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5582",
+   "title": "68. Dönerteller",
+   "desc": "Hähnchen-Kebab mit Pommes oder Reis, Salat, Sauce",
+   "prices": [
+    [
+     "11,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5583",
+   "title": "69. Döner Dürüm",
+   "desc": "mit Hähnchen-Kebab im Dürümwrap",
+   "prices": [
+    [
+     "8,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5584",
+   "title": "70. Lahmacun Döner",
+   "desc": "Lahmacun gefüllt mit Hähnchen Kebab, Salat, Sauce",
+   "prices": [
+    [
+     "9,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5587",
+   "title": "71. Lahmacun",
+   "desc": "mit Salat, Sauce",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5588",
+   "title": "72. Sucuk-Tasche",
+   "desc": "Sucuk, Pommes, Salat, Sauce",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5589",
+   "title": "73. Gemüsetasche",
+   "desc": "mit gegrillten Zucchini, Auberginen, Paprika, Salat, Sauce",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5590",
+   "title": "74. Pommes-Tasche",
+   "desc": "Pommes mit Salat, Sauce im Fladenbrot",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_falafel": [
+  {
+   "post": "5591",
+   "title": "75. Falafeltasche",
+   "desc": "mit Kichererbsen-Bällchen, Salat, Sauce im Fladenbrot",
+   "prices": [
+    [
+     "6,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5592",
+   "title": "76. Gemüse-Falafeltasche",
+   "desc": "mit gegrilltem Gemüse, Falafel, Salat, Sauce",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5593",
+   "title": "77. Falafel Dürüm",
+   "desc": "mit Falafel im Dürümwrap",
+   "prices": [
+    [
+     "7,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5594",
+   "title": "78. Falafelteller",
+   "desc": "mit Falafel, Pommes, Salat, Sauce",
+   "prices": [
+    [
+     "10,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5601",
+   "title": "79. Falafel Box",
+   "desc": "Falafel mit Pommes, Sauce",
+   "prices": [
+    [
+     "6,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_snacks": [
+  {
+   "post": "5602",
+   "title": "80. Pommes",
+   "desc": "",
+   "prices": [
+    [
+     "3,50 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5603",
+   "title": "81. Chilicheese-Pommes",
+   "desc": "",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5606",
+   "title": "82. Chicken Nuggets (6 Stück)",
+   "desc": "",
+   "prices": [
+    [
+     "4,50 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5607",
+   "title": "83. Kroketten",
+   "desc": "",
+   "prices": [
+    [
+     "3,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5608",
+   "title": "84. Onion Rings (6 Stück)",
+   "desc": "",
+   "prices": [
+    [
+     "3,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5609",
+   "title": "85. Mozzarella Sticks (6 Stück)",
+   "desc": "",
+   "prices": [
+    [
+     "3,90 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5706",
+   "title": "Chili Cheese Nuggets (6 Stück)",
+   "desc": "",
+   "prices": [
+    [
+     "4,50 €",
+     ""
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5707",
+   "title": "Süßkartoffeln",
+   "desc": "",
+   "prices": [
+    [
+     "4,50 €",
+     ""
+    ]
+   ],
+   "ingredients": false
+  }
+ ],
+ "_dessert": [
+  {
+   "post": "5610",
+   "title": "86. Tiramisu",
+   "desc": "",
+   "prices": [
+    [
+     "4,90 €",
+     ""
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5612",
+   "title": "87. Pizza Nutella",
+   "desc": "",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5613",
+   "title": "88. Pizzabrötchen Nutella",
+   "desc": "",
+   "prices": [
+    [
+     "5,90 €",
+     ""
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5614",
+   "title": "89. Zimtschnecken",
+   "desc": "",
+   "prices": [
+    [
+     "3,90 €",
+     ""
+    ]
+   ],
+   "ingredients": false
+  }
+ ],
+ "_saucen": [
+  {
+   "post": "5615",
+   "title": "Ketchup",
+   "desc": "",
+   "prices": [
+    [
+     "0,80 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5620",
+   "title": "Mayonnaise",
+   "desc": "",
+   "prices": [
+    [
+     "0,80 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5625",
+   "title": "Joppiesauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5626",
+   "title": "BBQ-Sauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5627",
+   "title": "Süß-Sauer-Sauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5628",
+   "title": "Curry-Sauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5629",
+   "title": "Knoblauchsauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5630",
+   "title": "Cocktail-Sauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5633",
+   "title": "Salsa-Sauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5634",
+   "title": "Chilisauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5635",
+   "title": "Chilicheese-Sauce",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5636",
+   "title": "Andalouse",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5638",
+   "title": "Samurai",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5639",
+   "title": "Kräuterbutter",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  },
+  {
+   "post": "5640",
+   "title": "Chili-Aioli",
+   "desc": "",
+   "prices": [
+    [
+     "1,00 €",
+     ""
+    ]
+   ],
+   "ingredients": true
+  }
+ ],
+ "_drinks": [
+  {
+   "post": "5642",
+   "title": "Cola",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,33l"
+    ],
+    [
+     "3,50 €",
+     "1,0l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5643",
+   "title": "Cola Zero",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,33l"
+    ],
+    [
+     "3,50 €",
+     "1,0l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5667",
+   "title": "Fanta",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,33l"
+    ],
+    [
+     "3,50 €",
+     "1,0l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5669",
+   "title": "Sprite",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,33l"
+    ],
+    [
+     "3,50 €",
+     "1,0l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5676",
+   "title": "MezoMix",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,33l"
+    ],
+    [
+     "3,50 €",
+     "1,0l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5677",
+   "title": "Wasser",
+   "desc": "",
+   "prices": [
+    [
+     "2,00 €",
+     "0,5l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5678",
+   "title": "Uludag Gazoz",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,33l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5679",
+   "title": "Ayran",
+   "desc": "",
+   "prices": [
+    [
+     "2,00 €",
+     "0,25l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5680",
+   "title": "Durstlöscher Eistee (Zitrone/Pfirsich)",
+   "desc": "",
+   "prices": [
+    [
+     "2,50 €",
+     "0,5l"
+    ]
+   ],
+   "ingredients": false
+  },
+  {
+   "post": "5681",
+   "title": "RedBull",
+   "desc": "",
+   "prices": [
+    [
+     "2,80 €",
+     "0,25l"
+    ]
+   ],
+   "ingredients": false
+  }
+ ]
+}

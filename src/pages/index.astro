@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/home/Hero.astro';
+import Poster from '../components/home/Poster.astro';
+import Receipt from '../components/home/Receipt.astro';
+import Picks from '../components/home/Picks.astro';
+import LateHours from '../components/home/LateHours.astro';
+import Facts from '../components/home/Facts.astro';
+import DeliveryPickup from '../components/home/DeliveryPickup.astro';
+import FinalCta from '../components/home/FinalCta.astro';
+import { site } from '../data/index.ts';
+import { formatEuro } from '../lib/pricing.ts';
+
+const pizzaFrom = site.catalog.categories.find((c) => c.id === 'pizza')?.fromPrice ?? 0;
+---
+
+<Base
+  title="Pizzarella Wuppertal – Pizza, Döner & Lahmacun bestellen · bis spät in die Nacht"
+  description={`Pizza ab ${formatEuro(pizzaFrom)}, Döner, Lahmacun, Falafel und Pasta aus der Friedrich-Engels-Allee 117 in Wuppertal. Online bestellen – Lieferung ohne Liefergebühr oder Abholung. Fr & Sa bis 2 Uhr.`}
+  overlayHeader
+  bodyClass="page-home"
+>
+  <Hero />
+  <Poster />
+  <Receipt />
+  <Picks />
+  <LateHours />
+  <Facts />
+  <DeliveryPickup />
+  <FinalCta />
+</Base>
+
+<script>
+  import '../scripts/home.ts';
+</script>

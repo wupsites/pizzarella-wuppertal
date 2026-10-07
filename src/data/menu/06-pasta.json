@@ -1,0 +1,142 @@
+{
+  "id": "pasta",
+  "name": "Pasta",
+  "icon": "pasta",
+  "intro": "Spaghetti, Penne und Tagliatelle.",
+  "source": "own-site",
+  "optionSets": [
+    "pasta-zutaten",
+    "pasta-ueberbacken"
+  ],
+  "products": [
+    {
+      "id": "spaghetti-napoli",
+      "nr": "37",
+      "name": "Spaghetti Napoli",
+      "description": "mit pikanter Tomatensauce",
+      "price": 8.9,
+      "confidence": "high"
+    },
+    {
+      "id": "spaghetti-aglio-olio",
+      "nr": "38",
+      "name": "Spaghetti Aglio Olio e Peperoncino",
+      "description": "mit Knoblauch und Peperoni",
+      "price": 8.9,
+      "confidence": "high"
+    },
+    {
+      "id": "spaghetti-bolognese",
+      "nr": "39",
+      "name": "Spaghetti Bolognese",
+      "description": "mit hausgemachter Tomaten-Hackfleischsauce",
+      "price": 9.9,
+      "confidence": "high"
+    },
+    {
+      "id": "spaghetti-carbonara",
+      "nr": "40",
+      "name": "Spaghetti Carbonara",
+      "description": "mit Putenschinken, Ei und Käse-Sahnesauce",
+      "allergens": [
+        "G",
+        "C"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 9.9,
+      "confidence": "high"
+    },
+    {
+      "id": "penne-arrabiata",
+      "nr": "41",
+      "name": "Penne Arrabiata",
+      "description": "mit Chilischoten und scharfer Tomatensauce",
+      "price": 9.9,
+      "tags": [
+        "scharf"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "penne-quattro-formaggi",
+      "nr": "42",
+      "name": "Penne Quattro Formaggi",
+      "description": "mit vier Käsesorten und Sahnesauce",
+      "allergens": [
+        "G",
+        "C"
+      ],
+      "additives": [
+        "2"
+      ],
+      "price": 9.9,
+      "confidence": "high"
+    },
+    {
+      "id": "penne-ela",
+      "nr": "43",
+      "name": "Penne Ela",
+      "description": "mit Hähnchenbrustfilet, Broccoli und Sauce Hollandaise",
+      "price": 10.9,
+      "confidence": "high"
+    },
+    {
+      "id": "penne-fresh",
+      "nr": "44",
+      "name": "Penne Fresh",
+      "description": "mit Hähnchenbrustfilet, Champignons, Zwiebeln, Spinat und Crème-fraîche-Sahnesauce",
+      "allergens": [
+        "C",
+        "G"
+      ],
+      "price": 10.9,
+      "confidence": "high"
+    },
+    {
+      "id": "tagliatelle-mediteran",
+      "nr": "45",
+      "name": "Tagliatelle Mediteran",
+      "description": "mit Hähnchenbrustfilet, Spinat und Sahnesauce",
+      "allergens": [
+        "C",
+        "G"
+      ],
+      "price": 10.9,
+      "confidence": "high"
+    },
+    {
+      "id": "tagliatelle-orient",
+      "nr": "46",
+      "name": "Tagliatelle Orient",
+      "description": "mit Hähnchen-Kebab und Tomaten-Sahnesauce",
+      "allergens": [
+        "C",
+        "G"
+      ],
+      "price": 10.9,
+      "confidence": "high"
+    },
+    {
+      "id": "tagliatelle-indiano",
+      "nr": "47",
+      "name": "Tagliatelle Indiano",
+      "description": "mit Hähnchenbrustfilet und Curry-Sahnesauce",
+      "allergens": [
+        "C",
+        "G"
+      ],
+      "price": 10.9,
+      "confidence": "high"
+    },
+    {
+      "id": "tagliatelle-gamberetti",
+      "nr": "48",
+      "name": "Tagliatelle Gamberetti",
+      "description": "mit Garnelen und Rosésauce",
+      "price": 11.9,
+      "confidence": "high"
+    }
+  ]
+}

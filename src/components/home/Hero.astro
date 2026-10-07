@@ -1,0 +1,326 @@
+---
+/**
+ * Hero „Ofenlicht“: Nacht, warmes Licht, eine angeschnittene Pizza, deren
+ * acht Stücke acht echte Pizzen der Karte zeigen. Das „an.“ der Headline
+ * leuchtet nur, wenn der Laden gerade geöffnet ist.
+ */
+import { Picture } from 'astro:assets';
+import Icon from '../Icon.astro';
+import pizza from '../../assets/hero-pizza.webp';
+import { site } from '../../data/index.ts';
+import { formatEuro } from '../../lib/pricing.ts';
+
+const { business, ordering, home, catalog } = site;
+const slices = home.heroSlices.map((id) => {
+  const p = catalog.products.get(id)!;
+  return { id, name: p.name, from: formatEuro(p.fromPrice) };
+});
+const both = ordering.modes.delivery.enabled && ordering.modes.pickup.enabled;
+---
+
+<section class="hero on-night grain" aria-labelledby="hero-title" data-hero>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-stage" aria-hidden="true">
+    <div class="hero-pizza" data-hero-pizza data-slices={JSON.stringify(slices)}>
+      <Picture
+        src={pizza}
+        alt=""
+        widths={[560, 820, 1100, 1500]}
+        sizes="(min-width: 1024px) min(66vw, 1100px), 135vw"
+        formats={['avif', 'webp']}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="hero-pizza-img"
+      />
+    </div>
+  </div>
+
+  <div class="wrap hero-inner">
+    <h1 id="hero-title" class="hero-title">
+      <span class="hero-eyebrow label">Pizza · Döner · Lahmacun · Pasta – in Wuppertal</span>
+      <span class="hero-line">Die Küche</span>
+      <span class="hero-line">bleibt <span class="hero-an">an.</span></span>
+    </h1>
+
+    <p class="hero-sub">
+      Pizza, Döner, Lahmacun, Pasta und mehr aus der {business.address.street}. Geliefert oder zum Abholen – an sechs Abenden die Woche bis spät in die Nacht.
+    </p>
+
+    <p class="hero-status"><span class="dot" aria-hidden="true"></span><span data-status-line>Mo, Di, Do 16–01 · Fr, Sa 16–02 · So 14–24 Uhr</span></p>
+
+    <div class="hero-order">
+      {
+        both && (
+          <div class="segmented is-night hero-mode" role="radiogroup" aria-label="Lieferung oder Abholung">
+            <input type="radio" id="mode-hero-d" name="mode-hero" value="delivery" data-mode-input checked />
+            <label for="mode-hero-d">
+              <Icon name="scooter" />
+              Lieferung
+            </label>
+            <input type="radio" id="mode-hero-p" name="mode-hero" value="pickup" data-mode-input />
+            <label for="mode-hero-p">
+              <Icon name="store" />
+              Abholung
+            </label>
+          </div>
+        )
+      }
+      <a class="btn btn--primary btn--lg hero-cta" href="/speisekarte/">
+        Speisekarte öffnen
+        <Icon name="arrow" class="btn-arrow" />
+      </a>
+    </div>
+    <p class="hero-phone">
+      Lieber anrufen? <a href={`tel:${business.phone.e164}`}>{business.phone.display}</a>
+    </p>
+  </div>
+
+  <p class="hero-caption" data-slice-caption aria-hidden="true"></p>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: max(40rem, min(100svh, 62rem));
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    padding-top: calc(var(--header-h) + 2rem);
+    padding-bottom: clamp(17rem, 70vw, 26rem);
+  }
+  @media (min-width: 1024px) {
+    .hero {
+      padding-bottom: 4rem;
+    }
+  }
+  .hero-glow {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    background:
+      radial-gradient(60% 55% at 50% 100%, rgb(255 122 61 / 0.32), transparent 70%),
+      radial-gradient(40% 40% at 50% 100%, rgb(242 181 58 / 0.25), transparent 70%);
+  }
+  @media (min-width: 1024px) {
+    .hero-glow {
+      background:
+        radial-gradient(45% 70% at 92% 50%, rgb(255 122 61 / 0.3), transparent 70%),
+        radial-gradient(28% 45% at 88% 50%, rgb(242 181 58 / 0.22), transparent 70%);
+    }
+  }
+
+  /* Pizza: Handy = geht unten auf wie eine Sonne, Desktop = rechts angeschnitten */
+  .hero-stage {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    bottom: 0;
+    width: 135vw;
+    max-width: 52rem;
+    aspect-ratio: 1;
+    transform: translate(-50%, 48%);
+    pointer-events: none;
+  }
+  @media (min-width: 1024px) {
+    .hero-stage {
+      left: auto;
+      right: 0;
+      bottom: auto;
+      top: 50%;
+      width: min(66vw, 1100px);
+      max-width: none;
+      transform: translate(30%, -46%);
+      pointer-events: auto;
+    }
+  }
+  .hero-pizza {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+  }
+  .hero-pizza :global(img),
+  .hero-pizza :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-pizza {
+      animation: pizza-in 1.6s var(--ease-rise) 0.1s both;
+    }
+    .hero-title .hero-line,
+    .hero-eyebrow,
+    .hero-sub,
+    .hero-status,
+    .hero-order,
+    .hero-phone {
+      animation: rise-in 0.9s var(--ease-rise) both;
+    }
+    .hero-eyebrow {
+      animation-delay: 0.05s;
+    }
+    .hero-title .hero-line:nth-child(2) {
+      animation-delay: 0.12s;
+    }
+    .hero-title .hero-line:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    .hero-sub {
+      animation-delay: 0.3s;
+    }
+    .hero-status {
+      animation-delay: 0.38s;
+    }
+    .hero-order {
+      animation-delay: 0.45s;
+    }
+    .hero-phone {
+      animation-delay: 0.52s;
+    }
+  }
+  @keyframes pizza-in {
+    from {
+      opacity: 0;
+      transform: rotate(-38deg) scale(0.92);
+    }
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+
+  .hero-inner {
+    position: relative;
+  }
+  .hero-title {
+    display: grid;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: var(--fs-hero);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    max-width: 11ch;
+  }
+  .hero-eyebrow {
+    color: var(--cheese);
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+  }
+  .hero-line {
+    display: block;
+  }
+  .hero-an {
+    font-style: italic;
+    font-weight: 800;
+    color: var(--cream-2);
+    transition:
+      color 1.2s var(--ease-rise),
+      text-shadow 1.2s var(--ease-rise);
+  }
+  :global([data-open='true']) .hero-an {
+    color: var(--cheese);
+    text-shadow:
+      0 0 0.35em rgb(255 150 60 / 0.55),
+      0 0 1.2em rgb(255 122 61 / 0.35);
+  }
+  .hero-sub {
+    margin-top: 1.75rem;
+    max-width: 34rem;
+    font-size: var(--fs-lead);
+    color: var(--cream-2);
+  }
+  .hero-status {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 650;
+  }
+  .hero-order {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .hero-mode {
+    flex: 1 1 18rem;
+    max-width: 22rem;
+  }
+  .hero-cta {
+    flex: 1 1 14rem;
+    max-width: 22rem;
+  }
+  .hero-phone {
+    margin-top: 1.1rem;
+    color: var(--cream-2);
+    font-size: 0.95rem;
+  }
+  .hero-phone a {
+    color: var(--cream);
+    font-weight: 650;
+  }
+  .hero-caption {
+    position: absolute;
+    right: 2.5rem;
+    bottom: 2.5rem;
+    display: none;
+    padding: 0.6rem 1rem;
+    border-radius: var(--r-round);
+    background: rgb(22 17 14 / 0.75);
+    color: var(--cream);
+    font-weight: 650;
+    font-size: 0.95rem;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity var(--d-ui) var(--ease-rise),
+      transform var(--d-ui) var(--ease-rise);
+  }
+  .hero-caption.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (min-width: 1024px) and (hover: hover) {
+    .hero-caption {
+      display: block;
+    }
+  }
+  @media (max-width: 1023px) {
+    .hero-order > * {
+      max-width: none;
+    }
+  }
+</style>
+
+<style is:global>
+  /* Stücke (per JS erzeugt) */
+  .hero-pizza .slice {
+    position: absolute;
+    inset: 0;
+    transition:
+      transform 520ms var(--ease-settle),
+      filter 520ms var(--ease-rise);
+  }
+  .hero-pizza .slice img {
+    width: 100%;
+    height: 100%;
+  }
+  .hero-pizza.has-slices > picture {
+    visibility: hidden;
+  }
+  .hero-pizza .slice.is-active {
+    transform: translate(calc(var(--dx) * 3.2%), calc(var(--dy) * 3.2%));
+    filter: drop-shadow(0 18px 22px rgb(0 0 0 / 0.45));
+  }
+  .hero-pizza.is-hovering {
+    cursor: pointer;
+  }
+</style>
