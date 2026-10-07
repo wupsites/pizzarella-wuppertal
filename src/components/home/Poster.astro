@@ -65,6 +65,8 @@ const cats = site.catalog.visibleCategories;
     letter-spacing: -0.035em;
     transition: color var(--d-ui) var(--ease-rise);
   }
+  /* Icon nur auf Touch-Geräten (vor dem Wort); am Desktop kein Ein-/Ausklappen –
+     das hat beim Überfahren die ganze Zeile verschoben */
   .pl-icon {
     display: inline-grid;
     place-items: center;
@@ -74,9 +76,24 @@ const cats = site.catalog.visibleCategories;
     opacity: 0;
     color: var(--tomato);
     align-self: center;
-    transition:
-      width var(--d-sheet) var(--ease-rise),
-      opacity var(--d-ui) var(--ease-rise);
+  }
+  /* Hover: Farbe + eine Linie, die sich unter dem Wort aufzieht –
+     nur transform, nichts in der Zeile verschiebt sich */
+  .pl-name {
+    position: relative;
+  }
+  .pl-name::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.04em;
+    height: 0.07em;
+    border-radius: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--d-sheet) var(--ease-rise);
   }
   .pl-icon :global(svg) {
     width: 0.75em;
@@ -95,15 +112,21 @@ const cats = site.catalog.visibleCategories;
     line-height: 1.1;
     color: var(--ink-3);
     white-space: nowrap;
+    transition: color var(--d-ui) var(--ease-rise);
   }
   @media (hover: hover) {
     .poster-link:hover {
       color: var(--tomato-ink);
     }
-    .poster-link:hover .pl-icon {
-      width: 0.85em;
-      opacity: 1;
+    .poster-link:hover .pl-name::after {
+      transform: scaleX(1);
     }
+    .poster-link:hover .pl-meta {
+      color: var(--tomato-ink);
+    }
+  }
+  .poster-link:focus-visible .pl-name::after {
+    transform: scaleX(1);
   }
   @media (hover: none) {
     .pl-icon {
