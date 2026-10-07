@@ -29,6 +29,8 @@ export interface View3D {
   light?: [number, number];
   /** Lage der Ofenglut hinter der Pizza (−1 links … 1 rechts): lenkt das Gegenlicht */
   oven?: number;
+  /** Studiolicht 0–1 (Licht aus am Ende: nur noch die Glut zeichnet den Rand) */
+  key?: number;
 }
 
 export interface Pizza3D {
@@ -74,6 +76,7 @@ uniform float uHeat;
 uniform vec2 uTexel;
 uniform vec4 uHot;
 uniform float uSpec;
+uniform float uKeyAmt;
 uniform float uFocus;
 uniform float uDof;
 uniform float uPeak;
@@ -123,7 +126,7 @@ void main() {
   // Kehle zwischen Belag und Randwulst, Unterseite der Kante
   float crease = 1.0 - 0.16 * exp(-pow((rTex - 0.79) / 0.035, 2.0));
   float under = mix(0.46, 1.0, smoothstep(0.0, uPeak * 0.55, vY));
-  vec3 col = tex * (key * micro + fill) * crease * under;
+  vec3 col = tex * (key * micro + fill) * uKeyAmt * crease * under;
 
   // --- Ofenlicht von hinten unten: trifft nur, was ihm zugewandt ist,
   //     färbt das Material (kein aufgesetzter Neonrand)
@@ -189,13 +192,14 @@ void main() {
 const SHADOW_FRAG = `
 precision mediump float;
 uniform vec2 uOff;
+uniform float uShade;
 varying vec2 vP;
 void main() {
   float r = length(vP);
   // weiter Umgebungsschatten (zur Lichtrichtung versetzt) + dichter Kontaktschatten
   float soft = 1.0 - smoothstep(0.5, 1.55, length((vP - uOff) * vec2(1.0, 1.15)));
   float contact = 1.0 - smoothstep(0.88, 1.06, length(vP - uOff * 0.25));
-  float a = soft * soft * 0.5 + contact * 0.42;
+  float a = soft * soft * 0.5 * uShade + contact * 0.42;
   gl_FragColor = vec4(0.0, 0.0, 0.0, a);
 }`;
 
@@ -296,12 +300,13 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
     texel: loc(prog, 'uTexel'),
     hot: loc(prog, 'uHot'),
     spec: loc(prog, 'uSpec'),
+    keyAmt: loc(prog, 'uKeyAmt'),
     focus: loc(prog, 'uFocus'),
     dof: loc(prog, 'uDof'),
     peak: loc(prog, 'uPeak'),
     tex: loc(prog, 'uTex'),
   };
-  const SU = { viewProj: loc(shadowProg, 'uViewProj'), off: loc(shadowProg, 'uOff') };
+  const SU = { viewProj: loc(shadowProg, 'uViewProj'), off: loc(shadowProg, 'uOff'), shade: loc(shadowProg, 'uShade') };
   const A = { pos: gl.getAttribLocation(prog, 'aPos'), nrm: gl.getAttribLocation(prog, 'aNrm'), uv: gl.getAttribLocation(prog, 'aUv'), xz: gl.getAttribLocation(shadowProg, 'aXZ') };
 
   const tex = gl.createTexture();
@@ -360,6 +365,8 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       const slx = v.light?.[0] ?? 0;
       const sly = v.light?.[1] ?? 0;
       gl.uniform2f(SU.off, 0.1 - slx * 0.07, -0.08 - sly * 0.05);
+      // weicher Schlagschatten kommt vom Studiolicht – geht mit ihm aus
+      gl.uniform1f(SU.shade, 0.25 + 0.75 * (v.key ?? 1));
       gl.bindBuffer(gl.ARRAY_BUFFER, bShadow);
       gl.enableVertexAttribArray(A.xz);
       gl.vertexAttribPointer(A.xz, 2, gl.FLOAT, false, 0, 0);
@@ -391,6 +398,7 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.uniform2f(U.texel, 1 / texSize, 1 / texSize);
       gl.uniform4f(U.hot, v.hot[0], v.hot[1], v.hot[2], 0);
       gl.uniform1f(U.spec, v.spec);
+      gl.uniform1f(U.keyAmt, v.key ?? 1);
       const d = Math.hypot(...cam.eye);
       gl.uniform1f(U.focus, d - 0.25);
       gl.uniform1f(U.dof, 1.6);

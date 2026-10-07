@@ -10,7 +10,10 @@
  *  4. Licht: eine Ofenglut hinter der Pizza wandert und flackert; dieselbe
  *     Glut lenkt das Gegenlicht auf dem Rand und leuchtet den Dampf an. Der
  *     Spot von oben folgt dem Studiolicht (Maus oder langsame Drift).
- *  5. Dampf (steam.ts) steigt aus der Pizza auf und folgt ihrer Lage.
+ *  5. Dampf (steam.ts) steigt hinter der Pizza auf und folgt ihrer Lage.
+ *  6. Ende des Scrollens: „Licht aus – die Küche bleibt an“. Der Spot
+ *     flackert und geht aus, Raum und Pizza dunkeln langsam ab, nur die Glut
+ *     bleibt und zeichnet den Rand nach. Zurückscrollen macht das Licht an.
  *  Reduzierte Bewegung: Standbild, erste Headline, keine Bewegung.
  *
  * Pro Frame wird nur geschrieben (transform/opacity direkt am Element, zwei
@@ -33,6 +36,9 @@ const CART_KEY = 'pizzarella.cart.v1';
 const DEG = Math.PI / 180;
 /** Desktop: ab diesem Scroll-Fortschritt gilt das Wortpaar (0 = Headline) */
 const SET_AT = [0, 0.16, 0.38, 0.6];
+/** ab hier geht am Desktop das Licht aus (Handy: Anteil des Hero-Scrolls) */
+const LIGHTS_OUT_AT = 0.82;
+const LIGHTS_OUT_AT_MOBILE = 0.5;
 
 const hero = document.querySelector<HTMLElement>('[data-hero]');
 if (hero) init(hero);
@@ -45,6 +51,8 @@ function init(hero: HTMLElement) {
   const beamEl = hero.querySelector<HTMLElement>('[data-hero-beam]');
   const coreEl = hero.querySelector<HTMLElement>('.hp-core');
   const steamCanvas = hero.querySelector<HTMLCanvasElement>('[data-hero-steam]');
+  const room = hero.querySelector<HTMLElement>('[data-hero-room]');
+  const dust = hero.querySelector<HTMLElement>('[data-hero-dust]');
   // Wortpaare: je Satz die Wörter der Zeilen 1 und 2
   const sets: HTMLElement[][] = [];
   hero.querySelectorAll<HTMLElement>('[data-set]').forEach((el) => {
@@ -67,6 +75,8 @@ function init(hero: HTMLElement) {
   /** Zeiger, geglättet */
   const P = { x: 0, y: 0, tx: 0, ty: 0, w: 0, inside: false, px: 0, py: 0, moved: false };
   const view = { roll: S.roll, scale: S.scale, tx: 0, ty: 0, yaw: 0, elev: E0 };
+  /** Licht aus am Ende: dim 0–1 (Raum + Studiolicht), spot 0–1 (Lichtkegel) – zeitbasiert */
+  const L = { dim: 0, spot: 1 };
 
   // ---------- Geometrie (nur bei Resize messen) ----------
   const G = { w: 0, h: 0, sx: 0, sy: 0, sw: 0, sh: 0, fs: 16 };
@@ -128,6 +138,26 @@ function init(hero: HTMLElement) {
     );
   };
 
+  // ---------- Licht aus: der Spot flackert und erlischt, die Glut bleibt ----------
+  let lightsOut = false;
+  const lights = (out: boolean) => {
+    if (out === lightsOut || !gsap) return;
+    lightsOut = out;
+    gsap.killTweensOf(L);
+    if (out) {
+      gsap
+        .timeline({ onUpdate: request })
+        .to(L, { spot: 0.4, duration: 0.06 })
+        .to(L, { spot: 0.95, duration: 0.05 })
+        .to(L, { spot: 0.2, duration: 0.08 })
+        .to(L, { spot: 0.7, duration: 0.07 })
+        .to(L, { spot: 0, duration: 0.45, ease: 'power2.in' })
+        .to(L, { dim: 1, duration: 2.4, ease: 'sine.inOut' }, 0.12);
+    } else {
+      gsap.to(L, { spot: 1, dim: 0, duration: 0.8, ease: 'power2.out', onUpdate: request });
+    }
+  };
+
   // ---------- Darstellung pro Frame ----------
   const typeState = { out: -1, ghost: -1 };
   let visible = true;
@@ -139,6 +169,7 @@ function init(hero: HTMLElement) {
   let bloomStart = 0; // Ofen-Bloom, wenn WebGL übernimmt
   let glowLast = -1;
   let beamLast = 9;
+  let dimLast = -1;
 
   const frame = (now: number) => {
     raf = 0;
@@ -192,11 +223,30 @@ function init(hero: HTMLElement) {
     const ay = iw * 0.4 * Math.sin(t * 0.21 + 1);
     const lx = P.x * 1.25 * P.w + ax * (1 - P.w) + sweep;
     const ly = P.y * P.w + ay * (1 - P.w);
-    gl?.draw({ yaw: view.yaw, elev: view.elev, hot: [0.5, 0.5, 0], spec: 1, light: [lx, ly], glow, time: t, heat: iw, oven });
+    // Licht aus: Studiolicht und Glanz gehen, die Glut bleibt (etwas ruhiger)
+    const dim = L.dim;
+    gl?.draw({
+      yaw: view.yaw,
+      elev: view.elev,
+      hot: [0.5, 0.5, 0],
+      spec: 1 - 0.8 * dim,
+      key: 1 - 0.7 * dim,
+      light: [lx, ly],
+      glow: glow * (1 - 0.18 * dim),
+      time: t,
+      heat: iw,
+      oven,
+    });
 
     // Licht im Raum, direkt am Element (nur Compositing)
-    const beamO = Math.min(1, Math.max(0, 0.7 + (glow - 1) * 0.6));
-    if (Math.abs(glow - glowLast) > 0.004 || Math.abs(lx - beamLast) > 0.01) {
+    const beamO = Math.min(1, Math.max(0, 0.7 + (glow - 1) * 0.6)) * L.spot;
+    if (Math.abs(dim - dimLast) > 0.003) {
+      dimLast = dim;
+      if (room) room.style.opacity = (1 - 0.68 * dim).toFixed(3);
+      if (dust) dust.style.opacity = (1 - dim).toFixed(3);
+      glowLast = -1;
+    }
+    if (Math.abs(glow - glowLast) > 0.004 || Math.abs(lx - beamLast) > 0.01 || beamEl?.style.opacity !== beamO.toFixed(3)) {
       glowLast = glow;
       beamLast = lx;
       if (beamEl) {
@@ -204,7 +254,7 @@ function init(hero: HTMLElement) {
         beamEl.style.transform = `translateX(-50%) rotate(${(-lx * 2.4).toFixed(2)}deg)`;
       }
       if (coreEl) {
-        coreEl.style.opacity = Math.min(1, Math.max(0, 0.65 + (glow - 1) * 0.7)).toFixed(3);
+        coreEl.style.opacity = Math.min(1, Math.max(0, 0.65 + (glow - 1) * 0.7) + 0.25 * dim).toFixed(3);
         coreEl.style.transform = `translate3d(${(oven * G.sw * 0.16).toFixed(1)}px, 0, 0) scale(${(1 + flicker * 0.5).toFixed(3)})`;
       }
     }
@@ -220,9 +270,10 @@ function init(hero: HTMLElement) {
       steam.draw({
         time: t,
         ell: [c.x, c.y, rx, ry],
-        oven: [c.x + oven * rx * 0.55, c.y - ry * 0.95, Math.max(0, glow) * (1 + flicker)],
+        oven: [c.x + oven * rx * 0.55, c.y - ry * 0.95, Math.max(0, glow) * (1 + flicker) * (1 + 0.3 * dim)],
         beam: [G.w / 2, lx * 2.4 * DEG, beamO],
-        amount: (idle ? 0.35 + 0.65 * iw : 1) * (1 - S.out),
+        // im Dunkeln bleibt der Dampf vor der Glut sichtbar
+        amount: (idle ? 0.35 + 0.65 * iw : 1) * (1 - 0.6 * S.out),
       });
     }
 
@@ -351,6 +402,7 @@ function init(hero: HTMLElement) {
             let n = 0;
             SET_AT.forEach((at, i) => st.progress >= at && (n = i));
             showSet(n);
+            lights(st.progress >= LIGHTS_OUT_AT);
             request();
           },
           onRefresh: () => {
@@ -364,13 +416,14 @@ function init(hero: HTMLElement) {
         .to(S, { roll: 0.6, scale: 1.02, yaw: 30 * DEG, elev: E0 + 8 * DEG, glow: 1.18, duration: 0.22, ease: 'sine.inOut' }, 0.16)
         .to(S, { roll: 1.2, scale: 1.035, yaw: 46 * DEG, elev: E0 + 5 * DEG, ty: -0.01, glow: 1.22, duration: 0.22, ease: 'sine.inOut' }, 0.38)
         .to(S, { yaw: 58 * DEG, elev: E0 + 3 * DEG, duration: 0.2, ease: 'sine.inOut' }, 0.6)
-        // … Ausklang: Drehung läuft aus, die Pizza weicht minimal zurück,
-        //    das warme Licht dimmt, die Typo gibt den Blick frei
+        // … Ausklang: Drehung läuft aus, die Pizza weicht minimal zurück, die
+        //    Typo gibt den Blick frei – und das Licht geht aus (siehe lights)
         .to(S, { out: 1, duration: 0.2, ease: 'power2.in' }, 0.8)
-        .to(S, { ty: 0.012, scale: 1.0, yaw: 64 * DEG, elev: E0 + 2 * DEG, glow: 0.78, duration: 0.2, ease: 'sine.inOut' }, 0.8)
+        .to(S, { ty: 0.012, scale: 1.0, yaw: 64 * DEG, elev: E0 + 2 * DEG, glow: 1.15, duration: 0.2, ease: 'sine.inOut' }, 0.8)
         .to(S, { ghost: 1, duration: 1 }, 0);
       return () => {
         showSet(0);
+        lights(false);
         request();
       };
     });
@@ -386,7 +439,13 @@ function init(hero: HTMLElement) {
         ty: 0.05,
         ease: 'none',
         onUpdate: request,
-        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 },
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.6,
+          onUpdate: (st) => lights(st.progress >= LIGHTS_OUT_AT_MOBILE),
+        },
       });
       // Handy: kein Pin – die Wortpaare wechseln von selbst, solange der Kopf im Bild ist
       const timer = window.setInterval(() => {
@@ -395,6 +454,7 @@ function init(hero: HTMLElement) {
       return () => {
         window.clearInterval(timer);
         showSet(0);
+        lights(false);
         request();
       };
     });

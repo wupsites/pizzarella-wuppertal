@@ -1,12 +1,13 @@
 /**
- * Dampf über der Pizza: ein Shader auf einer eigenen, halb aufgelösten
- * Fläche über dem ganzen Hero (Dampf ist weich, mehr Pixel bringen nichts).
+ * Dampf von der Pizza: ein Shader auf einer eigenen, reduziert aufgelösten
+ * Fläche (Dampf ist weich, volle Auflösung bringt nichts). Die Fläche liegt HINTER Pizza
+ * und Schrift: der Dampf steigt hinter dem Rand auf und legt sich nie wie
+ * ein Filter über Essen oder Headline.
  *
- * Dichte: verwirbeltes Rauschen, das nach oben zieht, aus der Oberseite der
- * Pizza (Ellipse, folgt jeder Drehung) aufsteigt, sich verbreitert und
- * verliert. Über dem Belag schwächer, damit nichts vernebelt wird.
- * Licht: Gegenlicht der Ofenglut (Vorwärtsstreuung – Dampf leuchtet, wo er
- * vor der Glut steht) und der Spot von oben als sichtbarer Lichtkegel.
+ * Dichte: 3D-Rauschen, das sich beim Aufsteigen selbst verwirbelt (kein
+ * gleitendes Muster), dünne Fahnen aus wenigen heißen Stellen.
+ * Licht: sichtbar fast nur im Gegenlicht der Ofenglut (Vorwärtsstreuung),
+ * wie echter Dampf vor dunklem Grund; der Spot von oben hellt leicht auf.
  */
 
 export interface SteamView {
@@ -40,23 +41,26 @@ uniform vec3 uOven;
 uniform vec3 uBeam;
 uniform float uAmt;
 
-float hash(vec2 p) {
-  vec3 p3 = fract(vec3(p.xyx) * 0.1031);
-  p3 += dot(p3, p3.yzx + 33.33);
-  return fract((p3.x + p3.y) * p3.z);
+float hash3(vec3 p) {
+  p = fract(p * 0.1031);
+  p += dot(p, p.zyx + 31.32);
+  return fract((p.x + p.y) * p.z);
 }
-float noise(vec2 p) {
-  vec2 i = floor(p);
-  vec2 f = fract(p);
-  vec2 u = f * f * (3.0 - 2.0 * f);
-  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), u.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+float noise3(vec3 x) {
+  vec3 i = floor(x);
+  vec3 f = fract(x);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(mix(hash3(i), hash3(i + vec3(1.0, 0.0, 0.0)), f.x), mix(hash3(i + vec3(0.0, 1.0, 0.0)), hash3(i + vec3(1.0, 1.0, 0.0)), f.x), f.y),
+    mix(mix(hash3(i + vec3(0.0, 0.0, 1.0)), hash3(i + vec3(1.0, 0.0, 1.0)), f.x), mix(hash3(i + vec3(0.0, 1.0, 1.0)), hash3(i + vec3(1.0, 1.0, 1.0)), f.x), f.y),
+    f.z);
 }
-float fbm(vec2 p) {
+float fbm3(vec3 p) {
   float s = 0.0;
   float a = 0.5;
-  for (int i = 0; i < 5; i++) {
-    s += a * noise(p);
-    p = p * 2.02 + vec2(1.7, 9.2);
+  for (int i = 0; i < 4; i++) {
+    s += a * noise3(p);
+    p = p * 2.03 + vec3(1.7, 9.2, 3.1);
     a *= 0.5;
   }
   return s;
@@ -67,44 +71,40 @@ void main() {
   vec2 px = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uScale;
   float R = uEll.z;
   vec2 q = (px - uEll.xy) / R;
-  // Höhe über dem vorderen Drittel der Oberseite, in Pizzaradien
-  float h = -q.y + uEll.w / R * 0.35;
-  const float TOP = 1.05;
-  if (h < 0.0 || h > TOP) { gl_FragColor = vec4(0.0); return; }
+  // Höhe über der Mitte der Oberseite, in Pizzaradien (der Fuß liegt hinter der Pizza)
+  float h = -q.y;
+  const float TOP = 1.15;
+  if (h < 0.05 || h > TOP) { gl_FragColor = vec4(0.0); return; }
 
   float t = uTime;
-  // Säule: unten so breit wie die Pizza, oben breiter und lockerer
-  float width = 0.66 + 0.36 * h;
-  float sway = sin(h * 2.3 + t * 0.4) * 0.07 * h;
-  float side = exp(-pow(abs(q.x + sway) / width, 3.0));
-  float rise = smoothstep(0.0, 0.22, h) * pow(max(1.0 - h / TOP, 0.0), 1.3);
-  // einzelne Fahnen: heiße Stellen auf der Pizza, die langsam wandern
-  float src = smoothstep(0.46, 0.8, noise(vec2((q.x + sway) * 2.6 + 3.0, t * 0.05)));
+  // Säule über der Pizza, oben etwas breiter
+  float sway = sin(h * 2.1 + t * 0.35) * 0.06 * h;
+  float side = exp(-pow(abs(q.x + sway) / (0.52 + 0.38 * h), 3.0));
+  float rise = smoothstep(0.12, 0.5, h) * pow(max(1.0 - h / TOP, 0.0), 1.6);
+  if (side * rise < 0.01) { gl_FragColor = vec4(0.0); return; }
+  // wenige Fahnen: heiße Stellen, die langsam wandern
+  float src = smoothstep(0.52, 0.86, noise3(vec3((q.x + sway) * 2.4 + 3.0, 0.0, t * 0.045)));
 
-  // Strömung: nach oben ziehen, mit langsam wanderndem Wirbelfeld
-  vec2 p = vec2(q.x * 2.6, h * 2.4 - t * 0.3);
-  vec2 w = vec2(fbm(p * 0.8 + vec2(0.0, t * 0.06)), fbm(p * 0.8 + vec2(5.2, 1.3 - t * 0.05)));
-  float n = fbm(p + (w - 0.5) * (1.3 + 1.2 * h));
+  // Strömung: steigt langsam, das Wirbelfeld verändert sich dabei selbst
+  vec3 p = vec3(q.x * 3.4, h * 2.8 - t * 0.2, t * 0.08);
+  vec2 w = vec2(fbm3(p * 0.7), fbm3(p * 0.7 + vec3(5.2, 1.3, 2.7)));
+  float n = fbm3(p + vec3((w - 0.5) * (1.2 + 1.8 * h), 0.0));
   // dünne Schwaden statt Wolken: Grate des Rauschens
   float ridge = 1.0 - abs(2.0 * n - 1.0);
-  float wisps = pow(ridge, 8.0) * smoothstep(0.36, 0.62, n);
+  float wisps = pow(ridge, 11.0) * smoothstep(0.3, 0.62, n);
+  float d = wisps * side * rise * (0.1 + 0.9 * src);
 
-  // über dem Belag schwächer (Ellipse der Oberseite)
-  vec2 e = (px - uEll.xy) / uEll.zw;
-  float over = mix(0.4, 1.0, smoothstep(0.75, 1.15, length(e)));
-  float d = wisps * side * rise * over * (0.12 + 0.88 * src);
-
-  // Licht: Gegenlicht der Glut (Vorwärtsstreuung) + Spot von oben
+  // Licht: Gegenlicht der Glut (Vorwärtsstreuung) + etwas Spot von oben
   vec2 o = (px - uOven.xy) / R;
-  float back = exp(-dot(o, o) * 1.35) * uOven.z;
-  // Abstand zur Mittellinie des Spots (Spitze oben bei x = uBeam.x, Neigung uBeam.y)
+  float back = exp(-dot(o, o) * 1.1) * uOven.z;
   float bx = px.x - (uBeam.x + px.y * tan(uBeam.y));
   float cone = 0.12 * uRes.x / uScale + px.y * 0.42;
   float spot = exp(-pow(bx / max(cone, 1.0), 2.0) * 2.2) * uBeam.z;
-  vec3 col = vec3(1.0, 0.97, 0.93) * (0.85 + 0.5 * spot) + vec3(1.0, 0.72, 0.45) * back * 0.9;
-  float a = clamp(d * uAmt * 1.9, 0.0, 0.65);
-  // Dampf streut vor allem Licht (heller), schluckt kaum – nie „schmutzig“ über dem Essen
-  gl_FragColor = vec4(col * a, a * 0.3);
+  float vis = 0.1 + 0.85 * back + 0.2 * spot;
+  vec3 col = mix(vec3(1.0, 0.95, 0.88), vec3(1.0, 0.74, 0.48), clamp(back * 0.6, 0.0, 0.7));
+  float a = clamp(d * vis * uAmt * 1.5, 0.0, 0.4);
+  // Dampf streut Licht (heller), schluckt kaum
+  gl_FragColor = vec4(col * a, a * 0.25);
 }`;
 
 export function createSteam(canvas: HTMLCanvasElement, maxDpr: number): Steam | null {
@@ -141,8 +141,8 @@ export function createSteam(canvas: HTMLCanvasElement, maxDpr: number): Steam | 
 
   return {
     resize(cssW, cssH) {
-      // halbe Auflösung: Dampf ist weich, spart drei Viertel der Pixel
-      scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.5;
+      // reduzierte Auflösung: Dampf ist weich, die feinen Fäden brauchen aber etwas Schärfe
+      scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.7;
       canvas.width = Math.max(1, Math.round(cssW * scale));
       canvas.height = Math.max(1, Math.round(cssH * scale));
       gl.viewport(0, 0, canvas.width, canvas.height);

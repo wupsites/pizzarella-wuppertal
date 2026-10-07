@@ -4,7 +4,8 @@
  * die Headline liegt in Ebenen dahinter. Beim Scrollen dreht sich die Pizza
  * (WebGL, gesteuert über GSAP ScrollTrigger), und wie in der Referenz
  * wechseln die großen Wortpaare: die alten fliegen hinaus, die neuen kommen
- * hinter der Pizza hervor. Dampf und Ofenglut sind echtes Licht in der Szene.
+ * hinter der Pizza hervor. Dampf und Ofenglut sind echtes Licht in der Szene;
+ * am Ende geht das Licht aus, nur die Glut bleibt („die Küche bleibt an“).
  * Ohne JavaScript oder bei reduzierter Bewegung: dasselbe Bild, statisch.
  *
  * Bild: scripts/hero/build-pizza3d.py (Quelle und Lizenz siehe dort / docs).
@@ -39,7 +40,7 @@ const sets = [
   data-geo={JSON.stringify({ profile: top.profile, tex: { hi: texHi.src, lo: texLo.src } })}
   style={`--pizza-ar:${STAGE_AR};--far:${layout.far.toFixed(4)}`}
 >
-  <div class="hero-light" aria-hidden="true"></div>
+  <div class="hero-light" aria-hidden="true" data-hero-room></div>
   <div class="hero-beam" aria-hidden="true" data-hero-beam></div>
   <canvas class="hero-dust" aria-hidden="true" data-hero-dust></canvas>
 
@@ -47,6 +48,9 @@ const sets = [
     <span class="hg-1">Die Küche</span>
     <span class="hg-2">bleibt an.</span>
   </div>
+
+  <!-- Dampf steigt hinter der Pizza auf (Shader, siehe scripts/hero/steam.ts) -->
+  <canvas class="hero-steam" aria-hidden="true" data-hero-steam></canvas>
 
   <!-- Headline und die wechselnden Wortpaare liegen übereinander, beide HINTER der Pizza -->
   <div class="hero-head">
@@ -99,9 +103,6 @@ const sets = [
     </div>
   </div>
 
-  <!-- Dampf über der Pizza (Shader, siehe scripts/hero/steam.ts) -->
-  <canvas class="hero-steam" aria-hidden="true" data-hero-steam></canvas>
-
   <div class="hero-foot">
     <div class="hf-text">
       <p class="hero-sub">Pizza, Döner, Lahmacun, Pasta und mehr aus der {business.address.street} – geliefert oder zum Abholen, bis spät in die Nacht.</p>
@@ -139,6 +140,8 @@ const sets = [
     z-index: -2;
     inset: 0;
     pointer-events: none;
+    /* dimmt beim „Licht aus“ (Skript setzt opacity) */
+    will-change: opacity;
     background:
       radial-gradient(70% 42% at 50% var(--light-y, 54%), rgb(255 138 61 / 0.26), transparent 72%),
       radial-gradient(42% 26% at 50% var(--light-y, 54%), rgb(255 196 120 / 0.16), transparent 70%),
@@ -322,10 +325,10 @@ const sets = [
   .hp-object.gl-on :global(img.hp-img) {
     opacity: 0;
   }
-  /* ---------- Dampf (Shader, halbe Auflösung) ---------- */
+  /* ---------- Dampf (Shader, reduzierte Auflösung): hinter Schrift und Pizza ---------- */
   .hero-steam {
     position: absolute;
-    z-index: 3;
+    z-index: 0;
     inset: 0;
     width: 100%;
     height: 100%;
