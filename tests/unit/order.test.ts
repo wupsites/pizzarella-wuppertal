@@ -50,3 +50,17 @@ test('Honeypot und Bot-Tempo', () => {
   const fast = orderRequestSchema.parse({ ...base, elapsed: 200 });
   assert.throws(() => prepareOrder(site, fast, berlin('2026-10-09T19:00')), (e: unknown) => e instanceof OrderError && e.code === 'TOO_FAST');
 });
+
+test('Nicht verfügbare Produkte lehnt der Server ab', () => {
+  const p = site.catalog.products.get('pizza-margherita')!;
+  p.available = false;
+  try {
+    const req = orderRequestSchema.parse(base);
+    assert.throws(
+      () => prepareOrder(site, req, berlin('2026-10-09T19:00')),
+      (e: unknown) => e instanceof OrderError && e.code === 'ITEM' && /nicht verfügbar/.test(e.message),
+    );
+  } finally {
+    p.available = true;
+  }
+});

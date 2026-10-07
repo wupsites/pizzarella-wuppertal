@@ -19,7 +19,7 @@ const needsChoice = p.noteRequired || p.options.some((g) => g.required);
 const hasExtras = !needsChoice && p.options.length > 0;
 const multi = p.variants.length > 1;
 const surcharges = p.options.some((g) => g.choices.some((c) => c.price > 0 || (c.prices && Object.values(c.prices).some((v) => v > 0))));
-const kind = needsChoice ? 'choose' : multi ? 'sizes' : 'single';
+const kind = !p.available ? 'off' : needsChoice ? 'choose' : multi ? 'sizes' : 'single';
 const v0 = p.variants[0];
 const searchText = [p.nr, p.name, p.description, categoryName, ...p.tags].filter(Boolean).join(' ');
 const codes = [...p.allergens, ...p.additives];
@@ -31,7 +31,13 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
     <Heading class="dish-title">
       {showNr && p.nr && <span class="dish-nr" aria-label={`Nummer ${p.nr}`}>{p.nr}</span>}
       <span class="dish-name">
-        <button type="button" data-open-product={p.id} aria-haspopup="dialog">{p.listName}</button>
+        {p.available ? (
+          <button type="button" data-open-product={p.id} aria-haspopup="dialog">
+            {p.listName}
+          </button>
+        ) : (
+          p.listName
+        )}
       </span>
     </Heading>
     {p.description && <p class="dish-desc">{p.description}</p>}
@@ -48,7 +54,7 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
               {codes.join(' · ')}
             </span>
           )}
-          {hasExtras && (
+          {hasExtras && p.available && (
             <button type="button" class="link-btn dish-extras" data-open-product={p.id}>
               Extras wählen
             </button>
@@ -105,6 +111,17 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
           <button type="button" class="btn btn--dark btn--sm choose-btn" data-open-product={p.id} aria-haspopup="dialog" aria-label={`${p.name} auswählen`}>
             Auswählen
           </button>
+        </>
+      )
+    }
+    {
+      kind === 'off' && (
+        <>
+          <span class="dish-price price">
+            {multi ? 'ab ' : ''}
+            {formatEuro(p.fromPrice)}
+          </span>
+          <span class="dish-off">Gerade nicht verfügbar</span>
         </>
       )
     }

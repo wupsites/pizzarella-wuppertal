@@ -107,6 +107,23 @@ main:focus {
 .dish-price {
   font-size: 1.08rem;
 }
+/* vorübergehend nicht bestellbar ("available": false) */
+.dish--off .dish-name,
+.dish--off .dish-price {
+  color: var(--ink-3);
+}
+.dish-off {
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--r-round);
+  border: 1.5px dashed var(--line-strong);
+  font-family: var(--font-cond);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
 /* Größen direkt in der Liste: Ø-Knöpfe */
 .sizes {
   display: flex;

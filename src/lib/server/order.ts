@@ -112,7 +112,11 @@ export function prepareOrder(site: SiteData, req: OrderRequest, now = new Date()
   }
 
   // Positionen
-  const lookup = (id: string) => catalog.products.get(id);
+  const lookup = (id: string) => {
+    const p = catalog.products.get(id);
+    if (p && !p.available) throw new PricingError(`${p.name} ist gerade nicht verfügbar`);
+    return p;
+  };
   let lines: PricedLine[];
   try {
     lines = req.items.map((it) => priceLine(lookup, it));
