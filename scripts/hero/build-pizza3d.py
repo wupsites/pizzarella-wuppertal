@@ -57,6 +57,57 @@ def polar_profile(mask, cx, cy, bins):
     return prof
 
 
+def retouch_char(tex, binary, tprof):
+    """Große Brandflecken am Rand durch Kruste aus einem anderen Winkel ersetzen.
+
+    Im Foto stören sie nicht, auf der 3D-Randwand vorn lesen sie sich aber wie
+    ein Loch im Umriss. Quelle: dieselbe Pizza, um den Mittelpunkt gedreht und
+    am Umriss ausgerichtet (Kruste landet wieder auf Kruste).
+    """
+    bins = len(tprof)
+    c = SIZE / 2
+
+    def outl(th):
+        f = ((th + np.pi) / (2 * np.pi) * bins - 0.5) % bins
+        i = np.floor(f).astype(int)
+        u = f - i
+        return tprof[i % bins] * (1 - u) + tprof[(i + 1) % bins] * u
+
+    yy, xx = np.mgrid[0:SIZE, 0:SIZE].astype(np.float32)
+    th = np.arctan2(yy - c, xx - c)
+    rho = np.hypot(xx - c, yy - c) / (RADIUS * outl(th))
+    lab = cv2.cvtColor(tex, cv2.COLOR_BGR2LAB).astype(np.float32)
+    inside = binary > 0
+    dark = ((lab[..., 0] < 70) & inside & (rho > 0.75)).astype(np.uint8)
+    n, lbl, st, _ = cv2.connectedComponentsWithStats(dark, 8)
+    out = tex.astype(np.float32)
+    for i in range(1, n):
+        if st[i, 4] < 20000:
+            continue
+        m = cv2.dilate((lbl == i).astype(np.uint8) * 255, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (45, 45)))
+        soft = np.clip(cv2.GaussianBlur(m.astype(np.float32) / 255, (0, 0), 10) * 1.5, 0, 1)
+        ys, xs = np.nonzero(soft > 0.01)
+        sl = (slice(ys.min(), ys.max() + 1), slice(xs.min(), xs.max() + 1))
+        ring = ((soft > 0.05) & inside)[sl]
+        nb = (cv2.dilate(m, np.ones((81, 81), np.uint8)) > 0) & (m == 0) & inside & (rho > 0.8) & (lab[..., 0] > 90)
+        ref = lab[nb].mean(0)
+        best = None
+        for d in np.deg2rad(np.arange(-120, 121, 2)):
+            if abs(d) < np.deg2rad(18):
+                continue
+            ths = th[sl] - d
+            rs = rho[sl] * RADIUS * outl(ths)
+            patch = cv2.remap(out, (c + rs * np.cos(ths)).astype(np.float32), (c + rs * np.sin(ths)).astype(np.float32), cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+            pl = cv2.cvtColor(np.clip(patch, 0, 255).astype(np.uint8), cv2.COLOR_BGR2LAB).astype(np.float32)[ring]
+            # wenig Schwarz, gleiche Farbe wie die Kruste ringsum, keine Tomate
+            score = (pl[:, 0] < 90).mean() * 2 + np.abs(pl.mean(0) - ref).sum() / 60 + (pl[:, 1] > 150).mean()
+            if best is None or score < best[0]:
+                best = (score, patch)
+        sf = soft[sl][..., None]
+        out[sl] = out[sl] * (1 - sf) + best[1] * sf
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
 def main():
     img = cv2.imread(SRC)
     if img is None:
@@ -105,6 +156,7 @@ def main():
     binary = (msk > 127).astype(np.uint8) * 255
     tprof = polar_profile(binary, SIZE / 2, SIZE / 2, BINS) / RADIUS
     tprof = cyclic_smooth(tprof, median=9, sigma=4.0)
+    tex = retouch_char(tex, binary, tprof)
 
     # Farbe über den Rand hinaus fortsetzen (Mip-Stufen ziehen sonst Teller-Weiß herein)
     inner = cv2.erode(binary, np.ones((7, 7), np.uint8)).astype(np.float32) / 255

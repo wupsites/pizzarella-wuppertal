@@ -19,12 +19,14 @@ export interface View3D {
   hot: [number, number, number];
   /** Glanz 0–1 */
   spec: number;
-  /** Hauptlicht seitlich/vorn verschieben (Maus), je −1 … 1 */
-  light?: [number, number];
   /** Ofen-Gegenlicht 0–1.5 */
   glow?: number;
-  /** Licht-Sweep beim Laden: 0–1 Position, < 0 aus */
-  sweep?: number;
+  /** Zeit in Sekunden (Hitzeflimmern) */
+  time?: number;
+  /** Hitzeflimmern 0–1 */
+  heat?: number;
+  /** Schatten-Versatz durch die Lichtrichtung */
+  light?: [number, number];
 }
 
 export interface Pizza3D {
@@ -61,10 +63,12 @@ const FRAG = `
 precision highp float;
 uniform sampler2D uTex;
 uniform vec3 uEye;
-uniform vec3 uLight;
+uniform vec3 uKey;
+uniform vec3 uSoft;
 uniform vec3 uBack;
 uniform float uRim;
-uniform float uSweep;
+uniform float uTime;
+uniform float uHeat;
 uniform vec2 uTexel;
 uniform vec4 uHot;
 uniform float uSpec;
@@ -80,63 +84,94 @@ varying float vY;
 float lum(vec3 c) { return dot(c, vec3(0.299, 0.587, 0.114)); }
 
 void main() {
+  float rTex = length(vUv - 0.5) / 0.47;
+  // Hitzeflimmern: winzige Verzerrung, nur hinten über dem Belag
+  vec2 uv = vUv;
+  float far = smoothstep(0.1, -0.6, vW.z);
+  uv += vec2(sin(vW.x * 38.0 + uTime * 2.3), cos(vW.z * 31.0 + uTime * 1.7)) * 0.00045 * uHeat * far;
+
   // Tiefenunschärfe: hinten weicher (Mip-Bias), vorne knackig
   float dist = length(uEye - vW);
   float bias = clamp((dist - uFocus) * uDof, -0.5, 2.4);
-  vec3 tex = texture2D(uTex, vUv, bias).rgb;
+  vec3 tex = texture2D(uTex, uv, bias).rgb;
 
   vec3 N = normalize(vN);
   // Relief aus der Textur (Käseblasen, Salamiränder, Krustenporen)
   vec2 e = uTexel * 2.0;
-  float hx = lum(texture2D(uTex, vUv + vec2(e.x, 0.0), bias).rgb) - lum(texture2D(uTex, vUv - vec2(e.x, 0.0), bias).rgb);
-  float hz = lum(texture2D(uTex, vUv + vec2(0.0, e.y), bias).rgb) - lum(texture2D(uTex, vUv - vec2(0.0, e.y), bias).rgb);
-  vec3 bumpM = vec3(-hx, 0.0, -hz) * 1.6;
-  vec3 Nb = normalize(N + uModelRot * bumpM * smoothstep(0.55, 0.95, N.y));
+  float hx = lum(texture2D(uTex, uv + vec2(e.x, 0.0), bias).rgb) - lum(texture2D(uTex, uv - vec2(e.x, 0.0), bias).rgb);
+  float hz = lum(texture2D(uTex, uv + vec2(0.0, e.y), bias).rgb) - lum(texture2D(uTex, uv - vec2(0.0, e.y), bias).rgb);
+  float top = smoothstep(0.55, 0.95, N.y);
+  vec3 Nb = normalize(N + uModelRot * vec3(-hx, 0.0, -hz) * 1.8 * top);
 
-  vec3 L = normalize(uLight);
   vec3 V = normalize(uEye - vW);
-  // Geometrieschattierung relativ zur flachen Oberseite (Foto ist schon belichtet)
-  float shade = 1.0 + 0.85 * (dot(N, L) - L.y) + 0.16 * (dot(Nb, L) - dot(N, L));
-  // Unterseite der Kante dunkler, wie Ofenboden/Schatten
-  float under = smoothstep(0.0, uPeak * 0.55, vY);
-  vec3 col = tex * 1.1 * shade * mix(0.48, 1.0, under);
+  vec3 Lk = normalize(uKey);
+  vec3 Lb = normalize(uBack);
+  vec3 Lf = normalize(vec3(0.7, 0.35, 0.6));
 
   float sat = max(tex.r, max(tex.g, tex.b)) - min(tex.r, min(tex.g, tex.b));
-  float inner = 1.0 - smoothstep(0.72, 0.8, length(vUv - 0.5) / 0.47);
+  float inner = 1.0 - smoothstep(0.72, 0.8, rTex);
+  float crust = 1.0 - inner;
 
-  // Ofen-Gegenlicht: Kanten und Krustenrand glühen warm (Fresnel + Rückseite)
-  vec3 ember = vec3(1.0, 0.5, 0.16);
-  float fres = pow(1.0 - max(dot(N, V), 0.0), 2.4);
-  float back = max(dot(N, normalize(uBack)), 0.0);
-  col += ember * fres * (0.25 + 0.75 * back) * uRim * (0.55 + 0.45 * lum(tex));
-  // dünner Teig durchscheinend, wenn er von hinten Licht bekommt
-  float dough = smoothstep(0.5, 0.8, lum(tex)) * (1.0 - inner);
-  col += ember * 0.22 * back * dough * uRim;
+  // --- diffuses Licht relativ zur flachen Oberseite (das Foto ist schon belichtet)
+  float wrapK = 0.35 + 0.65 * max(dot(N, Lk), 0.0);
+  float wrapRef = 0.35 + 0.65 * Lk.y;
+  float key = wrapK / wrapRef;
+  float micro = 1.0 + 0.2 * (dot(Nb, Lk) - dot(N, Lk));
+  float fill = 0.1 * max(dot(N, Lf), 0.0);
+  // Kehle zwischen Belag und Randwulst, Unterseite der Kante
+  float crease = 1.0 - 0.16 * exp(-pow((rTex - 0.79) / 0.035, 2.0));
+  float under = mix(0.46, 1.0, smoothstep(0.0, uPeak * 0.55, vY));
+  vec3 col = tex * (key * micro + fill) * crease * under;
 
-  // Fettglanz: Salami/Öl (gesättigt rot-orange) und Käse fangen Licht
-  vec3 H = normalize(L + V);
-  float oily = smoothstep(0.25, 0.55, sat) * smoothstep(0.25, 0.7, tex.r);
-  float cheese = smoothstep(0.7, 0.92, lum(tex)) * (1.0 - smoothstep(0.15, 0.35, sat));
-  // nur der Belag glänzt, die Kruste bleibt matt
-  float gloss = (oily * 1.0 + cheese * 0.55) * smoothstep(0.55, 0.95, N.y) * inner;
-  float nh = max(dot(Nb, H), 0.0);
-  float sp = pow(nh, 90.0) * 2.6 + pow(nh, 22.0) * 0.32 + pow(nh, 6.0) * 0.06;
-  col += vec3(1.0, 0.95, 0.86) * sp * gloss * uSpec;
+  // --- Ofenlicht von hinten unten: trifft nur, was ihm zugewandt ist,
+  //     färbt das Material (kein aufgesetzter Neonrand)
+  vec3 oven = vec3(1.0, 0.58, 0.27);
+  // nur Flächen, die wirklich nach hinten zeigen (Rand, Silhouette) – nicht die Oberseite
+  float backD = clamp((dot(N, Lb) - 0.28) / 0.72, 0.0, 1.0);
+  float graze = pow(1.0 - max(dot(N, V), 0.0), 3.0);
+  col += tex * oven * (backD * 0.5 + graze * backD * 1.6) * uRim;
+  // dünner Teig am Rand lässt Ofenlicht durchscheinen
+  col += tex * oven * 0.28 * pow(backD, 1.5) * crust * smoothstep(0.45, 0.8, lum(tex)) * uRim;
+  // Kantenlicht: nur an der Silhouette, nur wo das Ofenlicht von hinten hinkommt,
+  // in der Farbe des Teigs – trennt den Rand sauber vom dunklen Grund
+  float rimSide = smoothstep(-0.15, 0.75, dot(N, Lb));
+  col += mix(tex, oven * 0.7, 0.3) * oven * graze * rimSide * 1.15 * uRim;
 
-  // Licht-Sweep: ein Lichtband läuft einmal über die Pizza
-  if (uSweep >= 0.0) {
-    float bx = mix(-1.5, 1.5, uSweep);
-    float band = exp(-pow((vW.x + vW.z * 0.4 - bx) * 2.6, 2.0));
-    col += vec3(1.0, 0.9, 0.74) * band * (0.08 + 1.1 * gloss + 0.22 * smoothstep(0.6, 0.9, lum(tex)));
-  }
+  // --- Glanz je Material: große Softbox schräg hinten oben (Food-Fotografie),
+  //     Schlick-Fresnel, Rauheit je Oberfläche – Öl glänzt, Käse schimmert, Teig kaum
+  vec3 Ls = normalize(uSoft);
+  vec3 H = normalize(Ls + V);
+  // für den Glanz ein ruhigeres Relief als fürs diffuse Licht: kein Glitzern
+  vec3 Ns = normalize(mix(N, Nb, 0.5));
+  float nh = max(dot(Ns, H), 0.0);
+  float fres = 0.04 + 0.96 * pow(1.0 - max(dot(V, H), 0.0), 5.0);
+  float oily = smoothstep(0.25, 0.55, sat) * smoothstep(0.25, 0.7, tex.r) * inner;
+  float cheese = smoothstep(0.66, 0.92, lum(tex)) * (1.0 - smoothstep(0.15, 0.35, sat)) * inner;
+  float spec = oily * (pow(nh, 120.0) * 0.6 + pow(nh, 36.0) * 0.16)
+             + cheese * (pow(nh, 30.0) * 0.2 + pow(nh, 8.0) * 0.035)
+             + crust * pow(nh, 9.0) * 0.035;
+  col += vec3(1.0, 0.97, 0.92) * spec * (0.7 + 2.2 * fres) * top * uSpec;
+  // Kantenglanz der Kruste im Ofenlicht (seidig, breit)
+  float nb = max(dot(Nb, normalize(Lb + V)), 0.0);
+  col += oven * pow(nb, 14.0) * 0.22 * crust * uRim;
 
-  // Hotspot: Bereich minimal aufhellen
+  // --- Hotspot: Bereich minimal aufhellen
   vec2 d = vUv - uHot.xy;
-  col *= 1.0 + 0.12 * uHot.z * exp(-dot(d, d) / 0.006);
+  col *= 1.0 + 0.08 * uHot.z * exp(-dot(d, d) / 0.008);
 
-  // Spitzlichter weich abfangen, leicht warm graden
-  col = col / (1.0 + max(col - 0.85, 0.0) * 0.9);
-  col = pow(max(col, 0.0), vec3(0.97, 1.0, 1.05));
+  // --- gemeinsamer „Kamera“-Look: Spitzlichter weich abfangen, etwas mehr
+  //     Tiefe (S-Kurve), Farben des Fotos behalten, minimal warm
+  col = col / (1.0 + max(col - 0.82, 0.0) * 1.1);
+  vec3 sc = clamp(col, 0.0, 1.0);
+  col = mix(col, sc * sc * (3.0 - 2.0 * sc), 0.28);
+  float l = lum(col);
+  col = mix(vec3(l), col, 1.06);
+  col = pow(max(col, 0.0), vec3(0.985, 1.0, 1.04));
+  // feines Filmkorn (fest im Bild), wie das Korn auf dem Grund
+  vec3 g3 = fract(floor(gl_FragCoord.xyx) * 0.1031);
+  g3 += dot(g3, g3.yzx + 33.33);
+  float grain = fract((g3.x + g3.y) * g3.z);
+  col *= 1.0 + (grain - 0.5) * 0.09;
   gl_FragColor = vec4(col, 1.0);
 }`;
 
@@ -155,9 +190,10 @@ uniform vec2 uOff;
 varying vec2 vP;
 void main() {
   float r = length(vP);
-  float soft = 1.0 - smoothstep(0.55, 1.45, length(vP - uOff));
-  float contact = 1.0 - smoothstep(0.9, 1.07, r);
-  float a = soft * 0.42 + contact * 0.38;
+  // weiter Umgebungsschatten (zur Lichtrichtung versetzt) + dichter Kontaktschatten
+  float soft = 1.0 - smoothstep(0.5, 1.55, length((vP - uOff) * vec2(1.0, 1.15)));
+  float contact = 1.0 - smoothstep(0.88, 1.06, length(vP - uOff * 0.25));
+  float a = soft * soft * 0.5 + contact * 0.42;
   gl_FragColor = vec4(0.0, 0.0, 0.0, a);
 }`;
 
@@ -249,10 +285,12 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
     viewProj: loc(prog, 'uViewProj'),
     modelRot: loc(prog, 'uModelRot'),
     eye: loc(prog, 'uEye'),
-    light: loc(prog, 'uLight'),
+    key: loc(prog, 'uKey'),
+    soft: loc(prog, 'uSoft'),
     back: loc(prog, 'uBack'),
     rim: loc(prog, 'uRim'),
-    sweep: loc(prog, 'uSweep'),
+    time: loc(prog, 'uTime'),
+    heat: loc(prog, 'uHeat'),
     texel: loc(prog, 'uTexel'),
     hot: loc(prog, 'uHot'),
     spec: loc(prog, 'uSpec'),
@@ -317,7 +355,9 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
       gl.uniformMatrix4fv(SU.viewProj, false, cam.viewProj);
-      gl.uniform2f(SU.off, 0.06, -0.12);
+      const slx = v.light?.[0] ?? 0;
+      const sly = v.light?.[1] ?? 0;
+      gl.uniform2f(SU.off, 0.1 - slx * 0.07, -0.08 - sly * 0.05);
       gl.bindBuffer(gl.ARRAY_BUFFER, bShadow);
       gl.enableVertexAttribArray(A.xz);
       gl.vertexAttribPointer(A.xz, 2, gl.FLOAT, false, 0, 0);
@@ -337,10 +377,15 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       gl.uniform3f(U.eye, cam.eye[0], cam.eye[1], cam.eye[2]);
       const lx = v.light?.[0] ?? 0;
       const ly = v.light?.[1] ?? 0;
-      gl.uniform3f(U.light, -0.45 + lx * 0.55, 0.8, 0.38 + ly * 0.45);
-      gl.uniform3f(U.back, 0.18, 0.42, -1.0);
+      // Hauptlicht weich von oben links vorn; wandert mit dem Licht (Zeiger oder Drift)
+      gl.uniform3f(U.key, -0.5 + lx * 0.38, 0.85, 0.42 + ly * 0.25);
+      // Ofenlicht von hinten, knapp über der Belaghöhe
+      gl.uniform3f(U.back, 0.22, 0.2, -1.0);
+      // Softbox für die Glanzlichter: schräg hinten oben, Glanz läuft mit dem Licht
+      gl.uniform3f(U.soft, 0.12 + lx * 0.42, 0.9, -0.5 + ly * 0.3);
       gl.uniform1f(U.rim, v.glow ?? 1);
-      gl.uniform1f(U.sweep, v.sweep ?? -1);
+      gl.uniform1f(U.time, v.time ?? 0);
+      gl.uniform1f(U.heat, v.heat ?? 0);
       gl.uniform2f(U.texel, 1 / texSize, 1 / texSize);
       gl.uniform4f(U.hot, v.hot[0], v.hot[1], v.hot[2], 0);
       gl.uniform1f(U.spec, v.spec);

@@ -3,7 +3,8 @@
  * Hero „Eine Pizza“: ein einziges, echtes Pizzafoto als dominantes Objekt,
  * die Headline liegt in Ebenen dahinter. Beim Scrollen fährt die Kamera
  * ruhig um die Pizza (Tiefen-Parallaxe in WebGL, gesteuert über GSAP
- * ScrollTrigger), am Desktop erscheinen beim Überfahren kurze Callouts.
+ * ScrollTrigger). Beim Überfahren einer Stelle kommt eine Info-Schiene hinter
+ * der Pizza hervor (Touch: Antippen).
  * Ohne JavaScript oder bei reduzierter Bewegung: dasselbe Bild, statisch.
  *
  * Bild: scripts/hero/build-pizza.py (Quelle und Lizenz siehe dort / docs).
@@ -18,17 +19,14 @@ import top from '../../assets/hero/pizza-top.json';
 import { site } from '../../data/index.ts';
 import { STAGE_AR, stageLayout } from '../../scripts/hero/camera.ts';
 
-const { business, catalog } = site;
+const { business } = site;
 const steam = await getImage({ src: steamSrc, format: 'webp', quality: 70, width: 320 });
 // Textur für die 3D-Pizza (Kantenlänge Zweierpotenz → Mipmaps)
 const texHi = await getImage({ src: topSrc, format: 'webp', quality: 86, width: 2048 });
 const texLo = await getImage({ src: topSrc, format: 'webp', quality: 84, width: 1024 });
 const layout = stageLayout();
 
-// Fakten für die Callouts kommen aus den Daten, nicht aus dem Bauch
-const pizzaCat = catalog.visibleCategories.find((c) => c.id === 'pizza');
-const pizzaCount = pizzaCat?.products.length ?? 0;
-const sizes = (pizzaCat?.products[0]?.variants ?? []).map((v) => v.detail?.replace('Ø ', '')).filter(Boolean);
+// Öffnungszeiten für die Info-Schiene kommen aus den Daten
 const order = ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'] as const;
 const short: Record<string, string> = { mo: 'Mo', di: 'Di', mi: 'Mi', do: 'Do', fr: 'Fr', sa: 'Sa', so: 'So' };
 const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
@@ -44,13 +42,13 @@ for (const d of order) {
 }
 const latestLabel = `${latestDays.map((d) => short[d]).join(' & ')} bis ${String(Math.floor(latest / 60) % 24)} Uhr`;
 
-/** u/v: Punkt auf der Pizza-Textur (0–1), side: Seite des Labels. */
+/** u/v: Punkt auf der Pizza-Textur (0–1). Die Seite ergibt sich aus der Drehung. */
 const spots = [
-  { id: 'rand', title: 'Knusprig gebacken', sub: sizes.length ? `Ø ${sizes.join(' oder ')}` : '', u: 0.41, v: 0.93, side: 'left' },
-  { id: 'kaese', title: 'Frisch belegt', sub: pizzaCount ? `${pizzaCount} Pizzen zur Wahl` : '', u: 0.635, v: 0.47, side: 'right' },
-  { id: 'sauce', title: 'Kräftige Tomatenbasis', sub: 'Extra-Zutaten nach Wunsch', u: 0.32, v: 0.385, side: 'left' },
-  { id: 'spaet', title: 'Bis spät für dich da', sub: latestLabel, u: 0.945, v: 0.44, side: 'right' },
-  { id: 'ort', title: 'Direkt aus Wuppertal', sub: business.address.street, u: 0.51, v: 0.065, side: 'left' },
+  { id: 'rand', no: '01', title: 'Der Rand', sub: 'Außen kross, innen weich.', u: 0.41, v: 0.93 },
+  { id: 'kaese', no: '02', title: 'Der Belag', sub: 'Heiß belegt, direkt gebacken.', u: 0.635, v: 0.47 },
+  { id: 'sauce', no: '03', title: 'Die Sauce', sub: 'Kräftige Tomatenbasis.', u: 0.32, v: 0.385 },
+  { id: 'spaet', no: '04', title: 'Die Nacht', sub: `${latestLabel} geöffnet.`, u: 0.945, v: 0.44 },
+  { id: 'ort', no: '05', title: 'Aus Wuppertal', sub: `${business.address.street}.`, u: 0.51, v: 0.065 },
 ];
 ---
 
@@ -62,6 +60,7 @@ const spots = [
   style={`--pizza-ar:${STAGE_AR};--far:${layout.far.toFixed(4)}`}
 >
   <div class="hero-light" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true" data-hero-vignette></div>
   <div class="hero-beam" aria-hidden="true" data-hero-beam></div>
   <canvas class="hero-dust" aria-hidden="true" data-hero-dust></canvas>
 
@@ -75,6 +74,22 @@ const spots = [
     <span class="hero-line hl-1" data-hero-line="1">Die Küche</span>
     <span class="hero-line hl-2" data-hero-line="2">bleibt <span class="hero-an">an.</span></span>
   </h1>
+
+  <!-- Info-Schienen liegen in der Tiefe HINTER der Pizza: sie verdeckt Linien und Einstieg -->
+  <div class="hero-rails" aria-hidden="true" data-hero-rails>
+    {
+      spots.map((s) => (
+        <div class="rail" data-spot={s.id} data-u={s.u} data-v={s.v}>
+          <span class="rail-line" />
+          <div class="rail-card">
+            <span class="rail-no">{s.no}</span>
+            <strong class="rail-title">{s.title}</strong>
+            <span class="rail-sub">{s.sub}</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
 
   <div class="hero-stage" data-hero-stage>
     <div class="hp-core" aria-hidden="true"></div>
@@ -98,26 +113,11 @@ const spots = [
     </div>
   </div>
 
-  <div class="hero-callouts" aria-hidden="true" data-hero-callouts>
-    {
-      spots.map((s) => (
-        <div class:list={['co', `co--${s.side}`]} data-spot={s.id} data-u={s.u} data-v={s.v} data-side={s.side}>
-          <span class="co-line" />
-          <span class="co-dot" />
-          <span class="co-label">
-            <strong>{s.title}</strong>
-            {s.sub && <span>{s.sub}</span>}
-          </span>
-        </div>
-      ))
-    }
-  </div>
   <ul class="sr-only">
     {
       spots.map((s) => (
         <li>
-          {s.title}
-          {s.sub && `: ${s.sub}`}
+          {s.title}: {s.sub}
         </li>
       ))
     }
@@ -167,7 +167,9 @@ const spots = [
   }
 
   /* ---------- Licht ---------- */
-  /* Lichtkegel von oben, wie ein Food-Spot im Studio */
+  /* Lichtkegel von oben, wie ein Food-Spot im Studio. Die weichen Kanten sind
+     in der SVG-Grafik schon enthalten (einmal gerastert, kein Blur-Filter pro Frame);
+     Opazität und Schwenk setzt das Skript direkt am Element. */
   .hero-beam {
     position: absolute;
     z-index: 0;
@@ -176,43 +178,45 @@ const spots = [
     width: min(74vw, 68rem);
     height: calc(var(--light-y, 54%) + 16%);
     transform: translateX(-50%);
-    /* Unschärfe auf dem Wrapper, Zuschnitt innen → weiche Kegelkanten */
-    filter: blur(26px);
-    mix-blend-mode: screen;
-    opacity: var(--beam, 0.85);
+    transform-origin: 50% 0;
+    opacity: 0.85;
     pointer-events: none;
+    will-change: transform, opacity;
   }
   .hero-beam::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(60% 30% at 50% 100%, rgb(255 214 160 / 0.24), transparent 72%),
-      linear-gradient(to bottom, rgb(255 222 180 / 0) 0%, rgb(255 214 160 / 0.06) 40%, rgb(255 200 140 / 0.12) 100%);
-    clip-path: polygon(43% 0, 57% 0, 96% 100%, 4% 100%);
+    inset: -10%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 120 120' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='v' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='rgb(255,222,180)' stop-opacity='0'/%3E%3Cstop offset='.4' stop-color='rgb(255,214,160)' stop-opacity='.07'/%3E%3Cstop offset='1' stop-color='rgb(255,200,140)' stop-opacity='.14'/%3E%3C/linearGradient%3E%3CradialGradient id='p' cx='50' cy='100' r='1' gradientUnits='userSpaceOnUse' gradientTransform='translate(50 100) scale(60 30) translate(-50 -100)'%3E%3Cstop offset='0' stop-color='rgb(255,214,160)' stop-opacity='.28'/%3E%3Cstop offset='.72' stop-color='rgb(255,214,160)' stop-opacity='0'/%3E%3C/radialGradient%3E%3CclipPath id='c'%3E%3Cpolygon points='43,0 57,0 96,100 4,100'/%3E%3C/clipPath%3E%3Cfilter id='b' x='-10' y='-10' width='120' height='120' filterUnits='userSpaceOnUse'%3E%3CfeGaussianBlur stdDeviation='2.4 4.1'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23b)'%3E%3Cg clip-path='url(%23c)'%3E%3Crect x='0' y='0' width='100' height='100' fill='url(%23v)'/%3E%3Crect x='0' y='0' width='100' height='100' fill='url(%23p)'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") center / 100% 100% no-repeat;
   }
   .hero-dust {
-    display: none;
     position: absolute;
     z-index: 0;
     inset: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    mix-blend-mode: screen;
   }
   /* Glutkern hinter der Pizza: Ofenhitze */
+  /* weich durch den Verlauf selbst (kein Blur-Filter), Opazität setzt das Skript */
   .hp-core {
     position: absolute;
-    left: 14%;
-    right: 14%;
-    top: 24%;
-    height: 50%;
+    left: 10%;
+    right: 10%;
+    top: 19%;
+    height: 60%;
     border-radius: 50%;
-    background: radial-gradient(closest-side, rgb(255 150 60 / 0.5), rgb(255 104 40 / 0.2) 50%, transparent 80%);
-    filter: blur(30px);
-    opacity: var(--core, 0.75);
+    background: radial-gradient(
+      closest-side,
+      rgb(255 150 60 / 0.46),
+      rgb(255 128 50 / 0.33) 28%,
+      rgb(255 104 40 / 0.17) 52%,
+      rgb(255 104 40 / 0.06) 72%,
+      transparent 90%
+    );
+    opacity: 0.75;
     pointer-events: none;
+    will-change: transform, opacity;
   }
 
   /* ---------- Typo-Ebenen ---------- */
@@ -315,103 +319,134 @@ const spots = [
     width: 13%;
   }
 
-  /* ---------- Callouts ---------- */
-  .hero-callouts {
+  /* ---------- Info-Schienen hinter der Pizza ---------- */
+  .hero-rails {
     position: absolute;
-    z-index: 3;
+    z-index: 1;
     inset: 0;
     pointer-events: none;
   }
-  .co {
+  .rail {
+    --in: 0;
     position: absolute;
     inset: 0;
     visibility: hidden;
+    transition:
+      --in 380ms var(--ease-rise),
+      visibility 0s linear 380ms;
   }
-  .co.is-on,
-  .co.is-leaving {
+  .rail.is-on {
+    --in: 1;
     visibility: visible;
+    transition:
+      --in 640ms var(--ease-rise),
+      visibility 0s;
   }
-  .co-line,
-  .co-dot,
-  .co-label {
+  /* Linie beginnt am Punkt hinter der Pizza und läuft nach außen */
+  .rail-line {
     position: absolute;
     left: 0;
     top: 0;
-  }
-  .co-line {
     width: 1px;
     height: 1px;
-    background: rgb(244 235 220 / 0.85);
+    background: linear-gradient(90deg, rgb(244 235 220 / 0.55), rgb(244 235 220 / 0.85));
     transform-origin: 0 50%;
-    transform: translate3d(var(--lx, 0), var(--y, 0), 0) scaleX(calc(var(--len, 0) * var(--draw)));
-    transition: --draw 420ms var(--ease-rise);
+    transform: translate3d(var(--lx, 0), var(--ly, 0), 0) rotate(var(--la, 0deg)) scaleX(calc(var(--len, 0) * var(--in)));
   }
-  .co--left .co-line {
-    transform-origin: 100% 50%;
-    transform: translate3d(calc(var(--lx, 0) - 1px), var(--y, 0), 0) scaleX(calc(var(--len, 0) * var(--draw)));
-  }
-  .co-dot {
-    width: 0.95rem;
-    height: 0.95rem;
-    margin: -0.475rem 0 0 -0.475rem;
-    border-radius: 50%;
-    border: 1.5px solid rgb(244 235 220 / 0.9);
-    background: radial-gradient(circle, var(--cream) 0 28%, rgb(22 17 14 / 0.35) 32%);
-    transform: translate3d(var(--ax, 0), var(--y, 0), 0) scale(var(--dot));
-    transition: --dot 300ms var(--ease-settle);
-  }
-  .co-label {
+  .rail-card {
+    position: absolute;
+    left: 0;
+    top: 0;
     display: grid;
-    gap: 0.1rem;
-    min-width: 11rem;
-    font-size: 0.9rem;
-    line-height: 1.3;
+    gap: 0.28rem;
+    width: 14rem;
     color: var(--cream);
-    text-shadow: 0 1px 12px rgb(0 0 0 / 0.55);
-    transform: translate3d(var(--tx, 0), calc(var(--y, 0) - 100% - 0.55rem + var(--rise)), 0);
-    opacity: var(--fade);
-    transition:
-      --rise 380ms var(--ease-rise),
-      --fade 300ms var(--ease-rise);
+    text-shadow: 0 2px 18px rgb(0 0 0 / 0.6);
+    opacity: calc(var(--in) * 1.3 - 0.3);
+    filter: blur(calc((1 - var(--in)) * 5px));
+    transform: translate3d(calc(var(--cx, 0) + var(--dir, 1) * (var(--in) - 1) * 56px), calc(var(--cy, 0) - 50%), 0);
   }
-  .co-label strong {
-    font-weight: 700;
-    font-size: 0.98rem;
-  }
-  .co-label span {
-    color: var(--cream-2);
-    font-size: 0.82rem;
-  }
-  .co--right .co-label {
+  .rail--left .rail-card {
     text-align: right;
-    transform: translate3d(calc(var(--tx, 0) - 100%), calc(var(--y, 0) - 100% - 0.55rem + var(--rise)), 0);
+    justify-items: end;
+    transform: translate3d(calc(var(--cx, 0) - 100% + var(--dir, -1) * (var(--in) - 1) * 56px), calc(var(--cy, 0) - 50%), 0);
   }
-  .co {
-    --draw: 0;
-    --dot: 0.4;
-    --rise: 10px;
-    --fade: 0;
+  .rail--below .rail-card {
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: baseline;
+    column-gap: 0.55rem;
+    row-gap: 0.15rem;
+    text-align: center;
+    width: min(20rem, 86vw);
+    transform: translate3d(calc(var(--cx, 0) - 50%), calc(var(--cy, 0) + (var(--in) - 1) * 22px), 0);
   }
-  .co.is-on {
-    --draw: 1;
-    --dot: 1;
-    --rise: 0px;
-    --fade: 1;
+  .rail--below .rail-sub {
+    grid-column: 1 / -1;
   }
-  .co.is-on .co-label {
-    transition-delay: 120ms;
+  /* feiner Punkt, wo die Linie die Karte erreicht */
+  .rail-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.95rem;
+    width: 5px;
+    height: 5px;
+    margin-top: -2.5px;
+    border-radius: 50%;
+    background: var(--cream);
+    box-shadow: 0 0 10px rgb(255 214 160 / 0.7);
   }
-  /* Handy/Tablet: Label liegt über der Pizza → dezente Fläche für Lesbarkeit */
+  .rail--left .rail-card::before {
+    left: auto;
+    right: -0.95rem;
+  }
+  .rail--below .rail-card::before {
+    top: -0.8rem;
+    left: 50%;
+    margin: 0 0 0 -2.5px;
+  }
+  .rail-no {
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--cheese);
+  }
+  .rail-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-variation-settings: 'SOFT' 100;
+    font-size: 1.5rem;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+  }
+  .rail-sub {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: var(--cream-2);
+  }
   @media (max-width: 1023.98px) {
-    .co-label {
-      min-width: 0;
-      padding: 0.45rem 0.7rem 0.5rem;
-      border-radius: 0.6rem;
-      background: rgb(22 17 14 / 0.62);
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
-      text-shadow: none;
+    .rail-title {
+      font-size: 1.25rem;
     }
+  }
+
+  /* ---------- Fokus-Modus (Zeiger auf der Pizza) ---------- */
+  /* Headline, Fuß und Vignette blendet das Skript direkt über opacity */
+  .hero-vignette {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    background: radial-gradient(75% 70% at 50% var(--light-y, 54%), transparent 40%, rgb(0 0 0 / 0.55));
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+  }
+  /* Korn ohne Mischmodus (auf dem dunklen Grund optisch gleich, aber ohne
+     Neuberechnung des ganzen Heros pro Frame); die Pizza bekommt ihr Korn im Shader */
+  .hero.grain::after {
+    mix-blend-mode: normal;
   }
 
   /* ---------- Unten: Text + CTAs ---------- */
@@ -570,9 +605,6 @@ const spots = [
     .hp-steam {
       display: block;
     }
-    .hero-dust {
-      display: block;
-    }
     .hp-object {
       transform: translate3d(0, 0, 0) rotate(-3deg) scale(0.96);
     }
@@ -639,14 +671,12 @@ const spots = [
       .hp-steam--b {
         animation: steam 11s linear 4.6s infinite;
       }
-      .hero-beam {
+      .hero-beam::before {
         animation: beam-breathe 7s ease-in-out infinite alternate;
       }
     }
     .hp-core {
-      animation:
-        core-flicker 2.3s ease-in-out infinite alternate,
-        core-flicker2 3.7s ease-in-out infinite alternate;
+      animation: core-flicker 2.3s ease-in-out infinite alternate;
     }
   }
   .hero:global(.intro-done) .hero-line,
@@ -666,12 +696,13 @@ const spots = [
       opacity: 0;
     }
   }
+  /* nur opacity/transform animieren: läuft komplett auf der GPU */
   @keyframes beam-breathe {
     from {
-      filter: blur(26px) brightness(0.88);
+      opacity: 0.78;
     }
     to {
-      filter: blur(30px) brightness(1.14);
+      opacity: 1;
     }
   }
   @keyframes core-flicker {
@@ -682,24 +713,16 @@ const spots = [
       transform: scale(1.02, 1.03);
     }
   }
-  @keyframes core-flicker2 {
-    from {
-      filter: blur(30px) brightness(0.92);
-    }
-    to {
-      filter: blur(34px) brightness(1.1);
-    }
-  }
   @keyframes steam {
     0% {
       opacity: 0;
       transform: translate3d(0, 12%, 0) scale(0.9, 0.85);
     }
     25% {
-      opacity: 0.22;
+      opacity: 0.1;
     }
     70% {
-      opacity: 0.11;
+      opacity: 0.05;
     }
     100% {
       opacity: 0;
@@ -709,30 +732,10 @@ const spots = [
 </style>
 
 <style is:global>
-  /* animierbare Variablen für die Callouts (ohne Unterstützung: sofort sichtbar) */
-  @property --draw {
+  /* animierbare Variable für den Einstieg der Info-Schienen (ohne Unterstützung: sofort sichtbar) */
+  @property --in {
     syntax: '<number>';
     inherits: true;
     initial-value: 0;
-  }
-  @property --dot {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 0.4;
-  }
-  @property --fade {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 0;
-  }
-  @property --rise {
-    syntax: '<length>';
-    inherits: true;
-    initial-value: 10px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero .co {
-      --rise: 0px !important;
-    }
   }
 </style>

@@ -45,16 +45,16 @@ if (!mobile) {
   for (const [z, [u, v]] of Object.entries(zones)) {
     await p.mouse.move(box.x + box.w * u, box.y + box.h * v, { steps: 8 });
     await p.waitForTimeout(900);
-    const on = await p.evaluate(() => [...document.querySelectorAll('.co.is-on')].map((e) => e.dataset.spot).join(','));
+    const on = await p.evaluate(() => [...document.querySelectorAll('.rail.is-on')].map((e) => e.dataset.spot).join(','));
     console.log(`hover ${z}: ${on}`);
     await p.screenshot({ path: `${out}/hero-${w}-hover-${z}.png` });
   }
   await p.mouse.move(5, h - 5, { steps: 5 });
   await p.waitForTimeout(800);
-  console.log('nach Verlassen:', await p.evaluate(() => document.querySelectorAll('.co.is-on').length));
+  console.log('nach Verlassen:', await p.evaluate(() => document.querySelectorAll('.rail.is-on').length));
 } else {
   await p.waitForTimeout(400);
-  console.log('mobil aktiv:', await p.evaluate(() => [...document.querySelectorAll('.co.is-on')].map((e) => e.dataset.spot).join(',')));
+  console.log('mobil aktiv:', await p.evaluate(() => [...document.querySelectorAll('.rail.is-on')].map((e) => e.dataset.spot).join(',')));
 }
 console.log(errors.length ? 'FEHLER:\n' + errors.join('\n') : 'Konsole sauber');
 await b.close();
