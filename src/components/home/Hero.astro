@@ -5,7 +5,7 @@
  * (WebGL, gesteuert über GSAP ScrollTrigger), und wie in der Referenz
  * wechseln die großen Wortpaare: die alten fliegen hinaus, die neuen kommen
  * hinter der Pizza hervor. Dampf und Ofenglut sind echtes Licht in der Szene;
- * am Ende geht das Licht aus, nur die Glut bleibt („die Küche bleibt an“).
+ * am Ende dunkelt es leicht ab, die Glut bleibt.
  * Ohne JavaScript oder bei reduzierter Bewegung: dasselbe Bild, statisch.
  *
  * Bild: scripts/hero/build-pizza3d.py (Quelle und Lizenz siehe dort / docs).
@@ -140,7 +140,7 @@ const sets = [
     z-index: -2;
     inset: 0;
     pointer-events: none;
-    /* dimmt beim „Licht aus“ (Skript setzt opacity) */
+    /* dimmt am Ende leicht (Skript setzt opacity) */
     will-change: opacity;
     background:
       radial-gradient(70% 42% at 50% var(--light-y, 54%), rgb(255 138 61 / 0.26), transparent 72%),
