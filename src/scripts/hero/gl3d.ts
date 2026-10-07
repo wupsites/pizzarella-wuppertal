@@ -27,6 +27,8 @@ export interface View3D {
   heat?: number;
   /** Schatten-Versatz durch die Lichtrichtung */
   light?: [number, number];
+  /** Lage der Ofenglut hinter der Pizza (−1 links … 1 rechts): lenkt das Gegenlicht */
+  oven?: number;
 }
 
 export interface Pizza3D {
@@ -379,8 +381,8 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       const ly = v.light?.[1] ?? 0;
       // Hauptlicht weich von oben links vorn; wandert mit dem Licht (Zeiger oder Drift)
       gl.uniform3f(U.key, -0.5 + lx * 0.38, 0.85, 0.42 + ly * 0.25);
-      // Ofenlicht von hinten, knapp über der Belaghöhe
-      gl.uniform3f(U.back, 0.22, 0.2, -1.0);
+      // Ofenlicht von hinten, knapp über der Belaghöhe; wandert mit der Glut im Hintergrund
+      gl.uniform3f(U.back, 0.22 + (v.oven ?? 0) * 1.1, 0.2, -1.0);
       // Softbox für die Glanzlichter: schräg hinten oben, Glanz läuft mit dem Licht
       gl.uniform3f(U.soft, 0.12 + lx * 0.42, 0.9, -0.5 + ly * 0.3);
       gl.uniform1f(U.rim, v.glow ?? 1);

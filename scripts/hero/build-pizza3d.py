@@ -8,7 +8,7 @@ Teller kühl), Umriss im Polarraster glätten, Ellipse → Kreis entzerren,
 Rand nach außen farbrein fortsetzen.
 
 Ergebnis:
-  src/assets/hero/pizza-top.png   2048×2048, RGBA (Kreis, Radius 0.47 der Kante)
+  src/assets/hero/pizza-top.png   2048×2048, RGB (Kreis, Radius 0.47 der Kante, Farbe nach außen fortgesetzt)
   src/assets/hero/pizza-top.json  Umrissprofil (256 Radien), Randbreite
 
 Voraussetzung: pip install opencv-contrib-python-headless numpy
@@ -174,11 +174,11 @@ def main():
     d_in = cv2.distanceTransform(binary // 255, cv2.DIST_L2, 5)
     edge = np.clip(1 - d_in / 3.0, 0, 1)[..., None]
     color = np.where(binary[..., None] > 0, f * (1 - edge) + near * edge, outside)
-    alpha = cv2.GaussianBlur(binary.astype(np.float32), (0, 0), 1.2)
 
+    # ohne Alpha speichern: WebP/Browser verwerfen Farben unter Alpha 0, die
+    # 3D-Kante würde dort Schwarz lesen (sichtbar als Zacken am Umriss)
     os.makedirs(OUT, exist_ok=True)
-    rgba = np.dstack([np.clip(color, 0, 255).astype(np.uint8), alpha.astype(np.uint8)])
-    cv2.imwrite(os.path.join(OUT, 'pizza-top.png'), rgba, [cv2.IMWRITE_PNG_COMPRESSION, 9])
+    cv2.imwrite(os.path.join(OUT, 'pizza-top.png'), np.clip(color, 0, 255).astype(np.uint8), [cv2.IMWRITE_PNG_COMPRESSION, 9])
     meta = {
         'source': os.path.basename(SRC),
         'size': SIZE,

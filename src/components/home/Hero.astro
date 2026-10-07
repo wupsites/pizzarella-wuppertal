@@ -1,54 +1,34 @@
 ---
 /**
  * Hero „Eine Pizza“: ein einziges, echtes Pizzafoto als dominantes Objekt,
- * die Headline liegt in Ebenen dahinter. Beim Scrollen fährt die Kamera
- * ruhig um die Pizza (Tiefen-Parallaxe in WebGL, gesteuert über GSAP
- * ScrollTrigger). Beim Überfahren einer Stelle kommt eine Info-Schiene hinter
- * der Pizza hervor (Touch: Antippen).
+ * die Headline liegt in Ebenen dahinter. Beim Scrollen dreht sich die Pizza
+ * (WebGL, gesteuert über GSAP ScrollTrigger), und wie in der Referenz
+ * wechseln die großen Wortpaare: die alten fliegen hinaus, die neuen kommen
+ * hinter der Pizza hervor. Dampf und Ofenglut sind echtes Licht in der Szene.
  * Ohne JavaScript oder bei reduzierter Bewegung: dasselbe Bild, statisch.
  *
- * Bild: scripts/hero/build-pizza.py (Quelle und Lizenz siehe dort / docs).
+ * Bild: scripts/hero/build-pizza3d.py (Quelle und Lizenz siehe dort / docs).
  */
 import { Picture, getImage } from 'astro:assets';
 import Icon from '../Icon.astro';
 import StatusLine from '../StatusLine.astro';
 import still from '../../assets/hero/pizza-still.png';
 import topSrc from '../../assets/hero/pizza-top.png';
-import steamSrc from '../../assets/hero/steam.png';
 import top from '../../assets/hero/pizza-top.json';
 import { site } from '../../data/index.ts';
 import { STAGE_AR, stageLayout } from '../../scripts/hero/camera.ts';
 
 const { business } = site;
-const steam = await getImage({ src: steamSrc, format: 'webp', quality: 70, width: 320 });
 // Textur für die 3D-Pizza (Kantenlänge Zweierpotenz → Mipmaps)
 const texHi = await getImage({ src: topSrc, format: 'webp', quality: 86, width: 2048 });
 const texLo = await getImage({ src: topSrc, format: 'webp', quality: 84, width: 1024 });
 const layout = stageLayout();
 
-// Öffnungszeiten für die Info-Schiene kommen aus den Daten
-const order = ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'] as const;
-const short: Record<string, string> = { mo: 'Mo', di: 'Di', mi: 'Mi', do: 'Do', fr: 'Fr', sa: 'Sa', so: 'So' };
-const toMin = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
-let latest = 0;
-let latestDays: string[] = [];
-for (const d of order) {
-  for (const [open, close] of business.hours.weekly[d] ?? []) {
-    let c = toMin(close);
-    if (c <= toMin(open)) c += 1440;
-    if (c > latest) [latest, latestDays] = [c, [d]];
-    else if (c === latest) latestDays.push(d);
-  }
-}
-const latestLabel = `${latestDays.map((d) => short[d]).join(' & ')} bis ${String(Math.floor(latest / 60) % 24)} Uhr`;
-
-/** u/v: Punkt auf der Pizza-Textur (0–1). Die Seite ergibt sich aus der Drehung. */
-const spots = [
-  { id: 'rand', no: '01', title: 'Der Rand', sub: 'Außen kross, innen weich.', u: 0.41, v: 0.93 },
-  { id: 'kaese', no: '02', title: 'Der Belag', sub: 'Heiß belegt, direkt gebacken.', u: 0.635, v: 0.47 },
-  { id: 'sauce', no: '03', title: 'Die Sauce', sub: 'Kräftige Tomatenbasis.', u: 0.32, v: 0.385 },
-  { id: 'spaet', no: '04', title: 'Die Nacht', sub: `${latestLabel} geöffnet.`, u: 0.945, v: 0.44 },
-  { id: 'ort', no: '05', title: 'Aus Wuppertal', sub: `${business.address.street}.`, u: 0.51, v: 0.065 },
+/** Wortpaare beim Scrollen (Zeile 1 / Zeile 2, das letzte Wort betont) – nur Gestaltung */
+const sets = [
+  { a: 'Kross', b: '&', em: 'weich.' },
+  { a: 'Frisch', b: '', em: 'belegt.' },
+  { a: 'Bis spät', b: '', em: 'nachts.' },
 ];
 ---
 
@@ -60,7 +40,6 @@ const spots = [
   style={`--pizza-ar:${STAGE_AR};--far:${layout.far.toFixed(4)}`}
 >
   <div class="hero-light" aria-hidden="true"></div>
-  <div class="hero-vignette" aria-hidden="true" data-hero-vignette></div>
   <div class="hero-beam" aria-hidden="true" data-hero-beam></div>
   <canvas class="hero-dust" aria-hidden="true" data-hero-dust></canvas>
 
@@ -69,26 +48,35 @@ const spots = [
     <span class="hg-2">bleibt an.</span>
   </div>
 
-  <h1 id="hero-title" class="hero-type">
-    <span class="hero-eyebrow label" data-hero-line="0">Pizza · Döner · Lahmacun · Pasta – in Wuppertal</span>
-    <span class="hero-line hl-1" data-hero-line="1">Die Küche</span>
-    <span class="hero-line hl-2" data-hero-line="2">bleibt <span class="hero-an">an.</span></span>
-  </h1>
-
-  <!-- Info-Schienen liegen in der Tiefe HINTER der Pizza: sie verdeckt Linien und Einstieg -->
-  <div class="hero-rails" aria-hidden="true" data-hero-rails>
-    {
-      spots.map((s) => (
-        <div class="rail" data-spot={s.id} data-u={s.u} data-v={s.v}>
-          <span class="rail-line" />
-          <div class="rail-card">
-            <span class="rail-no">{s.no}</span>
-            <strong class="rail-title">{s.title}</strong>
-            <span class="rail-sub">{s.sub}</span>
-          </div>
-        </div>
-      ))
-    }
+  <!-- Headline und die wechselnden Wortpaare liegen übereinander, beide HINTER der Pizza -->
+  <div class="hero-head">
+    <h1 id="hero-title" class="hero-type">
+      <span class="hero-eyebrow label" data-hero-line="0">Pizza · Döner · Lahmacun · Pasta – in Wuppertal</span>
+      <span class="hero-line hl-1" data-hero-line="1"><span class="hw" data-set="0">Die Küche</span></span>
+      <span class="hero-line hl-2" data-hero-line="2"><span class="hw" data-set="0">bleibt <span class="hero-an">an.</span></span></span>
+    </h1>
+    <div class="hero-type hero-words" aria-hidden="true">
+      <span class="hero-eyebrow label">Pizza · Döner · Lahmacun · Pasta – in Wuppertal</span>
+      <span class="hero-line hl-1" data-hero-line="1">
+        {
+          sets.map((w, i) => (
+            <span class="hw" data-set={i + 1}>
+              {w.a}
+            </span>
+          ))
+        }
+      </span>
+      <span class="hero-line hl-2" data-hero-line="2">
+        {
+          sets.map((w, i) => (
+            <span class="hw" data-set={i + 1}>
+              {w.b && `${w.b} `}
+              <span class="hero-an">{w.em}</span>
+            </span>
+          ))
+        }
+      </span>
+    </div>
   </div>
 
   <div class="hero-stage" data-hero-stage>
@@ -108,20 +96,11 @@ const spots = [
         class="hp-img"
         data-hero-img
       />
-      <img class="hp-steam hp-steam--a" src={steam.src} alt="" aria-hidden="true" width="320" height="640" decoding="async" />
-      <img class="hp-steam hp-steam--b" src={steam.src} alt="" aria-hidden="true" width="320" height="640" decoding="async" />
     </div>
   </div>
 
-  <ul class="sr-only">
-    {
-      spots.map((s) => (
-        <li>
-          {s.title}: {s.sub}
-        </li>
-      ))
-    }
-  </ul>
+  <!-- Dampf über der Pizza (Shader, siehe scripts/hero/steam.ts) -->
+  <canvas class="hero-steam" aria-hidden="true" data-hero-steam></canvas>
 
   <div class="hero-foot">
     <div class="hf-text">
@@ -206,14 +185,10 @@ const spots = [
     top: 19%;
     height: 60%;
     border-radius: 50%;
-    background: radial-gradient(
-      closest-side,
-      rgb(255 150 60 / 0.46),
-      rgb(255 128 50 / 0.33) 28%,
-      rgb(255 104 40 / 0.17) 52%,
-      rgb(255 104 40 / 0.06) 72%,
-      transparent 90%
-    );
+    /* Ofenglut: heller Kern, warmer Hof – wandert und flackert per Skript */
+    background:
+      radial-gradient(closest-side at 50% 58%, rgb(255 196 110 / 0.42), rgb(255 150 60 / 0.16) 34%, transparent 62%),
+      radial-gradient(closest-side, rgb(255 150 60 / 0.5), rgb(255 128 50 / 0.36) 28%, rgb(255 104 40 / 0.19) 52%, rgb(255 104 40 / 0.07) 72%, transparent 90%);
     opacity: 0.75;
     pointer-events: none;
     will-change: transform, opacity;
@@ -248,6 +223,51 @@ const spots = [
   }
   .hl-2 {
     justify-self: end;
+  }
+  /* Headline und Wortpaare teilen sich dieselbe Fläche */
+  .hero-head {
+    display: grid;
+  }
+  .hero-head > .hero-type {
+    grid-area: 1 / 1;
+  }
+  .hero-eyebrow {
+    grid-row: 1;
+  }
+  .hl-1 {
+    grid-row: 2;
+  }
+  .hl-2 {
+    grid-row: 3;
+  }
+  .hw {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+  /* Wortpaare: unsichtbar, bis sie hinter der Pizza hervorkommen; das erste
+     steht im Fluss (gibt der Zeile ihre Höhe), die anderen liegen darauf */
+  .hero-words {
+    pointer-events: none;
+  }
+  .hero-words .hero-eyebrow {
+    visibility: hidden;
+  }
+  @media (max-width: 1023.98px) {
+    .hero-words .hero-line {
+      position: relative;
+    }
+  }
+  .hero-words .hw {
+    opacity: 0;
+  }
+  .hero-words .hw + .hw {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .hero-words .hl-2 .hw + .hw {
+    left: auto;
+    right: 0;
   }
   .hero-an {
     font-style: italic;
@@ -302,147 +322,21 @@ const spots = [
   .hp-object.gl-on :global(img.hp-img) {
     opacity: 0;
   }
-  .hp-steam {
-    display: none;
+  /* ---------- Dampf (Shader, halbe Auflösung) ---------- */
+  .hero-steam {
     position: absolute;
-    bottom: 44%;
-    width: 15%;
-    height: auto;
-    opacity: 0;
+    z-index: 3;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.4s var(--ease-rise);
   }
-  .hp-steam--a {
-    left: 36%;
-  }
-  .hp-steam--b {
-    left: 52%;
-    width: 13%;
+  .hero:global(.steam-on) .hero-steam {
+    opacity: 1;
   }
 
-  /* ---------- Info-Schienen hinter der Pizza ---------- */
-  .hero-rails {
-    position: absolute;
-    z-index: 1;
-    inset: 0;
-    pointer-events: none;
-  }
-  .rail {
-    --in: 0;
-    position: absolute;
-    inset: 0;
-    visibility: hidden;
-    transition:
-      --in 380ms var(--ease-rise),
-      visibility 0s linear 380ms;
-  }
-  .rail.is-on {
-    --in: 1;
-    visibility: visible;
-    transition:
-      --in 640ms var(--ease-rise),
-      visibility 0s;
-  }
-  /* Linie beginnt am Punkt hinter der Pizza und läuft nach außen */
-  .rail-line {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 1px;
-    height: 1px;
-    background: linear-gradient(90deg, rgb(244 235 220 / 0.55), rgb(244 235 220 / 0.85));
-    transform-origin: 0 50%;
-    transform: translate3d(var(--lx, 0), var(--ly, 0), 0) rotate(var(--la, 0deg)) scaleX(calc(var(--len, 0) * var(--in)));
-  }
-  .rail-card {
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: grid;
-    gap: 0.28rem;
-    width: 14rem;
-    color: var(--cream);
-    text-shadow: 0 2px 18px rgb(0 0 0 / 0.6);
-    opacity: calc(var(--in) * 1.3 - 0.3);
-    filter: blur(calc((1 - var(--in)) * 5px));
-    transform: translate3d(calc(var(--cx, 0) + var(--dir, 1) * (var(--in) - 1) * 56px), calc(var(--cy, 0) - 50%), 0);
-  }
-  .rail--left .rail-card {
-    text-align: right;
-    justify-items: end;
-    transform: translate3d(calc(var(--cx, 0) - 100% + var(--dir, -1) * (var(--in) - 1) * 56px), calc(var(--cy, 0) - 50%), 0);
-  }
-  .rail--below .rail-card {
-    grid-template-columns: auto auto;
-    justify-content: center;
-    align-items: baseline;
-    column-gap: 0.55rem;
-    row-gap: 0.15rem;
-    text-align: center;
-    width: min(20rem, 86vw);
-    transform: translate3d(calc(var(--cx, 0) - 50%), calc(var(--cy, 0) + (var(--in) - 1) * 22px), 0);
-  }
-  .rail--below .rail-sub {
-    grid-column: 1 / -1;
-  }
-  /* feiner Punkt, wo die Linie die Karte erreicht */
-  .rail-card::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -0.95rem;
-    width: 5px;
-    height: 5px;
-    margin-top: -2.5px;
-    border-radius: 50%;
-    background: var(--cream);
-    box-shadow: 0 0 10px rgb(255 214 160 / 0.7);
-  }
-  .rail--left .rail-card::before {
-    left: auto;
-    right: -0.95rem;
-  }
-  .rail--below .rail-card::before {
-    top: -0.8rem;
-    left: 50%;
-    margin: 0 0 0 -2.5px;
-  }
-  .rail-no {
-    font-family: var(--font-cond);
-    font-weight: 600;
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    color: var(--cheese);
-  }
-  .rail-title {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-variation-settings: 'SOFT' 100;
-    font-size: 1.5rem;
-    line-height: 1.02;
-    letter-spacing: -0.015em;
-  }
-  .rail-sub {
-    font-size: 0.92rem;
-    line-height: 1.4;
-    color: var(--cream-2);
-  }
-  @media (max-width: 1023.98px) {
-    .rail-title {
-      font-size: 1.25rem;
-    }
-  }
-
-  /* ---------- Fokus-Modus (Zeiger auf der Pizza) ---------- */
-  /* Headline, Fuß und Vignette blendet das Skript direkt über opacity */
-  .hero-vignette {
-    position: absolute;
-    z-index: -2;
-    inset: 0;
-    background: radial-gradient(75% 70% at 50% var(--light-y, 54%), transparent 40%, rgb(0 0 0 / 0.55));
-    opacity: 0;
-    pointer-events: none;
-    will-change: opacity;
-  }
   /* Korn ohne Mischmodus (auf dem dunklen Grund optisch gleich, aber ohne
      Neuberechnung des ganzen Heros pro Frame); die Pizza bekommt ihr Korn im Shader */
   .hero.grain::after {
@@ -569,6 +463,9 @@ const spots = [
       right: calc(var(--gutter) - 0.06em);
       top: calc(var(--l2) - 0.42 * var(--hero-fs));
     }
+    .hero-head {
+      display: contents;
+    }
     .hero-type {
       position: absolute;
       inset: 0;
@@ -601,9 +498,6 @@ const spots = [
       margin: 0;
       transform: translateX(-50%);
       pointer-events: auto;
-    }
-    .hp-steam {
-      display: block;
     }
     .hp-object {
       transform: translate3d(0, 0, 0) rotate(-3deg) scale(0.96);
@@ -665,18 +559,9 @@ const spots = [
       animation: hero-in 1.4s var(--ease-rise) 0.05s both;
     }
     @media (min-width: 1024px) {
-      .hp-steam--a {
-        animation: steam 9s linear 1.2s infinite;
-      }
-      .hp-steam--b {
-        animation: steam 11s linear 4.6s infinite;
-      }
       .hero-beam::before {
         animation: beam-breathe 7s ease-in-out infinite alternate;
       }
-    }
-    .hp-core {
-      animation: core-flicker 2.3s ease-in-out infinite alternate;
     }
   }
   .hero:global(.intro-done) .hero-line,
@@ -704,38 +589,5 @@ const spots = [
     to {
       opacity: 1;
     }
-  }
-  @keyframes core-flicker {
-    from {
-      transform: scale(0.98, 0.97);
-    }
-    to {
-      transform: scale(1.02, 1.03);
-    }
-  }
-  @keyframes steam {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 12%, 0) scale(0.9, 0.85);
-    }
-    25% {
-      opacity: 0.1;
-    }
-    70% {
-      opacity: 0.05;
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(6%, -38%, 0) scale(1.15, 1.25);
-    }
-  }
-</style>
-
-<style is:global>
-  /* animierbare Variable für den Einstieg der Info-Schienen (ohne Unterstützung: sofort sichtbar) */
-  @property --in {
-    syntax: '<number>';
-    inherits: true;
-    initial-value: 0;
   }
 </style>
