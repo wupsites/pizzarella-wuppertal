@@ -6,14 +6,15 @@
 import type { Product } from '../lib/catalog.ts';
 import { formatEuro, variantLabel } from '../lib/pricing.ts';
 import { iconUse } from '../lib/icons.ts';
+import type { Viz } from '../lib/dish-art.ts';
 
 interface Props {
   product: Product;
   categoryName?: string;
   headingLevel?: 'h3' | 'h4';
   showNr?: boolean;
-  /** Pizza-Bild mit Ebenen (Exploded View): Belag als Extra-Zutaten + Beschriftungen */
-  viz?: { tops: string[]; labels: { k: 'tops' | 'cheese' | 'sauce' | 'crust'; t: string }[] } | null;
+  /** Bild aus Ebenen (Exploded View beim Überfahren), siehe lib/dish-art.ts */
+  viz?: Viz | null;
 }
 const { product: p, categoryName = '', headingLevel = 'h3', showNr = true, viz = null } = Astro.props;
 const Heading = headingLevel;
@@ -26,23 +27,31 @@ const v0 = p.variants[0];
 const searchText = [p.nr, p.name, p.description, categoryName, ...p.tags].filter(Boolean).join(' ');
 const codes = [...p.allergens, ...p.additives];
 const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
+// Ebenen: Index von unten, leichte Drehung beim Auffächern (oberste am stärksten)
+const vn = viz?.layers.length ?? 0;
+const rz = (i: number) => (i === 0 ? 0 : i === vn - 1 && vn > 2 ? -18 : i % 2 ? -6 : 7);
+// Beschriftungen von oben nach unten nummeriert
+const vlabels = (viz?.layers ?? []).map((l, i) => ({ ...l, i })).filter((l) => l.label).reverse();
 ---
 
 <article class:list={['dish', `dish--${kind}`, { 'dish--viz': viz }]} id={`p-${p.id}`} data-dish={p.id} data-search={searchText}>
   {
     viz && (
-      <div class="dish-viz" aria-hidden="true" data-viz={viz.tops.join(' ')}>
+      <div class:list={['dish-viz', { 'is-pizza': viz.tops }]} aria-hidden="true" data-viz={viz.tops?.join(' ')} style={`--n:${vn}`}>
         <div class="viz-stage">
-          <i class="viz-l viz-crust" />
-          <i class="viz-l viz-sauce" />
-          <i class="viz-l viz-cheese" />
-          <i class="viz-l viz-tops" />
+          {viz.layers.map((l, i) =>
+            l.src ? (
+              <img class="viz-l" src={l.src} alt="" width="256" height="256" loading="lazy" decoding="async" style={`--i:${i};--rz:${rz(i)}deg`} />
+            ) : (
+              <i class={`viz-l ${l.cls ?? ''}`} style={`--i:${i};--rz:${rz(i)}deg`} />
+            ),
+          )}
         </div>
         <div class="viz-cs">
-          {viz.labels.map((l, i) => (
-            <span class={`viz-c viz-c--${l.k}`} style={`--i:${i}`}>
-              <b>{String(i + 1).padStart(2, '0')}</b>
-              {l.t}
+          {vlabels.map((l, j) => (
+            <span class:list={['viz-c', { 'viz-c--top': j === 0 && l.i === vn - 1 }]} style={`--i:${l.i};--j:${j}`}>
+              <b>{String(j + 1).padStart(2, '0')}</b>
+              {l.label}
             </span>
           ))}
         </div>

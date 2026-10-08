@@ -363,14 +363,17 @@ main:focus {
   box-shadow: none;
 }
 
-/* ---------- Pizza-Bild mit Ebenen (Speisekarte): Teig, Sauce, Käse, Belag.
-   Mit der Maus über dem Bild lösen sich die Ebenen kontrolliert voneinander –
-   nur transform/opacity, nur bei feinem Zeiger, sonst ruhig ---------- */
+/* ---------- Bilder aus Ebenen (Speisekarte): Pizza aus Teig, Sauce, Käse, Belag;
+   alle anderen Gerichte aus fertigen Ebenen (lib/dish-art.ts). Mit der Maus
+   über dem Bild fächern sich die Ebenen auf – nur transform/opacity, nur bei
+   feinem Zeiger, sonst ruhig. --n = Zahl der Ebenen, --i = Ebene von unten ---------- */
 .dish--viz {
   grid-template-columns: auto minmax(0, 1fr) auto;
 }
 .dish-viz {
   --vz: 7.75rem;
+  /* Stapel beim Auffächern etwas anheben, wenn er hoch wird (bleibt in der Karte) */
+  --lift: clamp(-6%, calc((var(--n) - 2) * -3%), 0%);
   position: relative;
   width: var(--vz);
   height: var(--vz);
@@ -380,8 +383,8 @@ main:focus {
   position: absolute;
   inset: 0;
 }
-.viz-stage::before {
-  /* Kontaktschatten unter der Pizza */
+.is-pizza .viz-stage::before {
+  /* Kontaktschatten unter der Pizza (die anderen Bilder bringen ihren Schatten mit) */
   content: '';
   position: absolute;
   inset: 8% 6% 2%;
@@ -390,8 +393,15 @@ main:focus {
   transform: translateY(6%);
 }
 .viz-l {
+  /* Lage im aufgefächerten Zustand: Abstand wächst mit der Zahl der Ebenen
+     (höchstens 77 % der Bildhöhe von unten bis oben) */
+  --spread: min(77%, calc((var(--n) - 1) * 26%));
+  --off: calc(var(--spread) / 2 - var(--i) * var(--spread) / (var(--n) - 1) - 1.5%);
   position: absolute;
   inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
   background: center / contain no-repeat;
 }
 .viz-crust {
@@ -423,11 +433,12 @@ img.viz-pc {
   pointer-events: none;
 }
 .viz-c {
-  /* Höhe der Ebene im aufgefächerten Zustand (Mitte der Scheibe) */
-  --y: 50%;
+  /* gleiche Rechnung wie bei der Ebene: Höhe der Ebene im aufgefächerten Zustand */
+  --spread: min(77%, calc((var(--n) - 1) * 26%));
+  --off: calc(var(--spread) / 2 - var(--i) * var(--spread) / (var(--n) - 1) - 1.5%);
   position: absolute;
   left: 0;
-  top: var(--y);
+  top: calc(50% + var(--off) * 1.1 + var(--lift));
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
@@ -450,19 +461,10 @@ img.viz-pc {
   color: var(--tomato);
   font-variant-numeric: tabular-nums;
 }
-.viz-c--tops {
-  --y: 1%;
+/* oberste Ebene (Belag, Sauce …) betont */
+.viz-c--top {
   font-style: italic;
   color: var(--tomato);
-}
-.viz-c--cheese {
-  --y: 30%;
-}
-.viz-c--sauce {
-  --y: 58%;
-}
-.viz-c--crust {
-  --y: 84%;
 }
 /* Linie vom Rand der Ebene zur Beschriftung, Punkt sitzt auf dem Rand */
 .viz-c::before,
@@ -491,7 +493,7 @@ img.viz-pc {
   box-shadow: 0 0 0 3px rgb(250 245 236 / 0.9);
   transform: scale(0);
 }
-.viz-c--tops::after {
+.viz-c--top::after {
   background: var(--tomato);
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -524,12 +526,11 @@ img.viz-pc {
       transform 360ms var(--ease-rise);
   }
 
-  /* ---- Hover: die Pizza kippt nach hinten und fächert sich auf.
+  /* ---- Hover: das Gericht kippt nach hinten und fächert sich auf.
          Echte 3D-Lage (perspective + rotateX) statt flach gestaucht; jede
-         Ebene federt mit Versatz an ihren Platz, der Belag dreht sich dabei ---- */
+         Ebene federt mit Versatz an ihren Platz und dreht sich dabei leicht ---- */
   .dish-viz:hover .viz-stage {
-    /* etwas nach oben: der Stapel bleibt in der Karte */
-    transform: translateY(-6%) scale(1.1);
+    transform: translateY(var(--lift)) scale(1.1);
     transition: transform 520ms var(--ease-settle);
   }
   .dish-viz:hover .viz-stage::before {
@@ -538,26 +539,14 @@ img.viz-pc {
     transition-duration: 620ms;
   }
   .dish-viz:hover .viz-l {
-    transition: transform 760ms var(--ease-settle);
+    transform: translateY(var(--off)) rotateX(70deg) rotateZ(var(--rz, 0deg));
+    transition: transform 760ms var(--ease-settle) calc(var(--i) * 45ms);
   }
-  .dish-viz:hover .viz-crust {
-    transform: translateY(37%) rotateX(70deg);
-  }
-  .dish-viz:hover .viz-sauce {
-    transform: translateY(13%) rotateX(70deg) rotateZ(-6deg);
-    transition-delay: 45ms;
-  }
-  .dish-viz:hover .viz-cheese {
-    transform: translateY(-13%) rotateX(70deg) rotateZ(8deg);
-    transition-delay: 90ms;
-  }
-  .dish-viz:hover .viz-tops {
-    transform: translateY(-40%) rotateX(70deg) rotateZ(-22deg);
-    transition-delay: 135ms;
-    /* schwebt danach ganz leicht weiter – die Pizza „atmet“ */
+  /* danach schwebt die oberste Ebene ganz leicht weiter, die darunter gegenläufig */
+  .dish-viz:hover .viz-l:last-child {
     animation: viz-float 2.4s ease-in-out 900ms infinite alternate;
   }
-  .dish-viz:hover .viz-cheese {
+  .dish-viz:hover .viz-l:nth-last-child(2):not(:first-child) {
     animation: viz-float 2.4s ease-in-out 1100ms infinite alternate-reverse;
   }
 
@@ -566,16 +555,16 @@ img.viz-pc {
     opacity: 1;
     transform: translate(0, -50%);
     transition:
-      opacity 280ms var(--ease-rise) calc(260ms + var(--i) * 70ms),
-      transform 520ms var(--ease-settle) calc(260ms + var(--i) * 70ms);
+      opacity 280ms var(--ease-rise) calc(260ms + var(--j) * 70ms),
+      transform 520ms var(--ease-settle) calc(260ms + var(--j) * 70ms);
   }
   .dish-viz:hover .viz-c::before {
     transform: scaleX(1);
-    transition: transform 360ms var(--ease-rise) calc(220ms + var(--i) * 70ms);
+    transition: transform 360ms var(--ease-rise) calc(220ms + var(--j) * 70ms);
   }
   .dish-viz:hover .viz-c::after {
     transform: scale(1);
-    transition: transform 420ms var(--ease-settle) calc(200ms + var(--i) * 70ms);
+    transition: transform 420ms var(--ease-settle) calc(200ms + var(--j) * 70ms);
   }
 
   /* Text daneben macht Platz, solange die Beschriftungen da sind */

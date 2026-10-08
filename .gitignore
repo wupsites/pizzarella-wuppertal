@@ -9,3 +9,6 @@ qa-output/
 *.log
 .DS_Store
 scripts/hero/.cache/
+
+# Python (Asset-Skripte)
+__pycache__/

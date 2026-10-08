@@ -76,6 +76,7 @@ Alle Inhalte, die sich ändern können, liegen in `src/data/`. Nach jeder Änder
 | `home.json` | Auswahl auf der Startseite (Hero-Pizzen, Empfehlungen, Beispiel-Bon, Preisvergleich) |
 | `reviews.json` | Bewertungen – standardmäßig **ausgeblendet** (`"publish": false`) |
 | `promotions.json` | Aktionen – derzeit leer |
+| `dish-art.json` | Bilder der Speisekarte: aus welchen Ebenen (Brot, Fleisch, Salat, Sauce …) ein Gericht besteht und wie sie beschriftet sind |
 
 **Preise** werden in Euro mit Punkt geschrieben (`7.9` = 7,90 €) und intern in Cent gerechnet.
 
@@ -101,6 +102,14 @@ Alle Inhalte, die sich ändern können, liegen in `src/data/`. Nach jeder Änder
 Öffnungszeiten über Mitternacht werden einfach als `["16:00", "01:00"]` geschrieben. Alle Zeiten gelten in `Europe/Berlin`, unabhängig von der Serverzeit. Bestellschluss ist `lastOrderMinutesBeforeClose` Minuten vor Ladenschluss.
 
 **Online-Bestellung kurzfristig abschalten** – in `ordering.json` `"online": false`. Die Kasse zeigt dann einen Hinweis mit Telefonnummer; die Karte bleibt sichtbar.
+
+**Bild für ein neues Gericht** – Pizzen bekommen ihr Bild automatisch aus der Beschreibung („mit Champignons und Rindersalami“). Für alle anderen Gerichte in `dish-art.json` die Ebenen von unten nach oben eintragen; vorhandene Ebenen liegen in `public/dishes/` (Liste in `scripts/dish-art/dishes.py`). Beschriftet wird nur, was auch in der Beschreibung steht:
+
+```json
+"doener-box": [["box", ""], ["box-fries", "Pommes"], ["box-meat", "Hähnchen-Kebab"], ["box-sauce", "Sauce"]]
+```
+
+Ohne Eintrag erscheint das Gericht einfach ohne Bild; `npm test` weist darauf hin. Neue Ebenen erzeugt `python3 scripts/dish-art/build.py` (Python 3 mit `opencv-contrib-python-headless` und `numpy`).
 
 **Liefergebiet** – in `ordering.json` unter `deliveryZones`. Mehrere Zonen mit eigenem Mindestbestellwert und eigener Gebühr sind möglich:
 
