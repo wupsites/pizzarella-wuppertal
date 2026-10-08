@@ -1,7 +1,8 @@
 ---
 /** „Kurz gesagt“ – harte Fakten statt Floskeln, alles aus den Daten berechnet. */
 import { site } from '../../data/index.ts';
-import { formatPrice } from '../../lib/pricing.ts';
+import Icon from '../Icon.astro';
+import { formatEuro, formatPrice } from '../../lib/pricing.ts';
 
 const { catalog, zones, home, business } = site;
 const pizza = catalog.categories.find((c) => c.id === 'pizza');
@@ -26,11 +27,65 @@ const facts = [
   ...(feeFree ? [{ value: '0', unit: '€', label: 'Liefergebühr', sub: `${zipCount} Postleitzahlen in Wuppertal` }] : []),
 ];
 const dp = home.directPrice;
+// „Pizza Margherita groß: 7,90 € statt 9,90 €“ → Gericht, Preis hier, Preis dort.
+// Passt das Beispiel nicht in dieses Muster, steht es einfach als Text da.
+const toCents = (s: string) => Math.round(Number(s.replace(/\./g, '').replace(',', '.')) * 100);
+const m = dp?.example?.match(/^(.+?):\s*([\d.,]+)\s*€\s*statt\s*([\d.,]+)\s*€\s*$/);
+const cmp = m ? { item: m[1], ours: toCents(m[2]), theirs: toCents(m[3]) } : null;
+const checked = dp ? new Date(dp.checked).toLocaleDateString('de-DE') : '';
 ---
 
 <section class="section facts" aria-labelledby="facts-title">
   <div class="wrap">
     <h2 class="label facts-title" id="facts-title">Kurz gesagt</h2>
+    {
+      dp?.enabled && (
+        <aside class="deal reveal" aria-labelledby="deal-title">
+          <div class="deal-copy">
+            <p class="deal-kicker">
+              <Icon name="info" />
+              Preisvorteil
+            </p>
+            <h3 class="deal-title" id="deal-title">
+              Direkt bestellen <span class="deal-em">lohnt sich.</span>
+            </h3>
+            <p class="deal-text">{dp.text}</p>
+            <a class="btn btn--dark deal-cta" href="/speisekarte/">
+              Direkt bestellen <Icon name="arrow" class="btn-arrow" />
+            </a>
+          </div>
+          {cmp ? (
+            <div class="deal-cmp">
+              <p class="deal-item">
+                <span class="deal-cap">Beispiel</span>
+                {cmp.item}
+              </p>
+              <div class="deal-prices">
+                <p class="deal-ours">
+                  <span class="deal-cap">Hier direkt</span>
+                  <span class="deal-num num">{formatEuro(cmp.ours)}</span>
+                </p>
+                <p class="deal-theirs">
+                  <span class="deal-cap">Bei Lieferando</span>
+                  <span class="deal-was num">{formatEuro(cmp.theirs)}</span>
+                </p>
+              </div>
+              {cmp.theirs > cmp.ours && (
+                <p class="deal-save">
+                  <span class="num">{formatEuro(cmp.theirs - cmp.ours)}</span> günstiger
+                </p>
+              )}
+              <p class="deal-date">Preise verglichen am {checked}</p>
+            </div>
+          ) : (
+            <div class="deal-cmp">
+              {dp.example && <p class="deal-item">Beispiel: {dp.example}</p>}
+              <p class="deal-date">Stand: {checked}</p>
+            </div>
+          )}
+        </aside>
+      )
+    }
     <dl class="facts-grid">
       {
         facts.map((f, i) => (
@@ -45,15 +100,6 @@ const dp = home.directPrice;
         ))
       }
     </dl>
-    {
-      dp?.enabled && (
-        <p class="direct reveal">
-          <strong>Direkt bestellen lohnt sich.</strong> {dp.text}
-          {dp.example && <span class="direct-ex"> Beispiel: {dp.example}.</span>}
-          <span class="direct-date"> Stand: {new Date(dp.checked).toLocaleDateString('de-DE')}</span>
-        </p>
-      )
-    }
   </div>
 </section>
 
@@ -83,7 +129,9 @@ const dp = home.directPrice;
     border-left: 1px solid var(--line);
   }
   @media (max-width: 899px) {
-    .fact:nth-child(odd) {
+    /* gleiche Spezifität wie „.fact + .fact“, sonst gewinnt das (Astro hängt
+       an jeden Teil ein Attribut) */
+    .fact + .fact:nth-child(odd) {
       padding-left: 0;
       border-left: 0;
     }
@@ -116,16 +164,168 @@ const dp = home.directPrice;
     margin-top: 0.5rem;
     font-size: 0.9rem;
   }
-  .direct {
-    margin-top: 2rem;
-    max-width: 62ch;
-    padding: 1.1rem 1.3rem;
-    border-left: 4px solid var(--tomato);
-    background: var(--paper);
-    border-radius: 0 var(--r-m) var(--r-m) 0;
+  /* ---------- Preisvorteil: die wichtigste Info des Abschnitts ---------- */
+  .deal {
+    position: relative;
+    display: grid;
+    gap: 2rem 3rem;
+    margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+    padding: clamp(1.6rem, 1rem + 2.4vw, 3rem);
+    border-radius: var(--r-l);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgb(255 236 190 / 0.75), transparent 60%),
+      var(--cheese);
+    color: var(--ink);
+    overflow: hidden;
   }
-  .direct-date {
+  @media (min-width: 900px) {
+    .deal {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+  .deal-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.8rem 0.35rem 0.6rem;
+    border-radius: var(--r-round);
+    background: var(--ink);
+    color: var(--cheese-soft);
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: var(--fs-label);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .deal-kicker :global(svg) {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+  .deal-title {
+    margin-top: 1.1rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(2.2rem, 1.3rem + 3.2vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .deal-em {
+    font-style: italic;
+    color: var(--tomato-ink);
+  }
+  .deal-text {
+    margin-top: 1rem;
+    max-width: 34ch;
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+    font-weight: 500;
+  }
+  .deal-cta {
+    margin-top: 1.6rem;
+  }
+  .deal-cmp {
+    display: grid;
+    gap: 1.1rem;
+    padding: clamp(1.25rem, 0.9rem + 1.2vw, 2rem);
+    border-radius: 20px;
+    background: var(--paper);
+    box-shadow: 0 1px 0 rgb(28 21 17 / 0.06), 0 18px 40px rgb(120 70 0 / 0.16);
+  }
+  .deal-cap {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: var(--fs-label);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
     color: var(--ink-3);
-    font-size: 0.85rem;
+  }
+  .deal-item {
+    font-weight: 650;
+    font-size: 1.15rem;
+  }
+  .deal-prices {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    align-items: end;
+    gap: 0.5rem clamp(1.5rem, 1rem + 2vw, 3rem);
+    padding: 1.1rem 0;
+    border-block: 1px solid var(--line);
+  }
+  .deal-num {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--herb);
+  }
+  .deal-was {
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem);
+    line-height: 1;
+    color: var(--ink-3);
+  }
+  /* Durchstreichen als eigener Strich: zieht sich beim Erscheinen durch */
+  .deal-was::after {
+    content: '';
+    position: absolute;
+    left: -6%;
+    right: -6%;
+    top: 50%;
+    height: 0.09em;
+    margin-top: -0.045em;
+    border-radius: 2px;
+    background: var(--tomato);
+    transform: rotate(-9deg);
+    transform-origin: left center;
+  }
+  .deal-save {
+    justify-self: start;
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--r-round);
+    background: var(--herb);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.02rem;
+  }
+  .deal-date {
+    color: var(--ink-3);
+    font-size: 0.88rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .deal .deal-was::after {
+      transform: rotate(-9deg) scaleX(0);
+      transition: transform 520ms var(--ease-rise) 650ms;
+    }
+    .js .deal.is-in .deal-was::after {
+      transform: rotate(-9deg) scaleX(1);
+    }
+    .js .deal .deal-save {
+      opacity: 0;
+      transform: translateY(8px) scale(0.94);
+      transition:
+        opacity var(--d-ui) var(--ease-rise) 1000ms,
+        transform var(--d-sheet) var(--ease-settle) 1000ms;
+    }
+    .js .deal.is-in .deal-save {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (max-width: 479px) {
+    .deal-prices {
+      gap: 0.5rem 1.25rem;
+    }
   }
 </style>

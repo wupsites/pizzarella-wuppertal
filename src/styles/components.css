@@ -247,6 +247,122 @@ main:focus {
   }
 }
 
+/* ---------- Ruhige Gerichte (Speisekarte, Startseite): größere Namen,
+   ein Bedienelement für alles – Kontur-Plus, beim Überfahren tomatenrot,
+   nach dem Hinzufügen grün mit Haken ---------- */
+.dishes-calm .dish-title {
+  gap: 0.15rem 0.7rem;
+}
+.dishes-calm .dish-nr {
+  min-width: 0;
+  font-size: 0.8rem;
+  color: var(--ink-3);
+}
+.dishes-calm .dish-name {
+  font-size: clamp(1.3rem, 1.12rem + 0.5vw, 1.55rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+.dishes-calm .dish-desc {
+  margin-top: 0.4rem;
+  max-width: 48ch;
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+.dishes-calm .dish-meta {
+  gap: 0.35rem 1.1rem;
+  margin-top: 0.7rem;
+}
+.dishes-calm .dish-codes {
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+.dishes-calm .dish-extras {
+  min-height: 1.75rem;
+  padding: 0;
+  color: var(--tomato-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration-color: transparent;
+}
+@media (hover: hover) {
+  .dishes-calm .dish-extras:hover {
+    text-decoration-color: currentColor;
+  }
+}
+.dishes-calm .dish-actions {
+  gap: 0.75rem;
+}
+.dishes-calm .dish-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.dishes-calm .size-btn {
+  min-height: 3.25rem;
+  column-gap: 0.85rem;
+  padding: 0.4rem 0.45rem 0.4rem 1rem;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+}
+.dishes-calm .size-btn .sz {
+  font-size: 0.74rem;
+}
+.dishes-calm .size-btn .pr {
+  font-size: 1.1rem;
+}
+.dishes-calm .size-btn .plus {
+  width: 2.35rem;
+  height: 2.35rem;
+  background: transparent;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.dishes-calm .add {
+  --add-bg: transparent;
+  --add-fg: var(--ink);
+  width: 2.6rem;
+  height: 2.6rem;
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.dishes-calm .choose-btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  --btn-bd: var(--ink);
+}
+@media (hover: hover) {
+  .dishes-calm .size-btn:hover {
+    border-color: var(--ink);
+    background: #fff;
+  }
+  .dishes-calm .size-btn:hover .plus {
+    background: var(--tomato);
+    color: #fff;
+    box-shadow: none;
+  }
+  .dishes-calm .add:hover {
+    --add-bg: var(--tomato);
+    --add-fg: #fff;
+    box-shadow: none;
+  }
+  .dishes-calm .choose-btn:hover {
+    --btn-bg: var(--ink);
+    --btn-fg: var(--paper);
+  }
+}
+.dishes-calm .size-btn.is-added {
+  border-color: var(--herb);
+}
+.dishes-calm .size-btn.is-added .plus,
+.dishes-calm .add.is-added,
+.dishes-calm .is-added .add {
+  --add-bg: var(--herb);
+  --add-fg: #fff;
+  background: var(--herb);
+  color: #fff;
+  box-shadow: none;
+}
+
 /* ---------- Produkt-Sheet ---------- */
 .ps-top {
   position: relative;

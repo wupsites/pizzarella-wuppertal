@@ -1,8 +1,13 @@
 ---
-/** „Lange wach.“ – die Öffnungszeiten als Wochen-Zeitleiste mit Live-Markierung „jetzt“. */
+/**
+ * „Lange wach.“ – die Öffnungszeiten als Wochen-Zeitleiste.
+ * Jeder Tag ist anklickbar (Details darunter), „jetzt“ läuft live mit,
+ * mit der Maus lässt sich über die Uhrzeit fahren. Ohne JavaScript bleibt
+ * die Zeitleiste mit allen Zeiten stehen.
+ */
 import { site } from '../../data/index.ts';
 import StatusLine from '../StatusLine.astro';
-import { closingSentence, timelineBars, TIMELINE_START, TIMELINE_END } from '../../lib/hours.ts';
+import { closingSentence, timelineBars, toMinutes, DAY_NAMES, TIMELINE_START, TIMELINE_END } from '../../lib/hours.ts';
 
 const { hours } = site.business;
 const rows = timelineBars(hours);
@@ -13,6 +18,13 @@ const ticks = [12, 14, 16, 18, 20, 22, 24, 26].map((h) => ({
   midnight: h === 24,
 }));
 const sentence = closingSentence(hours);
+// Minuten ab 0:00 des Tages; Schluss nach Mitternacht zählt weiter (z. B. 01:00 → 1500)
+const range = (open: string, close: string) => {
+  const s = toMinutes(open);
+  let e = toMinutes(close);
+  if (e <= s) e += 1440;
+  return `${s}-${e}`;
+};
 ---
 
 <section class="section late on-night grain" aria-labelledby="late-title">
@@ -24,10 +36,11 @@ const sentence = closingSentence(hours);
       <StatusLine class="late-status" />
     </div>
 
-    <figure class="timeline reveal" aria-labelledby="tl-cap" data-timeline data-start={TIMELINE_START} data-end={TIMELINE_END}>
+    <figure class="timeline reveal" aria-labelledby="tl-cap" data-timeline>
       <figcaption id="tl-cap" class="sr-only">Öffnungszeiten je Wochentag: {sentence}</figcaption>
-      <div class="tl-body" aria-hidden="true">
-        <div class="tl-ticks">
+      <p class="tl-hint" data-tl-hint hidden>Tag wählen für Details</p>
+      <div class="tl-body" data-tl-body>
+        <div class="tl-ticks" aria-hidden="true">
           {
             ticks.map((t) => (
               <span class:list={['tl-tick', { 'is-midnight': t.midnight }]} style={`left:${t.left}%`}>
@@ -36,28 +49,51 @@ const sentence = closingSentence(hours);
             ))
           }
         </div>
-        {
-          rows.map((r, i) => (
-            <div class="tl-row" data-weekday={r.weekday}>
-              <span class="tl-day">{r.short}</span>
-              <div class="tl-track">
-                {r.bars.length ? (
-                  r.bars.map((b) => (
-                    <span class="tl-bar" style={`left:${b.left.toFixed(2)}%;width:${b.width.toFixed(2)}%;--i:${i}`}>
-                      <span class="tl-time">
-                        {b.open}–{b.close}
+        <div class="tl-rows" role="group" aria-label="Wochentage">
+          {
+            rows.map((r, i) => (
+              <button
+                type="button"
+                class="tl-row"
+                style={`--i:${i}`}
+                data-weekday={r.weekday}
+                data-ranges={r.bars.map((b) => range(b.open, b.close)).join(',')}
+                aria-pressed="false"
+                aria-controls="tl-detail"
+                aria-label={`${DAY_NAMES[r.weekday]}: ${r.bars.length ? r.bars.map((b) => `${b.open} bis ${b.close} Uhr`).join(', ') : 'Ruhetag'}`}
+                disabled
+              >
+                <span class="tl-day" aria-hidden="true">
+                  {r.short}
+                </span>
+                <span class="tl-track" aria-hidden="true">
+                  {r.bars.length ? (
+                    r.bars.map((b) => (
+                      <span class="tl-bar" style={`left:${b.left.toFixed(2)}%;width:${b.width.toFixed(2)}%`}>
+                        <span class="tl-time">
+                          {b.open}–{b.close}
+                        </span>
                       </span>
-                    </span>
-                  ))
-                ) : (
-                  <span class="tl-rest">Ruhetag</span>
-                )}
-              </div>
-            </div>
-          ))
-        }
-        <span class="tl-now" data-tl-now hidden><span>jetzt</span></span>
+                    ))
+                  ) : (
+                    <span class="tl-rest">Ruhetag</span>
+                  )}
+                </span>
+              </button>
+            ))
+          }
+        </div>
+        <div class="tl-lane" aria-hidden="true">
+          <span class="tl-now" data-tl-now hidden>
+            <span class="tl-now-dot"></span>
+            <span class="tl-now-chip">jetzt <span data-tl-now-time></span></span>
+          </span>
+          <span class="tl-cursor" data-tl-cursor>
+            <span class="tl-cursor-chip" data-tl-cursor-time></span>
+          </span>
+        </div>
       </div>
+      <div class="tl-detail" id="tl-detail" data-tl-detail hidden></div>
     </figure>
   </div>
 </section>
@@ -94,17 +130,30 @@ const sentence = closingSentence(hours);
   }
   .timeline {
     --day-w: 2.6rem;
+    position: relative;
+  }
+  .tl-hint {
+    position: absolute;
+    top: -2rem;
+    right: 0;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream-2);
+    opacity: 0.8;
   }
   .tl-body {
     position: relative;
-    padding-top: 1.8rem;
+    padding: 1.8rem 0 2.1rem;
   }
   .tl-ticks {
     position: absolute;
     top: 0;
     left: var(--day-w);
     right: 0;
-    height: 100%;
+    bottom: 2.1rem;
   }
   .tl-tick {
     position: absolute;
@@ -131,17 +180,33 @@ const sentence = closingSentence(hours);
   .tl-tick.is-midnight::after {
     border-left: 1.5px solid rgb(242 181 58 / 0.55);
   }
+
+  /* ---------- Tage: ganze Zeile ist ein Knopf ---------- */
+  .tl-rows {
+    position: relative;
+  }
   .tl-row {
     position: relative;
     display: flex;
     align-items: center;
+    width: 100%;
     height: 3.1rem;
+    border-radius: var(--r-round);
+    text-align: left;
+    cursor: default;
+  }
+  .tl-row:not(:disabled) {
+    cursor: pointer;
+  }
+  .tl-row:disabled {
+    opacity: 1;
   }
   .tl-day {
     width: var(--day-w);
     flex: none;
     font-weight: 700;
     color: var(--cream-2);
+    transition: color var(--d-hover) var(--ease-rise);
   }
   .tl-row.is-today .tl-day {
     color: var(--cheese);
@@ -152,6 +217,7 @@ const sentence = closingSentence(hours);
     height: 2.2rem;
     border-radius: var(--r-round);
     background: rgb(244 235 220 / 0.05);
+    transition: background-color var(--d-hover) var(--ease-rise);
   }
   .tl-bar {
     position: absolute;
@@ -164,13 +230,23 @@ const sentence = closingSentence(hours);
     border-radius: var(--r-round);
     background: linear-gradient(90deg, #c9822f, #f2b53a 55%, #ffcf6e);
     transform-origin: left;
+    overflow: hidden;
+    transition: opacity var(--d-ui) var(--ease-rise);
+  }
+  /* einmaliger Glanz über den Balken des heutigen Tages */
+  .tl-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgb(255 250 235 / 0.55) 50%, transparent 70%);
+    transform: translateX(-110%);
+    pointer-events: none;
   }
   .tl-row.is-today .tl-bar {
-    box-shadow:
-      0 0 0 2px var(--cream),
-      0 0 24px rgb(255 150 60 / 0.45);
+    box-shadow: 0 0 24px rgb(255 150 60 / 0.4);
   }
   .tl-time {
+    position: relative;
     font-family: var(--font-cond);
     font-weight: 600;
     font-size: 0.78rem;
@@ -193,30 +269,231 @@ const sentence = closingSentence(hours);
     text-transform: uppercase;
     color: var(--cream-2);
   }
-  .tl-now {
+  /* gewählter Tag: Ring um die Spur, Tag in Käsegelb */
+  .tl-row[aria-pressed='true'] .tl-day {
+    color: var(--cheese);
+  }
+  .tl-row[aria-pressed='true'] .tl-track {
+    box-shadow: 0 0 0 2px var(--cream);
+  }
+  @media (hover: hover) {
+    .tl-row:not(:disabled):hover .tl-day {
+      color: var(--cream);
+    }
+    .tl-row:not(:disabled):hover .tl-track {
+      background: rgb(244 235 220 / 0.1);
+    }
+    .tl-row[aria-pressed='true']:hover .tl-day {
+      color: var(--cheese);
+    }
+  }
+  .tl-row:focus-visible {
+    outline: 2px solid var(--focus-night);
+    outline-offset: 3px;
+  }
+  /* beim Überfahren der Uhrzeit: Tage, die zu der Zeit zu haben, treten zurück */
+  .tl-row.is-off .tl-bar,
+  .tl-row.is-off .tl-rest {
+    opacity: 0.28;
+  }
+
+  /* ---------- „jetzt“ und Zeit-Cursor: Ebenen über den Spuren ---------- */
+  .tl-lane {
     position: absolute;
     top: 1.5rem;
+    bottom: 2.1rem;
+    left: var(--day-w);
+    right: 0;
+    pointer-events: none;
+  }
+  /* Element so breit wie die Spur, der Strich sitzt links: translateX in %
+     bewegt ihn damit genau entlang der Zeitachse (nur transform) */
+  .tl-now,
+  .tl-cursor {
+    position: absolute;
+    inset: 0;
+    transform: translateX(calc(var(--x, 0) * 100%));
+  }
+  .tl-now::before,
+  .tl-cursor::before {
+    content: '';
+    position: absolute;
+    top: 0;
     bottom: 0;
+    left: -1px;
     width: 2px;
-    margin-left: -1px;
+    border-radius: 1px;
+  }
+  .tl-now::before {
     background: var(--ember);
     box-shadow: 0 0 12px var(--ember);
   }
-  .tl-now span {
+  .tl-now-dot {
     position: absolute;
-    top: -1.55rem;
-    left: 50%;
+    top: -4px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ember);
+  }
+  .tl-now-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--ember);
+    opacity: 0;
+  }
+  .tl-now-chip {
+    position: absolute;
+    bottom: -1.75rem;
+    left: 0;
     transform: translateX(-50%);
-    padding: 0.05rem 0.45rem;
+    padding: 0.12rem 0.55rem;
     border-radius: var(--r-round);
     background: var(--ember);
     color: var(--ink);
     font-family: var(--font-cond);
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
+  .tl-cursor {
+    opacity: 0;
+    transition: opacity var(--d-hover) var(--ease-rise);
+  }
+  .tl-cursor::before {
+    background: rgb(244 235 220 / 0.7);
+  }
+  .tl-cursor-chip {
+    position: absolute;
+    top: -1.6rem;
+    left: 0;
+    transform: translateX(-50%);
+    padding: 0.12rem 0.55rem;
+    border-radius: var(--r-round);
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .timeline.is-scrub .tl-cursor {
+    opacity: 1;
+  }
+
+  /* ---------- Details zum gewählten Tag ---------- */
+  .tl-detail {
+    margin-top: 0.6rem;
+    margin-left: var(--day-w);
+    padding: 1.25rem 1.4rem 1.3rem;
+    border: 1px solid var(--line-night);
+    border-radius: 20px;
+    background: rgb(244 235 220 / 0.04);
+  }
+  .tl-detail :global(.td-in) {
+    display: grid;
+    gap: 1rem;
+  }
+  .tl-detail :global(.td-head) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+  }
+  .tl-detail :global(.td-day) {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.35rem, 1.15rem + 0.7vw, 1.7rem);
+    letter-spacing: -0.015em;
+    color: var(--cream);
+  }
+  .tl-detail :global(.td-badge) {
+    padding: 0.2rem 0.65rem;
+    border-radius: var(--r-round);
+    background: rgb(244 235 220 / 0.1);
+    color: var(--cream);
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tl-detail :global(.td-badge.is-live) {
+    background: var(--herb);
+    color: #fff;
+  }
+  .tl-detail :global(.td-stats) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, auto));
+    justify-content: start;
+    gap: 0.75rem clamp(1.25rem, 0.5rem + 2.5vw, 2.75rem);
+  }
+  .tl-detail :global(.td-cap) {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream-2);
+  }
+  .tl-detail :global(.td-val) {
+    font-weight: 700;
+    font-size: 1.12rem;
+    color: var(--cream);
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-detail :global(.td-live) {
+    display: grid;
+    gap: 0.55rem;
+  }
+  .tl-detail :global(.td-progress) {
+    height: 6px;
+    border-radius: 3px;
+    background: rgb(244 235 220 / 0.12);
+    overflow: hidden;
+  }
+  .tl-detail :global(.td-progress span) {
+    display: block;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #c9822f, #f2b53a);
+    transform-origin: left;
+  }
+  .tl-detail :global(.td-note) {
+    color: var(--cream-2);
+  }
+  .tl-detail :global(.td-note strong) {
+    color: var(--cream);
+  }
+  .tl-detail :global(.td-foot) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+  }
+  @media (max-width: 639px) {
+    .tl-detail {
+      margin-left: 0;
+      padding: 1.1rem 1.15rem 1.2rem;
+    }
+    .tl-detail :global(.td-stats) {
+      grid-template-columns: repeat(2, minmax(0, auto));
+    }
+  }
+
+  /* ---------- Bewegung ---------- */
   @media (prefers-reduced-motion: no-preference) {
     .js .timeline.reveal {
       opacity: 1;
@@ -224,11 +501,73 @@ const sentence = closingSentence(hours);
     }
     .js .timeline .tl-bar {
       transform: scaleX(0);
-      transition: transform 1.1s var(--ease-rise);
-      transition-delay: calc(var(--i) * 80ms + 150ms);
+      transition:
+        transform 1.1s var(--ease-rise) calc(var(--i) * 80ms + 150ms),
+        opacity var(--d-ui) var(--ease-rise);
     }
     .js .timeline.is-in .tl-bar {
       transform: scaleX(1);
+    }
+    .js .timeline .tl-time {
+      opacity: 0;
+      transition: opacity 500ms var(--ease-rise) calc(var(--i) * 80ms + 850ms);
+    }
+    .js .timeline.is-in .tl-time {
+      opacity: 1;
+    }
+    .js .timeline.is-in .tl-row.is-today .tl-bar::before {
+      animation: tl-sheen 1.3s var(--ease-io) 1.5s 1 both;
+    }
+    /* „jetzt“ fährt nach den Balken von 12 Uhr auf die aktuelle Zeit */
+    .js .timeline .tl-now {
+      opacity: 0;
+      transform: translateX(0);
+      transition:
+        transform 1.2s var(--ease-rise),
+        opacity 300ms var(--ease-rise);
+    }
+    .js .timeline.is-live .tl-now {
+      opacity: 1;
+      transform: translateX(calc(var(--x, 0) * 100%));
+    }
+    .js .timeline.is-live .tl-now-dot::after {
+      animation: tl-pulse 1.8s var(--ease-rise) 1.2s 3;
+    }
+    .tl-detail :global(.td-in) {
+      animation: tl-detail-in 360ms var(--ease-rise) both;
+    }
+    .tl-detail :global(.td-progress span) {
+      animation: tl-grow 900ms var(--ease-rise) 120ms both;
+    }
+    .tl-detail.is-quiet :global(.td-in),
+    .tl-detail.is-quiet :global(.td-progress span) {
+      animation: none;
+    }
+  }
+  @keyframes tl-sheen {
+    to {
+      transform: translateX(110%);
+    }
+  }
+  @keyframes tl-pulse {
+    from {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(3.2);
+    }
+  }
+  @keyframes tl-detail-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @keyframes tl-grow {
+    from {
+      transform: scaleX(0);
     }
   }
   @media (max-width: 639px) {

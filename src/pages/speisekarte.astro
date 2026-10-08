@@ -68,7 +68,7 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
   </div>
 
   <div class="wrap menu-layout">
-    <div class="menu-col">
+    <div class="menu-col dishes-calm">
       <p class="search-status label" data-search-status aria-live="polite"></p>
       <div class="search-empty" data-search-empty hidden>
         <Icon name="search" />
@@ -382,120 +382,6 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
       border-color: var(--line-strong);
       box-shadow: var(--shadow-1);
     }
-  }
-  .menu-col :global(.dish-title) {
-    gap: 0.15rem 0.7rem;
-  }
-  .menu-col :global(.dish-nr) {
-    min-width: 0;
-    font-size: 0.8rem;
-    color: var(--ink-3);
-  }
-  .menu-col :global(.dish-name) {
-    font-size: clamp(1.3rem, 1.12rem + 0.5vw, 1.55rem);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-  }
-  .menu-col :global(.dish-desc) {
-    margin-top: 0.4rem;
-    max-width: 48ch;
-    font-size: 1.02rem;
-    line-height: 1.55;
-  }
-  .menu-col :global(.dish-meta) {
-    gap: 0.35rem 1.1rem;
-    margin-top: 0.7rem;
-  }
-  .menu-col :global(.dish-codes) {
-    font-size: 0.8rem;
-    letter-spacing: 0.02em;
-  }
-  .menu-col :global(.dish-extras) {
-    min-height: 1.75rem;
-    padding: 0;
-    color: var(--tomato-ink);
-    font-size: 0.92rem;
-    font-weight: 600;
-    text-decoration-color: transparent;
-  }
-  @media (hover: hover) {
-    .menu-col :global(.dish-extras:hover) {
-      text-decoration-color: currentColor;
-    }
-  }
-  .menu-col :global(.dish-actions) {
-    gap: 0.75rem;
-  }
-  .menu-col :global(.dish-price) {
-    font-size: 1.15rem;
-    font-weight: 700;
-  }
-
-  /* Ein Bedienelement für alles: Kontur-Plus, beim Überfahren tomatenrot,
-     nach dem Hinzufügen grün mit Haken */
-  .menu-col :global(.size-btn) {
-    min-height: 3.25rem;
-    column-gap: 0.85rem;
-    padding: 0.4rem 0.45rem 0.4rem 1rem;
-    border: 1px solid var(--line-strong);
-    background: transparent;
-  }
-  .menu-col :global(.size-btn .sz) {
-    font-size: 0.74rem;
-  }
-  .menu-col :global(.size-btn .pr) {
-    font-size: 1.1rem;
-  }
-  .menu-col :global(.size-btn .plus) {
-    width: 2.35rem;
-    height: 2.35rem;
-    background: transparent;
-    color: var(--ink);
-    box-shadow: inset 0 0 0 1.5px var(--ink);
-  }
-  .menu-col :global(.add) {
-    --add-bg: transparent;
-    --add-fg: var(--ink);
-    width: 2.6rem;
-    height: 2.6rem;
-    box-shadow: inset 0 0 0 1.5px var(--ink);
-  }
-  .menu-col :global(.choose-btn) {
-    --btn-bg: transparent;
-    --btn-fg: var(--ink);
-    --btn-bd: var(--ink);
-  }
-  @media (hover: hover) {
-    .menu-col :global(.size-btn:hover) {
-      border-color: var(--ink);
-      background: #fff;
-    }
-    .menu-col :global(.size-btn:hover .plus) {
-      background: var(--tomato);
-      color: #fff;
-      box-shadow: none;
-    }
-    .menu-col :global(.add:hover) {
-      --add-bg: var(--tomato);
-      --add-fg: #fff;
-      box-shadow: none;
-    }
-    .menu-col :global(.choose-btn:hover) {
-      --btn-bg: var(--ink);
-      --btn-fg: var(--paper);
-    }
-  }
-  .menu-col :global(.size-btn.is-added) {
-    border-color: var(--herb);
-  }
-  .menu-col :global(.size-btn.is-added .plus),
-  .menu-col :global(.add.is-added),
-  .menu-col :global(.is-added .add) {
-    --add-bg: var(--herb);
-    --add-fg: #fff;
-    background: var(--herb);
-    color: #fff;
-    box-shadow: none;
   }
   @media (max-width: 639px) {
     .menu-col :global(.dish) {

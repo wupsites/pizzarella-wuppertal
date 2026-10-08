@@ -6,7 +6,7 @@ import { site } from '../../data/index.ts';
 const { home, catalog } = site;
 const total = catalog.visibleCategories.reduce((n, c) => n + c.products.length, 0);
 const picks = home.picks.map((r) => catalog.products.get(r.product)!).filter(Boolean);
-const catName = (id: string) => catalog.categories.find((c) => c.id === id)?.name ?? '';
+const cat = (id: string) => catalog.categories.find((c) => c.id === id);
 ---
 
 <section class="section picks" aria-labelledby="picks-title">
@@ -15,18 +15,19 @@ const catName = (id: string) => catalog.categories.find((c) => c.id === id)?.nam
       <div>
         <p class="label">Querbeet</p>
         <h2 class="d2" id="picks-title">Für den ersten Hunger.</h2>
+        <p class="picks-lead">Ein Querschnitt durch die Karte. Aufs Plus tippen – schon liegt es im Warenkorb.</p>
       </div>
       <a class="btn btn--ghost" href="/speisekarte/">Alle <span class="num">{total}</span> Gerichte <Icon name="arrow" class="btn-arrow" /></a>
     </div>
-    <div class="picks-grid">
+    <div class="picks-grid dishes-calm">
       {
         picks.map((p, i) => (
-          <div class="pick reveal" style={`--i:${i % 2}`}>
+          <div class="pick reveal" style={`--i:${i % 3}`}>
             <p class="pick-cat label">
-              <Icon name={catalog.categories.find((c) => c.id === p.categoryId)?.icon ?? 'pizza'} />
-              {catName(p.categoryId)}
+              <Icon name={cat(p.categoryId)?.icon ?? 'pizza'} />
+              {cat(p.categoryId)?.name ?? ''}
             </p>
-            <Dish product={p} categoryName={catName(p.categoryId)} showNr={false} />
+            <Dish product={p} categoryName={cat(p.categoryId)?.name ?? ''} showNr={false} />
           </div>
         ))
       }
@@ -40,38 +41,110 @@ const catName = (id: string) => catalog.categories.find((c) => c.id === id)?.nam
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
+    gap: 1.25rem 2rem;
+    margin-bottom: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem);
   }
   .picks-head .label {
     color: var(--tomato-ink);
     margin-bottom: 0.9rem;
   }
+  .picks-lead {
+    margin-top: 0.9rem;
+    max-width: 46ch;
+    color: var(--ink-2);
+    font-size: var(--fs-lead);
+    line-height: 1.45;
+  }
   .picks-grid {
     display: grid;
-    gap: 0 3rem;
+    gap: 1rem;
   }
-  @media (min-width: 900px) {
+  @media (min-width: 720px) {
     .picks-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-  .pick {
-    padding-top: 1.25rem;
-    border-top: 2px solid var(--ink);
+  @media (min-width: 1180px) {
+    .picks-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
   }
-  .pick :global(.dish) {
-    border-bottom: 0;
-    padding-top: 0.6rem;
+
+  /* Karte: Kategorie oben, Name + Beschreibung, Bestellen immer unten auf
+     derselben Linie (alle Karten einer Reihe gleich hoch) */
+  .pick {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.6rem 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper);
+    transition:
+      border-color var(--d-hover) var(--ease-rise),
+      box-shadow var(--d-ui) var(--ease-rise);
+  }
+  @media (hover: hover) {
+    .pick:hover {
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-2);
+    }
   }
   .pick-cat {
-    display: flex;
+    display: inline-flex;
+    align-self: flex-start;
     align-items: center;
-    gap: 0.45rem;
-    color: var(--ink-3);
+    gap: 0.4rem;
+    margin-bottom: 1.1rem;
+    padding: 0.32rem 0.75rem 0.32rem 0.6rem;
+    border-radius: var(--r-round);
+    background: var(--dough);
+    color: var(--ink-2);
   }
   .pick-cat :global(svg) {
     width: 1rem;
     height: 1rem;
+    color: var(--tomato-ink);
+  }
+  .pick :global(.dish) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border: 0;
+  }
+  .pick :global(.dish-main) {
+    flex: 1;
+  }
+  .pick :global(.dish-desc) {
+    max-width: none;
+  }
+  .pick :global(.dish-actions) {
+    align-self: stretch;
+    justify-content: space-between;
+    margin-top: 1.4rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid var(--line);
+  }
+  .pick :global(.sizes) {
+    width: 100%;
+  }
+  .pick :global(.size-btn) {
+    flex: 1;
+    grid-template-columns: 1fr auto;
+  }
+  @media (max-width: 639px) {
+    .pick {
+      padding: 1.25rem 1.25rem 1.2rem;
+      border-radius: 18px;
+    }
+    .pick-cat {
+      margin-bottom: 0.9rem;
+    }
+    .pick :global(.dish-actions) {
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+    }
   }
 </style>
