@@ -21,6 +21,9 @@ const cats = site.catalog.visibleCategories;
                 <Icon name={c.icon} />
               </span>
               <span class="pl-name">{c.name}</span>
+              <span class="pl-pop" aria-hidden="true">
+                <Icon name={c.icon} />
+              </span>
               <span class="pl-meta">
                 <span class="num">{c.products.length}</span>
                 {c.fromPrice !== null && <span class="num">ab {formatEuro(c.fromPrice)}</span>}
@@ -65,8 +68,7 @@ const cats = site.catalog.visibleCategories;
     letter-spacing: -0.035em;
     transition: color var(--d-ui) var(--ease-rise);
   }
-  /* Icon nur auf Touch-Geräten (vor dem Wort); am Desktop kein Ein-/Ausklappen –
-     das hat beim Überfahren die ganze Zeile verschoben */
+  /* Icon vor dem Wort nur auf Touch-Geräten; mit Maus übernimmt .pl-pop */
   .pl-icon {
     display: inline-grid;
     place-items: center;
@@ -115,6 +117,33 @@ const cats = site.catalog.visibleCategories;
     transition: color var(--d-ui) var(--ease-rise);
   }
   @media (hover: hover) {
+    /* eigenes Hover-Icon, absolut unten rechts unter den Zahlen – liegt
+       außerhalb des Flusses, an Zeilen und Grundlinien ändert sich nichts */
+    .pl-pop {
+      display: grid;
+      position: absolute;
+      right: 0;
+      bottom: 0.12em;
+      width: 0.42em;
+      height: 0.42em;
+      color: var(--tomato);
+      opacity: 0;
+      transform: translateY(0.12em) scale(0.6) rotate(-18deg);
+      pointer-events: none;
+      transition:
+        opacity var(--d-ui) var(--ease-rise),
+        transform var(--d-sheet) var(--ease-settle);
+    }
+    .pl-pop :global(svg) {
+      width: 100%;
+      height: 100%;
+      stroke-width: 1.5;
+    }
+    .poster-link:hover .pl-pop,
+    .poster-link:focus-visible .pl-pop {
+      opacity: 1;
+      transform: none;
+    }
     .poster-link:hover {
       color: var(--tomato-ink);
     }
@@ -132,6 +161,9 @@ const cats = site.catalog.visibleCategories;
     .pl-icon {
       width: 0.8em;
       opacity: 1;
+    }
+    .pl-pop {
+      display: none;
     }
   }
   @media (max-width: 639px) {

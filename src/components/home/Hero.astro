@@ -246,8 +246,14 @@ const sets = [
   .hl-2 {
     grid-row: 3;
   }
+  /* eigene Ebene je Wort: Wechsel und Ausklang laufen nur über die GPU –
+     Safari muss die große Leuchtschrift nicht bei jedem Bild neu weichzeichnen */
   .hw {
     display: inline-block;
+    will-change: transform, opacity;
+  }
+  .hero-line {
+    will-change: transform, opacity;
   }
   /* Wortpaare: unsichtbar, bis sie hinter der Pizza hervorkommen; das erste
      steht im Fluss (gibt der Zeile ihre Höhe), die anderen liegen darauf */
@@ -592,5 +598,25 @@ const sets = [
     to {
       opacity: 1;
     }
+  }
+</style>
+
+<style is:global>
+  /* Lenis (weiches Scrollen, nur mit Maus/Trackpad) */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 </style>

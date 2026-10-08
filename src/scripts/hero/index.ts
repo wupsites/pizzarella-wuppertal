@@ -36,6 +36,8 @@ const CART_KEY = 'pizzarella.cart.v1';
 const DEG = Math.PI / 180;
 /** Desktop: ab diesem Scroll-Fortschritt gilt das Wortpaar (0 = Headline) */
 const SET_AT = [0, 0.16, 0.38, 0.6];
+/** Einrastpunkte: Mitte jedes Wortpaars, Anfang und Ende – jedes Paar steht ruhig da */
+const SNAP_AT = [0, 0.27, 0.49, 0.7, 1];
 
 const hero = document.querySelector<HTMLElement>('[data-hero]');
 if (hero) init(hero);
@@ -109,8 +111,27 @@ function init(hero: HTMLElement) {
   // ---------- Wortpaare wie in der Referenz ----------
   let gsap: Gsap | null = null;
   let cur = 0;
+  let lastSwap = 0;
+  let swapTimer = 0;
+  let target = 0;
+  /** Wortpaar wechseln – kurz hintereinander angefragte Wechsel werden
+   *  gesammelt (kein Aufflackern von Zwischenpaaren beim schnellen Scrollen) */
   const showSet = (n: number) => {
+    target = n;
+    if (swapTimer) return;
+    const wait = 380 - (performance.now() - lastSwap);
+    if (wait > 0) {
+      swapTimer = window.setTimeout(() => {
+        swapTimer = 0;
+        swapTo(target);
+      }, wait);
+      return;
+    }
+    swapTo(n);
+  };
+  const swapTo = (n: number) => {
     if (n === cur || !gsap || !sets[n]) return;
+    lastSwap = performance.now();
     const out = sets[cur];
     const inn = sets[n];
     cur = n;
@@ -142,6 +163,10 @@ function init(hero: HTMLElement) {
   let idleSince = 0;
   let lastDraw = 0;
   let raf = 0;
+  // sobald GSAP geladen ist, zeichnen wir im GSAP-Takt: erst rechnet GSAP
+  // (Scroll, Scrub, Tweens), dann zeichnen wir – im selben Bild, nie versetzt
+  let onTicker = false;
+  let want = false;
   let bloomStart = 0; // Ofen-Bloom, wenn WebGL übernimmt
   let glowLast = -1;
   let beamLast = 9;
@@ -161,7 +186,7 @@ function init(hero: HTMLElement) {
   const frame = (now: number) => {
     raf = 0;
     if (half && tick++ % 2 === 1) {
-      raf = requestAnimationFrame(frame);
+      next();
       return;
     }
     const slowGl = !!gl?.slow;
@@ -308,11 +333,14 @@ function init(hero: HTMLElement) {
       }
     }
 
-    if (visible && !document.hidden && (idle || smoothing)) raf = requestAnimationFrame(frame);
+    if (visible && !document.hidden && (idle || smoothing)) next();
   };
-  const request = () => {
-    if (!raf) raf = requestAnimationFrame(frame);
+  /** nächstes Bild anfordern (im GSAP-Takt oder per requestAnimationFrame) */
+  const next = () => {
+    if (onTicker) want = true;
+    else if (!raf) raf = requestAnimationFrame(frame);
   };
+  const request = next;
 
   // ---------- Start ----------
   measure();
@@ -397,6 +425,37 @@ function init(hero: HTMLElement) {
     g.registerPlugin(ScrollTrigger);
     // Handy: Ein- und Ausblenden der Adressleiste löst kein Neuberechnen (Ruckeln) aus
     ScrollTrigger.config({ ignoreMobileResize: true });
+
+    // Ein Takt für alles: GSAP rechnet, danach zeichnen wir im selben Bild
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    onTicker = true;
+    want = true;
+    g.ticker.add(() => {
+      if (!want) return;
+      want = false;
+      frame(performance.now());
+    });
+
+    // Mausrad/Trackpad: weiches Scrollen (Lenis) statt Sprüngen – Touch bleibt nativ
+    if (mqHover.matches) {
+      const { default: Lenis } = await import('lenis');
+      const lenis = new Lenis({
+        lerp: 0.1,
+        wheelMultiplier: 0.9,
+        anchors: true,
+        // in Dialogen, Warenkorb und Menüs normal scrollen
+        prevent: (node: HTMLElement) => !!node.closest('dialog, [role="dialog"], [data-lenis-prevent], [data-cart-panel]'),
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      g.ticker.add((time) => lenis.raf(time * 1000));
+      g.ticker.lagSmoothing(0);
+      // offene Dialoge sperren den Seiten-Scroll
+      new MutationObserver(() => {
+        if (document.querySelector('dialog[open]')) lenis.stop();
+        else lenis.start();
+      }).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['open'] });
+    }
     const mm = g.matchMedia();
 
     // Desktop und Handy: dieselbe Dramaturgie (Pin, Drehung, Wortpaare, Ausklang).
@@ -412,9 +471,12 @@ function init(hero: HTMLElement) {
         scrollTrigger: {
           trigger: hero,
           start: 'top top',
-          end: d ? '+=220%' : '+=190%',
+          // genug Weg pro Wortpaar, damit man es lesen kann
+          end: d ? '+=320%' : '+=280%',
           pin: true,
-          scrub: d ? 1 : 0.8,
+          // hört man auf zu scrollen, rastet die Seite sanft beim nächsten Wortpaar ein
+          snap: { snapTo: SNAP_AT, duration: { min: 0.35, max: 0.9 }, delay: 0.15, ease: 'power2.inOut' },
+          scrub: d ? 0.7 : 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (st) => {
