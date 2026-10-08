@@ -29,7 +29,12 @@ const vizFor = (p: (typeof cats)[number]['products'][number]) => {
   // Beschriftung je Ebene (von oben nach unten), so wie sie beim Auseinanderziehen liegen
   return {
     tops,
-    labels: [...(belag.length ? [{ k: 'tops', t: belag.join(' · ') }] : []), { k: 'cheese', t: 'Käse' }, { k: 'sauce', t: sauce }, { k: 'crust', t: 'Teig' }],
+    labels: [
+      ...(belag.length ? [{ k: 'tops' as const, t: belag.join(' · ') }] : []),
+      { k: 'cheese' as const, t: 'Käse' },
+      { k: 'sauce' as const, t: sauce },
+      { k: 'crust' as const, t: 'Teig' },
+    ],
   };
 };
 ---
