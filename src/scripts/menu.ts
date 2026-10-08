@@ -25,6 +25,7 @@ const status = document.querySelector<HTMLElement>('[data-search-status]');
 const empty = document.querySelector<HTMLElement>('[data-search-empty]');
 const term = document.querySelector<HTMLElement>('[data-search-term]');
 const menuBar = document.querySelector<HTMLElement>('[data-menu-bar]');
+const menuCol = document.querySelector<HTMLElement>('.menu-col');
 
 // Höhe der Sticky-Leiste für Anker-Sprünge
 const setBarHeight = () => {
@@ -52,6 +53,7 @@ function runSearch() {
     c.classList.toggle('is-hidden', !any);
     links.get(c.dataset.cat ?? '')?.classList.toggle('is-empty', !any);
   }
+  menuCol?.classList.toggle('is-searching', tokens.length > 0);
   if (empty) empty.hidden = !(tokens.length && hits === 0);
   if (term) term.textContent = input?.value ?? '';
   if (status) status.textContent = tokens.length ? (hits ? `${hits} ${hits === 1 ? 'Treffer' : 'Treffer'} für „${input?.value}“` : '') : '';
@@ -139,3 +141,18 @@ if ('IntersectionObserver' in window) {
   );
 }
 for (const [id, a] of links) a.addEventListener('click', () => setActive(id));
+
+// „Erstelle deine eigene Pizza“: erst bei Bedarf laden (beim Zeigen schon vorab)
+const builder = () => import('./pizza/builder.ts');
+document.querySelectorAll<HTMLElement>('[data-pb-open]').forEach((btn) => {
+  const warm = () => void builder();
+  btn.addEventListener('pointerenter', warm, { once: true });
+  btn.addEventListener('focus', warm, { once: true });
+  btn.addEventListener('touchstart', warm, { once: true, passive: true });
+  btn.addEventListener('click', async () => {
+    btn.setAttribute('aria-busy', 'true');
+    const m = await builder();
+    btn.removeAttribute('aria-busy');
+    m.openBuilder(btn);
+  });
+});

@@ -4,6 +4,10 @@ import { product } from '../data.ts';
 import { formatEuro } from '../../lib/pricing.ts';
 import { toast } from './toast.ts';
 import { announce } from './util.ts';
+import { flyToCart } from '../pizza/peel.ts';
+
+/** Pizza-Kategorien bekommen den Ofenschieber (Getränke, Döner … nicht) */
+export const isPizza = (categoryId: string) => categoryId === 'pizza' || categoryId === 'party-pizza';
 
 export function feedbackAdded(name: string, variantLabel: string, btn: HTMLElement | null, key: string) {
   if (btn) {
@@ -46,6 +50,7 @@ export function initQuickAdd() {
     try {
       const key = cart.add({ productId: id, variantId, qty: 1, options: {} });
       feedbackAdded(p.name, v && v.id !== 'std' ? v.label : '', btn, key);
+      if (isPizza(p.categoryId)) flyToCart(btn.getBoundingClientRect());
     } catch {
       toast('Das hat nicht geklappt – bitte nochmal.', { icon: 'alert' });
     }

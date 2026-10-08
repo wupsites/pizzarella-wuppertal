@@ -1,0 +1,1016 @@
+---
+/**
+ * „Erstelle deine eigene Pizza“ – Vollbild-Dialog. Alles Sichtbare kommt als
+ * HTML vom Server (Größen, Zutaten, Preise); das Verhalten wird erst beim
+ * Öffnen nachgeladen (src/scripts/pizza/builder.ts).
+ */
+import Icon from '../Icon.astro';
+import { site } from '../../data/index.ts';
+import { builderModel, TOPPING_GROUP } from '../../lib/pizza-builder.ts';
+import { choicePrice } from '../../lib/catalog.ts';
+import { formatEuro } from '../../lib/pricing.ts';
+import { serializeForScript } from '../../lib/client-data.ts';
+import { look, tileCss, type Atlas } from '../../scripts/pizza/toppings.ts';
+import atlasMeta from '../../../public/pizza/toppings.json';
+
+const m = builderModel(site.catalog);
+const DEFAULT = 'gross';
+const atlas: Atlas = { ...(atlasMeta as Omit<Atlas, 'url' | 'count'>), url: '/pizza/toppings.webp', count: Object.keys(atlasMeta.rows).length };
+const size0 = m?.sizes.find((v) => v.id === DEFAULT) ?? m?.sizes[0];
+const priceOf = (id: string, v: string) => {
+  const c = m?.group.choices.find((x) => x.id === id);
+  return c ? (choicePrice(c, v) ?? 0) : 0;
+};
+const pricesOf = (id: string) => Object.fromEntries((m?.sizes ?? []).map((v) => [v.id, priceOf(id, v.id)]));
+const priceText = (p: number) => (p > 0 ? `+${formatEuro(p)}` : 'inklusive');
+const data = m && {
+  base: { id: m.product.id, name: m.product.name },
+  group: TOPPING_GROUP,
+  max: m.group.max ?? 10,
+  size: size0!.id,
+  sizes: m.sizes.map((v) => ({ id: v.id, label: v.label, detail: v.detail ?? '', price: v.price })),
+  choices: Object.fromEntries(m.group.choices.map((c) => [c.id, { label: c.label, prices: pricesOf(c.id), z: look(c.id).z }])),
+  classics: m.classics,
+};
+let step = 1;
+---
+
+{
+  m && size0 && (
+    <dialog class="pb" id="pizza-builder" aria-labelledby="pb-title" data-pb>
+      <script type="application/json" id="pb-data" set:html={serializeForScript(data)} />
+      <div class="pb-shell">
+        <header class="pb-top">
+          <div class="pb-top-text">
+            <p class="label pb-kicker">Erstelle deine eigene Pizza</p>
+            <h2 class="pb-title" id="pb-title">
+              Deine Pizza
+            </h2>
+          </div>
+          <button type="button" class="pb-close" data-close>
+            <Icon name="x" />
+            <span>Schließen</span>
+          </button>
+        </header>
+
+        <div class="pb-main" data-pb-scroll>
+          <section class="pb-stage" aria-label="Vorschau deiner Pizza">
+            <div class="pb-plate" data-pb-plate>
+              <div class="pb-pizza" data-pb-pizza style={`--sz:${size0.id === 'klein' ? 0.86 : 1}`}>
+                <img class="pb-base" src="/pizza/base-640.webp" srcset="/pizza/base-640.webp 640w, /pizza/base.webp 1024w" sizes="(min-width: 1024px) 560px, 70vw" width="640" height="640" alt="" loading="lazy" decoding="async" />
+                <div class="pb-tops" data-pb-tops />
+              </div>
+              <span class="pb-drop" aria-hidden="true" />
+            </div>
+            <p class="pb-hint" data-pb-hint>
+              <span class="pb-hint-touch">Zutat antippen – sie landet sofort auf der Pizza.</span>
+              <span class="pb-hint-mouse">Zutat anklicken oder direkt auf die Pizza ziehen.</span>
+            </p>
+          </section>
+
+          <div class="pb-panel">
+            <nav class="pb-jump" aria-label="Bereiche">
+              <a href="#pb-s-size">Größe</a>
+              {m.sections.map((s) => (
+                <a href={`#pb-s-${s.id}`}>{s.title}</a>
+              ))}
+            </nav>
+
+            <section class="pb-sec" id="pb-s-size" aria-labelledby="pb-h-size">
+              <h3 class="pb-h" id="pb-h-size">
+                <span class="pb-step">{step++}</span> Größe
+              </h3>
+              <div class="pb-sizes" role="radiogroup" aria-labelledby="pb-h-size">
+                {m.sizes.map((v) => (
+                  <label class="pb-size">
+                    <input type="radio" name="pb-size" value={v.id} checked={v.id === size0.id} data-pb-size />
+                    <span class="pb-size-name">{v.label}</span>
+                    <span class="pb-size-detail">{v.detail}</span>
+                    <span class="pb-size-price num">{formatEuro(v.price)}</span>
+                  </label>
+                ))}
+              </div>
+            </section>
+
+            {m.sections.map((s) => (
+              <section class="pb-sec" id={`pb-s-${s.id}`} aria-labelledby={`pb-h-${s.id}`}>
+                <h3 class="pb-h" id={`pb-h-${s.id}`}>
+                  <span class="pb-step">{step++}</span> {s.title}
+                </h3>
+                {s.fixed && (
+                  <p class="pb-fixed">
+                    <Icon name="check" />
+                    <span class="pb-fixed-name">{s.fixed}</span>
+                    <span class="pb-fixed-note">immer dabei</span>
+                  </p>
+                )}
+                {s.parts.map((p) => (
+                  <>
+                    {p.sub && <h4 class="pb-sub">{p.sub}</h4>}
+                    <ul class="pb-list" role="list">
+                      {p.items.map((c) => (
+                        <li>
+                          <button type="button" class="pb-ing" data-ing={c.id} aria-pressed="false">
+                            <span class="pb-pic" data-cover={look(c.id).cover ? c.id : undefined}>
+                              {!look(c.id).cover && <span class="pb-pic-in" style={tileCss(atlas, c.id, 0)} />}
+                            </span>
+                            <span class="pb-name">{c.label}</span>
+                            <span class="pb-price num" data-pb-price>
+                              {priceText(priceOf(c.id, size0.id))}
+                            </span>
+                            <span class="pb-act" aria-hidden="true">
+                              <span class="pb-act-add">
+                                <Icon name="plus" />
+                                Hinzufügen
+                              </span>
+                              <span class="pb-act-rm">
+                                <Icon name="minus" />
+                                Entfernen
+                              </span>
+                            </span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ))}
+              </section>
+            ))}
+          </div>
+
+          <aside class="pb-sum" aria-labelledby="pb-sum-title">
+            <div class="pb-sum-head">
+              <h3 class="pb-sum-title" id="pb-sum-title">
+                Deine Pizza
+              </h3>
+              <p class="pb-count" data-pb-count>
+                0 von {m.group.max ?? 10} Extras
+              </p>
+            </div>
+            <ul class="pb-lines" role="list" data-pb-lines>
+              <li class="pb-line pb-line--base">
+                <span>
+                  {m.product.name} · <span data-pb-size-label>{size0.label} {size0.detail}</span>
+                </span>
+                <span class="num" data-pb-base-price>
+                  {formatEuro(size0.price)}
+                </span>
+              </li>
+            </ul>
+            <p class="pb-tip" data-pb-tip hidden />
+            <div class="pb-total">
+              <span>Gesamt</span>
+              <output class="pb-total-val num" data-pb-total>
+                <span>{formatEuro(size0.price)}</span>
+              </output>
+            </div>
+            <div class="pb-actions">
+              <button type="button" class="btn btn--primary btn--lg btn--block pb-add" data-pb-add>
+                <Icon name="bag" /> In den Warenkorb
+              </button>
+              <div class="pb-minor">
+                <button type="button" class="link-btn" data-pb-last disabled>
+                  Letzte Zutat entfernen
+                </button>
+                <button type="button" class="link-btn" data-pb-reset disabled>
+                  Zurücksetzen
+                </button>
+              </div>
+            </div>
+            <p class="pb-fine">
+              Bestellt wird eine {m.product.name} ({m.product.description?.replace(/^mit /, 'mit ')}) mit deinen Extras.
+            </p>
+          </aside>
+        </div>
+
+        <div class="pb-bar">
+          <p class="pb-bar-text">
+            <span class="pb-bar-label">Deine Pizza</span>
+            <output class="pb-bar-total num" data-pb-total-bar>
+              {formatEuro(size0.price)}
+            </output>
+          </p>
+          <button type="button" class="btn btn--primary pb-add" data-pb-add>
+            <Icon name="bag" /> In den Warenkorb
+          </button>
+        </div>
+
+        <div class="pb-note" data-pb-note role="status" hidden>
+          <span data-pb-note-text />
+          <button type="button" data-pb-undo>
+            Rückgängig
+          </button>
+        </div>
+      </div>
+    </dialog>
+  )
+}
+
+<style>
+  /* ---------- Rahmen ---------- */
+  dialog.pb {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: var(--dough);
+    color: var(--ink);
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
+  dialog.pb:not([open]) {
+    display: none;
+  }
+  dialog.pb::backdrop {
+    background: rgb(14 9 6 / 0.55);
+  }
+  .pb-shell {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100%;
+  }
+  .pb-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem var(--gutter);
+    border-bottom: 1px solid var(--line);
+    background: var(--dough);
+    z-index: 3;
+  }
+  .pb-kicker {
+    color: var(--tomato-ink);
+  }
+  .pb-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .pb-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem 0.5rem 0.8rem;
+    border-radius: var(--r-round);
+    border: 1.5px solid var(--line-strong);
+    font-weight: 650;
+    transition:
+      border-color var(--d-hover),
+      background-color var(--d-hover);
+  }
+  .pb-close :global(svg) {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+  @media (hover: hover) {
+    .pb-close:hover {
+      border-color: var(--ink);
+      background: var(--paper);
+    }
+  }
+
+  /* ---------- Aufteilung ---------- */
+  .pb-main {
+    display: grid;
+    grid-template-areas: 'stage' 'panel' 'sum';
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .pb-stage {
+    grid-area: stage;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    height: clamp(230px, 40svh, 360px);
+    padding: 0.75rem var(--gutter) 0.5rem;
+    background: var(--dough);
+    box-shadow: 0 8px 16px -12px rgb(28 21 17 / 0.25);
+    /* die Pizza richtet sich nach dem Platz, den sie hat */
+    container-type: size;
+  }
+  .pb-panel {
+    grid-area: panel;
+    padding: 0.5rem var(--gutter) 1.5rem;
+  }
+  .pb-sum {
+    grid-area: sum;
+    margin: 0 var(--gutter) 1.5rem;
+    padding: 1.25rem 1.3rem;
+    border-radius: 20px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+  @media (min-width: 1024px) {
+    .pb-sum {
+      padding: 1rem 1.2rem;
+    }
+    .pb-fine {
+      display: none;
+    }
+    .pb-main {
+      grid-template-areas: 'stage panel' 'sum panel';
+      grid-template-columns: minmax(0, 1.1fr) minmax(24rem, 1fr);
+      grid-template-rows: minmax(0, 1fr) auto;
+      overflow: hidden;
+    }
+    .pb-stage {
+      position: relative;
+      height: auto;
+      min-height: 0;
+      padding: 1.25rem 2rem 0.5rem var(--gutter);
+      background: none;
+      box-shadow: none;
+    }
+    .pb-panel {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: 1.25rem var(--gutter) 3rem 2rem;
+      border-left: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .pb-sum {
+      margin: 0 2rem 1.5rem var(--gutter);
+    }
+  }
+
+  /* ---------- Pizza ---------- */
+  .pb-plate {
+    position: relative;
+    flex: none;
+    width: min(100cqw, calc(100cqh - 2.4rem), 600px);
+    aspect-ratio: 1;
+  }
+  .pb-pizza {
+    position: absolute;
+    inset: 0;
+    transform: scale(var(--sz, 1));
+    transition: transform 520ms var(--ease-settle);
+  }
+  .pb-base {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 14px 22px rgb(60 30 4 / 0.28));
+  }
+  .pb-tops {
+    position: absolute;
+    inset: 0;
+  }
+  .pb-tops :global(.pb-pc) {
+    position: absolute;
+    display: block;
+    aspect-ratio: 1;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+  .pb-tops :global(img.pb-pc) {
+    aspect-ratio: auto;
+  }
+  /* Ablegen: feiner Lichtring statt großer Zone */
+  .pb-drop {
+    position: absolute;
+    inset: 1%;
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 2px rgb(242 181 58 / 0.9),
+      0 0 40px rgb(242 181 58 / 0.45);
+    opacity: 0;
+    transform: scale(0.97);
+    transition:
+      opacity var(--d-ui) var(--ease-rise),
+      transform var(--d-ui) var(--ease-rise);
+    pointer-events: none;
+  }
+  .pb-plate.is-target .pb-drop {
+    opacity: 0.35;
+    transform: none;
+  }
+  .pb-plate.is-over .pb-drop {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+  .pb-hint {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .pb-hint-mouse {
+    display: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pb-hint-touch {
+      display: none;
+    }
+    .pb-hint-mouse {
+      display: inline;
+    }
+  }
+
+  /* ---------- Bereiche ---------- */
+  .pb-jump {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    gap: 0.4rem;
+    margin: 0 calc(-1 * var(--gutter)) 0.25rem;
+    padding: 0.6rem var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--dough);
+  }
+  .pb-jump a {
+    flex: none;
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--r-round);
+    border: 1px solid var(--line-strong);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  @media (hover: hover) {
+    .pb-jump a:hover {
+      border-color: var(--ink);
+    }
+  }
+  @media (min-width: 1024px) {
+    .pb-jump {
+      top: -1.25rem;
+      margin: -1.25rem calc(-1 * var(--gutter)) 0.25rem -2rem;
+      padding: 1rem var(--gutter) 0.75rem 2rem;
+      background: var(--paper);
+    }
+  }
+  /* mobil liegt die Pizza oben – die Leiste darunter kleben lassen */
+  @media (max-width: 1023px) {
+    .pb-jump {
+      top: clamp(230px, 40svh, 360px);
+    }
+  }
+  .pb-sec {
+    padding-top: 1.4rem;
+    scroll-margin-top: 4rem;
+  }
+  @media (max-width: 1023px) {
+    .pb-sec {
+      scroll-margin-top: calc(clamp(230px, 40svh, 360px) + 3.5rem);
+    }
+  }
+  .pb-h {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.015em;
+  }
+  .pb-step {
+    display: inline-grid;
+    place-items: center;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .pb-sub {
+    margin: 1rem 0 0.5rem;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: var(--fs-label);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* Größe */
+  .pb-sizes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .pb-size {
+    position: relative;
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--paper);
+    cursor: pointer;
+    transition:
+      border-color var(--d-hover),
+      background-color var(--d-hover),
+      box-shadow var(--d-hover);
+  }
+  .pb-size input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pb-size-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .pb-size-detail {
+    color: var(--ink-3);
+    font-size: 0.9rem;
+  }
+  .pb-size-price {
+    margin-top: 0.3rem;
+    font-weight: 700;
+  }
+  .pb-size:has(input:checked) {
+    border-color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--ink);
+    background: #fff;
+  }
+  .pb-size:has(input:focus-visible) {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* immer dabei */
+  .pb-fixed {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: 14px;
+    background: rgb(47 107 69 / 0.08);
+    color: var(--herb);
+    font-weight: 650;
+  }
+  .pb-fixed :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .pb-fixed-name {
+    color: var(--ink);
+  }
+  .pb-fixed-note {
+    margin-left: auto;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  /* Zutat: eine große Zeile, ein klarer Zustand */
+  .pb-list {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .pb-ing {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    min-height: 3.75rem;
+    padding: 0.45rem 0.55rem 0.45rem 0.5rem;
+    border-radius: 16px;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    text-align: left;
+    touch-action: manipulation;
+    transition:
+      border-color var(--d-hover) var(--ease-rise),
+      background-color var(--d-hover) var(--ease-rise),
+      transform var(--d-ui) var(--ease-settle);
+  }
+  @media (min-width: 1024px) {
+    .pb-ing {
+      background: #fffdf8;
+    }
+  }
+  .pb-pic {
+    position: relative;
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: 12px;
+    background-color: var(--dough-2);
+    overflow: hidden;
+    flex: none;
+  }
+  /* Ausschnitt größer zeigen: das Stück füllt das Feld */
+  .pb-pic-in {
+    position: absolute;
+    inset: -24%;
+    background-repeat: no-repeat;
+  }
+  .pb-pic[data-cover] {
+    background: radial-gradient(circle at 40% 35%, #f8d77a, #e7a93a 60%, #c98322);
+  }
+  .pb-pic[data-cover='chili-oel'] {
+    background: radial-gradient(circle at 40% 35%, #f08a52, #c63a1c 60%, #8f2410);
+  }
+  .pb-pic[data-cover='knoblauch-oel'] {
+    background: radial-gradient(circle at 40% 35%, #f6e6a6, #dcbc5a 60%, #b88e2a);
+  }
+  .pb-name {
+    font-weight: 650;
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+  .pb-price {
+    color: var(--ink-2);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .pb-act {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 7.6rem;
+    min-height: 2.6rem;
+    padding: 0 0.9rem;
+    border-radius: var(--r-round);
+    border: 1.5px solid var(--ink);
+    font-weight: 650;
+    font-size: 0.95rem;
+    transition:
+      background-color var(--d-hover),
+      color var(--d-hover),
+      border-color var(--d-hover);
+  }
+  .pb-act > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .pb-act :global(svg) {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+  .pb-act-rm {
+    display: none !important;
+  }
+  @media (hover: hover) {
+    .pb-ing:hover {
+      border-color: var(--line-strong);
+    }
+    .pb-ing:hover .pb-act {
+      background: var(--tomato);
+      border-color: var(--tomato);
+      color: #fff;
+    }
+  }
+  .pb-ing:active {
+    transform: scale(0.985);
+    transition-duration: var(--d-press);
+  }
+  /* drauf: grüner Rand, Haken am Bild, Knopf wird „Entfernen“ */
+  .pb-ing[aria-pressed='true'] {
+    border-color: var(--herb);
+    background: rgb(47 107 69 / 0.07);
+  }
+  .pb-ing[aria-pressed='true']::after {
+    content: '';
+    position: absolute;
+    left: calc(0.5rem + 2.9rem - 0.85rem);
+    top: 0.15rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    border: 2px solid var(--paper);
+    background: var(--herb)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")
+      center / 70% no-repeat;
+  }
+  .pb-ing[aria-pressed='true'] .pb-name {
+    font-weight: 750;
+  }
+  .pb-ing[aria-pressed='true'] .pb-price {
+    color: var(--herb);
+  }
+  .pb-ing[aria-pressed='true'] .pb-act {
+    border-color: var(--line-strong);
+    background: transparent;
+    color: var(--ink);
+  }
+  .pb-ing[aria-pressed='true'] .pb-act-add {
+    display: none !important;
+  }
+  .pb-ing[aria-pressed='true'] .pb-act-rm {
+    display: inline-flex !important;
+  }
+  @media (hover: hover) {
+    .pb-ing[aria-pressed='true']:hover .pb-act {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+  }
+  .pb-ing[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .pb-ing[aria-disabled='true'] .pb-act {
+    border-color: var(--line-strong);
+    background: transparent !important;
+    color: var(--ink-3) !important;
+  }
+  .pb-ing.is-dragging {
+    opacity: 0.55;
+  }
+  @media (max-width: 479px) {
+    .pb-ing {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-areas: 'pic name act' 'pic price act';
+      row-gap: 0.05rem;
+    }
+    .pb-pic {
+      grid-area: pic;
+    }
+    .pb-name {
+      grid-area: name;
+      align-self: end;
+    }
+    .pb-price {
+      grid-area: price;
+      align-self: start;
+      font-size: 0.92rem;
+    }
+    .pb-act {
+      grid-area: act;
+      min-width: 0;
+      padding: 0 0.85rem;
+    }
+  }
+
+  /* Zutat beim Ziehen: folgt der Maus, leichte Tiefe */
+  :global(.pb-ghost) {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+    border-radius: var(--r-round);
+    background: var(--paper);
+    box-shadow: 0 18px 40px rgb(28 21 17 / 0.25);
+    font-weight: 650;
+    pointer-events: none;
+    will-change: transform;
+  }
+  :global(.pb-ghost-pic) {
+    position: relative;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background-color: var(--dough-2);
+    overflow: hidden;
+  }
+  :global(.pb-ghost-pic > span) {
+    position: absolute;
+    inset: -24%;
+    background-repeat: no-repeat;
+  }
+
+  /* ---------- Zusammenfassung ---------- */
+  .pb-sum-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .pb-sum-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+  .pb-count {
+    color: var(--ink-3);
+    font-size: 0.88rem;
+  }
+  .pb-lines {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 0.6rem;
+    max-height: 8.2rem;
+    overflow-y: auto;
+  }
+  .pb-lines :global(.pb-line) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+  .pb-lines :global(.pb-line--base) {
+    font-weight: 650;
+  }
+  .pb-lines :global(.pb-line .num) {
+    white-space: nowrap;
+    color: var(--ink-2);
+  }
+  .pb-tip {
+    margin-top: 0.8rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 12px;
+    background: rgb(242 181 58 / 0.2);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .pb-tip :global(button) {
+    display: inline;
+    margin-left: 0.25rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+  .pb-total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 0.9rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .pb-total-val {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .pb-total-val :global(span) {
+    display: inline-block;
+  }
+  .pb-actions {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+  }
+  .pb-minor {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .pb-minor :global(.link-btn) {
+    min-height: 2.5rem;
+    font-size: 0.92rem;
+  }
+  .pb-minor :global(.link-btn[disabled]) {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .pb-fine {
+    margin-top: 0.7rem;
+    color: var(--ink-3);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .pb-add.is-busy {
+    pointer-events: none;
+  }
+
+  /* ---------- Leiste unten (mobil) ---------- */
+  .pb-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    box-shadow: 0 -10px 30px rgb(28 21 17 / 0.08);
+    z-index: 3;
+  }
+  .pb-bar-text {
+    display: grid;
+    line-height: 1.1;
+  }
+  .pb-bar-label {
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: var(--fs-label);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .pb-bar-total {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .pb-bar {
+      display: none;
+    }
+  }
+  @media (max-width: 1023px) {
+    .pb-sum .pb-add {
+      display: none;
+    }
+  }
+
+  /* ---------- Hinweis mit „Rückgängig“ ---------- */
+  .pb-note {
+    position: absolute;
+    left: 50%;
+    bottom: calc(5.5rem + env(safe-area-inset-bottom));
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.7rem 0.6rem 1.1rem;
+    border-radius: var(--r-round);
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: var(--shadow-2);
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  .pb-note button {
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--r-round);
+    background: rgb(255 255 255 / 0.12);
+    color: var(--cheese-soft);
+    font-weight: 700;
+  }
+  @media (min-width: 1024px) {
+    .pb-note {
+      bottom: 1.5rem;
+      left: 27.5%;
+    }
+  }
+
+  /* ---------- Auftritt ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.pb[open] {
+      animation: pb-in 380ms var(--ease-rise);
+    }
+    dialog.pb[open] .pb-plate {
+      animation: pb-pizza-in 700ms var(--ease-rise) both;
+    }
+    dialog.pb[open] .pb-sec,
+    dialog.pb[open] .pb-jump {
+      animation: pb-rise 520ms var(--ease-rise) both;
+    }
+    dialog.pb[open] .pb-sec:nth-of-type(1) {
+      animation-delay: 120ms;
+    }
+    dialog.pb[open] .pb-sec:nth-of-type(2) {
+      animation-delay: 170ms;
+    }
+    dialog.pb[open] .pb-sec:nth-of-type(n + 3) {
+      animation-delay: 220ms;
+    }
+    dialog.pb[open] .pb-sum {
+      animation: pb-rise 520ms var(--ease-rise) 260ms both;
+    }
+    dialog.pb.is-closing {
+      animation: fade-out 240ms var(--ease-io) forwards;
+    }
+    dialog.pb.is-closing::backdrop {
+      animation: fade-out 240ms var(--ease-io) forwards;
+    }
+  }
+  @keyframes pb-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes pb-pizza-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9) rotate(-14deg);
+    }
+  }
+  @keyframes pb-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+</style>

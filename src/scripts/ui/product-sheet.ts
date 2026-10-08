@@ -8,7 +8,8 @@ import { iconSvg } from '../../lib/icons.ts';
 import { cart } from '../store.ts';
 import { categoryName, data, product } from '../data.ts';
 import { closeDialog, enhanceDialog, openDialog } from './dialog.ts';
-import { feedbackAdded } from './quick-add.ts';
+import { feedbackAdded, isPizza } from './quick-add.ts';
+import { flyToCart } from '../pizza/peel.ts';
 import { esc } from './util.ts';
 
 let dialog: HTMLDialogElement | null = null;
@@ -225,8 +226,10 @@ export function initProductSheet() {
       if (err) err.hidden = true;
       const name = current.name;
       const v = current.variants.find((x) => x.id === sel.variantId);
+      const from = (dialog.querySelector('.ps-top') ?? form).getBoundingClientRect();
       closeDialog(dialog);
       feedbackAdded(name, v && v.id !== 'std' ? v.label : '', null, lineKey(input));
+      if (!editingKey && isPizza(current.categoryId)) flyToCart(from);
     } catch (ex) {
       if (err) {
         err.textContent = ex instanceof PricingError ? ex.message : 'Das hat nicht geklappt. Bitte nochmal versuchen.';

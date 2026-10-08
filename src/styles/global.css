@@ -1346,6 +1346,19 @@ body:has(dialog[open]) {
   }
 }
 
+/* Warenkorb nimmt eine Pizza an (Ofenschieber) */
+@media (prefers-reduced-motion: no-preference) {
+  [data-cart-button].is-receiving {
+    animation: cart-receive 650ms var(--ease-settle);
+  }
+}
+@keyframes cart-receive {
+  30% {
+    transform: scale(1.07);
+    box-shadow: 0 0 0 4px rgb(242 181 58 / 0.5);
+  }
+}
+
 /* Zähler-„Plopp“ beim Hinzufügen */
 @media (prefers-reduced-motion: no-preference) {
   .bump {

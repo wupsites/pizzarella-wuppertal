@@ -1,0 +1,124 @@
+---
+/** Einstieg „Erstelle deine eigene Pizza“ – sitzt in der Pizza-Sektion der Speisekarte. */
+import Icon from '../Icon.astro';
+import { site } from '../../data/index.ts';
+import { builderModel } from '../../lib/pizza-builder.ts';
+import { formatEuro } from '../../lib/pricing.ts';
+
+const m = builderModel(site.catalog);
+const from = m ? Math.min(...m.sizes.map((v) => v.price)) : 0;
+const count = m ? m.group.choices.length : 0;
+---
+
+{
+  m && (
+    <div class="pbc" data-pb-cta>
+      <div class="pbc-copy">
+        <p class="label pbc-kicker">Erstelle deine eigene Pizza</p>
+        <h3 class="pbc-title">
+          Deine Pizza. <span class="pbc-em">Deine Regeln.</span>
+        </h3>
+        <p class="pbc-text">Stell sie dir genau so zusammen, wie du sie magst – {count} Zutaten zur Auswahl, der Preis steht immer dabei.</p>
+        <div class="pbc-actions">
+          <button type="button" class="btn btn--primary btn--lg" data-pb-open aria-haspopup="dialog">
+            Pizza erstellen <Icon name="arrow" class="btn-arrow" />
+          </button>
+          <p class="pbc-note">
+            ab <span class="num">{formatEuro(from)}</span> · Zutaten ab <span class="num">+{formatEuro(m.minExtra)}</span>
+          </p>
+        </div>
+      </div>
+      <div class="pbc-visual" aria-hidden="true">
+        <img src="/pizza/base-320.webp" srcset="/pizza/base-320.webp 320w, /pizza/base-640.webp 640w" sizes="(min-width: 640px) 260px, 180px" width="320" height="320" alt="" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .pbc {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem 2rem;
+    margin: 1.5rem 0 0.5rem;
+    padding: clamp(1.4rem, 1rem + 1.6vw, 2.25rem);
+    border-radius: var(--r-l);
+    background:
+      radial-gradient(70% 120% at 100% 50%, rgb(242 181 58 / 0.22), transparent 60%),
+      var(--night);
+    color: var(--cream);
+    overflow: hidden;
+  }
+  .pbc-kicker {
+    color: var(--cheese);
+  }
+  .pbc-title {
+    margin-top: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100;
+    font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .pbc-em {
+    font-style: italic;
+    color: var(--cheese);
+  }
+  .pbc-text {
+    margin-top: 0.8rem;
+    max-width: 40ch;
+    color: var(--cream-2);
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .pbc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.4rem;
+  }
+  .pbc-note {
+    color: var(--cream-2);
+    font-size: 0.92rem;
+  }
+  .pbc-visual {
+    position: relative;
+    width: clamp(150px, 10rem + 6vw, 260px);
+    margin: -3.5rem -3.5rem -3.5rem 0;
+  }
+  .pbc-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45));
+    transition: transform 900ms var(--ease-rise);
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .pbc:hover .pbc-visual img {
+      transform: rotate(-14deg) scale(1.03);
+    }
+  }
+  @media (max-width: 639px) {
+    .pbc {
+      grid-template-columns: 1fr;
+      padding-right: 7.5rem;
+    }
+    .pbc-visual {
+      position: absolute;
+      right: -3.2rem;
+      top: 0.6rem;
+      width: 9.5rem;
+      margin: 0;
+    }
+    .pbc-actions .btn {
+      width: 100%;
+    }
+    .pbc-actions {
+      margin-right: -6rem;
+    }
+  }
+</style>

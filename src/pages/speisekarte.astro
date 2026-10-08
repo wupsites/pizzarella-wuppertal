@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Dish from '../components/Dish.astro';
 import Icon from '../components/Icon.astro';
+import BuilderCta from '../components/pizza/BuilderCta.astro';
+import Builder from '../components/pizza/Builder.astro';
 import { site } from '../data/index.ts';
 import { hoursCompact } from '../lib/hours.ts';
 import { formatEuro } from '../lib/pricing.ts';
@@ -97,6 +99,7 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
                 )}
               </p>
             </header>
+            {c.id === 'pizza' && <BuilderCta />}
             <div class="dish-list">
               {c.products.map((p) => (
                 <Dish product={p} categoryName={c.name} />
@@ -124,6 +127,7 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
       </div>
     </aside>
   </div>
+  <Builder />
 </Base>
 
 <script>
@@ -392,6 +396,9 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
       gap: 0.6rem;
       margin-top: 1.1rem;
     }
+  }
+  .menu-col.is-searching :global(.pbc) {
+    display: none;
   }
   .search-status:empty {
     display: none;
