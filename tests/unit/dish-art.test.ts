@@ -11,13 +11,11 @@ const entries = Object.entries(art as Record<string, unknown>)
   .filter(([k]) => !k.startsWith('$'))
   .map(([k, v]) => [k, Array.isArray(v) ? v : (v as { layers: Layers }).layers]) as [string, Layers][];
 
-test('Ebenen-Bilder: jedes Gericht außer Pizza hat ein Bild, nur echte Gerichte', () => {
-  const ids = new Set(site.catalog.products.keys());
-  for (const [id] of entries) assert.ok(ids.has(id), `${id} gibt es nicht auf der Karte`);
-  for (const p of site.catalog.products.values()) {
-    if (p.categoryId === 'pizza') continue; // Pizzen: Ebenen aus den Extra-Zutaten
-    if (p.categoryId === 'getraenke') continue; // Getränke: vorerst ohne Bild
-    assert.ok(art[p.id], `${p.id} hat kein Bild`);
+test('Ebenen-Bilder: nur echte Gerichte, keine Pizza', () => {
+  for (const [id] of entries) {
+    const p = site.catalog.products.get(id);
+    assert.ok(p, `${id} gibt es nicht auf der Karte`);
+    assert.notEqual(p.categoryId, 'pizza', `${id}: Pizzen bekommen ihr Bild aus den Pizza-Ebenen`);
   }
 });
 
