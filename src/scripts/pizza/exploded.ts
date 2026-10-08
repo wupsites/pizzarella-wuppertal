@@ -25,12 +25,14 @@ export function initExploded() {
         frag.appendChild(img);
         continue;
       }
-      // im kleinen Bild etwas weniger Stücke, sonst wirkt es unruhig
-      const n = Math.max(1, Math.round(L.n[0] * 0.8));
-      for (const s of spots(id, n)) {
+      // im kleinen Bild weniger, aber größere Stücke: man erkennt die Pizza
+      // am Belag, ohne dass es unruhig wird
+      const n = Math.max(3, Math.round(L.n[0] * (ids.length > 2 ? 0.4 : 0.5)));
+      const grow = L.size < 0.09 ? 1.9 : 1.55;
+      for (const s of spots(id, n, 0.66)) {
         const i = document.createElement('i');
         i.className = 'viz-pc';
-        i.style.cssText = `${tileCss(atlas, id, s.v)};left:${50 + s.x * 47}%;top:${50 + s.y * 47}%;width:${((47 * L.size * 2) / 0.68).toFixed(2)}%;transform:translate(-50%,-50%) rotate(${s.rot}deg) scale(${s.scale});z-index:${(L.z + 1) * 10 + k}`;
+        i.style.cssText = `${tileCss(atlas, id, s.v)};left:${50 + s.x * 47}%;top:${50 + s.y * 47}%;width:${((47 * L.size * 2 * grow) / 0.68).toFixed(2)}%;transform:translate(-50%,-50%) rotate(${s.rot}deg) scale(${s.scale});z-index:${(L.z + 1) * 10 + k}`;
         frag.appendChild(i);
       }
     }

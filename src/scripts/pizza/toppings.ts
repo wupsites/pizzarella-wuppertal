@@ -94,60 +94,31 @@ function dots(c: Ctx, R: number, r: Rnd, n: number, size: number, color: string,
 }
 
 // ---------------------------------------------------------------- über die ganze Fläche
-function drizzle(color: string, width: number, alpha: number): Paint {
+/** gebackene Sauce (Hollandaise): ein paar cremige, glänzende Flecken – keine Linien */
+function puddles(light: string, deep: string): Paint {
   return (c, R, r) => {
-    // R = halber Kachelrand; ein paar lockere, ungleichmäßige Schwünge wie
-    // aus der Flasche – nie ein Raster
-    const lim = R * 0.74;
-    c.save();
-    c.lineCap = 'round';
-    c.lineJoin = 'round';
-    const lines = 3;
-    for (let k = 0; k < lines; k++) {
-      const pts: [number, number][] = [];
-      const ang = r() * TAU;
-      const off = (k / (lines - 1) - 0.5) * lim * 1.3 + (r() - 0.5) * lim * 0.15;
-      const ca = Math.cos(ang);
-      const sa = Math.sin(ang);
-      const steps = 9;
-      for (let i = 0; i <= steps; i++) {
-        const t = (i / steps - 0.5) * 2 * lim;
-        const wav = Math.sin(i * 1.7 + r() * 0.8) * lim * 0.12;
-        const x = t;
-        const y = off + wav;
-        if (x * x + y * y > lim * lim) continue;
-        pts.push([x * ca - y * sa, x * sa + y * ca]);
-      }
-      if (pts.length < 3) continue;
-      const path = () => {
-        c.beginPath();
-        c.moveTo(pts[0][0], pts[0][1]);
-        for (let i = 1; i < pts.length - 1; i++) {
-          const mx = (pts[i][0] + pts[i + 1][0]) / 2;
-          const my = (pts[i][1] + pts[i + 1][1]) / 2;
-          c.quadraticCurveTo(pts[i][0], pts[i][1], mx, my);
-        }
-        c.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
-      };
-      const w = R * width * (0.8 + r() * 0.5);
-      c.globalAlpha = alpha;
-      c.strokeStyle = color;
-      c.lineWidth = w;
-      c.shadowColor = 'rgba(60,24,4,0.22)';
-      c.shadowBlur = w * 0.6;
-      c.shadowOffsetY = w * 0.25;
-      path();
-      c.stroke();
-      c.shadowColor = 'transparent';
-      c.globalAlpha = alpha * 0.5;
-      c.strokeStyle = 'rgba(255,252,235,0.9)';
-      c.lineWidth = w * 0.28;
-      c.translate(-w * 0.12, -w * 0.12);
-      path();
-      c.stroke();
-      c.translate(w * 0.12, w * 0.12);
+    // R = halbe Kachel; flache, glänzende Saucenflecken – zum Rand hin
+    // durchscheinend, so wie Sauce in den Käse einläuft
+    const lim = R * 0.6;
+    const n = 8;
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * TAU + r() * 0.8;
+      const d = (i === 0 ? 0 : 0.5 + r() * 0.45) * lim;
+      const x = Math.cos(a) * d;
+      const y = Math.sin(a) * d;
+      const rr = R * (0.065 + r() * 0.045);
+      c.save();
+      blob(c, x, y, rr * 1.5, rr, r, 0.32, 12, r() * TAU);
+      const g = c.createRadialGradient(x - rr * 0.25, y - rr * 0.3, rr * 0.05, x, y, rr * 1.5);
+      g.addColorStop(0, light);
+      g.addColorStop(0.55, deep);
+      g.addColorStop(1, 'rgba(226,170,70,0.15)');
+      c.fillStyle = g;
+      c.globalAlpha = 0.78;
+      c.fill();
+      c.restore();
+      gloss(c, x - rr * 0.3, y - rr * 0.3, rr * 0.45, rr * 0.16, 0.4);
     }
-    c.restore();
   };
 }
 function oil(tint: string, flecks: string): Paint {
@@ -180,7 +151,7 @@ export const LOOKS: Record<string, Look> = {
   'mit-haehnchenbrustfilet': { z: 2, n: [8, 10], size: 0.15, variants: 4, short: 'Hähnchen' },
   'mit-haehnchen-doener-kebab': { z: 2, n: [10, 13], size: 0.14, variants: 4, short: 'Döner' },
   'mit-chicken-nuggets': { z: 3, n: [6, 8], size: 0.12, variants: 4, short: 'Nuggets' },
-  'mit-thunfisch': { z: 2, n: [7, 9], size: 0.13, variants: 4, short: 'Thunfisch' },
+  'mit-thunfisch': { z: 2, n: [7, 9], size: 0.15, variants: 4, short: 'Thunfisch' },
   'mit-sardellen': { z: 2, n: [6, 7], size: 0.15, variants: 3, short: 'Sardellen' },
   'mit-garnelen': { z: 2, n: [7, 9], size: 0.11, variants: 3, short: 'Garnelen' },
   'mit-frutti-di-mare': { z: 2, n: [10, 12], size: 0.1, variants: 3, short: 'Meeresfrüchte' },
@@ -204,7 +175,7 @@ export const LOOKS: Record<string, Look> = {
   'mit-parmesan': { z: 3, n: [10, 12], size: 0.08, variants: 4, short: 'Parmesan' },
   'mit-schafskaese': { z: 2, n: [10, 13], size: 0.07, variants: 4, short: 'Schafskäse' },
   'mit-gorgonzola': { z: 1, n: [9, 12], size: 0.08, variants: 4, short: 'Gorgonzola' },
-  'mit-sauce-hollandaise': { z: 3, n: [1, 1], size: 1, variants: 1, cover: true, paint: drizzle('#f4c94f', 0.055, 0.94), short: 'Hollandaise' },
+  'mit-sauce-hollandaise': { z: 3, n: [1, 1], size: 1, variants: 1, cover: true, paint: puddles('#fff5d6', '#f3d88c'), short: 'Hollandaise' },
   'knoblauch-oel': { z: 0, n: [1, 1], size: 1, variants: 1, cover: true, paint: oil('rgba(240,200,90,0.35)', 'rgba(245,238,205,0.95)'), short: 'Knoblauch-Öl' },
   'chili-oel': { z: 0, n: [1, 1], size: 1, variants: 1, cover: true, paint: oil('rgba(225,80,30,0.32)', 'rgba(170,30,15,0.95)'), short: 'Chili-Öl' },
 };

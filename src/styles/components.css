@@ -370,7 +370,7 @@ main:focus {
   grid-template-columns: auto minmax(0, 1fr) auto;
 }
 .dish-viz {
-  --vz: 6.75rem;
+  --vz: 7.75rem;
   position: relative;
   width: var(--vz);
   height: var(--vz);
@@ -523,7 +523,7 @@ img.viz-pc {
     grid-column: 1 / -1;
   }
   .dish-viz {
-    --vz: 4.6rem;
+    --vz: 5.6rem;
     align-self: start;
   }
   .viz-c {

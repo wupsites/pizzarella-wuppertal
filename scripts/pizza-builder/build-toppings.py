@@ -115,8 +115,8 @@ def render(mask, height, albedo, spec=0.25, shin=30, bump=6.0, wrap=0.15, ao=0.3
     if sheen is not None:
         col += sheen[..., None] * np.array([0.9, 0.95, 1.0], np.float32)
     # Kontaktschatten (versetzt, weich) unter die Form
-    sh = cv2.GaussianBlur(mask, (0, 0), 3.2 * SS)
-    sh = np.roll(np.roll(sh, int(2.2 * SS), 0), int(1.2 * SS), 1) * shadow
+    sh = cv2.GaussianBlur(mask, (0, 0), 2.0 * SS)
+    sh = np.roll(np.roll(sh, int(1.5 * SS), 0), int(0.9 * SS), 1) * min(0.62, shadow * 1.3)
     a = mask + sh * (1 - mask)
     rgb = (col * mask[..., None] + np.array([0.06, 0.12, 0.2], np.float32) * (sh * (1 - mask))[..., None]) / np.maximum(a, 1e-4)[..., None]
     return np.dstack([np.clip(rgb, 0, 1), np.clip(a, 0, 1)])
@@ -214,19 +214,19 @@ def mushroom(seed):
     capd = np.hypot(px / 1.05, (py - R0 * 0.18) / 0.7)
     rim = np.clip(1 - np.abs(capd - R0 * 0.93) / (R0 * 0.08), 0, 1) * (py < R0 * 0.2)
     gills = (0.5 + 0.5 * np.sin(np.arctan2(py - R0 * 0.2, px) * 30 + fbm(10, 2, seed) * 3)) * (py < R0 * 0.16) * (capd < R0 * 0.8)
-    base = hexcol('#ead7b6')
-    alb = mix(base, hexcol('#cfb38a'), gills * 0.35 + fbm(24, 3, seed + 1) * 0.35)
-    alb = alb * (1 - rim[..., None] * 0.9) + hexcol('#7c5636')[None, None] * rim[..., None] * 0.9
-    # im Ofen leicht gebräunt, saftig
-    alb = alb * (1 - 0.1 * fbm(40, 3, seed + 2)[..., None])
+    base = hexcol('#e0bf8e')
+    alb = mix(base, hexcol('#a9784a'), gills * 0.45 + fbm(24, 3, seed + 1) * 0.4)
+    alb = alb * (1 - rim[..., None] * 0.95) + hexcol('#5e3a1f')[None, None] * rim[..., None] * 0.95
+    # im Ofen gebräunt, saftig
+    alb = alb * (1 - 0.18 * fbm(40, 3, seed + 2)[..., None])
     h = dome(m, 12, 0.5) * 0.5 + fbm(8, 2, seed + 3) * 0.06 - gills * 0.03
     return render(m, h, alb, spec=0.18, shin=14, bump=4, wrap=0.4)
 
 def pepper_strip(seed, color):
     r = np.random.default_rng(seed)
     rad = R0 * r.uniform(1.15, 1.6)
-    span = r.uniform(0.95, 1.25)
-    wdt = R0 * r.uniform(0.32, 0.4)
+    span = r.uniform(0.8, 1.05)
+    wdt = R0 * r.uniform(0.4, 0.48)
     rot = r.uniform(0, TAU)
     cx, cy = C + math.cos(rot + math.pi / 2) * (rad - wdt / 2), C + math.sin(rot + math.pi / 2) * (rad - wdt / 2)
     ang = np.arctan2(YY - cy, XX - cx)
@@ -249,7 +249,7 @@ def onion(seed):
     st = r.uniform(0, TAU)
     span = r.uniform(2.4, 4.4)
     out = np.zeros((W, W, 4), np.float32)
-    for k, (ro, ri) in enumerate(((1.0, 0.78), (0.74, 0.54))):
+    for k, (ro, ri) in enumerate(((1.0, 0.72), (0.68, 0.44))):
         if k == 1 and r.uniform() < 0.35:
             continue
         ang = np.arctan2(YY - C, XX - C)
@@ -262,7 +262,7 @@ def onion(seed):
         h = np.sqrt(np.clip(1 - across**2, 0, 1)) * m
         # außen kräftig violett, innen glasig hell – im Ofen weich geworden
         skin = np.clip((across + 0.35) / 1.35, 0, 1) ** 1.6
-        alb = mix(hexcol('#e4d0d8'), hexcol('#76315e'), skin * 0.9 + fbm(16, 2, seed + k) * 0.08)
+        alb = mix(hexcol('#ead5e2'), hexcol('#6a1f55'), skin * 0.95 + fbm(16, 2, seed + k) * 0.08)
         out = over(out, render(m, h, alb, spec=0.18, shin=20, bump=4, wrap=0.55, ao=0.12, shadow=0.2))
     return out
 
@@ -273,12 +273,18 @@ def ring_slice(seed, skin, flesh, seeds_col, glossy=0.8, hole=False):
     outer = fill(organic(rx, ry, seed, 0.04, rot=rot))
     inner = fill(organic(rx * 0.7, ry * 0.7, seed + 1, 0.06, rot=rot))
     if hole:
-        m = np.clip(outer - fill(organic(rx * 0.46, ry * 0.46, seed + 2, 0.05, rot=rot)), 0, 1)
+        # Olivenscheibe: unregelmäßig, flach geschnitten, Schnittfläche etwas
+        # heller als die glänzende Haut außen
+        outer = fill(organic(rx, ry, seed, 0.07, rot=rot, freq=(2, 3, 5)))
+        m = np.clip(outer - fill(organic(rx * 0.42, ry * 0.42, seed + 2, 0.1, rot=rot, freq=(2, 3, 4))), 0, 1)
+        m = np.clip((smooth(m, 0.6) - 0.5) * 2.6 + 0.5, 0, 1)
         d = np.hypot((XX - C) / rx, (YY - C) / ry)
-        across = (d - 0.73) / 0.27
-        h = np.sqrt(np.clip(1 - across**2, 0, 1))
-        alb = mix(hexcol(skin), hexcol('#4a3640'), fbm(12, 2, seed) * 0.35)
-        return render(m, h, alb, spec=glossy * 0.55, shin=36, bump=7, wrap=0.2, ao=0.2)
+        across = np.clip((d - 0.71) / 0.29, -1, 1)
+        h = np.sqrt(np.clip(1 - across**2, 0, 1)) * 0.45 + fbm(8, 2, seed) * 0.12
+        skin_band = np.clip((across - 0.45) / 0.4, 0, 1)
+        cut = mix(hexcol('#3b2a30'), hexcol('#22181c'), fbm(10, 3, seed) * 0.8)
+        alb = cut * (1 - skin_band[..., None]) + hexcol('#140e10')[None, None] * skin_band[..., None]
+        return render(m, h, alb, spec=glossy * 0.4, shin=28, bump=5, wrap=0.3, ao=0.15)
     m = outer
     rim = np.clip(outer - inner, 0, 1)
     alb = mix(hexcol(flesh), hexcol(skin), rim)
@@ -322,10 +328,13 @@ def pineapple(seed):
     m = smooth(fill(poly), 2.2)
     m = np.clip((m - 0.5) * 2.5 + 0.5, 0, 1)
     px = (XX - C) * c + (YY - C) * s
-    fib = 0.5 + 0.5 * np.sin(px / (R0 * 0.06) + fbm(16, 2, seed) * 6)
-    alb = mix(hexcol('#f7d564'), hexcol('#dc9b22'), fib * 0.35 + fbm(30, 3, seed + 1) * 0.3)
-    h = dome(m, 14, 0.6) * 0.6 + fib * 0.12
-    return render(m, h, alb, spec=0.7, shin=40, bump=6, wrap=0.35)
+    fib = 0.5 + 0.5 * np.sin(px / (R0 * 0.045) + fbm(16, 2, seed) * 6)
+    alb = mix(hexcol('#f6d873'), hexcol('#d9a12e'), fib * 0.25 + fbm(30, 3, seed + 1) * 0.35)
+    # leicht karamellisierte Kante aus dem Ofen
+    edge = 1 - dome(m, 6, 1.0)
+    alb = alb * (1 - 0.15 * edge[..., None]) + hexcol('#b8731f')[None, None] * 0.15 * edge[..., None]
+    h = dome(m, 14, 0.6) * 0.55 + fib * 0.1
+    return render(m, h, alb, spec=0.55, shin=34, bump=6, wrap=0.45)
 
 
 def tomato(seed):
@@ -355,16 +364,18 @@ def tomato(seed):
 def tuna(seed):
     r = np.random.default_rng(seed)
     out = np.zeros((W, W, 4), np.float32)
-    for i in range(r.integers(5, 8)):
+    # wenige große Stücke statt Krümel – sonst ist Thunfisch im kleinen Bild nicht zu erkennen
+    for i in range(r.integers(4, 6)):
         a = r.uniform(0, TAU)
-        d = r.uniform(0, R0 * 0.55)
-        s = R0 * r.uniform(0.2, 0.32)
+        d = r.uniform(0, R0 * 0.5)
+        s = R0 * r.uniform(0.34, 0.46)
         rot = r.uniform(0, TAU)
         m = fill(organic(s, s * 0.62, seed + i * 3, 0.2, rot=rot, cx=C + math.cos(a) * d, cy=C + math.sin(a) * d))
         px = (XX - C) * math.cos(rot) + (YY - C) * math.sin(rot)
         flake = 0.5 + 0.5 * np.sin(px / (R0 * 0.045) + fbm(12, 2, seed + i) * 4)
-        alb = mix(hexcol('#dcc0a2'), hexcol('#b08868'), flake * 0.45 + fbm(14, 2, seed + i + 9) * 0.25)
-        h = dome(m, 6, 0.6) * 0.45 + flake * 0.2
+        # helles, rosa-braunes Fischfleisch mit dunklen Fasern – hebt sich von Sauce und Käse ab
+        alb = mix(hexcol('#e6c3a6'), hexcol('#8a5a3e'), flake**2 * 0.6 + fbm(14, 2, seed + i + 9) * 0.25)
+        h = dome(m, 6, 0.6) * 0.45 + flake * 0.28
         out = over(out, render(m, h, alb, spec=0.1, shin=16, bump=8, wrap=0.35, shadow=0.28))
     return out
 
@@ -374,11 +385,12 @@ def ham(seed):
     m = fill(organic(R0 * 0.95, R0 * 0.7, seed, 0.18, n=24, rot=rot, freq=(3, 5, 7)))
     m = np.clip((smooth(m, 0.6) - 0.5) * 3 + 0.5, 0, 1)
     marb = fbm(26, 3, seed + 1)
-    alb = mix(hexcol('#e7a29d'), hexcol('#f5cdc5'), np.clip((marb - 0.55) * 4, 0, 1) * 0.8)
+    alb = mix(hexcol('#dc9e94'), hexcol('#f1d2c6'), np.clip((marb - 0.5) * 3, 0, 1) * 0.75)
     edge = 1 - dome(m, 5, 1.0)
-    alb = alb * (1 - 0.18 * edge[..., None])
-    h = dome(m, 14, 0.5) * 0.3 + fbm(18, 3, seed + 2) * 0.25
-    return render(m, h, alb, spec=0.35, shin=25, bump=6, wrap=0.4, shadow=0.3)
+    # im Ofen leicht gebräunte, gewellte Ränder
+    alb = alb * (1 - 0.1 * edge[..., None]) + hexcol('#b4704c')[None, None] * 0.22 * edge[..., None]
+    h = dome(m, 14, 0.5) * 0.25 + fbm(18, 3, seed + 2) * 0.35
+    return render(m, h, alb, spec=0.28, shin=22, bump=7, wrap=0.4, shadow=0.32)
 
 
 def chicken(seed):

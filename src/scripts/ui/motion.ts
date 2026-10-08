@@ -24,6 +24,28 @@ export function initReveals() {
 export function initHeader() {
   const header = document.querySelector<HTMLElement>('.site-header');
   if (!header) return;
+  // Startseite: solange der Hero (auch gepinnt) unter der Kopfzeile liegt, bleibt
+  // sie durchsichtig – kein Weichzeichner über der animierten Pizza, der in
+  // jedem Bild neu berechnet werden müsste
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (hero && header.classList.contains('is-overlay') && 'IntersectionObserver' in window) {
+    let io: IntersectionObserver | null = null;
+    const watch = () => {
+      io?.disconnect();
+      const h = header.offsetHeight || 72;
+      io = new IntersectionObserver(([e]) => header.classList.toggle('is-scrolled', !e.isIntersecting), {
+        rootMargin: `0px 0px ${-(window.innerHeight - h)}px 0px`,
+      });
+      io.observe(hero);
+    };
+    watch();
+    let rt = 0;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(watch, 200);
+    });
+    return;
+  }
   let ticking = false;
   const update = () => {
     ticking = false;

@@ -63,3 +63,6 @@ if (siteMenu) {
     if ((e.target as HTMLElement).closest('a[href]')) closeDialog(siteMenu);
   });
 }
+
+// Messanzeige für echte Geräte (nur mit ?fps in der Adresse)
+if (/[?&]fps\b/.test(location.search)) void import('./ui/fps.ts').then((m) => m.startFps());

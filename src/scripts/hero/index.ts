@@ -175,6 +175,7 @@ function init(hero: HTMLElement) {
   // in kleinen Stufen senken – auf guter Hardware greift das nie
   let slowFrames = 0;
   let quality = 1;
+  let steamTick = 0;
   // Takt: schafft die GPU auf einem 120-Hz-Bildschirm keine 120 Bilder, wird
   // gleichmäßig mit 60 gezeichnet (statt unregelmäßig 70–100 → Ruckeln)
   let minDt = 1;
@@ -199,7 +200,7 @@ function init(hero: HTMLElement) {
     const dt = Math.min(0.1, rawDt);
     lastDraw = now;
     const t = now / 1000;
-    if (idle && gl && rawDt < 0.25) {
+    if (gl && rawDt < 0.25) {
       if (!half) {
         minDt = Math.min(minDt, rawDt);
         if (minDt < 0.0105) {
@@ -218,6 +219,7 @@ function init(hero: HTMLElement) {
         slowFrames = 0;
         gl.setQuality(quality);
         steam?.setQuality(quality);
+        document.documentElement.dataset.heroQuality = String(Math.round(quality * 100));
       }
     }
 
@@ -297,8 +299,11 @@ function init(hero: HTMLElement) {
       }
     }
 
-    // Dampf: Lage aus der Kamera (Oberseite als Ellipse), Licht aus Glut und Spot
-    if (steam) {
+    // Dampf: Lage aus der Kamera (Oberseite als Ellipse), Licht aus Glut und Spot.
+    // Er zieht langsam (zeitbasiert) – jedes zweite Bild reicht, die Hälfte der
+    // Rechenzeit geht an Pizza und Scrollen
+    steamTick++;
+    if (steam && (steamTick & 1) === 0) {
       const cam0 = camera(0, view.elev, STAGE_AR);
       const c = toHero(...project(cam0, [0, H_BASE, 0]));
       const ex = toHero(...project(cam0, [1, H_BASE, 0]));
@@ -476,7 +481,9 @@ function init(hero: HTMLElement) {
           pin: true,
           // hört man auf zu scrollen, rastet die Seite sanft beim nächsten Wortpaar ein
           snap: { snapTo: SNAP_AT, duration: { min: 0.35, max: 0.9 }, delay: 0.15, ease: 'power2.inOut' },
-          scrub: d ? 0.7 : 0.8,
+          // Mausrad/Trackpad glättet Lenis schon – doppelt geglättet fühlt sich
+          // schwammig an; am Handy (natives Scrollen) etwas mehr Glättung
+          scrub: d ? 0.3 : 0.5,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (st) => {

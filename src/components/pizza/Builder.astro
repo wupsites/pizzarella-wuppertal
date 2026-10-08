@@ -59,6 +59,7 @@ let step = 1;
               <div class="pb-pizza" data-pb-pizza style={`--sz:${size0.id === 'klein' ? 0.86 : 1}`}>
                 <img class="pb-base" src="/pizza/base-640.webp" srcset="/pizza/base-640.webp 640w, /pizza/base.webp 1024w" sizes="(min-width: 1024px) 560px, 70vw" width="640" height="640" alt="" loading="lazy" decoding="async" />
                 <div class="pb-tops" data-pb-tops />
+                <span class="pb-light" aria-hidden="true" />
               </div>
               <span class="pb-drop" aria-hidden="true" />
             </div>
@@ -381,6 +382,20 @@ let step = 1;
   }
   .pb-tops :global(img.pb-pc) {
     aspect-ratio: auto;
+  }
+  /* ein Licht für Boden und Belag: Zutaten wirken wie mitfotografiert */
+  .pb-light {
+    position: absolute;
+    inset: 0;
+    z-index: 900;
+    pointer-events: none;
+    /* genau auf die Pizza begrenzt (Form aus dem Bild selbst) */
+    -webkit-mask: url(/pizza/base-320.webp) center / 100% 100% no-repeat;
+    mask: url(/pizza/base-320.webp) center / 100% 100% no-repeat;
+    background:
+      radial-gradient(65% 55% at 34% 28%, rgb(255 246 225 / 0.32), transparent 62%),
+      radial-gradient(closest-side, transparent 66%, rgb(70 28 6 / 0.3));
+    mix-blend-mode: soft-light;
   }
   /* Ablegen: feiner Lichtring statt großer Zone */
   .pb-drop {
