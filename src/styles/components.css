@@ -372,8 +372,9 @@ main:focus {
 }
 .dish-viz {
   --vz: 7.75rem;
+  isolation: isolate;
   /* Stapel beim Auffächern etwas anheben, wenn er hoch wird (bleibt in der Karte) */
-  --lift: clamp(-6%, calc((var(--n) - 2) * -3%), 0%);
+  --lift: clamp(-8%, calc((var(--n) - 2) * -4%), 0%);
   position: relative;
   width: var(--vz);
   height: var(--vz);
@@ -395,7 +396,7 @@ main:focus {
 .viz-l {
   /* Lage im aufgefächerten Zustand: Abstand wächst mit der Zahl der Ebenen
      (höchstens 77 % der Bildhöhe von unten bis oben) */
-  --spread: min(77%, calc((var(--n) - 1) * 26%));
+  --spread: min(100%, calc((var(--n) - 1) * 33%));
   --off: calc(var(--spread) / 2 - var(--i) * var(--spread) / (var(--n) - 1) - 1.5%);
   position: absolute;
   inset: 0;
@@ -422,51 +423,73 @@ main:focus {
 img.viz-pc {
   aspect-ratio: auto;
 }
-/* Beschriftungen: Nummer + Name, mit Linie und Punkt an der jeweiligen Ebene */
+/* Beschriftungen: Chips mit Nummer und Name, mit Linie und Punkt an der Ebene.
+   Sie stehen dort, wo die Ebene im aufgefächerten Zustand liegt:
+   Mitte + Anhebung + Versatz × Vergrößerung (--kh) */
+.dish-viz {
+  --kh: 1.24;
+}
 .viz-cs {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: calc(var(--vz) + 1.5rem);
+  left: calc(var(--vz) * (0.5 + var(--kh) / 2) + 1.6rem);
   z-index: 3;
   width: max-content;
   pointer-events: none;
 }
 .viz-c {
-  /* gleiche Rechnung wie bei der Ebene: Höhe der Ebene im aufgefächerten Zustand */
-  --spread: min(77%, calc((var(--n) - 1) * 26%));
+  --spread: min(100%, calc((var(--n) - 1) * 33%));
   --off: calc(var(--spread) / 2 - var(--i) * var(--spread) / (var(--n) - 1) - 1.5%);
   position: absolute;
   left: 0;
-  top: calc(50% + var(--off) * 1.1 + var(--lift));
+  top: calc(50% + var(--lift) + var(--off) * var(--kh) * 1.08);
   display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.34rem 0.85rem 0.34rem 0.36rem;
+  border-radius: 999px;
+  background: rgb(255 252 246 / 0.96);
+  box-shadow:
+    0 0 0 1px rgb(28 21 17 / 0.07),
+    0 10px 22px -12px rgb(60 30 4 / 0.45);
   font-family: var(--font-display);
   font-variation-settings: 'SOFT' 100;
-  font-weight: 600;
-  font-size: 1.06rem;
-  line-height: 1;
-  letter-spacing: -0.012em;
+  font-weight: 650;
+  font-size: 1.04rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   color: var(--ink);
   opacity: 0;
-  transform: translate(-0.5rem, -50%);
+  transform: translate(-0.6rem, -50%) scale(0.92);
+  transform-origin: 0 50%;
 }
 .viz-c b {
+  display: grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
   font-family: var(--font-cond);
-  font-weight: 650;
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-  color: var(--tomato);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
 }
-/* oberste Ebene (Belag, Sauce …) betont */
+/* oberste Ebene (Belag, Sauce …): der Star – kräftiger Chip */
 .viz-c--top {
-  font-style: italic;
+  background: var(--tomato);
+  color: #fff;
+  box-shadow: 0 12px 24px -10px rgb(200 54 27 / 0.6);
+}
+.viz-c--top b {
+  background: #fff;
   color: var(--tomato);
 }
-/* Linie vom Rand der Ebene zur Beschriftung, Punkt sitzt auf dem Rand */
+/* Linie vom Rand der Ebene zum Chip, Punkt sitzt auf dem Rand */
 .viz-c::before,
 .viz-c::after {
   content: '';
@@ -475,33 +498,48 @@ img.viz-pc {
   pointer-events: none;
 }
 .viz-c::before {
-  right: calc(100% + 0.45rem);
-  width: 1.35rem;
-  height: 1px;
-  margin-top: -0.5px;
-  background: rgb(28 21 17 / 0.45);
+  right: calc(100% + 0.3rem);
+  width: 1.3rem;
+  height: 1.5px;
+  margin-top: -0.75px;
+  border-radius: 1px;
+  background: rgb(28 21 17 / 0.4);
   transform: scaleX(0);
-  transform-origin: 0 50%;
+  transform-origin: 100% 50%;
 }
 .viz-c::after {
-  right: calc(100% + 0.45rem + 1.35rem - 3px);
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
+  right: calc(100% + 0.3rem + 1.3rem - 3.5px);
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
   border-radius: 50%;
   background: var(--ink);
-  box-shadow: 0 0 0 3px rgb(250 245 236 / 0.9);
+  box-shadow: 0 0 0 3px rgb(255 252 246 / 0.95);
   transform: scale(0);
 }
 .viz-c--top::after {
   background: var(--tomato);
 }
+/* warmes Licht hinter der aufgefächerten Pizza */
+.dish-viz::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(242 181 58 / 0.34), rgb(242 181 58 / 0.12) 55%, transparent 72%);
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+}
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  /* ---- Ruhe → zurück: zügig und ohne Nachfedern ---- */
+  /* ---- Ruhe → zurück: zügig, ohne Nachfedern ---- */
   .viz-stage {
-    perspective: 34rem;
-    perspective-origin: 50% -30%;
-    transition: transform 380ms var(--ease-rise);
+    /* schwache Perspektive, Blick von leicht oben: alle Ebenen werden gleich
+       flach – wie eine Explosionszeichnung, keine „Schüssel“ */
+    perspective: 70rem;
+    perspective-origin: 50% 20%;
+    transition: transform 420ms var(--ease-rise);
   }
   .viz-stage::before {
     transition:
@@ -509,7 +547,12 @@ img.viz-pc {
       opacity 420ms var(--ease-rise);
   }
   .viz-l {
-    transition: transform 380ms var(--ease-rise);
+    transition: transform 420ms var(--ease-rise);
+  }
+  .dish-viz::before {
+    transition:
+      opacity 360ms var(--ease-rise),
+      transform 520ms var(--ease-rise);
   }
   .viz-c {
     transition:
@@ -523,24 +566,36 @@ img.viz-pc {
   .dish--viz .dish-main {
     transition:
       opacity 260ms var(--ease-rise),
-      transform 360ms var(--ease-rise);
+      transform 420ms var(--ease-rise),
+      filter 260ms var(--ease-rise);
+  }
+  /* die Karte mit dem aufgefächerten Bild liegt über den Nachbarn */
+  .dish--viz:has(.dish-viz:hover) {
+    position: relative;
+    z-index: 4;
   }
 
-  /* ---- Hover: das Gericht kippt nach hinten und fächert sich auf.
-         Echte 3D-Lage (perspective + rotateX) statt flach gestaucht; jede
-         Ebene federt mit Versatz an ihren Platz und dreht sich dabei leicht ---- */
+  /* ---- Hover: die Pizza springt aus der Karte, kippt nach hinten und
+         fächert sich auf. Jede Ebene federt mit Versatz (von unten nach oben)
+         an ihren Platz; danach dreht sich der Stapel langsam wie auf einem
+         Plattenteller, der Belag schwebt leicht. ---- */
+  .dish-viz:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
   .dish-viz:hover .viz-stage {
-    transform: translateY(var(--lift)) scale(1.1);
-    transition: transform 520ms var(--ease-settle);
+    transform: translateY(var(--lift)) scale(var(--kh));
+    transition: transform 620ms var(--ease-settle);
   }
   .dish-viz:hover .viz-stage::before {
-    transform: translateY(54%) scale(1.15, 0.42);
-    opacity: 0.75;
-    transition-duration: 620ms;
+    transform: translateY(58%) scale(1.2, 0.4);
+    opacity: 0.8;
+    transition-duration: 700ms;
   }
   .dish-viz:hover .viz-l {
-    transform: translateY(var(--off)) rotateX(70deg) rotateZ(var(--rz, 0deg));
-    transition: transform 760ms var(--ease-settle) calc(var(--i) * 45ms);
+    transform: translateY(calc(var(--off) * 1.08)) rotateX(66deg) rotateZ(var(--rz, 0deg));
+    transition: transform 820ms var(--ease-settle) calc(var(--i) * 70ms);
+    animation: viz-turn 26s linear calc(900ms + var(--i) * 70ms) infinite;
   }
   /* Seitenansicht (Döner im Brot, Getränk im Glas): nicht kippen, nur senkrecht
      auseinander – wie eine Explosionszeichnung */
@@ -549,41 +604,51 @@ img.viz-pc {
   }
   .dish-viz.is-up:hover .viz-l {
     transform: translateY(var(--off));
+    animation: none;
   }
-  /* danach schwebt die oberste Ebene ganz leicht weiter, die darunter gegenläufig */
+  /* oberste Ebene schwebt leicht */
   .dish-viz:hover .viz-l:last-child {
-    animation: viz-float 2.4s ease-in-out 900ms infinite alternate;
-  }
-  .dish-viz:hover .viz-l:nth-last-child(2):not(:first-child) {
-    animation: viz-float 2.4s ease-in-out 1100ms infinite alternate-reverse;
+    animation:
+      viz-turn 26s linear calc(900ms + var(--i) * 70ms) infinite,
+      viz-float 2.6s ease-in-out 1s infinite alternate;
   }
 
-  /* Beschriftungen: Linie zeichnet sich, Punkt springt auf, Text gleitet nach */
+  /* Beschriftungen: Linie zeichnet sich vom Chip zur Ebene, Punkt springt
+     auf, der Chip gleitet nach – von oben nach unten nacheinander */
   .dish-viz:hover .viz-c {
     opacity: 1;
-    transform: translate(0, -50%);
+    transform: translate(0, -50%) scale(1);
     transition:
-      opacity 280ms var(--ease-rise) calc(260ms + var(--j) * 70ms),
-      transform 520ms var(--ease-settle) calc(260ms + var(--j) * 70ms);
+      opacity 300ms var(--ease-rise) calc(300ms + var(--j) * 80ms),
+      transform 560ms var(--ease-settle) calc(300ms + var(--j) * 80ms);
   }
   .dish-viz:hover .viz-c::before {
     transform: scaleX(1);
-    transition: transform 360ms var(--ease-rise) calc(220ms + var(--j) * 70ms);
+    transition: transform 380ms var(--ease-rise) calc(380ms + var(--j) * 80ms);
   }
   .dish-viz:hover .viz-c::after {
     transform: scale(1);
-    transition: transform 420ms var(--ease-settle) calc(200ms + var(--j) * 70ms);
+    transition: transform 460ms var(--ease-settle) calc(620ms + var(--j) * 80ms);
   }
 
-  /* Text daneben macht Platz, solange die Beschriftungen da sind */
+  /* Text daneben tritt zurück, solange die Beschriftungen da sind */
   .dish--viz:has(.dish-viz:hover) .dish-main {
     opacity: 0;
-    transform: translateX(0.75rem);
+    transform: translateX(1.25rem);
+    filter: blur(2px);
+  }
+}
+@keyframes viz-turn {
+  from {
+    transform: translateY(calc(var(--off) * 1.08)) rotateX(66deg) rotateZ(var(--rz, 0deg));
+  }
+  to {
+    transform: translateY(calc(var(--off) * 1.08)) rotateX(66deg) rotateZ(calc(var(--rz, 0deg) + 360deg));
   }
 }
 @keyframes viz-float {
   to {
-    translate: 0 -3%;
+    translate: 0 -4%;
   }
 }
 @media (max-width: 639px) {
