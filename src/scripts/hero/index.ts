@@ -174,6 +174,9 @@ function init(hero: HTMLElement) {
   let slowFrames = 0;
   let quality = 1;
   let steamTick = 0;
+  // Licht im Dampf: geglättet und ohne das schnelle Flackern der Glut – sonst
+  // blitzt der Dampf (nur jedes zweite Bild gezeichnet) sprunghaft hell auf
+  let steamLight = -1;
   // Takt: schafft die GPU auf einem 120-Hz-Bildschirm keine 120 Bilder, wird
   // gleichmäßig mit 60 gezeichnet (statt unregelmäßig 70–100 → Ruckeln)
   let minDt = 1;
@@ -310,6 +313,8 @@ function init(hero: HTMLElement) {
     // Dampf: Lage aus der Kamera (Oberseite als Ellipse), Licht aus Glut und Spot.
     // Er zieht langsam (zeitbasiert) – jedes zweite Bild reicht, die Hälfte der
     // Rechenzeit geht an Pizza und Scrollen
+    const lightTarget = Math.max(0, S.glow + 0.3 * bloom);
+    steamLight = steamLight < 0 ? lightTarget : steamLight + (lightTarget - steamLight) * (1 - Math.exp(-dt * 1.2));
     steamTick++;
     const beat = pace === 2 || (steamTick & 1) === 0;
     if (beat) drawDust?.(now);
@@ -324,8 +329,8 @@ function init(hero: HTMLElement) {
       steam.draw({
         time: t,
         ell: [c.x, c.y, rx, ry],
-        oven: [c.x + oven * rx * 0.55, c.y - ry * 0.95, Math.max(0, glow) * (1 + flicker)],
-        beam: [G.w / 2, lx * 2.4 * DEG, beamO],
+        oven: [c.x + oven * rx * 0.55, c.y - ry * 0.95, steamLight],
+        beam: [G.w / 2, lx * 2.4 * DEG, Math.min(1, Math.max(0, 0.7 + (steamLight - 1) * 0.6)) * (1 - 0.55 * dim)],
         // im Dunkeln bleibt der Dampf vor der Glut sichtbar
         amount: (idle ? 0.35 + 0.65 * iw : 1) * (1 - 0.6 * S.out),
       });
