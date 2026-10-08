@@ -14,6 +14,9 @@ import { choicePrice } from './catalog.ts';
 
 export const BASE_PRODUCT = 'pizza-margherita';
 export const TOPPING_GROUP = 'pizza-zutaten';
+/** Sauce Hollandaise ersetzt auf der Pizza die Tomatensauce (wie auf der Karte) */
+export const HOLLANDAISE = 'mit-sauce-hollandaise';
+export const HOLLANDAISE_NOTE = 'Hollandaise statt Tomatensauce';
 
 interface SectionDef {
   id: string;

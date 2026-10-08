@@ -20,14 +20,22 @@ export interface Viz {
   layers: VizLayer[];
   /** nur Pizza: Belag (Extra-Zutaten), wird im Browser verteilt */
   tops?: string[];
+  /** Seitenansicht (Döner im Brot, Getränk im Glas): Ebenen gehen senkrecht auseinander */
+  up?: boolean;
 }
 
-const table = art as unknown as Record<string, [string, string][] | string>;
+type Layers = [string, string][];
+const table = art as unknown as Record<string, Layers | { up: boolean; layers: Layers } | string>;
 
 export function artFor(productId: string): Viz | null {
   const entry = table[productId];
-  if (!Array.isArray(entry) || entry.length < 2) return null;
-  return { layers: entry.map(([file, label]) => ({ src: file.startsWith('/') ? file : `/dishes/${file}.webp`, label })) };
+  if (!entry || typeof entry === 'string') return null;
+  const layers = Array.isArray(entry) ? entry : entry.layers;
+  if (layers.length < 2) return null;
+  return {
+    up: !Array.isArray(entry) && entry.up,
+    layers: layers.map(([file, label]) => ({ src: file.startsWith('/') ? file : `/dishes/${file}.webp`, label })),
+  };
 }
 
 /** alle Gerichte mit Bild (für Tests) */

@@ -1,95 +1,1078 @@
 {
-  "$comment": "Bild-Ebenen je Gericht (von unten nach oben): [Datei in public/dishes/ ohne .webp, Beschriftung]. Beschriftet wird nur, was in der Beschreibung der Karte steht; leere Beschriftung = Gefäß/Unterlage. Ebenen erzeugt scripts/dish-art/build.py. Pfade mit / am Anfang sind absolute Pfade.",
-  "party-pizza-margherita": [["party-crust", "Teig"], ["party-sauce", "Tomatensauce"], ["party-cheese", "Käse"]],
-  "party-pizza-nach-wahl": [["party-crust", "Teig"], ["party-sauce", "Tomatensauce"], ["party-cheese", "Käse · Belag nach Wahl"]],
-
-  "doenertasche": [["pocket", "Fladenbrot"], ["pocket-meat", "Hähnchen-Kebab"], ["pocket-salad", "Eisberg- & Krautsalat"], ["pocket-veg", "Zwiebeln · Gurken · Tomaten"], ["pocket-sauce", "Sauce"]],
-  "doenertasche-mit-gegrilltem-gemuese": [["pocket", "Fladenbrot"], ["pocket-meat", "Hähnchen-Kebab"], ["pocket-grilled", "Gegrilltes Gemüse"], ["pocket-salad-mix", "Salat · Zwiebeln · Gurken · Tomaten"], ["pocket-sauce", "Sauce"]],
-  "doenertasche-mit-pommes": [["pocket", "Fladenbrot"], ["pocket-fries", "Pommes"], ["pocket-meat", "Hähnchen-Kebab"], ["pocket-salad-mix", "Salat · Zwiebeln · Gurken · Tomaten"], ["pocket-sauce", "Sauce"]],
-  "chilicheese-doenertasche": [["pocket", "Fladenbrot"], ["pocket-fries", "Pommes"], ["pocket-meat", "Hähnchen-Kebab"], ["pocket-salad-mix", "Salat · Zwiebeln · Gurken · Tomaten"], ["pocket-jalapenos", "Jalapeños"], ["pocket-sauce", "Sauce"]],
-  "doener-box": [["box", ""], ["box-fries", "Pommes"], ["box-meat", "Hähnchen-Kebab"], ["box-sauce", "Sauce"]],
-  "doenerteller": [["plate", ""], ["plate-fries", "Pommes oder Reis"], ["plate-meat", "Hähnchen-Kebab"], ["plate-salad", "Salat"], ["plate-sauce", "Sauce"]],
-  "doener-dueruem": [["yufka", "Dürümwrap"], ["wrap-meat", "Hähnchen-Kebab"]],
-  "sucuk-tasche": [["pocket", "Fladenbrot"], ["pocket-fries", "Pommes"], ["pocket-sucuk", "Sucuk"], ["pocket-greens", "Salat"], ["pocket-sauce", "Sauce"]],
-  "gemuesetasche": [["pocket", "Fladenbrot"], ["pocket-grilled", "Zucchini · Auberginen · Paprika"], ["pocket-greens", "Salat"], ["pocket-sauce", "Sauce"]],
-  "pommes-tasche": [["pocket", "Fladenbrot"], ["pocket-fries", "Pommes"], ["pocket-greens", "Salat"], ["pocket-sauce", "Sauce"]],
-
-  "lahmacun-doener": [["lahmacun", "Lahmacun"], ["lahm-meat", "Hähnchen-Kebab"], ["lahm-salad", "Salat"], ["lahm-sauce", "Sauce"]],
-  "lahmacun": [["lahmacun", "Lahmacun"], ["lahm-salad", "Salat"], ["lahm-sauce", "Sauce"]],
-
-  "falafeltasche": [["pocket", "Fladenbrot"], ["pocket-falafel", "Falafel (Kichererbsen)"], ["pocket-greens", "Salat"], ["pocket-sauce", "Sauce"]],
-  "gemuese-falafeltasche": [["pocket", "Fladenbrot"], ["pocket-grilled", "Gegrilltes Gemüse"], ["pocket-falafel", "Falafel"], ["pocket-greens", "Salat"], ["pocket-sauce", "Sauce"]],
-  "falafel-dueruem": [["yufka", "Dürümwrap"], ["wrap-falafel", "Falafel"]],
-  "falafelteller": [["plate", ""], ["plate-fries", "Pommes"], ["plate-falafel", "Falafel"], ["plate-salad", "Salat"], ["plate-sauce", "Sauce"]],
-  "falafel-box": [["box", ""], ["box-fries", "Pommes"], ["box-falafel", "Falafel"], ["box-sauce", "Sauce"]],
-
-  "spaghetti-napoli": [["plate", ""], ["pasta-spaghetti", "Spaghetti"], ["sauce-napoli", "Pikante Tomatensauce"]],
-  "spaghetti-aglio-olio": [["plate", ""], ["pasta-spaghetti", "Spaghetti"], ["pasta-aglio", ""], ["pasta-garlic-chili", "Knoblauch · Peperoni"]],
-  "spaghetti-bolognese": [["plate", ""], ["pasta-spaghetti", "Spaghetti"], ["sauce-bolognese", "Tomaten-Hackfleischsauce"]],
-  "spaghetti-carbonara": [["plate", ""], ["pasta-spaghetti", "Spaghetti"], ["sauce-carbonara", "Ei & Käse-Sahnesauce"], ["pasta-ham", "Putenschinken"]],
-  "penne-arrabiata": [["plate", ""], ["pasta-penne", "Penne"], ["sauce-arrabiata", "Scharfe Tomatensauce"], ["pasta-chili", "Chilischoten"]],
-  "penne-quattro-formaggi": [["plate", ""], ["pasta-penne", "Penne"], ["sauce-formaggi", "Sahnesauce"], ["pasta-cheese", "Vier Käsesorten"]],
-  "penne-ela": [["plate", ""], ["pasta-penne", "Penne"], ["sauce-hollandaise", "Sauce Hollandaise"], ["pasta-chicken-broccoli", "Hähnchenbrustfilet · Broccoli"]],
-  "penne-fresh": [["plate", ""], ["pasta-penne", "Penne"], ["sauce-cremefraiche", "Crème-fraîche-Sahnesauce"], ["pasta-onions-spinach", "Zwiebeln · Spinat"], ["pasta-chicken-mushrooms", "Hähnchenbrustfilet · Champignons"]],
-  "tagliatelle-mediteran": [["plate", ""], ["pasta-tagliatelle", "Tagliatelle"], ["sauce-sahne", "Sahnesauce"], ["pasta-chicken-spinach", "Hähnchenbrustfilet · Spinat"]],
-  "tagliatelle-orient": [["plate", ""], ["pasta-tagliatelle", "Tagliatelle"], ["sauce-tomatensahne", "Tomaten-Sahnesauce"], ["pasta-kebab", "Hähnchen-Kebab"]],
-  "tagliatelle-indiano": [["plate", ""], ["pasta-tagliatelle", "Tagliatelle"], ["sauce-curry", "Curry-Sahnesauce"], ["pasta-chicken", "Hähnchenbrustfilet"]],
-  "tagliatelle-gamberetti": [["plate", ""], ["pasta-tagliatelle", "Tagliatelle"], ["sauce-rose", "Rosésauce"], ["pasta-shrimp", "Garnelen"]],
-
-  "pizzabroetchen": [["tray", ""], ["rolls", "Pizzabrötchen"]],
-  "pizzabroetchen-mit-kaese": [["tray", ""], ["rolls", "Pizzabrötchen"], ["roll-cheese", "Käse"]],
-  "pizzabroetchen-mit-fuellung-nach-wahl": [["tray", ""], ["rolls", "Pizzabrötchen · Füllung nach Wahl"], ["roll-cheese", "Käse"]],
-  "pizzabroetchen-speciale": [["tray", ""], ["rolls", "Pizzabrötchen"], ["roll-chicken", "Hähnchenbruststreifen"], ["roll-cheese", "Käse"], ["roll-hollandaise", "Sauce Hollandaise"]],
-  "pizzabroetchen-doener": [["tray", ""], ["rolls", "Pizzabrötchen"], ["roll-kebab", "Hähnchen-Kebab"], ["roll-cheese", "Käse"]],
-  "pizzabroetchen-doener-spezial": [["tray", ""], ["rolls", "Pizzabrötchen"], ["roll-kebab", "Hähnchen-Kebab"], ["roll-cheese", "Käse"], ["roll-hollandaise", "Sauce Hollandaise"]],
-  "pizzabroetchen-sucuk": [["tray", ""], ["rolls", "Pizzabrötchen"], ["roll-sucuk", "Sucuk"], ["roll-cheese", "Käse"]],
-
-  "insalata-mista": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"]],
-  "insalata-tonno": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"], ["salad-tuna-corn", "Thunfisch · Mais"]],
-  "insalata-rucola": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"], ["salad-rucola", "Rucola"]],
-  "insalata-fantasia": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"], ["salad-feta", "Schafskäse"]],
-  "insalata-capricciosa": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"], ["salad-capri1", "Putenschinken · Thunfisch · Ei"], ["salad-capri2", "Peperoni · Käse · Mais"]],
-  "insalata-mediteran": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"], ["salad-chicken", "Hähnchenbrustfilet"]],
-  "insalata-gamberetti": [["bowl", ""], ["salad-leaves", "Gemischter Salat"], ["salad-veg", "Tomaten · Gurken · Paprika · Oliven"], ["salad-shrimp-garlic", "Garnelen · Knoblauch"]],
-
-  "pommes": [["tray", ""], ["snack-fries", "Pommes"]],
-  "chilicheese-pommes": [["tray", ""], ["snack-fries", "Pommes"], ["snack-chilicheese", "Chilicheese-Sauce"]],
-  "chicken-nuggets": [["tray", ""], ["snack-nuggets", "6 Chicken Nuggets"]],
-  "kroketten": [["tray", ""], ["snack-croquettes", "Kroketten"]],
-  "onion-rings": [["tray", ""], ["snack-onionrings", "6 Onion Rings"]],
-  "mozzarella-sticks": [["tray", ""], ["snack-mozzarella", "6 Mozzarella Sticks"]],
-  "chili-cheese-nuggets": [["tray", ""], ["snack-ccnuggets", "6 Chili Cheese Nuggets"]],
-  "suesskartoffeln": [["tray", ""], ["snack-sweetfries", "Süßkartoffel-Pommes"]],
-
-  "tiramisu": [["dessert-plate", ""], ["tiramisu-base", "Kaffee"], ["tiramisu-cream", "Mascarpone"]],
-  "pizza-nutella": [["/pizza/thumb-crust.webp", "Pizzateig"], ["nutella-pizza", "Nutella"]],
-  "pizzabroetchen-nutella": [["tray", ""], ["rolls", "Pizzabrötchen"], ["roll-nutella", "Nutella"]],
-  "zimtschnecken": [["dessert-plate", ""], ["cinnamon", "Zimtschnecken"]],
-
-  "ketchup": [["dip-cup", ""], ["dip-ketchup", "Ketchup"]],
-  "mayonnaise": [["dip-cup", ""], ["dip-mayo", "Mayonnaise"]],
-  "joppiesauce": [["dip-cup", ""], ["dip-joppie", "Joppiesauce mit Zwiebeln"]],
-  "bbq-sauce": [["dip-cup", ""], ["dip-bbq", "BBQ-Sauce"]],
-  "suess-sauer-sauce": [["dip-cup", ""], ["dip-suesssauer", "Süß-Sauer-Sauce"]],
-  "curry-sauce": [["dip-cup", ""], ["dip-curry", "Curry-Sauce"]],
-  "knoblauchsauce": [["dip-cup", ""], ["dip-knoblauch", "Knoblauchsauce"]],
-  "cocktail-sauce": [["dip-cup", ""], ["dip-cocktail", "Cocktail-Sauce"]],
-  "salsa-sauce": [["dip-cup", ""], ["dip-salsa", "Salsa-Sauce"]],
-  "chilisauce": [["dip-cup", ""], ["dip-chili", "Chilisauce"]],
-  "chilicheese-sauce": [["dip-cup", ""], ["dip-chilicheese", "Chilicheese-Sauce"]],
-  "andalouse": [["dip-cup", ""], ["dip-andalouse", "Andalouse mit Paprika"]],
-  "samurai": [["dip-cup", ""], ["dip-samurai", "Samurai"]],
-  "kraeuterbutter": [["dip-cup", ""], ["dip-kraeuterbutter", "Kräuterbutter"]],
-  "chili-aioli": [["dip-cup", ""], ["dip-chiliaioli", "Chili-Aioli"]],
-
-  "cola": [["glass", ""], ["drink-cola", "Cola"], ["bubbles-cola", "Kohlensäure"]],
-  "cola-zero": [["glass", ""], ["drink-cola", "Cola Zero"], ["bubbles-cola", "Kohlensäure"]],
-  "fanta": [["glass", ""], ["drink-fanta", "Fanta"], ["bubbles", "Kohlensäure"]],
-  "sprite": [["glass", ""], ["drink-sprite", "Sprite"], ["bubbles", "Kohlensäure"]],
-  "mezzo-mix": [["glass", ""], ["drink-mezzo", "Mezzo Mix"], ["bubbles-cola", "Kohlensäure"]],
-  "wasser": [["glass", ""], ["drink-wasser", "Wasser"]],
-  "uludag-gazoz": [["glass", ""], ["drink-gazoz", "Uludağ Gazoz"], ["bubbles", "Kohlensäure"]],
-  "ayran": [["glass", ""], ["drink-ayran", "Ayran"]],
-  "eistee": [["glass", ""], ["drink-eistee", "Eistee Zitrone oder Pfirsich"]],
-  "red-bull": [["glass", ""], ["drink-redbull", "Red Bull"], ["bubbles", "Kohlensäure"]]
+ "$comment": "Bild-Ebenen je Gericht (von unten nach oben): [Datei in public/dishes/ ohne .webp, Beschriftung]. Beschriftet wird nur, was in der Beschreibung der Karte steht; leere Beschriftung = Gefäß/Unterlage. {\"up\": true, ...} = Seitenansicht, Ebenen gehen senkrecht auseinander. Erzeugt von scripts/dish-photos/build.py (Party-Pizza: scripts/dish-art/build.py).",
+ "andalouse": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "andalouse--dip-sauce",
+   "Andalouse mit Paprika"
+  ]
+ ],
+ "bbq-sauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "bbq-sauce--dip-sauce",
+   "BBQ-Sauce"
+  ]
+ ],
+ "chicken-nuggets": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "chicken-nuggets--snack-nuggets",
+   "6 Chicken Nuggets"
+  ]
+ ],
+ "chili-aioli": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "chili-aioli--dip-sauce",
+   "Chili-Aioli"
+  ]
+ ],
+ "chili-cheese-nuggets": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "chili-cheese-nuggets--snack-ccnuggets",
+   "6 Chili Cheese Nuggets"
+  ]
+ ],
+ "chilicheese-doenertasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-pommes--tasche-pommes",
+    "Pommes"
+   ],
+   [
+    "doenertasche--tasche-fuellung",
+    "Hähnchen-Kebab · Salat · Sauce"
+   ],
+   [
+    "chilicheese-doenertasche--tasche-jalapenos",
+    "Jalapeños"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "chilicheese-pommes": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pommes--snack-pommes",
+   "Pommes"
+  ],
+  [
+   "chilicheese-pommes--snack-chilicheese",
+   "Chilicheese-Sauce"
+  ]
+ ],
+ "chilicheese-sauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "chilicheese-sauce--dip-sauce",
+   "Chilicheese-Sauce"
+  ]
+ ],
+ "chilisauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "chilisauce--dip-sauce",
+   "Chilisauce"
+  ]
+ ],
+ "cocktail-sauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "cocktail-sauce--dip-sauce",
+   "Cocktail-Sauce"
+  ]
+ ],
+ "curry-sauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "curry-sauce--dip-sauce",
+   "Curry-Sauce"
+  ]
+ ],
+ "doener-box": [
+  [
+   "box",
+   ""
+  ],
+  [
+   "doener-box--box-pommes",
+   "Pommes"
+  ],
+  [
+   "doener-box--box-fleisch",
+   "Hähnchen-Kebab"
+  ],
+  [
+   "doener-box--box-sauce",
+   "Sauce"
+  ]
+ ],
+ "doener-dueruem": [
+  [
+   "duerum-teller",
+   ""
+  ],
+  [
+   "doener-dueruem--duerum-wrap",
+   "Dürümwrap mit Hähnchen-Kebab"
+  ]
+ ],
+ "doenertasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche--tasche-fuellung",
+    "Hähnchen-Kebab · Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "doenertasche-mit-gegrilltem-gemuese": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-gegrilltem-gemuese--tasche-gemuese",
+    "Gegrilltes Gemüse"
+   ],
+   [
+    "doenertasche--tasche-fuellung",
+    "Hähnchen-Kebab · Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "doenertasche-mit-pommes": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-pommes--tasche-pommes",
+    "Pommes"
+   ],
+   [
+    "doenertasche--tasche-fuellung",
+    "Hähnchen-Kebab · Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "doenerteller": [
+  [
+   "teller",
+   ""
+  ],
+  [
+   "doenerteller--teller-beilage",
+   "Pommes oder Reis"
+  ],
+  [
+   "doenerteller--teller-salat",
+   "Salat"
+  ],
+  [
+   "doenerteller--teller-fleisch",
+   "Hähnchen-Kebab"
+  ],
+  [
+   "doenerteller--teller-sauce",
+   "Sauce"
+  ]
+ ],
+ "falafel-box": [
+  [
+   "box",
+   ""
+  ],
+  [
+   "doener-box--box-pommes",
+   "Pommes"
+  ],
+  [
+   "falafel-box--box-falafel",
+   "Falafel"
+  ],
+  [
+   "doener-box--box-sauce",
+   "Sauce"
+  ]
+ ],
+ "falafel-dueruem": [
+  [
+   "duerum-teller",
+   ""
+  ],
+  [
+   "doener-dueruem--duerum-wrap",
+   "Dürümwrap"
+  ],
+  [
+   "falafel-dueruem--duerum-falafel",
+   "Falafel"
+  ]
+ ],
+ "falafeltasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "falafeltasche--tasche-falafel",
+    "Falafel"
+   ],
+   [
+    "sucuk-tasche--tasche-salat",
+    "Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "falafelteller": [
+  [
+   "teller",
+   ""
+  ],
+  [
+   "falafelteller--teller-beilage",
+   "Pommes"
+  ],
+  [
+   "doenerteller--teller-salat",
+   "Salat"
+  ],
+  [
+   "falafelteller--teller-falafel",
+   "Falafel"
+  ],
+  [
+   "doenerteller--teller-sauce",
+   "Sauce"
+  ]
+ ],
+ "gemuese-falafeltasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-gegrilltem-gemuese--tasche-gemuese",
+    "Gegrilltes Gemüse"
+   ],
+   [
+    "falafeltasche--tasche-falafel",
+    "Falafel"
+   ],
+   [
+    "sucuk-tasche--tasche-salat",
+    "Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "gemuesetasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-gegrilltem-gemuese--tasche-gemuese",
+    "Zucchini · Auberginen · Paprika"
+   ],
+   [
+    "sucuk-tasche--tasche-salat",
+    "Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "insalata-capricciosa": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ],
+  [
+   "insalata-capricciosa--salat-extra",
+   "Putenschinken · Thunfisch · Ei · Peperoni · Käse · Mais"
+  ]
+ ],
+ "insalata-fantasia": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ],
+  [
+   "insalata-fantasia--salat-extra",
+   "Schafskäse"
+  ]
+ ],
+ "insalata-gamberetti": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ],
+  [
+   "insalata-gamberetti--salat-extra",
+   "Garnelen · Knoblauch"
+  ]
+ ],
+ "insalata-mediteran": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ],
+  [
+   "insalata-mediteran--salat-extra",
+   "Hähnchenbrustfilet"
+  ]
+ ],
+ "insalata-mista": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ]
+ ],
+ "insalata-rucola": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ],
+  [
+   "insalata-rucola--salat-extra",
+   "Rucola"
+  ]
+ ],
+ "insalata-tonno": [
+  [
+   "salat-schuessel",
+   ""
+  ],
+  [
+   "insalata-mista--salat-blaetter",
+   "Gemischter Salat"
+  ],
+  [
+   "insalata-mista--salat-gemuese",
+   "Tomaten · Gurken · Paprika"
+  ],
+  [
+   "insalata-mista--salat-oliven",
+   "Oliven"
+  ],
+  [
+   "insalata-tonno--salat-extra",
+   "Thunfisch · Mais"
+  ]
+ ],
+ "joppiesauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "joppiesauce--dip-sauce",
+   "Joppiesauce mit Zwiebeln"
+  ]
+ ],
+ "ketchup": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "ketchup--dip-sauce",
+   "Ketchup"
+  ]
+ ],
+ "knoblauchsauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "knoblauchsauce--dip-sauce",
+   "Knoblauchsauce"
+  ]
+ ],
+ "kraeuterbutter": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "kraeuterbutter--dip-sauce",
+   "Kräuterbutter"
+  ]
+ ],
+ "kroketten": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "kroketten--snack-kroketten",
+   "Kroketten"
+  ]
+ ],
+ "lahmacun": [
+  [
+   "lahm-teller",
+   ""
+  ],
+  [
+   "lahmacun-doener--lahm-boden",
+   "Lahmacun"
+  ],
+  [
+   "lahmacun-doener--lahm-salat",
+   "Salat"
+  ],
+  [
+   "lahmacun-doener--lahm-sauce",
+   "Sauce"
+  ]
+ ],
+ "lahmacun-doener": [
+  [
+   "lahm-teller",
+   ""
+  ],
+  [
+   "lahmacun-doener--lahm-boden",
+   "Lahmacun"
+  ],
+  [
+   "lahmacun-doener--lahm-fleisch",
+   "Hähnchen-Kebab"
+  ],
+  [
+   "lahmacun-doener--lahm-salat",
+   "Salat"
+  ],
+  [
+   "lahmacun-doener--lahm-sauce",
+   "Sauce"
+  ]
+ ],
+ "mayonnaise": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "mayonnaise--dip-sauce",
+   "Mayonnaise"
+  ]
+ ],
+ "mozzarella-sticks": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "mozzarella-sticks--snack-mozzarella",
+   "6 Mozzarella Sticks"
+  ]
+ ],
+ "onion-rings": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "onion-rings--snack-onionrings",
+   "Onion Rings"
+  ]
+ ],
+ "party-pizza-margherita": [
+  [
+   "party-crust",
+   "Teig"
+  ],
+  [
+   "party-sauce",
+   "Tomatensauce"
+  ],
+  [
+   "party-cheese",
+   "Käse"
+  ]
+ ],
+ "party-pizza-nach-wahl": [
+  [
+   "party-crust",
+   "Teig"
+  ],
+  [
+   "party-sauce",
+   "Tomatensauce"
+  ],
+  [
+   "party-cheese",
+   "Käse · Belag nach Wahl"
+  ]
+ ],
+ "penne-arrabiata": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "penne-arrabiata--pasta-nudeln",
+   "Penne · scharfe Tomatensauce"
+  ],
+  [
+   "penne-arrabiata--pasta-belag",
+   "Chilischoten"
+  ]
+ ],
+ "penne-ela": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "penne-ela--pasta-nudeln",
+   "Penne · Sauce Hollandaise"
+  ],
+  [
+   "penne-ela--pasta-belag",
+   "Hähnchenbrustfilet · Broccoli"
+  ]
+ ],
+ "penne-fresh": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "penne-fresh--pasta-nudeln",
+   "Penne · Crème-fraîche-Sahnesauce"
+  ],
+  [
+   "penne-fresh--pasta-belag",
+   "Hähnchen · Champignons · Zwiebeln · Spinat"
+  ]
+ ],
+ "penne-quattro-formaggi": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "penne-quattro-formaggi--pasta-nudeln",
+   "Penne · Sahnesauce"
+  ],
+  [
+   "penne-quattro-formaggi--pasta-belag",
+   "Vier Käsesorten"
+  ]
+ ],
+ "pizza-nutella": [
+  [
+   "pizza-nutella--nutella-boden",
+   "Pizzateig"
+  ],
+  [
+   "pizza-nutella--nutella-creme",
+   "Nutella"
+  ]
+ ],
+ "pizzabroetchen": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ]
+ ],
+ "pizzabroetchen-doener": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ],
+  [
+   "pizzabroetchen-doener--pb-fleisch",
+   "Hähnchen-Kebab"
+  ],
+  [
+   "pizzabroetchen-mit-kaese--pb-kaese",
+   "Käse"
+  ]
+ ],
+ "pizzabroetchen-doener-spezial": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ],
+  [
+   "pizzabroetchen-doener--pb-fleisch",
+   "Hähnchen-Kebab"
+  ],
+  [
+   "pizzabroetchen-mit-kaese--pb-kaese",
+   "Käse"
+  ],
+  [
+   "pizzabroetchen-speciale--pb-hollandaise",
+   "Sauce Hollandaise"
+  ]
+ ],
+ "pizzabroetchen-mit-fuellung-nach-wahl": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen · Füllung nach Wahl"
+  ],
+  [
+   "pizzabroetchen-mit-kaese--pb-kaese",
+   "Käse"
+  ]
+ ],
+ "pizzabroetchen-mit-kaese": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ],
+  [
+   "pizzabroetchen-mit-kaese--pb-kaese",
+   "Käse"
+  ]
+ ],
+ "pizzabroetchen-nutella": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ],
+  [
+   "pizzabroetchen-nutella--pb-nutella",
+   "Nutella"
+  ]
+ ],
+ "pizzabroetchen-speciale": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ],
+  [
+   "pizzabroetchen-speciale--pb-haehnchen",
+   "Hähnchenbruststreifen"
+  ],
+  [
+   "pizzabroetchen-mit-kaese--pb-kaese",
+   "Käse"
+  ],
+  [
+   "pizzabroetchen-speciale--pb-hollandaise",
+   "Sauce Hollandaise"
+  ]
+ ],
+ "pizzabroetchen-sucuk": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pizzabroetchen--pb-broetchen",
+   "Pizzabrötchen"
+  ],
+  [
+   "pizzabroetchen-sucuk--pb-sucuk",
+   "Sucuk"
+  ],
+  [
+   "pizzabroetchen-mit-kaese--pb-kaese",
+   "Käse"
+  ]
+ ],
+ "pommes": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "pommes--snack-pommes",
+   "Pommes"
+  ]
+ ],
+ "pommes-tasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-pommes--tasche-pommes",
+    "Pommes"
+   ],
+   [
+    "sucuk-tasche--tasche-salat",
+    "Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "salsa-sauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "salsa-sauce--dip-sauce",
+   "Salsa-Sauce"
+  ]
+ ],
+ "samurai": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "samurai--dip-sauce",
+   "Samurai"
+  ]
+ ],
+ "spaghetti-aglio-olio": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "spaghetti-aglio-olio--pasta-nudeln",
+   "Spaghetti"
+  ],
+  [
+   "spaghetti-aglio-olio--pasta-belag",
+   "Knoblauch · Peperoni"
+  ]
+ ],
+ "spaghetti-bolognese": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "spaghetti-bolognese--pasta-nudeln",
+   "Spaghetti"
+  ],
+  [
+   "spaghetti-bolognese--pasta-sauce",
+   "Tomaten-Hackfleischsauce"
+  ]
+ ],
+ "spaghetti-carbonara": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "spaghetti-carbonara--pasta-nudeln",
+   "Spaghetti · Putenschinken · Ei · Käse-Sahnesauce"
+  ]
+ ],
+ "spaghetti-napoli": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "spaghetti-napoli--pasta-nudeln",
+   "Spaghetti · pikante Tomatensauce"
+  ]
+ ],
+ "sucuk-tasche": {
+  "up": true,
+  "layers": [
+   [
+    "doenertasche--tasche-brot",
+    "Fladenbrot"
+   ],
+   [
+    "doenertasche-mit-pommes--tasche-pommes",
+    "Pommes"
+   ],
+   [
+    "sucuk-tasche--tasche-sucuk",
+    "Sucuk"
+   ],
+   [
+    "sucuk-tasche--tasche-salat",
+    "Salat · Sauce"
+   ],
+   [
+    "doenertasche--tasche-deckel",
+    ""
+   ]
+  ]
+ },
+ "suess-sauer-sauce": [
+  [
+   "dip-becher",
+   ""
+  ],
+  [
+   "suess-sauer-sauce--dip-sauce",
+   "Süß-Sauer-Sauce"
+  ]
+ ],
+ "suesskartoffeln": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "suesskartoffeln--snack-suesskartoffeln",
+   "Süßkartoffel-Pommes"
+  ]
+ ],
+ "tagliatelle-gamberetti": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "tagliatelle-gamberetti--pasta-nudeln",
+   "Tagliatelle · Rosésauce"
+  ],
+  [
+   "tagliatelle-gamberetti--pasta-belag",
+   "Garnelen"
+  ]
+ ],
+ "tagliatelle-indiano": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "tagliatelle-indiano--pasta-nudeln",
+   "Tagliatelle · Curry-Sahnesauce"
+  ],
+  [
+   "tagliatelle-indiano--pasta-belag",
+   "Hähnchenbrustfilet"
+  ]
+ ],
+ "tagliatelle-mediteran": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "tagliatelle-mediteran--pasta-nudeln",
+   "Tagliatelle · Sahnesauce"
+  ],
+  [
+   "tagliatelle-mediteran--pasta-belag",
+   "Hähnchenbrustfilet · Spinat"
+  ]
+ ],
+ "tagliatelle-orient": [
+  [
+   "pasta-teller",
+   ""
+  ],
+  [
+   "tagliatelle-orient--pasta-nudeln",
+   "Tagliatelle · Tomaten-Sahnesauce"
+  ],
+  [
+   "tagliatelle-orient--pasta-belag",
+   "Hähnchen-Kebab"
+  ]
+ ],
+ "tiramisu": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "tiramisu--dessert-tiramisu",
+   "Mascarpone · Kaffee"
+  ]
+ ],
+ "zimtschnecken": [
+  [
+   "pb-teller",
+   ""
+  ],
+  [
+   "zimtschnecken--dessert-zimt",
+   "Zimtschnecken"
+  ]
+ ]
 }

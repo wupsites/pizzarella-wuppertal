@@ -12,3 +12,6 @@ scripts/hero/.cache/
 
 # Python (Asset-Skripte)
 __pycache__/
+
+# Quellfotos der Gerichte-Bilder (werden mit scripts/dish-photos/fetch.py geladen)
+scripts/dish-photos/source/

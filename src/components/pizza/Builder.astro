@@ -6,7 +6,7 @@
  */
 import Icon from '../Icon.astro';
 import { site } from '../../data/index.ts';
-import { builderModel, TOPPING_GROUP } from '../../lib/pizza-builder.ts';
+import { builderModel, HOLLANDAISE, HOLLANDAISE_NOTE, TOPPING_GROUP } from '../../lib/pizza-builder.ts';
 import { choicePrice } from '../../lib/catalog.ts';
 import { formatEuro } from '../../lib/pricing.ts';
 import { serializeForScript } from '../../lib/client-data.ts';
@@ -31,6 +31,7 @@ const data = m && {
   sizes: m.sizes.map((v) => ({ id: v.id, label: v.label, detail: v.detail ?? '', price: v.price })),
   choices: Object.fromEntries(m.group.choices.map((c) => [c.id, { label: c.label, prices: pricesOf(c.id), z: look(c.id).z }])),
   classics: m.classics,
+  hollandaise: { id: HOLLANDAISE, note: HOLLANDAISE_NOTE },
 };
 let step = 1;
 ---
@@ -58,6 +59,8 @@ let step = 1;
             <div class="pb-plate" data-pb-plate>
               <div class="pb-pizza" data-pb-pizza style={`--sz:${size0.id === 'klein' ? 0.86 : 1}`}>
                 <img class="pb-base" src="/pizza/base-640.webp" srcset="/pizza/base-640.webp 640w, /pizza/base.webp 1024w" sizes="(min-width: 1024px) 560px, 70vw" width="640" height="640" alt="" loading="lazy" decoding="async" />
+                <!-- Sauce Hollandaise ersetzt die Tomatensauce: derselbe Boden, Sauce umgefärbt (scripts/pizza-builder/build-hollandaise.py) -->
+                <img class="pb-base pb-base-holl" src="/pizza/base-holl-640.webp" srcset="/pizza/base-holl-640.webp 640w, /pizza/base-holl.webp 1024w" sizes="(min-width: 1024px) 560px, 70vw" width="640" height="640" alt="" loading="lazy" decoding="async" data-pb-holl />
                 <div class="pb-tops" data-pb-tops />
                 <span class="pb-light" aria-hidden="true" />
               </div>
@@ -99,10 +102,12 @@ let step = 1;
                   <span class="pb-step">{step++}</span> {s.title}
                 </h3>
                 {s.fixed && (
-                  <p class="pb-fixed">
+                  <p class="pb-fixed" data-pb-fixed={s.id}>
                     <Icon name="check" />
-                    <span class="pb-fixed-name">{s.fixed}</span>
-                    <span class="pb-fixed-note">immer dabei</span>
+                    <span class="pb-fixed-name" data-pb-fixed-name>{s.fixed}</span>
+                    <span class="pb-fixed-note" data-pb-fixed-note>
+                      {s.id === 'sauce' ? 'Standard' : 'immer dabei'}
+                    </span>
                   </p>
                 )}
                 {s.parts.map((p) => (
@@ -115,7 +120,10 @@ let step = 1;
                             <span class="pb-pic" data-cover={look(c.id).cover ? c.id : undefined}>
                               {!look(c.id).cover && <span class="pb-pic-in" style={tileCss(atlas, c.id, 0)} />}
                             </span>
-                            <span class="pb-name">{c.label}</span>
+                            <span class="pb-name">
+                              {c.label}
+                              {c.id === HOLLANDAISE && <span class="pb-name-note">statt Tomatensauce</span>}
+                            </span>
                             <span class="pb-price num" data-pb-price>
                               {priceText(priceOf(c.id, size0.id))}
                             </span>
@@ -369,6 +377,12 @@ let step = 1;
     height: 100%;
     filter: drop-shadow(0 14px 22px rgb(60 30 4 / 0.28));
   }
+  /* Hollandaise-Boden liegt über dem normalen und wird beim Hinzufügen
+     von der Mitte aus „verstrichen“ (Skript animiert clip-path) */
+  .pb-base-holl {
+    clip-path: circle(0% at 50% 50%);
+    filter: none;
+  }
   .pb-tops {
     position: absolute;
     inset: 0;
@@ -591,6 +605,11 @@ let step = 1;
     font-size: 0.88rem;
     font-weight: 600;
   }
+  /* Hollandaise gewählt: die Sauce-Zeile zeigt den Tausch */
+  .pb-fixed:global(.is-swapped) {
+    background: rgb(242 181 58 / 0.16);
+    color: #8a5a00;
+  }
 
   /* Zutat: eine große Zeile, ein klarer Zustand */
   .pb-list {
@@ -638,6 +657,17 @@ let step = 1;
   }
   .pb-pic[data-cover] {
     background: radial-gradient(circle at 40% 35%, #f8d77a, #e7a93a 60%, #c98322);
+  }
+  /* Hollandaise: Ausschnitt aus dem echten Hollandaise-Boden */
+  .pb-pic[data-cover='mit-sauce-hollandaise'] {
+    background: url(/pizza/base-holl-320.webp) 46% 44% / 260% no-repeat, #f3d27a;
+  }
+  .pb-name-note {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--ink-3);
+    font-size: 0.82rem;
+    font-weight: 550;
   }
   .pb-pic[data-cover='chili-oel'] {
     background: radial-gradient(circle at 40% 35%, #f08a52, #c63a1c 60%, #8f2410);

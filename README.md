@@ -103,13 +103,14 @@ Alle Inhalte, die sich ändern können, liegen in `src/data/`. Nach jeder Änder
 
 **Online-Bestellung kurzfristig abschalten** – in `ordering.json` `"online": false`. Die Kasse zeigt dann einen Hinweis mit Telefonnummer; die Karte bleibt sichtbar.
 
-**Bild für ein neues Gericht** – Pizzen bekommen ihr Bild automatisch aus der Beschreibung („mit Champignons und Rindersalami“). Für alle anderen Gerichte in `dish-art.json` die Ebenen von unten nach oben eintragen; vorhandene Ebenen liegen in `public/dishes/` (Liste in `scripts/dish-art/dishes.py`). Beschriftet wird nur, was auch in der Beschreibung steht:
+**Bild für ein neues Gericht** – Pizzen bekommen ihr Bild automatisch aus der Beschreibung („mit Champignons und Rindersalami“). Alle anderen Gerichte setzen sich aus echten, frei lizenzierten Fotos zusammen (Quellen und Lizenzen: `scripts/dish-photos/sources.json`, Nachweise im Impressum). Die Ebenen und Beschriftungen je Gericht legt `scripts/dish-photos/build.py` fest und schreibt sie nach `dish-art.json`; beschriftet wird nur, was auch in der Beschreibung steht.
 
-```json
-"doener-box": [["box", ""], ["box-fries", "Pommes"], ["box-meat", "Hähnchen-Kebab"], ["box-sauce", "Sauce"]]
+```bash
+python3 scripts/dish-photos/fetch.py   # Quellfotos laden (einmalig)
+python3 scripts/dish-photos/build.py   # alle Gerichte neu bauen
 ```
 
-Ohne Eintrag erscheint das Gericht einfach ohne Bild; `npm test` weist darauf hin. Neue Ebenen erzeugt `python3 scripts/dish-art/build.py` (Python 3 mit `opencv-contrib-python-headless` und `numpy`).
+Ohne Eintrag erscheint ein Gericht einfach ohne Bild (Getränke derzeit bewusst ohne Bild). Voraussetzung: Python 3 mit `opencv-contrib-python-headless` und `numpy`.
 
 **Liefergebiet** – in `ordering.json` unter `deliveryZones`. Mehrere Zonen mit eigenem Mindestbestellwert und eigener Gebühr sind möglich:
 

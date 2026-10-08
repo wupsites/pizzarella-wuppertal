@@ -542,6 +542,14 @@ img.viz-pc {
     transform: translateY(var(--off)) rotateX(70deg) rotateZ(var(--rz, 0deg));
     transition: transform 760ms var(--ease-settle) calc(var(--i) * 45ms);
   }
+  /* Seitenansicht (Döner im Brot, Getränk im Glas): nicht kippen, nur senkrecht
+     auseinander – wie eine Explosionszeichnung */
+  .dish-viz.is-up .viz-stage {
+    perspective: none;
+  }
+  .dish-viz.is-up:hover .viz-l {
+    transform: translateY(var(--off));
+  }
   /* danach schwebt die oberste Ebene ganz leicht weiter, die darunter gegenläufig */
   .dish-viz:hover .viz-l:last-child {
     animation: viz-float 2.4s ease-in-out 900ms infinite alternate;

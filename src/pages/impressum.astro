@@ -1,7 +1,12 @@
 ---
 import Page from '../layouts/Page.astro';
 import { site } from '../data/index.ts';
+import sources from '../../scripts/dish-photos/sources.json';
 const { business } = site;
+// Fotos, die eine Namensnennung verlangen (CC BY) oder gemeinfrei sind; CC0 braucht keine
+const credits = Object.values(sources as Record<string, { page: string; license: string; author?: string }>)
+  .filter((s) => !/^CC0/.test(s.license))
+  .map((s) => ({ ...s, title: decodeURIComponent(s.page.split('File:')[1] ?? s.page).replace(/_/g, ' ') }));
 ---
 
 <Page
@@ -31,6 +36,23 @@ const { business } = site;
 
     <h2>Verantwortlich für den Inhalt</h2>
     <p>{business.owner}, Anschrift wie oben.</p>
+
+    <h2>Bildnachweise</h2>
+    <p>
+      Die Bilder der Speisekarte sind aus frei lizenzierten Fotos zusammengesetzt (überwiegend CC0 aus dem
+      <a href="https://wordpress.org/photos/" rel="noopener">WordPress Photo Directory</a> und von
+      <a href="https://commons.wikimedia.org/" rel="noopener">Wikimedia Commons</a>), bearbeitet und freigestellt. Sie zeigen
+      beispielhaft, was im Gericht steckt.
+    </p>
+    <ul>
+      {credits.map((c) => (
+        <li>
+          <a href={c.page} rel="noopener">{c.title}</a>
+          {c.author && <> – {c.author}</>}, {c.license}
+          {c.license.startsWith('CC BY') && <>, verändert</>}
+        </li>
+      ))}
+    </ul>
 
     <h2>Haftung für Inhalte und Links</h2>
     <p>

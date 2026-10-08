@@ -37,7 +37,7 @@ const vlabels = (viz?.layers ?? []).map((l, i) => ({ ...l, i })).filter((l) => l
 <article class:list={['dish', `dish--${kind}`, { 'dish--viz': viz }]} id={`p-${p.id}`} data-dish={p.id} data-search={searchText}>
   {
     viz && (
-      <div class:list={['dish-viz', { 'is-pizza': viz.tops }]} aria-hidden="true" data-viz={viz.tops?.join(' ')} style={`--n:${vn}`}>
+      <div class:list={['dish-viz', { 'is-pizza': viz.tops, 'is-up': viz.up }]} aria-hidden="true" data-viz={viz.tops?.join(' ')} style={`--n:${vn}`}>
         <div class="viz-stage">
           {viz.layers.map((l, i) =>
             l.src ? (

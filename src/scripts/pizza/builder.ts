@@ -22,6 +22,8 @@ interface Data {
   sizes: { id: string; label: string; detail: string; price: number }[];
   choices: Record<string, { label: string; prices: Record<string, number>; z: number }>;
   classics: { id: string; name: string; choices: string[]; prices: Record<string, number> }[];
+  /** ersetzt die Tomatensauce: eigener Boden statt Belag, Hinweis für die Küche */
+  hollandaise: { id: string; note: string };
 }
 
 type Change = { kind: 'remove'; id: string; at: number } | { kind: 'reset'; items: string[]; size: string };
@@ -65,7 +67,33 @@ function pieceBase(x: number, y: number, rot: number, scale: number) {
   return { left: `${50 + x * 47}%`, top: `${50 + y * 47}%`, t: `translate(-50%, -50%) rotate(${rot}deg) scale(${scale})` };
 }
 
+/** Hollandaise statt Tomatensauce: der Boden wechselt – von der Mitte aus
+ *  „verstrichen“ wie mit der Kelle, beim Entfernen zieht sie sich zurück */
+function showHollandaise(on: boolean, animate = true) {
+  const el = $<HTMLImageElement>('[data-pb-holl]');
+  const to = on ? 'circle(75% at 50% 50%)' : 'circle(0% at 50% 50%)';
+  if (el.style.clipPath === to) return;
+  const from = getComputedStyle(el).clipPath || 'circle(0% at 50% 50%)';
+  el.style.clipPath = to;
+  if (!animate || reducedMotion()) return;
+  el.getAnimations().forEach((a) => a.cancel());
+  el.animate(
+    on
+      ? [
+          { clipPath: from, filter: 'brightness(1.06)' },
+          { clipPath: 'circle(38% at 51% 49%)', offset: 0.55 },
+          { clipPath: to, filter: 'brightness(1)' },
+        ]
+      : [{ clipPath: from }, { clipPath: to }],
+    { duration: on ? 760 : 380, easing: on ? 'cubic-bezier(0.3, 0.7, 0.25, 1)' : 'cubic-bezier(0.4, 0, 1, 1)' },
+  );
+}
+
 async function placeIngredient(id: string, opts: { from?: { x: number; y: number }; animate?: boolean; startIndex?: number } = {}) {
+  if (id === D!.hollandaise.id) {
+    showHollandaise(true, opts.animate !== false);
+    return;
+  }
   const L = look(id);
   const host = $('[data-pb-tops]');
   const list = pieces.get(id) ?? [];
@@ -156,6 +184,7 @@ function liftOff(els: HTMLElement[], stagger = 10) {
 }
 
 function removePieces(id: string) {
+  if (id === D!.hollandaise.id) showHollandaise(false);
   const list = pieces.get(id) ?? [];
   pieces.delete(id);
   liftOff(list);
@@ -186,6 +215,14 @@ function paint() {
     b.title = off ? `Maximal ${max} Extras` : '';
   }
   $('[data-pb-count]').textContent = `${items.length} von ${max} Extras${full ? ' – mehr geht nicht' : ''}`;
+  // Sauce: Tomatensauce ist Standard, Hollandaise ersetzt sie
+  const holl = items.includes(D!.hollandaise.id);
+  const fixed = dialog!.querySelector<HTMLElement>('[data-pb-fixed="sauce"]');
+  if (fixed) {
+    fixed.querySelector('[data-pb-fixed-name]')!.textContent = holl ? 'Sauce Hollandaise' : 'Tomatensauce';
+    fixed.querySelector('[data-pb-fixed-note]')!.textContent = holl ? 'statt Tomatensauce' : 'Standard';
+    fixed.classList.toggle('is-swapped', holl);
+  }
   // Zusammenfassung
   const s = D!.sizes.find((x) => x.id === size)!;
   $('[data-pb-size-label]').textContent = `${s.label} ${s.detail}`.trim();
@@ -294,6 +331,7 @@ function reset() {
   last = { kind: 'reset', items: [...items], size };
   const all = [...pieces.values()].flat();
   pieces.clear();
+  showHollandaise(false);
   items = [];
   // alles zusammen, kurz – nicht Stück für Stück
   liftOff(all, 0);
@@ -340,7 +378,14 @@ function addToCart(btn: HTMLElement) {
   const v = size;
   let key: string;
   try {
-    key = cart.add({ productId: D!.base.id, variantId: v, qty: 1, options: items.length ? { [D!.group]: [...items] } : {} });
+    key = cart.add({
+      productId: D!.base.id,
+      variantId: v,
+      qty: 1,
+      options: items.length ? { [D!.group]: [...items] } : {},
+      // für die Küche: auf die Hollandaise-Pizza kommt keine Tomatensauce
+      note: items.includes(D!.hollandaise.id) ? D!.hollandaise.note : undefined,
+    });
   } catch {
     note('Das hat nicht geklappt – bitte nochmal.');
     return;
@@ -370,6 +415,7 @@ function addToCart(btn: HTMLElement) {
     const all = [...pieces.values()].flat();
     all.forEach((el) => el.remove());
     pieces.clear();
+    showHollandaise(false, false);
     items = [];
     last = null;
     setSize(D!.size, false);
