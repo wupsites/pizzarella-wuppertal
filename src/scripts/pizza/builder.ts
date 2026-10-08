@@ -223,6 +223,8 @@ function paint() {
     fixed.querySelector('[data-pb-fixed-note]')!.textContent = holl ? 'statt Tomatensauce' : 'Standard';
     fixed.classList.toggle('is-swapped', holl);
   }
+  const fine = dialog!.querySelector<HTMLElement>('[data-pb-fine]');
+  if (fine) fine.textContent = holl ? fine.dataset.holl! : fine.dataset.std!;
   // Zusammenfassung
   const s = D!.sizes.find((x) => x.id === size)!;
   $('[data-pb-size-label]').textContent = `${s.label} ${s.detail}`.trim();
@@ -236,6 +238,9 @@ function paint() {
     li.innerHTML = `<span>+ ${escapeHtml(D!.choices[id].label)}</span><span class="num">${p ? formatEuro(p) : 'inklusive'}</span>`;
     lines.appendChild(li);
   }
+  // lange Liste (Desktop scrollt): die zuletzt gewählte Zutat ist sichtbar
+  lines.scrollTop = lines.scrollHeight;
+  lines.classList.toggle('is-scrolling', lines.scrollHeight > lines.clientHeight + 2);
   ($('[data-pb-last]') as HTMLButtonElement).disabled = items.length === 0;
   ($('[data-pb-reset]') as HTMLButtonElement).disabled = items.length === 0 && size === D!.size;
   setTotal(total());
@@ -524,6 +529,15 @@ function init() {
   if (ready || !dialog || !D) return;
   ready = true;
   enhanceDialog(dialog);
+  // Pizza erst zeigen, wenn der Boden geladen ist (kein leerer Umriss beim Öffnen)
+  const pizza = $('[data-pb-pizza]');
+  const base = pizza.querySelector<HTMLImageElement>('img.pb-base');
+  if (base) {
+    base.loading = 'eager';
+    const show = () => pizza.classList.add('is-ready');
+    if (base.complete && base.naturalWidth) show();
+    else base.decode().then(show, show);
+  }
   dialog.addEventListener('click', (e) => {
     const t = e.target as HTMLElement;
     const ing = t.closest<HTMLElement>('[data-ing]');

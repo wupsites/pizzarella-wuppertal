@@ -186,8 +186,13 @@ let step = 1;
                 </button>
               </div>
             </div>
-            <p class="pb-fine">
-              Bestellt wird eine {m.product.name} ({m.product.description?.replace(/^mit /, 'mit ')}) mit deinen Extras.
+            <p
+              class="pb-fine"
+              data-pb-fine
+              data-std={`Bestellt wird eine ${m.product.name} (${m.product.description}) mit deinen Extras.`}
+              data-holl={`Bestellt wird eine ${m.product.name} mit Käse und Sauce Hollandaise statt Tomatensauce, dazu deine Extras.`}
+            >
+              Bestellt wird eine {m.product.name} ({m.product.description}) mit deinen Extras.
             </p>
           </aside>
         </div>
@@ -368,7 +373,13 @@ let step = 1;
     position: absolute;
     inset: 0;
     transform: scale(var(--sz, 1));
-    transition: transform 520ms var(--ease-settle);
+    transition:
+      transform 520ms var(--ease-settle),
+      opacity 320ms var(--ease-rise);
+  }
+  /* bis der Boden geladen ist (Skript setzt is-ready): kein leerer Umriss */
+  :global(html.js) .pb-pizza:not(:global(.is-ready)) {
+    opacity: 0;
   }
   .pb-base {
     position: absolute;
@@ -857,8 +868,20 @@ let step = 1;
     display: grid;
     gap: 0.25rem;
     margin-top: 0.6rem;
-    max-height: 8.2rem;
-    overflow-y: auto;
+  }
+  /* Desktop: Pizza und Zusammenfassung teilen sich die Höhe – lange Listen
+     scrollen, ein weicher Rand oben zeigt, dass es mehr gibt */
+  @media (min-width: 1024px) {
+    .pb-lines {
+      max-height: min(13.5rem, 26svh);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    .pb-lines:global(.is-scrolling) {
+      -webkit-mask: linear-gradient(transparent, #000 1.4rem);
+      mask: linear-gradient(transparent, #000 1.4rem);
+    }
   }
   .pb-lines :global(.pb-line) {
     display: flex;

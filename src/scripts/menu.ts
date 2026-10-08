@@ -145,8 +145,29 @@ for (const [id, a] of links) a.addEventListener('click', () => setActive(id));
 
 // „Erstelle deine eigene Pizza“: erst bei Bedarf laden (beim Zeigen schon vorab)
 const builder = () => import('./pizza/builder.ts');
+/** Skript und Pizzaboden vorab holen – beim Öffnen ist die Pizza sofort da */
+let warmed = false;
+const warmUp = () => {
+  if (warmed) return;
+  warmed = true;
+  void builder();
+  document.querySelectorAll<HTMLImageElement>('img.pb-base').forEach((img) => (img.loading = 'eager'));
+};
+const cta = document.querySelector('[data-pb-open]');
+if (cta && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver(
+    (es) => {
+      if (es.some((e) => e.isIntersecting)) {
+        io.disconnect();
+        warmUp();
+      }
+    },
+    { rootMargin: '600px 0px' },
+  );
+  io.observe(cta);
+}
 document.querySelectorAll<HTMLElement>('[data-pb-open]').forEach((btn) => {
-  const warm = () => void builder();
+  const warm = warmUp;
   btn.addEventListener('pointerenter', warm, { once: true });
   btn.addEventListener('focus', warm, { once: true });
   btn.addEventListener('touchstart', warm, { once: true, passive: true });
