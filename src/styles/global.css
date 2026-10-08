@@ -131,7 +131,9 @@
   --d-sheet: 460ms;
   --d-reveal: 780ms;
 
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Filmkorn als fertige Kachel (früher SVG-Rauschfilter – den musste Safari
+     bei jedem Neuzeichnen der Fläche neu berechnen) */
+  --grain: url('/grain.webp');
 }
 
 @media (min-width: 1024px) {
@@ -273,13 +275,13 @@ ol[role='list'] {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: var(--grain);
+  /* schwarzes Korn: „multiply“ sähe genauso aus, kostet aber eine Mischebene */
+  background: var(--grain) 0 0 / 180px 180px;
   opacity: 0.06;
-  mix-blend-mode: multiply;
 }
+/* auf dunklem Grund wäre schwarzes Korn mit „screen“ unsichtbar – gar nicht erst zeichnen */
 .on-night.grain::after {
-  opacity: 0.09;
-  mix-blend-mode: screen;
+  content: none;
 }
 
 /* ---------- Typografie ---------- */

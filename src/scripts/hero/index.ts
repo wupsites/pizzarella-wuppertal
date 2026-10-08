@@ -3,7 +3,7 @@
  *  1. Ein Standbild der 3D-Pizza ist sofort da (LCP, auch ohne JS).
  *  2. Danach lädt die Fototextur; WebGL übernimmt dieselbe Ansicht ohne
  *     sichtbaren Wechsel. Ab jetzt ist die Pizza ein echtes 3D-Objekt.
- *  3. Scroll (GSAP ScrollTrigger, nachgeladen): Desktop gepinnt, die Pizza
+ *  3. Scroll (GSAP ScrollTrigger, nachgeladen): der Hero steht (CSS sticky), die Pizza
  *     dreht sich, und wie in der Burger-Referenz wechseln die großen
  *     Wortpaare – die alten fliegen seitlich hinaus, die neuen kommen hinter
  *     der Pizza hervor. Handy genauso (Kamera steigt dort weniger).
@@ -36,8 +36,6 @@ const CART_KEY = 'pizzarella.cart.v1';
 const DEG = Math.PI / 180;
 /** Desktop: ab diesem Scroll-Fortschritt gilt das Wortpaar (0 = Headline) */
 const SET_AT = [0, 0.16, 0.38, 0.6];
-/** Einrastpunkte: Mitte jedes Wortpaars, Anfang und Ende – jedes Paar steht ruhig da */
-const SNAP_AT = [0, 0.27, 0.49, 0.7, 1];
 
 const hero = document.querySelector<HTMLElement>('[data-hero]');
 if (hero) init(hero);
@@ -183,13 +181,23 @@ function init(hero: HTMLElement) {
   let counted = 0;
   let half = false;
   let tick = 0;
+  let pace = 1;
+  // ruhige Phase (nur Licht, Glut und Dampf bewegen sich, kein Scroll, keine Maus):
+  // auf 120-Hz-Displays reichen dafür 60 Bilder – die Hälfte der GPU-Arbeit,
+  // ohne sichtbaren Unterschied bei so langsamer Bewegung
+  let lastInput = 0;
+  let drawDust: ((now: number) => void) | null = null;
 
   const frame = (now: number) => {
     raf = 0;
-    if (half && tick++ % 2 === 1) {
+    const hi = minDt < 0.0105;
+    const want2 = half || (hi && idle && now - lastInput > 450);
+    if (want2 && tick++ % 2 === 1) {
       next();
       return;
     }
+    const pace0 = pace;
+    pace = want2 ? 2 : 1;
     const slowGl = !!gl?.slow;
     const blooming = bloomStart > 0 && now - bloomStart < 1900;
     const smoothing =
@@ -201,11 +209,11 @@ function init(hero: HTMLElement) {
     lastDraw = now;
     const t = now / 1000;
     if (gl && rawDt < 0.25) {
-      if (!half) {
-        minDt = Math.min(minDt, rawDt);
+      if (!half && pace === pace0) {
+        minDt = Math.min(minDt, rawDt / pace);
         if (minDt < 0.0105) {
           counted++;
-          if (rawDt > minDt * 1.5) missed++;
+          if (rawDt > minDt * pace * 1.5) missed++;
           if (counted >= 120) {
             half = missed / counted > 0.12;
             counted = 0;
@@ -213,7 +221,7 @@ function init(hero: HTMLElement) {
           }
         }
       }
-      slowFrames = rawDt > 0.024 ? slowFrames + 1 : Math.max(0, slowFrames - 0.5);
+      slowFrames = rawDt > 0.024 * pace ? slowFrames + 1 : Math.max(0, slowFrames - 0.5);
       if (slowFrames > 45 && quality > 0.72) {
         quality = Math.max(0.7, quality - 0.1);
         slowFrames = 0;
@@ -303,7 +311,9 @@ function init(hero: HTMLElement) {
     // Er zieht langsam (zeitbasiert) – jedes zweite Bild reicht, die Hälfte der
     // Rechenzeit geht an Pizza und Scrollen
     steamTick++;
-    if (steam && (steamTick & 1) === 0) {
+    const beat = pace === 2 || (steamTick & 1) === 0;
+    if (beat) drawDust?.(now);
+    if (steam && beat) {
       const cam0 = camera(0, view.elev, STAGE_AR);
       const c = toHero(...project(cam0, [0, H_BASE, 0]));
       const ex = toHero(...project(cam0, [1, H_BASE, 0]));
@@ -346,6 +356,11 @@ function init(hero: HTMLElement) {
     else if (!raf) raf = requestAnimationFrame(frame);
   };
   const request = next;
+  /** Eingabe (Scroll, Maus): volle Bildrate */
+  const poke = () => {
+    lastInput = performance.now();
+    next();
+  };
 
   // ---------- Start ----------
   measure();
@@ -377,12 +392,12 @@ function init(hero: HTMLElement) {
     P.py = e.clientY;
     P.inside = true;
     P.moved = true;
-    request();
+    poke();
   });
   hero.addEventListener('pointerleave', () => {
     P.inside = false;
     P.moved = true;
-    request();
+    poke();
   });
 
   // ---------- 3D-Pizza übernehmen, sobald die Textur da ist ----------
@@ -415,7 +430,7 @@ function init(hero: HTMLElement) {
           request();
         });
         setupPointer();
-        startDust(hero, desk() ? 46 : 24);
+        drawDust = startDust(hero, desk() ? 46 : 24);
       })
       .catch(() => {});
   }
@@ -442,28 +457,16 @@ function init(hero: HTMLElement) {
       frame(performance.now());
     });
 
-    // Mausrad/Trackpad: weiches Scrollen (Lenis) statt Sprüngen – Touch bleibt nativ
-    if (mqHover.matches) {
-      const { default: Lenis } = await import('lenis');
-      const lenis = new Lenis({
-        lerp: 0.1,
-        wheelMultiplier: 0.9,
-        anchors: true,
-        // in Dialogen, Warenkorb und Menüs normal scrollen
-        prevent: (node: HTMLElement) => !!node.closest('dialog, [role="dialog"], [data-lenis-prevent], [data-cart-panel]'),
-      });
-      lenis.on('scroll', ScrollTrigger.update);
-      g.ticker.add((time) => lenis.raf(time * 1000));
-      g.ticker.lagSmoothing(0);
-      // offene Dialoge sperren den Seiten-Scroll
-      new MutationObserver(() => {
-        if (document.querySelector('dialog[open]')) lenis.stop();
-        else lenis.start();
-      }).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['open'] });
-    }
+    // Gescrollt wird nativ (der Browser scrollt auf eigenem Thread, auf 120-Hz-
+    // Displays mit 120 Bildern, ohne Eingabeverzögerung) – kein JS-Smooth-Scroll.
+    // Der Hero steht per CSS (sticky) still; kein Einrasten – die Seite bewegt
+    // sich nur, wenn man selbst scrollt.
+    const track = hero.closest<HTMLElement>('[data-hero-track]');
+    const run = track?.querySelector<HTMLElement>('[data-hero-run]');
+    if (!track || !run) return;
     const mm = g.matchMedia();
 
-    // Desktop und Handy: dieselbe Dramaturgie (Pin, Drehung, Wortpaare, Ausklang).
+    // Desktop und Handy: dieselbe Dramaturgie (Stillstand, Drehung, Wortpaare, Ausklang).
     // Am Handy steigt die Kamera weniger – sonst verdeckt die Pizza Zeile 2.
     mm.add({ desk: '(min-width: 1024px)', mob: '(max-width: 1023.98px)' }, (ctx) => {
       const d = !!ctx.conditions?.desk;
@@ -472,26 +475,22 @@ function init(hero: HTMLElement) {
       const tl = g.timeline({
         defaults: { ease: 'none' },
         // jeder Scrub-Schritt zeichnet (auch ohne Dauerbewegung)
-        onUpdate: request,
+        onUpdate: poke,
         scrollTrigger: {
-          trigger: hero,
+          trigger: track,
           start: 'top top',
-          // genug Weg pro Wortpaar, damit man es lesen kann
-          end: d ? '+=320%' : '+=280%',
-          pin: true,
-          // hört man auf zu scrollen, rastet die Seite sanft beim nächsten Wortpaar ein
-          snap: { snapTo: SNAP_AT, duration: { min: 0.35, max: 0.9 }, delay: 0.15, ease: 'power2.inOut' },
-          // Mausrad/Trackpad glättet Lenis schon – doppelt geglättet fühlt sich
-          // schwammig an; am Handy (natives Scrollen) etwas mehr Glättung
-          scrub: d ? 0.3 : 0.5,
-          anticipatePin: 1,
+          // Strecke = Höhe der Scrollstrecke unter dem Hero (CSS: 320svh / 280svh)
+          end: () => `+=${run.offsetHeight}`,
+          // die Pizza folgt dem Scrollen leicht geglättet (wirkt schwer und ruhig),
+          // die Seite selbst scrollt ungebremst
+          scrub: d ? 0.35 : 0.5,
           invalidateOnRefresh: true,
           onUpdate: (st) => {
             // Wortpaar zum Fortschritt (die Kapitel wechseln, die Pizza dreht weiter)
             let n = 0;
             SET_AT.forEach((at, i) => st.progress >= at && (n = i));
             showSet(n);
-            request();
+            poke();
           },
           onRefresh: () => {
             measure();
@@ -520,13 +519,14 @@ function init(hero: HTMLElement) {
 
 /**
  * Lichtstaub im Spot: wenige warme Partikel, die langsam im Lichtkegel
- * aufsteigen und funkeln. Nur solange der Hero sichtbar ist.
+ * aufsteigen und funkeln. Gezeichnet im selben Takt wie Pizza und Dampf
+ * (kein eigener Bildschirm-Takt) – steht der Hero, steht auch der Staub.
  */
-function startDust(hero: HTMLElement, N: number) {
+function startDust(hero: HTMLElement, N: number): ((now: number) => void) | null {
   const canvas = hero.querySelector<HTMLCanvasElement>('[data-hero-dust]');
-  if (!canvas || reducedMotion()) return;
+  if (!canvas || reducedMotion()) return null;
   const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  if (!ctx) return null;
   // weiche Lichtpunkte: einfache Auflösung reicht, spart Füllrate
   const dpr = 1;
   let w = 0;
@@ -551,46 +551,34 @@ function startDust(hero: HTMLElement, N: number) {
   sc.fillRect(0, 0, 32, 32);
   const rnd = (a: number, b: number) => a + Math.random() * (b - a);
   const parts = Array.from({ length: N }, () => ({ x: rnd(-1, 1), y: rnd(0, 1), r: rnd(0.6, 2.2), sp: rnd(0.012, 0.04), ph: rnd(0, 6.28), tw: rnd(0.6, 1.8) }));
-  let visible = true;
-  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(hero);
-  let last = performance.now();
-  let odd = false;
-  const loop = (now: number) => {
-    // Staub schwebt langsam: jedes zweite Bild reicht, spart die Hälfte
-    odd = !odd;
-    if (odd) {
-      requestAnimationFrame(loop);
-      return;
-    }
-    const dt = Math.min(0.1, (now - last) / 1000);
+  let last = 0;
+  return (now: number) => {
+    const dt = last ? Math.min(0.1, (now - last) / 1000) : 0.016;
     last = now;
-    if (visible && !document.hidden) {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, w, h);
-      ctx.globalCompositeOperation = 'lighter';
-      const cx = w / 2;
-      const top = h * 0.02;
-      const bottom = h * 0.62;
-      for (const p of parts) {
-        p.y -= p.sp * dt;
-        if (p.y < 0) {
-          p.y = 1;
-          p.x = rnd(-1, 1);
-        }
-        // Kegel: oben schmal, unten breit
-        const yy = top + (bottom - top) * p.y;
-        const half = (0.09 + 0.26 * p.y) * Math.min(w, 1600);
-        const x = cx + p.x * half + Math.sin(now / 1000 * 0.6 + p.ph) * 6;
-        const a = (0.25 + 0.75 * (0.5 + 0.5 * Math.sin(now / 1000 * p.tw + p.ph))) * Math.sin(Math.PI * p.y) * 0.55;
-        ctx.globalAlpha = a;
-        const s = p.r * 4;
-        ctx.drawImage(sprite, x - s / 2, yy - s / 2, s, s);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    const cx = w / 2;
+    const top = h * 0.02;
+    const bottom = h * 0.62;
+    const ts = now / 1000;
+    for (const p of parts) {
+      p.y -= p.sp * dt;
+      if (p.y < 0) {
+        p.y = 1;
+        p.x = rnd(-1, 1);
       }
-      ctx.globalAlpha = 1;
+      // Kegel: oben schmal, unten breit
+      const yy = top + (bottom - top) * p.y;
+      const half = (0.09 + 0.26 * p.y) * Math.min(w, 1600);
+      const x = cx + p.x * half + Math.sin(ts * 0.6 + p.ph) * 6;
+      const a = (0.25 + 0.75 * (0.5 + 0.5 * Math.sin(ts * p.tw + p.ph))) * Math.sin(Math.PI * p.y) * 0.55;
+      ctx.globalAlpha = a;
+      const s = p.r * 4;
+      ctx.drawImage(sprite, x - s / 2, yy - s / 2, s, s);
     }
-    requestAnimationFrame(loop);
+    ctx.globalAlpha = 1;
   };
-  requestAnimationFrame(loop);
 }
 
 /** „Jetzt bestellen“: mit Warenkorb direkt zur Kasse, sonst zur Karte */

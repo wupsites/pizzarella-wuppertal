@@ -13,7 +13,7 @@ interface Props {
   headingLevel?: 'h3' | 'h4';
   showNr?: boolean;
   /** Pizza-Bild mit Ebenen (Exploded View): Belag als Extra-Zutaten + Beschriftungen */
-  viz?: { tops: string[]; labels: string[] } | null;
+  viz?: { tops: string[]; labels: { k: 'tops' | 'cheese' | 'sauce' | 'crust'; t: string }[] } | null;
 }
 const { product: p, categoryName = '', headingLevel = 'h3', showNr = true, viz = null } = Astro.props;
 const Heading = headingLevel;
@@ -38,9 +38,14 @@ const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
           <i class="viz-l viz-cheese" />
           <i class="viz-l viz-tops" />
         </div>
-        {viz.labels.map((l, i) => (
-          <span class={`viz-c viz-c${i}`}>{l}</span>
-        ))}
+        <div class="viz-cs">
+          {viz.labels.map((l, i) => (
+            <span class={`viz-c viz-c--${l.k}`} style={`--i:${i}`}>
+              <b>{String(i + 1).padStart(2, '0')}</b>
+              {l.t}
+            </span>
+          ))}
+        </div>
       </div>
     )
   }

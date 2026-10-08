@@ -33,6 +33,12 @@ const sets = [
 ];
 ---
 
+<!--
+  Scrollstrecke: der Hero bleibt per CSS (sticky) stehen, solange die Strecke
+  darunter durchläuft – das macht der Browser selbst, ohne JavaScript pro Bild.
+  Kein Einrasten: die Seite bewegt sich nur, wenn man selbst scrollt.
+-->
+<div class="hero-track" data-hero-track>
 <section
   class="hero on-night grain"
   aria-labelledby="hero-title"
@@ -120,6 +126,8 @@ const sets = [
     </p>
   </div>
 </section>
+<div class="hero-run" aria-hidden="true" data-hero-run></div>
+</div>
 
 <style>
   /* ---------- Bühne ---------- */
@@ -343,10 +351,11 @@ const sets = [
     opacity: 1;
   }
 
-  /* Korn ohne Mischmodus (auf dem dunklen Grund optisch gleich, aber ohne
-     Neuberechnung des ganzen Heros pro Frame); die Pizza bekommt ihr Korn im Shader */
+  /* Korn ohne Mischmodus (keine Neuberechnung des ganzen Heros pro Frame);
+     die Pizza bekommt ihr Korn im Shader */
   .hero.grain::after {
-    mix-blend-mode: normal;
+    content: '';
+    opacity: 0.09;
   }
 
   /* ---------- Unten: Text + CTAs ---------- */
@@ -602,21 +611,23 @@ const sets = [
 </style>
 
 <style is:global>
-  /* Lenis (weiches Scrollen, nur mit Maus/Trackpad) */
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
-  .lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-  }
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-  .lenis.lenis-smooth iframe {
-    pointer-events: none;
+  /* Scrollstrecke des Heros: nur mit Bewegung (sonst steht der Hero normal da) */
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .hero-track {
+      --run: 280svh;
+      position: relative;
+    }
+    html.js .hero-track > .hero {
+      position: sticky;
+      top: 0;
+    }
+    html.js .hero-run {
+      height: var(--run);
+    }
+    @media (min-width: 1024px) {
+      html.js .hero-track {
+        --run: 320svh;
+      }
+    }
   }
 </style>

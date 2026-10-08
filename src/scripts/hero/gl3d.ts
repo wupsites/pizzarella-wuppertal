@@ -412,9 +412,13 @@ export function createPizza3D(prof: number[], opts: { maxDpr: number; segments: 
       const dpr = Math.min(window.devicePixelRatio || 1, opts.maxDpr) * quality;
       canvas.style.width = `${cssW}px`;
       canvas.style.height = `${cssH}px`;
-      canvas.width = Math.max(1, Math.round(cssW * dpr));
-      canvas.height = Math.max(1, Math.round(cssH * dpr));
+      const w = Math.max(1, Math.round(cssW * dpr));
+      const h = Math.max(1, Math.round(cssH * dpr));
       api.aspect = cssW / cssH;
+      // gleiche Größe: Puffer nicht neu anlegen (das kostet und leert das Bild)
+      if (w === canvas.width && h === canvas.height) return;
+      canvas.width = w;
+      canvas.height = h;
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (last) api.draw(last);
     },

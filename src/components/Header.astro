@@ -65,19 +65,15 @@ const nav = [
     z-index: 50;
     height: var(--header-h);
     color: var(--ink);
-    background: rgb(244 235 220 / 0.94);
+    /* deckend statt Weichzeichner: Safari müsste sonst beim Scrollen jedes Bild
+       den Inhalt darunter neu weichzeichnen */
+    background: rgb(244 235 220);
     border-bottom: 1px solid transparent;
     transition:
       background-color var(--d-ui) var(--ease-rise),
       border-color var(--d-ui) var(--ease-rise),
       color var(--d-ui) var(--ease-rise),
       box-shadow var(--d-ui) var(--ease-rise);
-  }
-  @supports (backdrop-filter: blur(1px)) {
-    .site-header {
-      background: rgb(244 235 220 / 0.86);
-      backdrop-filter: saturate(1.4) blur(14px);
-    }
   }
   .site-header.is-scrolled {
     border-bottom-color: var(--line);
@@ -88,17 +84,10 @@ const nav = [
     inset: 0 0 auto 0;
     color: var(--cream);
     background: transparent;
-    backdrop-filter: none;
   }
   .site-header.is-overlay.is-scrolled {
     color: var(--ink);
-    background: rgb(244 235 220 / 0.92);
-  }
-  @supports (backdrop-filter: blur(1px)) {
-    .site-header.is-overlay.is-scrolled {
-      background: rgb(244 235 220 / 0.84);
-      backdrop-filter: saturate(1.4) blur(14px);
-    }
+    background: rgb(244 235 220);
   }
   .site-header.is-overlay.is-scrolled :global(.logo) {
     --l-word: #a8341a;

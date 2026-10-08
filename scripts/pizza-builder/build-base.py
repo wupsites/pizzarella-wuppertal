@@ -123,9 +123,23 @@ def main():
     u8 = np.clip(base, 0, 255).astype(np.uint8)
     sauce = cv2.inpaint(u8, cheese * 255, 9, cv2.INPAINT_TELEA).astype(np.float32)
     sauce_a = smoothstep(INNER + 0.05, INNER, rho)
-    # Teig: Rand wie im Foto, innen heller Teig (in der Exploded View am Rand sichtbar)
-    dough = cv2.inpaint(u8, (rho < INNER).astype(np.uint8) * 255, 15, cv2.INPAINT_TELEA).astype(np.float32)
-    dough = dough * 0.5 + np.array([170, 208, 232], np.float32) * 0.5
+    # Teig: Rand wie im Foto, innen ein heller, leicht gebackener Teigboden
+    # (gezeichnet statt aus dem Foto ergänzt – das ergab strahlenförmige Schlieren)
+    rng = np.random.default_rng(5)
+
+    def soft_noise(sigma):
+        n = cv2.GaussianBlur(rng.random((N, N)).astype(np.float32), (0, 0), sigma)
+        return (n - n.min()) / (n.max() - n.min() + 1e-6)
+
+    tone = 0.55 * soft_noise(26) + 0.3 * soft_noise(7) + 0.15 * soft_noise(1.6)
+    light = np.array([176, 214, 238], np.float32)  # BGR: heller Teig
+    baked = np.array([118, 168, 214], np.float32)  # BGR: goldbraun
+    brown = np.clip((tone - 0.35) * 1.6, 0, 1) * 0.45 + smoothstep(0.45, INNER, rho) * 0.35
+    dough = light * (1 - brown[..., None]) + baked * brown[..., None]
+    # Mehlstaub und kleine Bläschen
+    flour = (soft_noise(0.8) > 0.93).astype(np.float32)
+    dough = dough * (1 - 0.06 * flour[..., None]) + 255 * 0.06 * flour[..., None]
+    dough *= (0.96 + 0.08 * soft_noise(2.2))[..., None]
     under = smoothstep(INNER + 0.04, INNER - 0.04, rho)[..., None]
     crust = base * (1 - under) + dough * under
 

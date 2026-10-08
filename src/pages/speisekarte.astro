@@ -26,7 +26,11 @@ const vizFor = (p: (typeof cats)[number]['products'][number]) => {
   const name = (id: string) => pizzaGroup.choices.find((c) => c.id === id)?.label.split(',')[0] ?? '';
   const sauce = SAUCES.find((x) => p.description?.includes(x)) ?? 'Tomatensauce';
   const belag = tops.filter((id) => id !== 'mit-sauce-hollandaise').slice(0, 2).map(name);
-  return { tops, labels: [...(belag.length ? [belag.join(' · ')] : []), 'Käse', sauce] };
+  // Beschriftung je Ebene (von oben nach unten), so wie sie beim Auseinanderziehen liegen
+  return {
+    tops,
+    labels: [...(belag.length ? [{ k: 'tops', t: belag.join(' · ') }] : []), { k: 'cheese', t: 'Käse' }, { k: 'sauce', t: sauce }, { k: 'crust', t: 'Teig' }],
+  };
 };
 ---
 
@@ -192,14 +196,9 @@ const vizFor = (p: (typeof cats)[number]['products'][number]) => {
     position: sticky;
     top: var(--header-h);
     z-index: 40;
-    background: rgb(244 235 220 / 0.95);
+    /* deckend statt Weichzeichner (flüssiges Scrollen in Safari) */
+    background: rgb(244 235 220);
     border-block: 1px solid var(--line);
-  }
-  @supports (backdrop-filter: blur(1px)) {
-    .menu-bar {
-      background: rgb(244 235 220 / 0.86);
-      backdrop-filter: saturate(1.4) blur(14px);
-    }
   }
   .menu-bar-inner {
     display: flex;

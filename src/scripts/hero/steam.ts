@@ -164,8 +164,11 @@ export function createSteam(canvas: HTMLCanvasElement, maxDpr: number): Steam | 
       cssSize = [cssW, cssH];
       // reduzierte Auflösung: Dampf ist weich, die feinen Fäden brauchen aber etwas Schärfe
       scale = Math.min(window.devicePixelRatio || 1, maxDpr) * 0.42 * quality;
-      canvas.width = Math.max(1, Math.round(cssW * scale));
-      canvas.height = Math.max(1, Math.round(cssH * scale));
+      const w = Math.max(1, Math.round(cssW * scale));
+      const h = Math.max(1, Math.round(cssH * scale));
+      if (w === canvas.width && h === canvas.height) return;
+      canvas.width = w;
+      canvas.height = h;
       gl.viewport(0, 0, canvas.width, canvas.height);
     },
     setQuality(q) {
