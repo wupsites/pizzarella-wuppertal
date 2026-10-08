@@ -363,6 +363,174 @@ main:focus {
   box-shadow: none;
 }
 
+/* ---------- Pizza-Bild mit Ebenen (Speisekarte): Teig, Sauce, Käse, Belag.
+   Mit der Maus über dem Bild lösen sich die Ebenen kontrolliert voneinander –
+   nur transform/opacity, nur bei feinem Zeiger, sonst ruhig ---------- */
+.dish--viz {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+.dish-viz {
+  --vz: 6.75rem;
+  position: relative;
+  width: var(--vz);
+  height: var(--vz);
+  align-self: center;
+}
+.viz-stage {
+  position: absolute;
+  inset: 0;
+}
+.viz-stage::before {
+  /* Kontaktschatten unter der Pizza */
+  content: '';
+  position: absolute;
+  inset: 8% 6% 2%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(60 30 4 / 0.28), transparent);
+  transform: translateY(6%);
+}
+.viz-l {
+  position: absolute;
+  inset: 0;
+  background: center / contain no-repeat;
+}
+.viz-crust {
+  background-image: url(/pizza/thumb-crust.webp);
+}
+.viz-sauce {
+  background-image: url(/pizza/thumb-sauce.webp);
+}
+.viz-cheese {
+  background-image: url(/pizza/thumb-cheese.webp);
+}
+.viz-pc {
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+}
+img.viz-pc {
+  aspect-ratio: auto;
+}
+.viz-c {
+  position: absolute;
+  left: calc(var(--vz) + 1.1rem);
+  z-index: 2;
+  font-weight: 650;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ink);
+  opacity: 0;
+  transform: translate(-6px, -50%);
+  pointer-events: none;
+}
+.viz-c::before {
+  /* feine Linie zur Ebene, Punkt auf der Ebene */
+  content: '';
+  position: absolute;
+  right: calc(100% + 0.4rem);
+  top: 50%;
+  width: calc(0.7rem + var(--vz) * 0.16);
+  height: 1px;
+  background: var(--ink-2);
+}
+.viz-c::after {
+  content: '';
+  position: absolute;
+  right: calc(100% + 0.4rem + 0.7rem + var(--vz) * 0.16 - 2.5px);
+  top: calc(50% - 2.5px);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.viz-c0 {
+  top: 26%;
+}
+.viz-c1 {
+  top: 46%;
+}
+.viz-c2 {
+  top: 63%;
+}
+/* nur ein oder zwei Beschriftungen: Käse/Sauce rücken nach */
+.dish-viz .viz-c:first-of-type:nth-last-of-type(2) {
+  top: 46%;
+}
+.dish-viz .viz-c:first-of-type:nth-last-of-type(2) + .viz-c {
+  top: 63%;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .viz-stage,
+  .viz-l {
+    transition: transform 280ms cubic-bezier(0.3, 1.12, 0.5, 1);
+  }
+  .viz-c {
+    transition:
+      opacity 200ms var(--ease-rise),
+      transform 260ms var(--ease-rise);
+  }
+  .dish--viz .dish-main {
+    transition: opacity 220ms var(--ease-rise);
+  }
+  /* Bild „in die Tiefe“: kippt, Ebenen trennen sich (Teig unten, Belag oben) */
+  .dish-viz:hover .viz-stage {
+    transform: scale(1.1);
+    transition-duration: 200ms;
+  }
+  .dish-viz:hover .viz-l {
+    transition-duration: 340ms;
+  }
+  .dish-viz:hover .viz-crust {
+    transform: translateY(19%) scaleY(0.44);
+    transition-delay: 80ms;
+  }
+  .dish-viz:hover .viz-sauce {
+    transform: translateY(9%) scaleY(0.44);
+    transition-delay: 100ms;
+  }
+  .dish-viz:hover .viz-cheese {
+    transform: translateY(-3%) scaleY(0.44);
+    transition-delay: 120ms;
+  }
+  .dish-viz:hover .viz-tops {
+    transform: translateY(-21%) scaleY(0.44);
+    transition-delay: 140ms;
+  }
+  .dish-viz:hover .viz-c {
+    opacity: 1;
+    transform: translate(0, -50%);
+    transition-delay: 170ms;
+  }
+  .dish-viz:hover .viz-c1 {
+    transition-delay: 200ms;
+  }
+  .dish-viz:hover .viz-c2 {
+    transition-delay: 230ms;
+  }
+  /* Text daneben tritt zurück, solange die Beschriftungen da sind */
+  .dish--viz:has(.dish-viz:hover) .dish-main {
+    opacity: 0.08;
+  }
+}
+@media (max-width: 639px) {
+  .dish--viz {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 0.9rem;
+  }
+  .dish--viz .dish-actions {
+    grid-column: 1 / -1;
+  }
+  .dish-viz {
+    --vz: 4.6rem;
+    align-self: start;
+  }
+  .viz-c {
+    display: none;
+  }
+}
+
 /* ---------- Produkt-Sheet ---------- */
 .ps-top {
   position: relative;

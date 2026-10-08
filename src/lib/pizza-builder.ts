@@ -129,8 +129,8 @@ export function builderModel(catalog: Catalog): BuilderModel | null {
   };
 }
 
-/** Pizzen der Karte, deren Belag genau aus Extra-Zutaten besteht */
-function classics(catalog: Catalog, base: Product, group: OptionGroup): Classic[] {
+/** Zuordnung „Wort in der Beschreibung“ → Extra-Zutat */
+function aliases(group: OptionGroup): Map<string, string> {
   const alias = new Map<string, string>();
   for (const c of group.choices) alias.set(norm(c.label.split(',')[0]), c.id);
   // Schreibweisen der Beschreibungen
@@ -142,16 +142,38 @@ function classics(catalog: Catalog, base: Product, group: OptionGroup): Classic[
     'hahnchen-kebab': 'mit-haehnchen-doener-kebab',
   };
   for (const [k, v] of Object.entries(extra)) if (group.choices.some((c) => c.id === v)) alias.set(k, v);
+  return alias;
+}
+
+/** „mit Champignons, Rindersalami und Peperoni“ → Teile ohne Grundlage */
+function descriptionParts(description: string | undefined): string[] {
+  if (!description?.startsWith('mit ')) return [];
+  return description
+    .slice(4)
+    .split(/,\s*|\s+und\s+/)
+    .map((s) => norm(s))
+    .filter((s) => s && s !== 'tomatensauce' && s !== 'kase');
+}
+
+/**
+ * Belag einer Pizza als Extra-Zutaten (für die Bilder der Speisekarte).
+ * Nicht zuordenbare Teile (z. B. „Salat“) fallen weg; Reihenfolge wie in
+ * der Beschreibung.
+ */
+export function toppingsOf(product: Product, group: OptionGroup): string[] {
+  const alias = aliases(group);
+  return [...new Set(descriptionParts(product.description).flatMap((s) => alias.get(s) ?? []))];
+}
+
+/** Pizzen der Karte, deren Belag genau aus Extra-Zutaten besteht */
+function classics(catalog: Catalog, base: Product, group: OptionGroup): Classic[] {
+  const alias = aliases(group);
   const out: Classic[] = [];
   for (const p of catalog.products.values()) {
-    if (p.id === base.id || p.categoryId !== base.categoryId || !p.available || !p.description?.startsWith('mit ')) continue;
+    if (p.id === base.id || p.categoryId !== base.categoryId || !p.available) continue;
     // Calzone ist zugeklappt – kein Vergleich mit einer offenen Pizza
     if (p.options.some((g) => g.required) || /calzone/i.test(p.name)) continue;
-    const parts = p.description
-      .slice(4)
-      .split(/,\s*|\s+und\s+/)
-      .map((s) => norm(s))
-      .filter((s) => s && s !== 'tomatensauce' && s !== 'kase');
+    const parts = descriptionParts(p.description);
     const ids = parts.map((s) => alias.get(s));
     if (!ids.length || ids.some((x) => !x)) continue;
     // nur vergleichbar, wenn es dieselben Größen gibt

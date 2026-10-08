@@ -1,5 +1,6 @@
 /** Speisekarte: Live-Suche, aktive Kategorie in der Sticky-Leiste. */
 import { announce } from './ui/util.ts';
+import { initExploded } from './pizza/exploded.ts';
 
 const norm = (s: string) =>
   s
@@ -156,3 +157,6 @@ document.querySelectorAll<HTMLElement>('[data-pb-open]').forEach((btn) => {
     m.openBuilder(btn);
   });
 });
+
+// Pizza-Bilder mit Ebenen (Exploded View)
+initExploded();

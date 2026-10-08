@@ -8,6 +8,7 @@ import { site } from '../data/index.ts';
 import { hoursCompact } from '../lib/hours.ts';
 import { formatEuro } from '../lib/pricing.ts';
 import { menuJsonLd, breadcrumbJsonLd } from '../lib/seo.ts';
+import { builderModel, toppingsOf } from '../lib/pizza-builder.ts';
 
 const { catalog, ordering } = site;
 const cats = catalog.visibleCategories;
@@ -15,6 +16,18 @@ const total = cats.reduce((n, c) => n + c.products.length, 0);
 const pizzaFrom = cats.find((c) => c.id === 'pizza')?.fromPrice ?? null;
 const siteUrl = (Astro.site?.href ?? 'https://pizzarella-wuppertal.de/').replace(/\/?$/, '/');
 const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
+
+// Pizzen bekommen ein Bild aus Ebenen (Teig, Sauce, Käse, Belag) – Belag aus der Beschreibung
+const pizzaGroup = builderModel(catalog)?.group;
+const SAUCES = ['BBQ-Sauce', 'Sauce Hollandaise', 'Chili-Cheese-Sauce', 'Crème fraîche', 'Bolognesesauce'];
+const vizFor = (p: (typeof cats)[number]['products'][number]) => {
+  if (!pizzaGroup || p.categoryId !== 'pizza') return null;
+  const tops = toppingsOf(p, pizzaGroup);
+  const name = (id: string) => pizzaGroup.choices.find((c) => c.id === id)?.label.split(',')[0] ?? '';
+  const sauce = SAUCES.find((x) => p.description?.includes(x)) ?? 'Tomatensauce';
+  const belag = tops.filter((id) => id !== 'mit-sauce-hollandaise').slice(0, 2).map(name);
+  return { tops, labels: [...(belag.length ? [belag.join(' · ')] : []), 'Käse', sauce] };
+};
 ---
 
 <Base
@@ -102,7 +115,7 @@ const pickup = ordering.modes.pickup.enabled && ordering.modes.delivery.enabled;
             {c.id === 'pizza' && <BuilderCta />}
             <div class="dish-list">
               {c.products.map((p) => (
-                <Dish product={p} categoryName={c.name} />
+                <Dish product={p} categoryName={c.name} viz={vizFor(p)} />
               ))}
             </div>
           </section>

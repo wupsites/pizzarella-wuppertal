@@ -11,6 +11,7 @@ Kontaktschatten. Gerendert in doppelter Auflösung, dann verkleinert.
 
 Ergebnis in public/pizza/:
   toppings.webp    Atlas, Kacheln TILE×TILE, je Zutat eine Zeile mit Varianten
+  toppings-sm.webp derselbe Atlas mit 64-px-Kacheln (Speisekarte)
   toppings.json    { tile, rows: { id: { row, n } } }
 """
 import json
@@ -670,6 +671,9 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     img = np.clip(atlas * 255, 0, 255).astype(np.uint8)
     cv2.imwrite(os.path.join(OUT, 'toppings.webp'), img, [cv2.IMWRITE_WEBP_QUALITY, 88])
+    # kleiner Atlas für die Karten der Speisekarte (Exploded View)
+    sm = cv2.resize(img, (img.shape[1] * 64 // TILE, img.shape[0] * 64 // TILE), interpolation=cv2.INTER_AREA)
+    cv2.imwrite(os.path.join(OUT, 'toppings-sm.webp'), sm, [cv2.IMWRITE_WEBP_QUALITY, 82])
     json.dump({'tile': TILE, 'cols': ncol, 'rows': rows}, open(os.path.join(OUT, 'toppings.json'), 'w'))
     print('→ public/pizza/toppings.webp', img.shape, os.path.getsize(os.path.join(OUT, 'toppings.webp')) // 1024, 'KB')
 

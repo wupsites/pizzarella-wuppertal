@@ -223,19 +223,22 @@ export interface Atlas {
   rows: Record<string, { row: number; n: number }>;
   count: number;
 }
-let atlasP: Promise<Atlas> | null = null;
-/** Atlas laden und vorab dekodieren (danach ruckelt nichts beim ersten Stück) */
-export function loadAtlas(base = '/pizza/'): Promise<Atlas> {
-  if (!atlasP)
+const atlases = new Map<string, Promise<Atlas>>();
+/** Atlas laden und vorab dekodieren; file: großer (Konfigurator) oder kleiner Atlas (Speisekarte) */
+export function loadAtlas(base = '/pizza/', file = 'toppings.webp'): Promise<Atlas> {
+  let atlasP = atlases.get(base + file);
+  if (!atlasP) {
     atlasP = fetch(base + 'toppings.json')
       .then((r) => r.json())
       .then(async (m: Omit<Atlas, 'url' | 'count'>) => {
-        const url = base + 'toppings.webp';
+        const url = base + file;
         const img = new Image();
         img.src = url;
         await img.decode().catch(() => undefined);
         return { ...m, url, count: Object.keys(m.rows).length };
       });
+    atlases.set(base + file, atlasP);
+  }
   return atlasP;
 }
 

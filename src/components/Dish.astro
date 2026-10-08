@@ -12,8 +12,10 @@ interface Props {
   categoryName?: string;
   headingLevel?: 'h3' | 'h4';
   showNr?: boolean;
+  /** Pizza-Bild mit Ebenen (Exploded View): Belag als Extra-Zutaten + Beschriftungen */
+  viz?: { tops: string[]; labels: string[] } | null;
 }
-const { product: p, categoryName = '', headingLevel = 'h3', showNr = true } = Astro.props;
+const { product: p, categoryName = '', headingLevel = 'h3', showNr = true, viz = null } = Astro.props;
 const Heading = headingLevel;
 const needsChoice = p.noteRequired || p.options.some((g) => g.required);
 const hasExtras = !needsChoice && p.options.length > 0;
@@ -26,7 +28,22 @@ const codes = [...p.allergens, ...p.additives];
 const depositNote = (d: number) => (d ? `inkl. ${formatEuro(d)} Pfand` : '');
 ---
 
-<article class:list={['dish', `dish--${kind}`]} id={`p-${p.id}`} data-dish={p.id} data-search={searchText}>
+<article class:list={['dish', `dish--${kind}`, { 'dish--viz': viz }]} id={`p-${p.id}`} data-dish={p.id} data-search={searchText}>
+  {
+    viz && (
+      <div class="dish-viz" aria-hidden="true" data-viz={viz.tops.join(' ')}>
+        <div class="viz-stage">
+          <i class="viz-l viz-crust" />
+          <i class="viz-l viz-sauce" />
+          <i class="viz-l viz-cheese" />
+          <i class="viz-l viz-tops" />
+        </div>
+        {viz.labels.map((l, i) => (
+          <span class={`viz-c viz-c${i}`}>{l}</span>
+        ))}
+      </div>
+    )
+  }
   <div class="dish-main">
     <Heading class="dish-title">
       {showNr && p.nr && <span class="dish-nr" aria-label={`Nummer ${p.nr}`}>{p.nr}</span>}
