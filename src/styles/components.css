@@ -374,7 +374,7 @@ main:focus {
   --vz: 7.75rem;
   isolation: isolate;
   /* Stapel beim Auffächern etwas anheben, wenn er hoch wird (bleibt in der Karte) */
-  --lift: clamp(-8%, calc((var(--n) - 2) * -4%), 0%);
+  --lift: clamp(-5%, calc((var(--n) - 2) * -2.5%), 0%);
   position: relative;
   width: var(--vz);
   height: var(--vz);
@@ -396,7 +396,7 @@ main:focus {
 .viz-l {
   /* Lage im aufgefächerten Zustand: Abstand wächst mit der Zahl der Ebenen
      (höchstens 77 % der Bildhöhe von unten bis oben) */
-  --spread: min(100%, calc((var(--n) - 1) * 33%));
+  --spread: min(66%, calc((var(--n) - 1) * 22%));
   --off: calc(var(--spread) / 2 - var(--i) * var(--spread) / (var(--n) - 1) - 1.5%);
   position: absolute;
   inset: 0;
@@ -427,7 +427,7 @@ img.viz-pc {
    Sie stehen dort, wo die Ebene im aufgefächerten Zustand liegt:
    Mitte + Anhebung + Versatz × Vergrößerung (--kh) */
 .dish-viz {
-  --kh: 1.24;
+  --kh: 1.12;
 }
 .viz-cs {
   position: absolute;
@@ -439,7 +439,7 @@ img.viz-pc {
   pointer-events: none;
 }
 .viz-c {
-  --spread: min(100%, calc((var(--n) - 1) * 33%));
+  --spread: min(66%, calc((var(--n) - 1) * 22%));
   --off: calc(var(--spread) / 2 - var(--i) * var(--spread) / (var(--n) - 1) - 1.5%);
   position: absolute;
   left: 0;
@@ -483,7 +483,7 @@ img.viz-pc {
 .viz-c--top {
   background: var(--tomato);
   color: #fff;
-  box-shadow: 0 12px 24px -10px rgb(200 54 27 / 0.6);
+  box-shadow: 0 8px 18px -10px rgb(200 54 27 / 0.45);
 }
 .viz-c--top b {
   background: #fff;
@@ -527,7 +527,7 @@ img.viz-pc {
   inset: -40%;
   z-index: -1;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(242 181 58 / 0.34), rgb(242 181 58 / 0.12) 55%, transparent 72%);
+  background: radial-gradient(closest-side, rgb(242 181 58 / 0.12), rgb(242 181 58 / 0.05) 55%, transparent 72%);
   opacity: 0;
   transform: scale(0.6);
   pointer-events: none;
@@ -593,9 +593,9 @@ img.viz-pc {
     transition-duration: 700ms;
   }
   .dish-viz:hover .viz-l {
-    transform: translateY(calc(var(--off) * 1.08)) rotateX(66deg) rotateZ(var(--rz, 0deg));
+    transform: translateY(calc(var(--off) * 1.08)) rotateX(62deg) rotateZ(var(--rz, 0deg));
     transition: transform 820ms var(--ease-settle) calc(var(--i) * 70ms);
-    animation: viz-turn 26s linear calc(900ms + var(--i) * 70ms) infinite;
+    animation: viz-turn 90s linear calc(900ms + var(--i) * 70ms) infinite;
   }
   /* Seitenansicht (Döner im Brot, Getränk im Glas): nicht kippen, nur senkrecht
      auseinander – wie eine Explosionszeichnung */
@@ -609,8 +609,8 @@ img.viz-pc {
   /* oberste Ebene schwebt leicht */
   .dish-viz:hover .viz-l:last-child {
     animation:
-      viz-turn 26s linear calc(900ms + var(--i) * 70ms) infinite,
-      viz-float 2.6s ease-in-out 1s infinite alternate;
+      viz-turn 90s linear calc(900ms + var(--i) * 70ms) infinite,
+      viz-float 3.2s ease-in-out 1s infinite alternate;
   }
 
   /* Beschriftungen: Linie zeichnet sich vom Chip zur Ebene, Punkt springt
@@ -640,15 +640,15 @@ img.viz-pc {
 }
 @keyframes viz-turn {
   from {
-    transform: translateY(calc(var(--off) * 1.08)) rotateX(66deg) rotateZ(var(--rz, 0deg));
+    transform: translateY(calc(var(--off) * 1.08)) rotateX(62deg) rotateZ(var(--rz, 0deg));
   }
   to {
-    transform: translateY(calc(var(--off) * 1.08)) rotateX(66deg) rotateZ(calc(var(--rz, 0deg) + 360deg));
+    transform: translateY(calc(var(--off) * 1.08)) rotateX(62deg) rotateZ(calc(var(--rz, 0deg) + 360deg));
   }
 }
 @keyframes viz-float {
   to {
-    translate: 0 -4%;
+    translate: 0 -2%;
   }
 }
 @media (max-width: 639px) {

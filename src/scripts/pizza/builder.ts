@@ -24,9 +24,13 @@ interface Data {
   classics: { id: string; name: string; choices: string[]; prices: Record<string, number> }[];
   /** ersetzt die Tomatensauce: eigener Boden statt Belag, Hinweis für die Küche */
   hollandaise: { id: string; note: string };
+  /** „Extra Käse“ – nur mit Käse sinnvoll */
+  extraCheese: string;
 }
 
-type Change = { kind: 'remove'; id: string; at: number } | { kind: 'reset'; items: string[]; size: string };
+type Sauce = 'tomato' | 'holl' | 'none';
+
+type Change = { kind: 'remove'; id: string; at: number } | { kind: 'reset'; items: string[]; size: string; sauce: Sauce; cheese: boolean };
 
 const dialog = document.getElementById('pizza-builder') as HTMLDialogElement | null;
 const D: Data | null = (() => {
@@ -41,6 +45,10 @@ let ready = false;
 let atlas: Atlas | null = null;
 let size = D?.size ?? 'gross';
 let items: string[] = [];
+/** Grundlage: Sauce (Tomate Standard, Hollandaise = Extra, ohne) und Käse (mit/ohne) */
+let sauce: Sauce = 'tomato';
+let cheese = true;
+let shownCheese = true;
 let last: Change | null = null;
 let noteTimer = 0;
 
@@ -67,33 +75,96 @@ function pieceBase(x: number, y: number, rot: number, scale: number) {
   return { left: `${50 + x * 47}%`, top: `${50 + y * 47}%`, t: `translate(-50%, -50%) rotate(${rot}deg) scale(${scale})` };
 }
 
-/** Hollandaise statt Tomatensauce: der Boden wechselt – von der Mitte aus
- *  „verstrichen“ wie mit der Kelle, beim Entfernen zieht sie sich zurück */
-function showHollandaise(on: boolean, animate = true) {
-  const el = $<HTMLImageElement>('[data-pb-holl]');
-  const to = on ? 'circle(75% at 50% 50%)' : 'circle(0% at 50% 50%)';
-  if (el.style.clipPath === to) return;
-  const from = getComputedStyle(el).clipPath || 'circle(0% at 50% 50%)';
-  el.style.clipPath = to;
-  if (!animate || reducedMotion()) return;
-  el.getAnimations().forEach((a) => a.cancel());
-  el.animate(
-    on
-      ? [
-          { clipPath: from, filter: 'brightness(1.06)' },
-          { clipPath: 'circle(38% at 51% 49%)', offset: 0.55 },
-          { clipPath: to, filter: 'brightness(1)' },
-        ]
-      : [{ clipPath: from }, { clipPath: to }],
-    { duration: on ? 760 : 380, easing: on ? 'cubic-bezier(0.3, 0.7, 0.25, 1)' : 'cubic-bezier(0.4, 0, 1, 1)' },
-  );
+/** Boden zeigen, wie gewählt: Teig (Rand mit/ohne Tomatenspuren), Sauce, Käse.
+ *  Sauce wird von der Mitte aus verstrichen bzw. zieht sich zurück, Käse wird
+ *  aufgestreut bzw. abgehoben; beim Saucenwechsel werden Rand und Käse weich überblendet */
+function renderBase(animate = true) {
+  const want: Record<string, boolean> = {
+    crust: sauce === 'tomato',
+    'crust-clean': sauce !== 'tomato',
+    'sauce-tomato': sauce === 'tomato',
+    'sauce-holl': sauce === 'holl',
+    cheese: cheese && sauce === 'tomato',
+    'cheese-holl': cheese && sauce !== 'tomato',
+  };
+  const swapCheese = cheese === shownCheese;
+  shownCheese = cheese;
+  const imgs = $$<HTMLImageElement>('[data-pb-layer]');
+  const changed = imgs.filter((img) => want[img.dataset.pbLayer!] !== img.classList.contains('is-on'));
+  for (const img of changed) {
+    const on = want[img.dataset.pbLayer!];
+    img.classList.toggle('is-on', on);
+    if (!animate || reducedMotion()) continue;
+    img.getAnimations().forEach((a) => a.cancel());
+    const kind = img.dataset.pbLayer!.split('-')[0];
+    if (kind === 'sauce') {
+      if (on)
+        img.animate(
+          [
+            { clipPath: 'circle(0% at 50% 50%)', filter: 'brightness(1.05)' },
+            { clipPath: 'circle(36% at 51% 49%)', offset: 0.55 },
+            { clipPath: 'circle(75% at 50% 50%)', filter: 'brightness(1)' },
+          ],
+          { duration: 760, easing: 'cubic-bezier(0.3, 0.7, 0.25, 1)' },
+        );
+      else img.animate([{ opacity: 1, clipPath: 'circle(75% at 50% 50%)' }, { opacity: 1, clipPath: 'circle(0% at 50% 50%)' }], { duration: 420, easing: 'cubic-bezier(0.4, 0, 1, 1)' });
+    } else if (kind === 'cheese' && !swapCheese) {
+      if (on) img.animate([{ opacity: 0, transform: 'translateY(-10px) scale(1.04)' }, { opacity: 1, transform: 'none' }], { duration: 520, easing: ease });
+      else img.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-10px) scale(1.03)' }], { duration: 340, easing: 'cubic-bezier(0.4, 0, 1, 1)' });
+    } else {
+      // Überblenden ohne Durchscheinen: die obere Ebene blendet, die untere bleibt stehen
+      const partner = changed.find((o) => o !== img && o.dataset.pbLayer!.split('-')[0] === kind);
+      const above = !partner || !!(partner.compareDocumentPosition(img) & Node.DOCUMENT_POSITION_FOLLOWING);
+      if (above) img.animate([{ opacity: on ? 0 : 1 }, { opacity: on ? 1 : 0 }], { duration: 480, easing: 'linear' });
+      else img.animate([{ opacity: 1 }, { opacity: 1 }], { duration: 480 });
+    }
+  }
+}
+
+function setSauce(v: Sauce, user = true) {
+  if (v === sauce) return;
+  const H = D!.hollandaise.id;
+  if (v === 'holl' && !items.includes(H)) {
+    if (items.length >= D!.max) {
+      note(`Maximal ${D!.max} Extras pro Pizza.`);
+      paint();
+      return;
+    }
+    items.push(H);
+  }
+  if (v !== 'holl' && items.includes(H)) items.splice(items.indexOf(H), 1);
+  sauce = v;
+  renderBase();
+  paint();
+  if (user) announce(`${v === 'tomato' ? 'Tomatensauce' : v === 'holl' ? 'Sauce Hollandaise statt Tomatensauce' : 'Ohne Sauce'}. Gesamt ${formatEuro(total())}.`);
+}
+
+function setCheese(on: boolean, user = true) {
+  if (on === cheese) return;
+  cheese = on;
+  const X = D!.extraCheese;
+  if (!on && items.includes(X)) {
+    items.splice(items.indexOf(X), 1);
+    removePieces(X);
+    note('Extra Käse entfernt – passt nicht zu „ohne Käse“.');
+  }
+  renderBase();
+  paint();
+  if (user) announce(`${on ? 'Mit Käse' : 'Ohne Käse'}. Gesamt ${formatEuro(total())}.`);
+}
+
+/** Hinweis für die Küche (Preis ändert sich durchs Weglassen nicht) */
+function kitchenNote() {
+  const parts: string[] = [];
+  if (sauce === 'holl') parts.push(D!.hollandaise.note);
+  if (sauce === 'none') parts.push('ohne Tomatensauce');
+  if (!cheese) parts.push('ohne Käse');
+  return parts.join(' · ');
 }
 
 async function placeIngredient(id: string, opts: { from?: { x: number; y: number }; animate?: boolean; startIndex?: number } = {}) {
-  if (id === D!.hollandaise.id) {
-    showHollandaise(true, opts.animate !== false);
-    return;
-  }
+  // Hollandaise ist kein Belag, sondern die Sauce (renderBase)
+  if (id === D!.hollandaise.id) return;
   const L = look(id);
   const host = $('[data-pb-tops]');
   const list = pieces.get(id) ?? [];
@@ -184,7 +255,6 @@ function liftOff(els: HTMLElement[], stagger = 10) {
 }
 
 function removePieces(id: string) {
-  if (id === D!.hollandaise.id) showHollandaise(false);
   const list = pieces.get(id) ?? [];
   pieces.delete(id);
   liftOff(list);
@@ -215,28 +285,33 @@ function paint() {
     b.title = off ? `Maximal ${max} Extras` : '';
   }
   $('[data-pb-count]').textContent = `${items.length} von ${max} Extras${full ? ' – mehr geht nicht' : ''}`;
-  // Sauce: Tomatensauce ist Standard, Hollandaise ersetzt sie
-  const holl = items.includes(D!.hollandaise.id);
-  const fixed = dialog!.querySelector<HTMLElement>('[data-pb-fixed="sauce"]');
-  if (fixed) {
-    fixed.querySelector('[data-pb-fixed-name]')!.textContent = holl ? 'Sauce Hollandaise' : 'Tomatensauce';
-    fixed.querySelector('[data-pb-fixed-note]')!.textContent = holl ? 'statt Tomatensauce' : 'Standard';
-    fixed.classList.toggle('is-swapped', holl);
+  // Grundlage: Auswahl anzeigen; Extra Käse nur mit Käse
+  for (const r of $$<HTMLInputElement>('[data-pb-base-choice]')) r.checked = r.value === (r.dataset.pbBaseChoice === 'sauce' ? sauce : cheese ? 'on' : 'off');
+  const xc = dialog!.querySelector<HTMLElement>(`[data-ing="${D!.extraCheese}"]`);
+  if (xc && !cheese) {
+    xc.setAttribute('aria-disabled', 'true');
+    xc.title = 'Nur mit Käse';
   }
   const fine = dialog!.querySelector<HTMLElement>('[data-pb-fine]');
-  if (fine) fine.textContent = holl ? fine.dataset.holl! : fine.dataset.std!;
+  if (fine) fine.textContent = kitchenNote() ? fine.dataset.custom! : fine.dataset.std!;
   // Zusammenfassung
   const s = D!.sizes.find((x) => x.id === size)!;
   $('[data-pb-size-label]').textContent = `${s.label} ${s.detail}`.trim();
   $('[data-pb-base-price]').textContent = formatEuro(s.price);
   const lines = $('[data-pb-lines]');
   lines.querySelectorAll('.pb-line--x').forEach((n) => n.remove());
-  for (const id of items) {
+  const line = (label: string, price: string) => {
     const li = document.createElement('li');
     li.className = 'pb-line pb-line--x';
-    const p = priceOf(id);
-    li.innerHTML = `<span>+ ${escapeHtml(D!.choices[id].label)}</span><span class="num">${p ? formatEuro(p) : 'inklusive'}</span>`;
+    li.innerHTML = `<span>${label}</span><span class="num">${price}</span>`;
     lines.appendChild(li);
+  };
+  if (sauce === 'none') line('Ohne Tomatensauce', '±0,00 €');
+  if (!cheese) line('Ohne Käse', '±0,00 €');
+  for (const id of items) {
+    const p = priceOf(id);
+    const label = escapeHtml(D!.choices[id].label) + (id === D!.hollandaise.id ? ' (statt Tomatensauce)' : '');
+    line(`+ ${label}`, p ? formatEuro(p) : 'inklusive');
   }
   // lange Liste (Desktop scrollt): die zuletzt gewählte Zutat ist sichtbar
   lines.scrollTop = lines.scrollHeight;
@@ -277,7 +352,8 @@ function setTotal(v: number) {
 function tip() {
   const el = $('[data-pb-tip]');
   const key = [...items].sort().join('+');
-  const c = D!.classics.find((x) => x.choices.join('+') === key && x.prices[size] !== undefined && x.prices[size] < total());
+  // fertige Pizzen haben Käse und Sauce – nur dann vergleichbar
+  const c = sauce !== 'none' && cheese ? D!.classics.find((x) => x.choices.join('+') === key && x.prices[size] !== undefined && x.prices[size] < total()) : undefined;
   if (!c) {
     el.hidden = true;
     el.innerHTML = '';
@@ -310,6 +386,10 @@ function remove(id: string, quiet = false) {
   if (at < 0) return;
   items.splice(at, 1);
   removePieces(id);
+  if (id === D!.hollandaise.id) {
+    sauce = 'tomato';
+    renderBase();
+  }
   paint();
   if (quiet) return;
   last = { kind: 'remove', id, at };
@@ -325,6 +405,10 @@ function setSize(v: string, user = true) {
     const p = priceOf(b.dataset.ing!);
     b.querySelector('[data-pb-price]')!.textContent = p > 0 ? `+${formatEuro(p)}` : 'inklusive';
   }
+  for (const el of $$<HTMLElement>('[data-pb-opt-price]')) {
+    const id = el.dataset.pbOptPrice;
+    if (id) el.textContent = priceOf(id) > 0 ? `+${formatEuro(priceOf(id))}` : 'inklusive';
+  }
   for (const r of $$<HTMLInputElement>('[data-pb-size]')) r.checked = r.value === v;
   syncCounts();
   paint();
@@ -332,12 +416,14 @@ function setSize(v: string, user = true) {
 }
 
 function reset() {
-  if (!items.length && size === D!.size) return;
-  last = { kind: 'reset', items: [...items], size };
+  if (!items.length && size === D!.size && sauce === 'tomato' && cheese) return;
+  last = { kind: 'reset', items: [...items], size, sauce, cheese };
   const all = [...pieces.values()].flat();
   pieces.clear();
-  showHollandaise(false);
   items = [];
+  sauce = 'tomato';
+  cheese = true;
+  renderBase();
   // alles zusammen, kurz – nicht Stück für Stück
   liftOff(all, 0);
   setSize(D!.size, false);
@@ -353,12 +439,19 @@ function undo() {
   if (!c) return;
   if (c.kind === 'remove') {
     items.splice(Math.min(c.at, items.length), 0, c.id);
+    if (c.id === D!.hollandaise.id) {
+      sauce = 'holl';
+      renderBase();
+    }
     paint();
     placeIngredient(c.id);
     announce(`${D!.choices[c.id].label} wieder drauf.`);
   } else {
     setSize(c.size, false);
     items = [...c.items];
+    sauce = c.sauce;
+    cheese = c.cheese;
+    renderBase();
     paint();
     items.forEach((id) => placeIngredient(id));
     announce('Wiederhergestellt.');
@@ -388,8 +481,8 @@ function addToCart(btn: HTMLElement) {
       variantId: v,
       qty: 1,
       options: items.length ? { [D!.group]: [...items] } : {},
-      // für die Küche: auf die Hollandaise-Pizza kommt keine Tomatensauce
-      note: items.includes(D!.hollandaise.id) ? D!.hollandaise.note : undefined,
+      // für die Küche: Sauce/Käse wie gewählt (z. B. „Hollandaise statt Tomatensauce · ohne Käse“)
+      note: kitchenNote() || undefined,
     });
   } catch {
     note('Das hat nicht geklappt – bitte nochmal.');
@@ -420,8 +513,10 @@ function addToCart(btn: HTMLElement) {
     const all = [...pieces.values()].flat();
     all.forEach((el) => el.remove());
     pieces.clear();
-    showHollandaise(false, false);
     items = [];
+    sauce = 'tomato';
+    cheese = true;
+    renderBase(false);
     last = null;
     setSize(D!.size, false);
     paint();
@@ -531,19 +626,16 @@ function init() {
   enhanceDialog(dialog);
   // Pizza erst zeigen, wenn der Boden geladen ist (kein leerer Umriss beim Öffnen)
   const pizza = $('[data-pb-pizza]');
-  const base = pizza.querySelector<HTMLImageElement>('img.pb-base');
-  if (base) {
-    base.loading = 'eager';
-    const show = () => pizza.classList.add('is-ready');
-    if (base.complete && base.naturalWidth) show();
-    else base.decode().then(show, show);
-  }
+  const layers = Array.from(pizza.querySelectorAll<HTMLImageElement>('img.pb-base'));
+  layers.forEach((img) => (img.loading = 'eager'));
+  const first = layers.filter((img) => img.classList.contains('is-on'));
+  Promise.all(first.map((img) => (img.complete && img.naturalWidth ? Promise.resolve() : img.decode().catch(() => {})))).then(() => pizza.classList.add('is-ready'));
   dialog.addEventListener('click', (e) => {
     const t = e.target as HTMLElement;
     const ing = t.closest<HTMLElement>('[data-ing]');
     if (ing) {
       if (ing.getAttribute('aria-disabled') === 'true') {
-        note(`Maximal ${D.max} Extras pro Pizza.`);
+        note(ing.dataset.ing === D.extraCheese && !cheese ? 'Extra Käse gibt es nur mit Käse.' : `Maximal ${D.max} Extras pro Pizza.`);
         return;
       }
       const id = ing.dataset.ing!;
@@ -572,6 +664,8 @@ function init() {
   dialog.addEventListener('change', (e) => {
     const r = e.target as HTMLInputElement;
     if (r.matches('[data-pb-size]')) setSize(r.value);
+    else if (r.dataset.pbBaseChoice === 'sauce') setSauce(r.value as Sauce);
+    else if (r.dataset.pbBaseChoice === 'kaese') setCheese(r.value === 'on');
   });
   initDrag();
   shownTotal = total();
