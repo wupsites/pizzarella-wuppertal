@@ -4,7 +4,7 @@
  */
 import { formatEuro } from '../../lib/pricing.ts';
 import { iconSvg } from '../../lib/icons.ts';
-import { cart, type Snapshot } from '../store.ts';
+import { cart, NOTE_MAX, type Snapshot } from '../store.ts';
 import { data, product } from '../data.ts';
 import { status } from './status.ts';
 import { toast } from './toast.ts';
@@ -57,6 +57,15 @@ function pairs(snap: Snapshot): string {
       })
       .join('')}</div>
   </section>`;
+}
+
+/** kurzes Feld für Wünsche zur Bestellung – geht mit der Bestellung an die Küche */
+function noteField(snap: Snapshot): string {
+  const id = `cart-note-${uid}`;
+  return `<div class="cart-note">
+    <label for="${id}">Anmerkung zur Bestellung <span class="opt">(optional)</span></label>
+    <textarea class="textarea cart-note-input" id="${id}" rows="2" maxlength="${NOTE_MAX}" data-cart-note data-fk="cart-note" autocomplete="off" placeholder="z. B. Rand knusprig, ohne Zwiebeln">${esc(snap.note)}</textarea>
+  </div>`;
 }
 
 function footer(snap: Snapshot): string {
@@ -137,6 +146,7 @@ function render(container: HTMLElement, snap: Snapshot, change?: { type: string;
       ${modeToggle(snap, name)}
       ${closedNote}
       <ul class="cart-lines" role="list" aria-label="Positionen im Warenkorb">${lines}</ul>
+      ${noteField(snap)}
       ${pairs(snap)}
     </div>${footer(snap)}`;
 }
@@ -144,6 +154,12 @@ function render(container: HTMLElement, snap: Snapshot, change?: { type: string;
 export function initCartViews() {
   const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-cart-view]'));
   cart.subscribe((snap, change) => {
+    if (change.type === 'note') {
+      // nur den Text in den anderen Ansichten angleichen – kein Neuzeichnen
+      // (sonst springt beim Tippen der Cursor)
+      for (const el of document.querySelectorAll<HTMLTextAreaElement>('[data-cart-note]')) if (el !== document.activeElement && el.value !== snap.note) el.value = snap.note;
+      return;
+    }
     for (const c of containers) withFocus(c, () => render(c, snap, change));
     // Zähler & Summen überall
     for (const el of document.querySelectorAll<HTMLElement>('[data-cart-count]')) {
@@ -189,6 +205,10 @@ export function initCartViews() {
     c.addEventListener('change', (e) => {
       const input = e.target as HTMLInputElement;
       if (input.matches('[data-mode-input]')) cart.setMode(input.value as 'delivery' | 'pickup');
+    });
+    c.addEventListener('input', (e) => {
+      const el = e.target as HTMLTextAreaElement;
+      if (el.matches('[data-cart-note]')) cart.setNote(el.value);
     });
   }
 }

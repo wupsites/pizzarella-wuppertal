@@ -76,6 +76,17 @@ function init(root: HTMLElement, form: HTMLFormElement) {
   };
   cart.subscribe((snap) => renderSummary(snap));
 
+  // ---- Anmerkung: dieselbe wie im Warenkorb („Rand knusprig, ohne Zwiebeln“) ----
+  const noteEl = $<HTMLTextAreaElement>('#co-note');
+  if (noteEl) {
+    if (!noteEl.value) noteEl.value = cart.get().note;
+    noteEl.addEventListener('input', () => cart.setNote(noteEl.value));
+    cart.subscribe((snap, change) => {
+      if (change.type !== 'note' && change.type !== 'sync') return;
+      if (document.activeElement !== noteEl && noteEl.value !== snap.note) noteEl.value = snap.note;
+    });
+  }
+
   // ---- PLZ ----
   const checkZip = () => {
     if (!zipInput || !zipOk) return;

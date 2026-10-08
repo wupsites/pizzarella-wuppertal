@@ -1136,6 +1136,28 @@ body:has(dialog[open]) {
   width: 2.25rem;
   height: 2.25rem;
 }
+/* Anmerkung zur Bestellung: kompakt, wächst beim Schreiben mit */
+.cart-note {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.75rem 0 0.25rem;
+}
+.cart-note label {
+  font-weight: 650;
+  font-size: 0.9rem;
+}
+.cart-note .opt {
+  font-weight: 400;
+  color: var(--ink-3);
+}
+.cart-note-input.textarea {
+  min-height: 2.9rem;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  resize: none;
+  field-sizing: content;
+  max-height: 8rem;
+}
 .link-btn {
   display: inline-flex;
   align-items: center;

@@ -10,15 +10,20 @@ interface State {
   lines: LineInput[];
   mode: Mode;
   zip: string;
+  /** Anmerkung zur ganzen Bestellung (z. B. „Rand knusprig, ohne Zwiebeln“) */
+  note: string;
 }
 export interface Snapshot {
   lines: PricedLine[];
   totals: Totals;
   mode: Mode;
   zip: string;
+  note: string;
 }
 type Listener = (snap: Snapshot, change: Change) => void;
-export type Change = { type: 'init' | 'add' | 'qty' | 'remove' | 'mode' | 'zip' | 'clear' | 'sync'; key?: string };
+export type Change = { type: 'init' | 'add' | 'qty' | 'remove' | 'mode' | 'zip' | 'note' | 'clear' | 'sync'; key?: string };
+/** so lang darf die Anmerkung sein (wie an der Kasse und auf dem Server) */
+export const NOTE_MAX = 400;
 
 const KEY = 'pizzarella.cart.v1';
 const listeners = new Set<Listener>();
@@ -34,7 +39,7 @@ function storage(): Storage | null {
 }
 
 function load(): State {
-  const fallback: State = { lines: [], mode: data().ordering?.defaultMode ?? 'delivery', zip: '' };
+  const fallback: State = { lines: [], mode: data().ordering?.defaultMode ?? 'delivery', zip: '', note: '' };
   try {
     const raw = storage()?.getItem(KEY);
     if (!raw) return fallback;
@@ -52,6 +57,7 @@ function load(): State {
       }),
       mode: parsed.mode === 'pickup' || parsed.mode === 'delivery' ? parsed.mode : fallback.mode,
       zip: typeof parsed.zip === 'string' ? parsed.zip.slice(0, 5) : '',
+      note: typeof parsed.note === 'string' ? parsed.note.slice(0, NOTE_MAX) : '',
     };
   } catch {
     return fallback;
@@ -76,7 +82,7 @@ function derive(): Snapshot {
     }
   }
   const zone = state.mode === 'delivery' ? findZone(data().ordering?.zones ?? [], state.zip) : null;
-  return { lines, totals: computeTotals(lines, state.mode, zone, data().ordering?.minOrderExclude ?? []), mode: state.mode, zip: state.zip };
+  return { lines, totals: computeTotals(lines, state.mode, zone, data().ordering?.minOrderExclude ?? []), mode: state.mode, zip: state.zip, note: state.note };
 }
 
 function commit(change: Change, save = true) {
@@ -137,8 +143,16 @@ export const cart = {
     state.zip = zip.replace(/\D/g, '').slice(0, 5);
     commit({ type: 'zip' });
   },
+  /** Anmerkung zur Bestellung – gespeichert bei jedem Tastendruck, ohne den Warenkorb neu zu zeichnen */
+  setNote(note: string) {
+    const next = note.slice(0, NOTE_MAX);
+    if (next === state.note) return;
+    state.note = next;
+    commit({ type: 'note' });
+  },
   clear() {
     state.lines = [];
+    state.note = '';
     commit({ type: 'clear' });
   },
   raw(): State {
