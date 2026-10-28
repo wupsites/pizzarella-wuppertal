@@ -1,0 +1,40 @@
+# Demo-Stack: die Website + vorgeschalteter Zugangsschutz (Caddy, HTTPS automatisch).
+#
+#   cp wupsites-demo/demo.env.example wupsites-demo/.env      # Werte eintragen
+#   docker compose -f wupsites-demo/compose.yaml --env-file wupsites-demo/.env up -d --build
+#
+# Voraussetzung für HTTPS: DEMO_DOMAIN zeigt per DNS auf den Server, Ports 80 und 443 sind frei.
+services:
+  app:
+    image: ${DEMO_IMAGE:-pizzarella-demo}
+    build:
+      context: ..
+      dockerfile: wupsites-demo/Dockerfile
+    restart: unless-stopped
+    environment:
+      # Demo: Bestellungen bleiben im Container, nichts geht an den Laden
+      ORDER_DEV_SINK: "true"
+    expose:
+      - "4321"
+
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DEMO_DOMAIN: ${DEMO_DOMAIN:?DEMO_DOMAIN fehlt}
+      DEMO_USER: ${DEMO_USER:?DEMO_USER fehlt}
+      DEMO_PASSWORD_HASH: ${DEMO_PASSWORD_HASH:?DEMO_PASSWORD_HASH fehlt}
+      PORTAL_ORIGIN: ${PORTAL_ORIGIN:-'none'}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

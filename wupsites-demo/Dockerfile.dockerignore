@@ -1,0 +1,12 @@
+# Nur, was der Build braucht (Docker BuildKit liest diese Datei bei -f wupsites-demo/Dockerfile).
+# Damit gelangen node_modules, .env, .orders (Testbestellungen) und Arbeitsdateien nie ins Image.
+**
+!package.json
+!package-lock.json
+!astro.config.mjs
+!tsconfig.json
+!scripts/data-report.ts
+!src
+!src/**
+!public
+!public/**

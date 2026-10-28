@@ -1,0 +1,168 @@
+{
+  "manifestVersion": 1,
+  "projectId": "pizzarella-wuppertal",
+  "name": "Pizzarella Wuppertal",
+  "client": {
+    "name": "Pizzarella",
+    "legalName": "Pizzarella, Inh. Emre Budak",
+    "address": "Friedrich-Engels-Allee 117, 42285 Wuppertal",
+    "currentWebsite": "https://pizzarella-wuppertal.de",
+    "approvalForSalesReference": null
+  },
+  "industry": "Gastronomie · Lieferdienst und Abholung (Pizza, Döner, Lahmacun, Falafel, Pasta)",
+  "summary": "Neue Website mit Direktbestellung für einen Pizza- und Döner-Lieferdienst in Wuppertal: 3D-Pizza-Hero aus einem echten Foto, Speisekarte mit 118 Gerichten, Pizza-Ersteller, Warenkorb und Kasse mit serverseitig geprüfter Bestellung.",
+  "status": {
+    "implementation": "funktionsfähig, vor Livegang offene Punkte (siehe knownIssues und docs/GO-LIVE.md)",
+    "productionLive": false,
+    "demoDeployed": false,
+    "lastVerified": "2026-10-28",
+    "verifiedIn": "Cloud-Entwicklungsumgebung: Node 22, Chromium mit SwiftShader, Docker-Image aus wupsites-demo/Dockerfile"
+  },
+  "source": {
+    "repository": "https://github.com/wupsites/pizzarella-wuppertal",
+    "repositoryVisibility": "public",
+    "branch": "hero-pizza-reference",
+    "websiteCommit": "198d585d37619b7d1d7389ea6de8bb81e8353ecf",
+    "packagePath": "wupsites-demo/",
+    "note": "Der Branch main enthält nur den ersten Commit. Der vollständige Stand liegt ausschließlich auf hero-pizza-reference."
+  },
+  "runtime": {
+    "framework": "Astro 7 (statisch vorgerenderte Seiten) + eine Server-Route /api/order",
+    "adapter": "@astrojs/node, mode standalone",
+    "node": ">=22.12.0",
+    "install": "npm ci",
+    "build": "npm run build",
+    "start": "node dist/server/entry.mjs",
+    "port": 4321,
+    "healthcheck": "/api/order",
+    "container": {
+      "dockerfile": "wupsites-demo/Dockerfile",
+      "buildContext": ".",
+      "build": "docker build -f wupsites-demo/Dockerfile -t pizzarella-demo .",
+      "run": "docker run -d -p 4321:4321 pizzarella-demo",
+      "stackWithAccessProtection": "wupsites-demo/compose.yaml"
+    },
+    "hostingRequirement": "Server oder Container-Hoster mit Node 22 bzw. Docker. Die Seite muss an der Wurzel einer eigenen (Sub-)Domain laufen, weil alle Pfade mit / beginnen; ein Unterpfad im Portal funktioniert nicht ohne Codeänderung."
+  },
+  "demo": {
+    "url": null,
+    "integrationType": "separate-deployment",
+    "openMode": "new-window",
+    "embedding": {
+      "iframe": "technisch möglich, nicht empfohlen",
+      "howToAllow": "PORTAL_ORIGIN in wupsites-demo/.env setzen (CSP frame-ancestors)",
+      "reasons": [
+        "Der Passwortschutz würde im iframe als Browser-Dialog erscheinen oder blockiert werden",
+        "Scroll-Hero, WebGL und Warenkorb (localStorage) verhalten sich als Vollbildseite am zuverlässigsten"
+      ]
+    },
+    "accessProtection": "Pflicht: Passwort über Caddy (wupsites-demo/Caddyfile), getestet am 2026-10-28 (401 ohne, 200 mit Zugangsdaten)",
+    "noindex": "Pflicht: Header X-Robots-Tag noindex, nofollow, noarchive über Caddy, getestet am 2026-10-28",
+    "environment": {
+      "ORDER_DEV_SINK": "true",
+      "PORT": "4321",
+      "HOST": "0.0.0.0"
+    },
+    "environmentNotAllowedInDemo": [
+      "SMTP_HOST", "SMTP_PORT", "SMTP_SECURE", "SMTP_USER", "SMTP_PASS",
+      "ORDER_MAIL_FROM", "ORDER_MAIL_TO", "ORDER_MAIL_CUSTOMER_COPY",
+      "ORDER_WEBHOOK_URL", "ORDER_WEBHOOK_SECRET", "SITE_URL"
+    ],
+    "orderBehaviour": "Abgeschickte Demo-Bestellungen werden nur im Container unter .orders/ abgelegt und erreichen nie den Laden. Bei Neustart sind sie weg. In der Präsentation nur Testdaten eingeben.",
+    "openingHoursBehaviour": {
+      "summary": "Die Bestellung folgt den echten Öffnungszeiten (Mo, Di, Do 16–01 Uhr, Fr und Sa 16–02 Uhr, So 14–24 Uhr, Mi Ruhetag; Bestellschluss 15 Minuten vor Schluss). Außerhalb der Zeiten geht nur eine Vorbestellung über „Zu einer Wunschzeit“.",
+      "measured": [
+        { "time": "Do 10:00", "immediateOrder": false, "preorderSlots": "ab 16:30 Uhr heute" },
+        { "time": "Do 19:30", "immediateOrder": true, "preorderSlots": "ab 20:00 Uhr" },
+        { "time": "Mi 14:50 (Ruhetag)", "immediateOrder": false, "preorderSlots": "keine" },
+        { "time": "Mi 19:30 (Ruhetag)", "immediateOrder": false, "preorderSlots": "ab morgen 16:30 Uhr" },
+        { "time": "Fr 01:30", "immediateOrder": false, "preorderSlots": "ab 16:30 Uhr heute" }
+      ]
+    },
+    "differencesFromOriginal": "Keine im Website-Code. Das Docker-Image baut exakt den Stand aus dem Repo; Prüfsumme über alle 80 Dateien der gebauten Seite identisch mit dem Original-Build (2026-10-28). Unterschied ist nur die Konfiguration: keine Bestellzustellung, davor Passwort und noindex."
+  },
+  "pages": [
+    { "path": "/", "title": "Startseite" },
+    { "path": "/speisekarte/", "title": "Speisekarte mit Pizza-Ersteller" },
+    { "path": "/kasse/", "title": "Kasse" },
+    { "path": "/lieferung-abholung/", "title": "Lieferung & Abholung" },
+    { "path": "/kontakt/", "title": "Kontakt" },
+    { "path": "/allergene/", "title": "Allergene & Zusatzstoffe" },
+    { "path": "/bestellinfos/", "title": "Bestellinformationen" },
+    { "path": "/impressum/", "title": "Impressum" },
+    { "path": "/datenschutz/", "title": "Datenschutz" },
+    { "path": "/404", "title": "Fehlerseite" }
+  ],
+  "features": [
+    { "id": "hero-3d-pizza", "name": "3D-Pizza-Hero", "description": "Echtes Pizzafoto als drehbarer 3D-Körper (eigenes WebGL), Dampf-Shader, Ofenglut, Licht folgt der Maus, Standbild als schneller erster Eindruck und Fallback", "status": "verified", "evidence": "2026-10-28: WebGL aktiv auf Desktop und Handy hinter dem Zugangsschutz, Konsole sauber (Chromium/SwiftShader)", "customerSpecific": true, "note": "Flüssigkeit auf echten Geräten (iPhone/Mac Safari) nicht gemessen" },
+    { "id": "scroll-typography", "name": "Scroll-Dramaturgie", "description": "Hero bleibt stehen (CSS sticky), Pizza dreht beim Scrollen, große Wortpaare wechseln („Die Küche bleibt an.“ → „Kross & weich.“ → „Frisch belegt.“ → „Bis spät nachts.“)", "status": "verified", "evidence": "2026-10-28 Screenshot beim Scrollen", "customerSpecific": true },
+    { "id": "menu", "name": "Speisekarte", "description": "118 Gerichte in 12 Kategorien, feste Kategorieleiste, Suche, Größen, Extras mit Aufpreisen, Allergene und Zusatzstoffe, Verfügbarkeit", "status": "verified", "evidence": "2026-10-28 kompletter Bestellablauf (Desktop) im Demo-Container", "customerSpecific": false },
+    { "id": "pizza-exploded-view", "name": "Pizza-Ebenen und Exploded View", "description": "Jede Pizza bekommt ihr Bild aus der Beschreibung; beim Hover (Desktop) fächern sich Teig, Sauce, Käse und Beläge mit Beschriftung auf", "status": "verified", "evidence": "2026-10-28 Screenshot", "customerSpecific": true },
+    { "id": "pizza-builder", "name": "Pizza-Ersteller", "description": "Größe, Sauce (Tomate, Hollandaise, ohne), Käse (mit, ohne), Zutaten per Klick oder Ziehen, Live-Preis, bis 10 Extras, Rückgängig, Hinweis an die Küche", "status": "verified", "evidence": "2026-10-28 Screenshot Desktop und Handy (in den Warenkorb gelegt); Ablauftest am 2026-10-08", "customerSpecific": true, "note": "Darstellung „Ohne Sauce“ zeigt noch Käse- und Saucenreste" },
+    { "id": "oven-peel-add-to-cart", "name": "Ofenschieber-Animation", "description": "Beim Hinzufügen einer Pizza fliegt eine Mini-Pizza auf dem Holzschieber zum Warenkorb (unter 800 ms)", "status": "implemented", "evidence": "geprüft am 2026-10-08", "customerSpecific": true },
+    { "id": "cart", "name": "Warenkorb", "description": "Desktop fest neben der Karte, Handy als Sheet; Mengen, Entfernen, Ändern, Pfand, Mindestbestellwert, „Passt dazu“, Anmerkung zur Bestellung, Lieferung/Abholung umschaltbar", "status": "verified", "evidence": "2026-10-28 Ablauftest Desktop, Screenshot Handy", "customerSpecific": false },
+    { "id": "checkout", "name": "Kasse", "description": "Lieferung oder Abholung, Liefergebiet nach PLZ, sofort oder Wunschzeit, Barzahlung, Anmerkung, Feldprüfung, Button „Zahlungspflichtig bestellen“, Bestätigung mit Bestellnummer", "status": "verified", "evidence": "2026-10-28 Bestellung im Demo-Container abgeschickt (Nr. 2910-852)", "customerSpecific": false },
+    { "id": "order-api", "name": "Bestell-Schnittstelle", "description": "Server rechnet jede Bestellung nach (Preise, Mindestbestellwert, Liefergebiet, Öffnungszeiten), Drosselung pro IP, Spam- und Zu-schnell-Schutz; Zustellung per E-Mail (SMTP), signiertem Webhook oder Testablage", "status": "verified", "evidence": "2026-10-28 mit Testablage; E-Mail und Webhook gebaut, aber nicht mit echtem Empfänger getestet", "customerSpecific": false },
+    { "id": "opening-hours", "name": "Öffnungszeiten und Live-Status", "description": "„Jetzt geöffnet – bis 01:00 Uhr“, Zeiten über Mitternacht, Bestellschluss, Vorbestell-Zeitfenster, interaktive Zeitleiste „Lange wach.“", "status": "verified", "evidence": "2026-10-28 API mit Testuhr, 23 Unit-Tests", "customerSpecific": true },
+    { "id": "price-advantage", "name": "Preisvorteil-Kassenbon", "description": "„Direkt bestellen lohnt sich“: Vergleich mit Lieferando (Stand 07.10.2026), Beispiel-Bon zum Direktbestellen", "status": "implemented", "evidence": "Screenshot 2026-10-28", "customerSpecific": true, "note": "Aussage muss bei Preisänderungen neu geprüft werden (wettbewerbsrechtlich)" },
+    { "id": "seo", "name": "SEO", "description": "Titel und Beschreibungen, OpenGraph, JSON-LD (Restaurant mit Bestell-Aktion, Speisekarte, Breadcrumbs), Sitemap, robots.txt, 301-Weiterleitungen der alten URLs", "status": "verified", "evidence": "2026-10-28 Sitemap, robots.txt, Weiterleitung /pizza → 301", "customerSpecific": false },
+    { "id": "legal-pages", "name": "Rechtstexte", "description": "Impressum, Datenschutz, Bestellinformationen, Allergene", "status": "implemented", "evidence": "Seiten antworten mit 200 (2026-10-28)", "customerSpecific": false, "note": "rechtliche Prüfung vor Livegang offen" },
+    { "id": "accessibility", "name": "Barrierefreiheit", "description": "Tastaturbedienung, sichtbarer Fokus, reduzierte Bewegung, axe-Prüfung", "status": "implemented", "evidence": "geprüft am 2026-10-07/08, am 2026-10-28 nicht erneut", "customerSpecific": false },
+    { "id": "data-model", "name": "Datenmodell", "description": "Alle Geschäftsdaten in geprüften JSON-Dateien (src/data); der Build bricht bei fehlerhaften Daten ab", "status": "verified", "evidence": "2026-10-28 Build: „Daten gültig: 118 Produkte in 12 Kategorien“", "customerSpecific": false }
+  ],
+  "knownIssues": [
+    { "id": "builder-no-sauce", "text": "Pizza-Ersteller „Ohne Sauce“: Darstellung zeigt noch Käse- und Saucenreste" },
+    { "id": "checkout-field-offset", "text": "Kasse am Desktop: Feld „Name“ sitzt etwas tiefer als „Telefon“" },
+    { "id": "real-device-smoothness", "text": "Flüssigkeit auf echten Geräten (iPhone/Mac Safari) nicht gemessen" },
+    { "id": "dish-images", "text": "Bilder für Gerichte außer Pizza bewusst entfernt, Überarbeitung offen" },
+    { "id": "reviews", "text": "Bewertungen ausgeblendet, bis sie mit Quelle geprüft sind" },
+    { "id": "hero-photo", "text": "Hero-Pizza ist ein CC0-Foto aus dem WordPress-Fotoverzeichnis, kein Foto des Betriebs; Fotograf und Quell-URL im Repo nicht dokumentiert" },
+    { "id": "payments", "text": "Online-Zahlung nicht eingebaut, nur Barzahlung" },
+    { "id": "go-live-doc", "text": "docs/GO-LIVE.md ist Stand 07.10.2026 und beim Hero-Bild veraltet" }
+  ],
+  "preview": {
+    "cover": "wupsites-demo/preview/cover-desktop.jpg",
+    "images": [
+      { "file": "wupsites-demo/preview/cover-desktop.jpg", "caption": "Startseite: 3D-Pizza-Hero (Desktop)" },
+      { "file": "wupsites-demo/preview/hero-scroll-desktop.jpg", "caption": "Hero beim Scrollen: Pizza dreht, Wortpaar wechselt" },
+      { "file": "wupsites-demo/preview/hero-mobile.jpg", "caption": "Hero am Handy" },
+      { "file": "wupsites-demo/preview/menu-exploded-desktop.jpg", "caption": "Speisekarte: Exploded View beim Hover" },
+      { "file": "wupsites-demo/preview/pizza-builder-desktop.jpg", "caption": "Pizza-Ersteller mit Live-Preis" },
+      { "file": "wupsites-demo/preview/cart-mobile.jpg", "caption": "Warenkorb am Handy mit Anmerkung" },
+      { "file": "wupsites-demo/preview/price-receipt-desktop.jpg", "caption": "Beispiel-Bon zum Direktbestellen" },
+      { "file": "wupsites-demo/preview/opening-hours-desktop.jpg", "caption": "„Lange wach.“: Öffnungszeiten als Zeitleiste" }
+    ],
+    "rawBaseUrl": "https://raw.githubusercontent.com/wupsites/pizzarella-wuppertal/hero-pizza-reference/"
+  },
+  "salesArguments": [
+    { "title": "Ein Hero, der Hunger macht", "value": "Die echte 3D-Pizza dreht sich beim Scrollen. Das bleibt im Kopf und hebt den Betrieb sofort von Lieferando und Baukasten-Seiten ab.", "customerSpecific": true, "caveat": "Nur für Produkte, die sich gut als Objekt zeigen lassen, z. B. runde Speisen. Braucht pro Kunde ein gutes Foto." },
+    { "title": "Direkt bestellen statt Provision zahlen", "value": "Komplette Bestellstrecke mit Prüfung auf dem Server: Direktbestellungen laufen am Plattform-Umweg vorbei.", "customerSpecific": false, "caveat": "Der Kunde braucht Node-Hosting und einen Bestellkanal (E-Mail oder Webhook). Online-Zahlung ist nicht enthalten." },
+    { "title": "Der Preisvorteil steht auf dem Bon", "value": "„Nichts kostet hier mehr als bei Lieferando“ wird mit einem echten Beispiel-Bon belegt, der sich mit einem Klick bestellen lässt.", "customerSpecific": true, "caveat": "Nur zusagen, wenn der Kunde direkt wirklich günstiger ist. Die Aussage muss regelmäßig geprüft werden." },
+    { "title": "Eine Speisekarte wie ein digitales Produkt", "value": "118 Gerichte, Suche, Extras mit Aufpreis und ein Warenkorb, der immer sichtbar ist. Schnell zu bedienen, auch am Handy.", "customerSpecific": false, "caveat": null },
+    { "title": "Pizza-Ersteller und „Lange wach.“", "value": "Der Konfigurator macht Extras sichtbar und verkauft sie mit. Die Öffnungszeiten-Zeitleiste macht späte Öffnungszeiten zum Markenvorteil.", "customerSpecific": true, "caveat": "Der Konfigurator ist pizza- bzw. gastrospezifisch. Die Zeitleiste lohnt sich nur bei besonderen Öffnungszeiten." }
+  ],
+  "demoScript": [
+    "Startseite laden, 2 Sekunden warten, dann langsam scrollen: Pizza dreht sich, Wortpaare wechseln. Maus über die Pizza: Licht folgt.",
+    "Abschnitt „Einer will Pizza. Einer Döner. Einer Pasta.“: „Diesen Bon bestellen“ füllt den Warenkorb.",
+    "Speisekarte: Maus über eine Pizza (Exploded View), Suche „Döner“, Größe per Klick hinzufügen.",
+    "Pizza-Ersteller: Hollandaise statt Tomate wählen, Zutat auf die Pizza ziehen, Live-Preis zeigen, in den Warenkorb (Ofenschieber).",
+    "Warenkorb: Anmerkung „Rand knusprig“; Kasse mit Testdaten, bei Bedarf „Zu einer Wunschzeit“, abschicken: Bestätigung erscheint.",
+    "Am Handy öffnen: untere Leiste, Warenkorb als Sheet, Hero am Handy.",
+    "„Lange wach.“: Tage antippen, Live-Status zeigen.",
+    "Vorerst nicht zeigen: „Ohne Sauce“ im Pizza-Ersteller (bekannter Darstellungsfehler)."
+  ],
+  "prerequisites": [
+    { "item": "Freigabe von Pizzarella, die Seite als Referenz im Vertrieb zu zeigen", "status": null },
+    { "item": "Server oder Container-Hoster mit Docker", "status": null },
+    { "item": "Demo-Domain (z. B. Subdomain der WupSites-Domain) mit DNS auf den Server", "status": null },
+    { "item": "Zugangsdaten für Morad (DEMO_USER, Passwort-Hash in wupsites-demo/.env)", "status": null },
+    { "item": "Entscheidung, ob das Repo öffentlich bleibt", "status": "derzeit öffentlich" }
+  ],
+  "missingInformation": [
+    "Technik und Datenmodell der Demo-Bibliothek im Vertriebsportal",
+    "Gewünschte Demo-Domain und Hosting-Anbieter",
+    "Freigabe des Kunden für die Nutzung als Referenz",
+    "Ob das Portal die Demo zwingend im iframe zeigen will",
+    "Fotograf und Quell-URL des Hero-Fotos"
+  ]
+}

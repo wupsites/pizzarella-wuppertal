@@ -1,0 +1,18 @@
+# Zugangsschutz vor der Demo: Passwort, noindex, Einbett-Regel, HTTPS automatisch.
+# Werte kommen aus wupsites-demo/.env (siehe demo.env.example).
+{$DEMO_DOMAIN} {
+	basic_auth {
+		{$DEMO_USER} {$DEMO_PASSWORD_HASH}
+	}
+	header {
+		# Demo nie in Suchmaschinen
+		X-Robots-Tag "noindex, nofollow, noarchive"
+		# Einbetten nur im Portal (PORTAL_ORIGIN), sonst gar nicht
+		Content-Security-Policy "frame-ancestors {$PORTAL_ORIGIN:'none'}"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Content-Type-Options "nosniff"
+		-Server
+	}
+	encode zstd gzip
+	reverse_proxy app:4321
+}
